@@ -1,0 +1,64 @@
+// sketch-backgrounds.scss
+
+$colors: (emerald,teal,violet, blue, purple, pink, stone, sky, zinc, amber, yellow, green, red, slate, gray, indigo, lime);
+
+$shades: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950;
+
+// ---------- 1. Solid Sketch Background ----------
+@each $color in $colors {
+    @each $shade in $shades {
+        @utility sketch-bg-#{$color}-#{$shade} {
+            background-color: var(--color-#{$color}-#{$shade});
+            background-image: repeating-linear-gradient(
+                    45deg,
+                    rgba(255, 255, 255, 0.08) 0px,
+                    rgba(255, 255, 255, 0.08) 1px,
+                    transparent 1px,
+                    transparent 4px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    rgba(255, 255, 255, 0.08) 0px,
+                    rgba(255, 255, 255, 0.08) 1px,
+                    transparent 1px,
+                    transparent 4px
+                );
+        }
+    }
+}
+
+@utility sketch-bg-white {
+    background-color: var(--color-white);
+    background-image: repeating-linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.08) 0px,
+            rgba(255, 255, 255, 0.08) 1px,
+            transparent 1px,
+            transparent 4px
+        ),
+        repeating-linear-gradient(
+            -45deg,
+            rgba(255, 255, 255, 0.08) 0px,
+            rgba(255, 255, 255, 0.08) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+}
+
+@utility sketch-bg-black {
+    background-color: var(--color-black);
+    background-image: repeating-linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.08) 0px,
+            rgba(255, 255, 255, 0.08) 1px,
+            transparent 1px,
+            transparent 4px
+        ),
+        repeating-linear-gradient(
+            -45deg,
+            rgba(255, 255, 255, 0.08) 0px,
+            rgba(255, 255, 255, 0.08) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+}

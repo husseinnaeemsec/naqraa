@@ -1,0 +1,24 @@
+
+.retro{
+    border-radius: 4px;
+    @apply border-2 border-b-4;
+}
+
+.retro-btn{
+    @apply bg-emerald-500 px-4 p-1 rounded border-2 border-b-4 text-emerald-50 border-emerald-800 hover:bg-emerald-600;
+}
+.retro-btn.outline{
+    @apply bg-transparent text-emerald-800;
+}
+
+
+
+.notebook-bg{
+    background-image: url('/notebook-bg.svg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    /* background-position: center; */
+    @apply pt-20 border p-10 rounded-xl border-b-2 border-x-2;
+}
+
+
