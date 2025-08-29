@@ -1,58 +1,138 @@
+import { useRef, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import api from "../../api/client";
+import { endpoints } from "../../api/routes";
+import { setAuthenticationState, setLoadingState, setUser } from "../../store/authSlice";
+import { gsap } from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import ChangePasswordSection from "../../components/ChangePasswordSection";
+import AccountInformationSection from "../../components/AccountInformationSection";
+import NotificationsSection from "../../components/NotificationsSection";
+import ChangeEmailSection from "../../components/ChangeEmailSection";
+import OrganizationSection from "../../components/OrgnizationSection";
+
+gsap.registerPlugin(ScrollToPlugin);
+
+// Small helpers
+export const SectionHeader = ({ title,icon }: { title: string , icon?:any }) => (
+    <h2 className="text-xl  p-2 z-10 flex items-center gap-2 font-semibold text-emerald-800 dark:text-emerald-100/70 mb-6">
+        {icon}
+        {title}
+        </h2>
+);
+
+export const Success = ({ children }: { children: React.ReactNode }) => (
+    <div className="p-3 px-5 dark:bg-emerald-700 bg-emerald-50 rounded-md border dark:border-emerald-600 border-emerald-500">
+        <p>{children}</p>
+    </div>
+);
+
+export const ErrorNote = ({ children }: { children: React.ReactNode }) => (
+    <div className="p-3 px-5 dark:bg-rose-950 text-rose-500 bg-rose-50 rounded-md border dark:border-rose-600 border-rose-500">
+        <p>{children}</p>
+    </div>
+);
+
+export const Toggle = ({ checked, onChange, label }: { checked: boolean; onChange: (v: boolean) => void; label: string }) => (
+    <label className="flex items-center gap-3 cursor-pointer select-none">
+        <input
+            type="checkbox"
+            className="peer sr-only"
+            checked={checked}
+            onChange={(e) => onChange(e.target.checked)}
+        />
+        <span className="w-11 h-6 rounded-full border border-emerald-300 dark:border-emerald-700 flex items-center transition-all duration-200 peer-checked:bg-emerald-600">
+            <span className="w-5 h-5 rounded-full bg-white shadow translate-x-0 peer-checked:translate-x-5 transition-all duration-200 ml-0.5" />
+        </span>
+        <span className="text-emerald-800 dark:text-emerald-100/70">{label}</span>
+    </label>
+);
+
 // Settings Page Component
 const SettingsPage = () => {
+
+
+    const tabs = [
+        {
+            text: 'معلومات الحساب',
+            link: '#account_information',
+            icon:<i className="fi fi-rr-user"></i>
+        },
+        {
+            text: 'الاشعارات',
+            link: '#notifications',
+            icon:<i className="fi fi-rr-bell"></i>
+            
+        },
+        {
+            text: 'كلمة المرور',
+            link: '#password',
+            icon:<i className="fi fi-rr-lock"></i>
+        },
+        {
+            text: ' تغيير البريد',
+            link: '#email',
+            icon:<i className="fi fi-rr-envelope"></i>
+        },
+        {
+            text: 'المؤسسة التعليمية',
+            link: '#orgnization',
+            icon:<i className="fi fi-rr-building"></i>
+        }
+    ]
+    const scrollerRef = useRef<HTMLDivElement>(null);
+    const [activeSection, setActiveSection] = useState<string>("#account_information");
+
+
+    const handleScroll = (hash: string) => {
+        const scroller = scrollerRef.current ?? window;          // fallback to window if you remove overflow-y-auto later
+        const targetEl = document.querySelector(hash) as HTMLElement | null;
+        if (!targetEl) return;
+
+        gsap.to(scroller, {
+            duration: 0.8,
+            scrollTo:{
+                y:targetEl,
+                offsetY:20
+            },
+            ease: "power2.out",
+        });
+    };
+
+
     return (
-        <div className="space-y-8 max-w-7xl mx-auto">
-            <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold text-emerald-800">الإعدادات</h1>
-                <button className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors">
-                    حفظ التغييرات
-                </button>
+        <div ref={scrollerRef} className="grid grid-cols-1 lg:grid-cols-12  gap-5 overflow-y-auto h-full p-6 mx-auto">
+            <div className="flex justify-between lg:col-span-12   items-center">
+                <h1 className="text-2xl font-bold text-emerald-800 dark:text-emerald-100/70">الإعدادات</h1>
             </div>
-
-            <div className="bg-white border border-emerald-300 rounded-lg p-6 shadow-md">
-                <h2 className="text-xl font-semibold text-emerald-800 mb-6">معلومات الحساب</h2>
-
-                <div className="space-y-6">
-
-                    <div>
-                        <label className="block text-sm font-medium text-emerald-800 mb-2">الصورة الشخصية</label>
-                        <div className="flex items-center space-x-4">
-                            <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center">
-                                <span className="text-emerald-600 font-bold text-xl">M</span>
-                            </div>
-                            <button className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors">
-                                تغيير الصورة
+            <aside className="max-h-fit h-20 lg:h-fit overflow-x-auto z-10  lg:col-span-2 gap-3 mb-5 lg:mb-0 items-center lg:items-start  dark:bg-emerald-950 rounded-md bg-white sticky top-0 p-3 flex lg:flex-col">
+                {
+                    tabs.map((tab) => {
+                        return (
+                            <button onClick={() => { handleScroll(tab.link) ; setActiveSection(tab.link) }} key={tab.link} className={`p-2 flex items-center gap-2 lg:min-w-full  border min-w-fit lg:text-base text-xs h-fit text-right rounded-md ${activeSection === tab.link ? 'dark:bg-emerald-700 bg-emerald-100 border-transparent ' : 'dark:bg-transparent  bg-white dashboard-box dark:hover:bg-emerald-800  hover:bg-emerald-50'} `}>
+                                {tab.icon}{tab.text}
                             </button>
-                        </div>
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-emerald-800 mb-2">الاسم الكامل</label>
-                        <input
-                            type="text"
-                            defaultValue="محمد أحمد"
-                            className="w-full px-4 py-2 border border-emerald-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                        />
-                    </div>
+                        )
+                    })
+                }
+            </aside>
+            <div  className="space-y-8 lg:col-span-10 pb-10">
 
-                    <div>
-                        <label className="block text-sm font-medium text-emerald-800 mb-2">البريد الإلكتروني</label>
-                        <input
-                            type="email"
-                            defaultValue="mohamed@example.com"
-                            className="w-full px-4 py-2 border border-emerald-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                        />
-                    </div>
 
-                    <div>
-                        <label className="block text-sm font-medium text-emerald-800 mb-2">كلمة المرور</label>
-                        <input
-                            type="password"
-                            placeholder="••••••••"
-                            className="w-full px-4 py-2 border border-emerald-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                        />
-                    </div>
+                {/* ===== Account Info / Profile ===== */}
+                <AccountInformationSection />
 
-                </div>
+                {/* ===== Notifications ===== */}
+                <NotificationsSection />
+
+                {/* ===== Change Password ===== */}
+                <ChangePasswordSection />
+
+                {/* ===== Change Email ===== */}
+                <ChangeEmailSection />
+
+                {/* ===== Organization Settings (Naqraa) ===== */}
+                <OrganizationSection />
             </div>
         </div>
     );
