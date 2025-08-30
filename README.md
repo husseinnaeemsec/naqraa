@@ -13,13 +13,13 @@ Naqraa is a community-driven learning platform for students in Iraq and the Arab
 ## Getting Started  
 1. Clone the repository:  
 ```bash
-  git clone https://github.com/husseinnaeemsec/naqraa_frontend.git
+  git clone https://github.com/husseinnaeemsec/naqraa.git
 ```
 
 2. Navigate to the project folder:
 
 ```bash
-cd naqraa_frontend
+cd naqraa
 ```
 
 3. Install dependencies:
