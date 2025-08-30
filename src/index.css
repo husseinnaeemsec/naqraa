@@ -10,19 +10,52 @@
 @import './styles/Sidebar.css';
 @import './styles/Dashboard.css';
 @import './styles/SketchBackgrounds.min.css';
+@import "@flaticon/flaticon-uicons/css/all/all";
 
+:root{
+    --sidebar-height:90px;
+    --sidebar-bottom-space:0px;
+    --safe-bottom-space:calc(var(--sidebar-bottom-space) + var(--sidebar-height));
+}
 
+input,textarea,select{
+    @apply focus:outline-2 outline-emerald-600;
+}
 
+input:disabled,textarea:disabled,select:disabled{
+    cursor: not-allowed;
+    @apply bg-slate-100 border-slate-400 dark:bg-emerald-800 dark:border-emerald-800;
+}
+
+html,body{
+    scroll-behavior: smooth !important;
+}
+
+@utility h-dynamic{
+    height: calc(100dvh - 80px);
+}
+@utility text-muted{
+    opacity: .7;
+}
+@utility dashboard-box{
+    @apply border border-slate-300 dark:border-emerald-800;
+}
+
+@utility bg-dark-emerald{
+    @apply bg-[#011b17];
+}
+@utility max-h-dynamic{
+    max-height: calc(100dvh - 80px);
+}
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-.content-container {
-    @apply w-full lg:h-dvh lg:overflow-hidden;
+.content {
+    @apply w-full overflow-y-auto h-full ;
+    padding-bottom: calc(var(--safe-bottom-space) + 20px );
+
 }
 
-.content-container[data-container="true"] {
-    @apply max-w-8xl mx-auto;
-}
 
 *::selection {
     background-color: var(--color-emerald-600);
@@ -45,12 +78,10 @@
 
 html,
 body {
-    @apply text-emerald-900;
+    @apply text-emerald-900 dark:text-emerald-50 ;
 }
 
-body {
-    background-color: white;
-}
+
 
 
 body[dir=rtl] {
@@ -130,3 +161,43 @@ body[dir=rtl] {
 @utility max-w-8xl {
     max-width: 1500px;
 }
+
+.student-navbar{
+    @apply bg-white dark:bg-emerald-950 h-20 p-2 px-10 border-b border-r dark:border-emerald-800  border-emerald-200 flex items-center justify-between;
+}
+.sidebar {
+    z-index: 100;
+    height: calc(100dvh - 80px);
+    @apply  text-center  border-none hidden lg:block  bg-white dark:bg-emerald-950  overflow-y-auto;
+}
+
+
+
+.sidebar ul{
+    @apply p-3;
+}
+
+.sidebar .sidebar-link{
+    @apply rounded-md p-2 flex  items-center  gap-2 w-full;
+}
+
+
+
+
+
+.sidebar .sidebar-link:not(.active-sidebar-link):hover{
+    @apply opacity-100 bg-emerald-100 dark:bg-emerald-900;
+}
+
+
+.sidebar .active-sidebar-link{
+    color: var(--color-emerald-700);
+    opacity: 1 !important;
+    background-color: var(--color-emerald-100);
+    @apply font-bold;
+}
+
+
+
+
+

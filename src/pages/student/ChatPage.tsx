@@ -10,7 +10,7 @@ const ChatPage = () => {
     ];
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-8 p-6">
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-bold text-emerald-800">الدردشة</h1>
                 <button className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors">
@@ -20,22 +20,22 @@ const ChatPage = () => {
 
             <div className="flex flex-col h-[calc(100vh-200px)]">
                 <div className="flex-1 flex">
-                    <div className="w-1/3 bg-emerald-50 border-r border-emerald-300">
+                    <div className="w-1/3 dark:bg-emerald-900 dark:border-emerald-800 bg-emerald-50 border-r border-emerald-300">
                         <div className="p-4">
-                            <h2 className="text-lg font-semibold text-emerald-800 mb-4">الدردشات</h2>
+                            <h2 className="text-lg font-semibold  mb-4">الدردشات</h2>
                             <div className="space-y-2">
                                 {chatUsers.map((user, index) => (
                                     <div
                                         key={index}
-                                        className="flex items-center space-x-3 p-3 hover:bg-emerald-100 rounded-lg cursor-pointer transition-colors"
+                                        className="flex items-center space-x-3 p-3 hover:text-emerald-800 hover:bg-emerald-100 rounded-lg cursor-pointer transition-colors"
                                     >
                                         <div className={`w-8 h-8 rounded-full flex items-center justify-center ${user.online ? 'bg-green-500' : 'bg-gray-300'
                                             }`}>
                                             {user.name.charAt(0)}
                                         </div>
                                         <div>
-                                            <div className="font-medium text-emerald-800">{user.name}</div>
-                                            <div className={`text-xs ${user.online ? 'text-green-600' : 'text-gray-500'}`}>
+                                            <div className="font-medium  ">{user.name}</div>
+                                            <div className={`text-xs ${user.online ? 'text-emerald-500' : 'text-muted'}`}>
                                                 {user.online ? 'متصل الآن' : 'غير متصل'}
                                             </div>
                                         </div>
@@ -45,7 +45,7 @@ const ChatPage = () => {
                         </div>
                     </div>
 
-                    <div className="w-2/3 bg-white border-l border-emerald-300 flex flex-col">
+                    <div className="w-2/3 dark:bg-emerald-950 bg-white border-l border-emerald-300 flex flex-col">
                         <div className="p-4 border-b border-emerald-200">
                             <h2 className="text-lg font-semibold text-emerald-800">محادثة مع أحمد عبد الله</h2>
                         </div>

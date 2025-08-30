@@ -15,7 +15,7 @@ const FilesPage = () => {
             {/* Toolbar */}
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-xl font-semibold text-gray-800">الملفات</h1>
-                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+                <button className="px-4 py-2 bg-emerald-600 text-white rounded-lg shadow hover:bg-emerald-700 transition">
                     + تحميل ملف جديد
                 </button>
             </div>
@@ -25,13 +25,13 @@ const FilesPage = () => {
                 {files.map((file, idx) => (
                     <div
                         key={idx}
-                        className="group border rounded-lg p-4 bg-white hover:shadow-md hover:bg-gray-50 cursor-pointer transition"
+                        className="group dashboard-box rounded-lg p-4 dark:bg-emerald-950 dark:hover:bg-emerald-900 bg-white hover:shadow-md hover:bg-gray-50 cursor-pointer transition"
                     >
                         {/* File Icon */}
                         <div className="flex justify-center mb-3">
-                            <div className="w-12 h-12 flex items-center justify-center bg-gray-100 rounded-lg group-hover:bg-gray-200">
+                            <div className="w-12 h-12 flex items-center justify-center dark:bg-emerald-800 dark:group-hover:bg-emerald-500  bg-gray-100 rounded-lg group-hover:bg-gray-200">
                                 <svg
-                                    className="w-6 h-6 text-blue-500"
+                                    className="w-6 h-6 dark:group-hover:text-emerald-100 text-emerald-500"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -48,8 +48,8 @@ const FilesPage = () => {
 
                         {/* File Info */}
                         <div className="text-center">
-                            <p className="font-medium text-sm text-gray-800 truncate">{file.name}</p>
-                            <p className="text-xs text-gray-500 mt-1">{file.type} • {file.size}</p>
+                            <p className="font-medium text-sm dark:text-emerald-100 text-gray-800 truncate">{file.name}</p>
+                            <p className="text-xs text-muted mt-1">{file.type} • {file.size}</p>
                             <p className="text-[11px] text-gray-400 mt-1">{file.date}</p>
                         </div>
                     </div>
