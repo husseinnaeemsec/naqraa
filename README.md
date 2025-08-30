@@ -1,69 +1,52 @@
-# React + TypeScript + Vite
+# Naqraa  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview  
+Naqraa is a community-driven learning platform for students in Iraq and the Arab world. It provides free courses, resources, and collaborative communities to help students grow academically and personally.  
 
-Currently, two official plugins are available:
+## Features  
+- Free Courses – Access curated courses across various subjects.  
+- Resources – Download and share study materials and references.  
+- Community & Chat – Connect with other students, ask questions, and share knowledge.  
+- Research & Boards – Create research papers, boards, and collaborative projects.  
+- Organization Management – Schools, universities, and institutes can manage their students and communities within Naqraa.  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Getting Started  
+1. Clone the repository:  
+```bash
+  git clone https://github.com/husseinnaeemsec/naqraa_frontend.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Navigate to the project folder:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cd naqraa_frontend
 ```
+
+3. Install dependencies:
+
+```bash
+npm install
+```
+4. Run the development server:
+
+```bash 
+npm run dev
+```
+
+## Screenshots
+![Screenshot](./screenshots/screenshot1.png)
+![Screenshot](./screenshots/screenshot2.png)
+![Screenshot](./screenshots/screenshot3.png)
+![Screenshot](./screenshots/screenshot4.png)
+![Screenshot](./screenshots/screenshot5.png)
+![Screenshot](./screenshots/screenshot6.png)
+![Screenshot](./screenshots/screenshot7.png)
+![Screenshot](./screenshots/screenshot8.png)
+
+## Contact
+
+For questions, suggestions, or collaborations:
+
+[Email](mailto:husseinnaeemsec@gmail.com)
+
+Check out [Naqraa](https://www.reddit.com/r/naqraa) on Reddit!
