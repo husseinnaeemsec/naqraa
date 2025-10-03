@@ -4,6 +4,7 @@ import api from "../api/client";
 import { endpoints } from "../api/routes";
 import { setUser } from "../store/authSlice";
 import { useAppDispatch } from "../store/store";
+import { t } from "i18next";
 
 
 export default function ChangeEmailSection() {
@@ -16,12 +17,16 @@ export default function ChangeEmailSection() {
     const [newEmail, setNewEmail] = useState("");
     const [emailPassword, setEmailPassword] = useState(""); // if backend requires password confirmation
 
+    const isDirty = () => {
+        return newEmail.trim() !== "";
+    }
+
     const saveEmail = async () => {
         setEmailSaved(false);
         setEmailErr(null);
 
         if (!newEmail) {
-            setEmailErr("يرجى إدخال بريد إلكتروني جديد");
+            setEmailErr(t("settings.change_email.errors.new_email_required"));
             return;
         }
 
@@ -41,7 +46,7 @@ export default function ChangeEmailSection() {
             setEmailPassword("");
         } catch (err: any) {
             console.error(err);
-            setEmailErr("تعذر تغيير البريد الإلكتروني");
+            setEmailErr(t("settings.change_email.errors.update_failed"));
         } finally {
             setEmailLoading(false);
         }
@@ -49,13 +54,13 @@ export default function ChangeEmailSection() {
 
     return (
         <div id="email" className="bg-white dark:bg-emerald-950 border dark:border-emerald-800 border-emerald-300 rounded-lg p-6 shadow-md">
-            <SectionHeader icon={<i className="fi fi-rr-envelope text-2xl"></i>} title="تغيير البريد" />
+            <SectionHeader icon={<i className="fi fi-rr-envelope text-2xl"></i>} title={t("settings.change_email.title")} />
             <div className="space-y-4">
-                {emailSaved && <Success>تم إرسال طلب تغيير البريد (تحقق من بريدك)</Success>}
+                {emailSaved && <Success>{t("settings.change_email.success.confirmation_email_sent")}</Success>}
                 {emailErr && <ErrorNote>{emailErr}</ErrorNote>}
 
                 <div>
-                    <label className="block text-sm font-medium text-emerald-800 dark:text-emerald-100/70 mb-2">البريد الإلكتروني الجديد</label>
+                    <label className="block text-sm font-medium text-emerald-800 dark:text-emerald-100/70 mb-2"> {t("settings.change_email.new_email")} </label>
                     <input
                         type="email"
                         value={newEmail}
@@ -64,22 +69,13 @@ export default function ChangeEmailSection() {
                     />
                 </div>
 
-                <div>
-                    <label className="block text-sm font-medium text-emerald-800 dark:text-emerald-100/70 mb-2">كلمة المرور (إن لزم التحقق)</label>
-                    <input
-                        type="password"
-                        value={emailPassword}
-                        onChange={(e) => setEmailPassword(e.target.value)}
-                        className="w-full px-4 py-2 border border-emerald-300 dark:border-emerald-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                    />
-                </div>
 
                 <button
                     onClick={saveEmail}
-                    disabled={emailLoading}
+                    disabled={emailLoading || !isDirty()}
                     className="p-3 disabled:text-slate-500 disabled:cursor-not-allowed px-5 border text-emerald-500 dark:text-emerald-200 dark:hover:text-emerald-300 cursor-pointer rounded-md"
                 >
-                    {emailLoading ? "جارٍ الإرسال..." : "حفظ البريد"}
+                    {emailLoading ? t("saving") : t("save")}
                 </button>
             </div>
         </div>

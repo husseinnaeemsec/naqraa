@@ -2,6 +2,14 @@ import { useState, useEffect } from "react";
 import type { Enrollment, EnrollmentLecture, LectureNote } from "../../types";
 import api from "../api/client";
 import { endpoints } from "../api/routes";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu"
+import { timeSince, timeSinceAr } from "../utils/functions";
+
 
 interface Props {
   activeLecture: EnrollmentLecture | null;
@@ -37,7 +45,7 @@ const NoteCard = ({ note, onDelete }: NoteCardProps) => {
             <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
               <div className="text-right">
                 <p>{note.timestamp}</p>
-                <p className="text-xs">{note.created_at}</p>
+                <p className="text-xs">{timeSince(note.created_at)} </p>
               </div>
             </div>
 
@@ -61,7 +69,7 @@ const NoteCard = ({ note, onDelete }: NoteCardProps) => {
 
       <div className="mt-3 space-y-1 text-xs text-gray-600">
         <p>{note.timestamp}</p>
-        <p>{note.created_at}</p>
+        <p>{timeSince(note.created_at)}</p>
         <button
           onClick={() => onDelete(note.id)}
           className="p-2 text-center w-full flex items-center justify-center bg-white rounded-md mt-3 hover:bg-rose-500 hover:text-white transition"
@@ -127,23 +135,50 @@ export default function NotesTab({ activeLecture, enrollment, setActiveLecture }
 
   return (
     <div key={activeLecture.id}>
+      <h1 className="text-xl font-bold mb-2">الملاحظات</h1>
       <div className="grid grid-cols-5 gap-3 ">
         {activeLecture.notes.map((note) => (
-          <NoteCard onDelete={deleteNote} key={note.id} note={note} />
+          <div key={note.id}>
+            <ContextMenu>
+            <ContextMenuTrigger>
+              <NoteCard onDelete={deleteNote} key={note.id} note={note} />
+            </ContextMenuTrigger>
+            <ContextMenuContent>
+              <ContextMenuItem >
+                <i className="fi fi-rr-eye mr-2" />
+                View
+              </ContextMenuItem>
+              <ContextMenuItem >
+                <i className="fi fi-rr-pencil mr-2" />
+                Edit
+              </ContextMenuItem>
+              <ContextMenuItem >
+                <i className="fi fi-rr-download mr-2" />
+                Download
+              </ContextMenuItem>
+              <ContextMenuItem
+                className="text-red-600 focus:text-red-600"
+              >
+                <i className="fi fi-rr-trash mr-2" />
+                Delete
+              </ContextMenuItem>
+            </ContextMenuContent>
+          </ContextMenu>
+          </div>
         ))}
 
         <button
           onClick={() => setShowForm(true)}
-          className="aspect-square  flex flex-col gap-2 items-center justify-center dashboard-box p-3 rounded-2xl hover:bg-gray-50 transition"
+          className="aspect-square  flex flex-col gap-2 items-center justify-center dashboard-box p-3 rounded-2xl dark:hover:bg-emerald-800 hover:bg-gray-50 transition"
         >
           <i className="fi fi-rr-plus text-2xl"></i>
-          <span className="text-sm bg-white p-2 rounded-md">اضافة ملاحظة جديدة</span>
+          <span className="text-sm dark:bg-emerald-900 bg-white p-2 rounded-md">اضافة ملاحظة جديدة</span>
         </button>
       </div>
 
       {showForm && (
         <div className="fixed inset-0 z-[200] bg-black/40 flex items-center justify-center">
-          <div className="bg-white w-full max-w-lg p-6 rounded-2xl shadow-xl space-y-4">
+          <div className=" dark:bg-emerald-800 bg-white w-full max-w-lg p-6 rounded-2xl shadow-xl space-y-4">
             <h2 className="text-xl font-bold">إضافة ملاحظة جديدة</h2>
 
             <input
@@ -173,16 +208,15 @@ export default function NotesTab({ activeLecture, enrollment, setActiveLecture }
                   <button
                     key={color}
                     onClick={() => setNewNote((prev) => ({ ...prev, color }))}
-                    className={`w-8 h-8 rounded-full border-2 ${
-                      newNote.color === color ? "border-black" : "border-white"
-                    } ${color}`}
+                    className={`w-8 h-8 rounded-full border-2 ${newNote.color === color ? "border-black" : "border-white"
+                      } ${color}`}
                   ></button>
                 )
               )}
             </div>
 
             <div className="flex justify-end gap-2">
-              <button onClick={() => setShowForm(false)} className="px-4 py-2 bg-gray-200 rounded">
+              <button onClick={() => setShowForm(false)} className="px-4 py-2 dark:bg-slate-800 bg-gray-200 rounded">
                 إلغاء
               </button>
               <button
