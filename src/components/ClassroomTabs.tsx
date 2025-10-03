@@ -19,11 +19,6 @@ export default function ClassroomTabs( { onChange , activeTab } : Props  ){
             icon:<i className="fi fi-rr-file-edit"></i>
         },
         {
-            text:'عن المحاضر',
-            tab:'teacher',
-            icon:<i className="fi fi-rr-chalkboard-user"></i>
-        },
-        {
             text:'الاختبارات',
             tab:'quizzes',
             icon:<i className="fi fi-rr-lightbulb-question"></i>
@@ -45,7 +40,7 @@ export default function ClassroomTabs( { onChange , activeTab } : Props  ){
     }
 
     return (
-        <div className="flex items-center  border-b   bg-slate-50 pt-2   overflow-x-auto overflow-hidden">
+        <div className="flex items-center  border-b dark:bg-emerald-900   bg-slate-50 pt-2   overflow-x-auto overflow-hidden">
             {
                 tabs.map((tab)=>{
                     return (
