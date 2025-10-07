@@ -1,122 +1,118 @@
-import { useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../store/store"
+import { useState, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../store/store";
 import api from "../api/client";
-import { endpoints } from "../api/routes";
 import { setUser } from "../store/authSlice";
-import { ErrorNote, SectionHeader, Success } from "../pages/student/SettingsPage";
+import { SectionHeader, Success, ErrorNote } from "../pages/student/SettingsPage";
+import type { Organization } from "../../types";
+import { t } from "i18next";
+
+
 
 export default function OrganizationSection() {
-
     const dispatch = useAppDispatch();
-    const {user} = useAppSelector((state)=>state.auth)
+    const { user } = useAppSelector((state) => state.auth);
 
+    const [orgList, setOrgList] = useState<Organization[]>([]);
+    const [orgSearch, setOrgSearch] = useState("");
+    const [selectedOrg, setSelectedOrg] = useState<Organization | null>(null);
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
-    // ----- Organization Settings -----
-    // For Naqraa organizations (schools/colleges). If the user is an owner/admin, allow updating.
-    const org = (user as any)?.organization || (user as any)?.profile?.organization || null;
-    const [orgSaved, setOrgSaved] = useState(false);
-    const [orgErr, setOrgErr] = useState<string | null>(null);
-    const [orgLoading, setOrgLoading] = useState(false);
-    const [orgName, setOrgName] = useState<string>(org?.name || "");
-    const [orgAbout, setOrgAbout] = useState<string>(org?.about || "");
-    const [orgWebsite, setOrgWebsite] = useState<string>(org?.website || "");
-    const [orgLogo, setOrgLogo] = useState<File | null>(null);
-    const orgLogoRef = useRef<HTMLInputElement>(null);
+    const userOrg = user?.profile?.organization || null;
 
-    const saveOrganization = async () => {
-        setOrgSaved(false);
-        setOrgErr(null);
-        setOrgLoading(true);
+    // Fetch organizations for search
+    useEffect(() => {
+        if (orgSearch.length < 1) { setSelectedOrg(null); return };
+
+        api.get('/organizations/?search=' + orgSearch)
+            .then((res) => {
+                setOrgList(res.data)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+
+    }, [orgSearch]);
+
+    const sendJoinRequest = async () => {
+
+        setLoading(true);
+        setError(null);
+        setSuccess(false);
+
         try {
             const form = new FormData();
-            if (orgName) form.append("name", orgName);
-            if (orgAbout) form.append("about", orgAbout);
-            if (orgWebsite) form.append("website", orgWebsite);
-            if (orgLogo) form.append("logo", orgLogo);
-
-            // Adjust this endpoint to your API (e.g., endpoints.organization.update(org.id))
-            const res = await api.post(endpoints.organization.settings, form, {
-                headers: { "Content-Type": "multipart/form-data" },
-            });
-
-            if (res?.data) {
-                // If API returns updated user/org, refresh store
-                dispatch(setUser(res.data.user || res.data));
-            }
-            setOrgSaved(true);
-        } catch (err: any) {
+            form.append("organization_id", String(selectedOrg?.id));
+            await api.post("/organizations/join/", form, { headers: { 'Content-Type': "multipart/form-data" } });
+            setSuccess(true);
+        } catch (err) {
             console.error(err);
-            setOrgErr("تعذر حفظ إعدادات المؤسسة");
+            setError("فشل إرسال الطلب، حاول مرة أخرى");
         } finally {
-            setOrgLoading(false);
+            setLoading(false);
         }
     };
 
+    const renderForm = !user?.profile?.organization && !user?.profile?.organization_request_sent;
+    const requestSent = !user?.profile?.organization && user?.profile?.organization_request_sent;
+    
+
     return (
-        <div id="orgnization" className="bg-white dark:bg-emerald-950 border dark:border-emerald-800 border-emerald-300 rounded-lg p-6 shadow-md">
-            <SectionHeader icon={<i className="fi fi-rr-building text-2xl"></i>} title="إعدادات المؤسسة" />
-            <div className="space-y-4">
-                {orgSaved && <Success>تم حفظ إعدادات المؤسسة</Success>}
-                {orgErr && <ErrorNote>{orgErr}</ErrorNote>}
+        <div className="bg-white dark:bg-emerald-950 border dark:border-emerald-800 border-emerald-300 rounded-lg p-6 shadow-md">
+            <SectionHeader icon={<i className="fi fi-rr-building text-2xl"></i>} title={t("settings.organization.title")} />
+            <div id="organization" className="space-y-4">
+                {
+                    renderForm && (
+                        <div className="space-y-4">
+                            {success && <Success> {t("settings.organization.join_request_sent")} </Success>}
+                            {error && <ErrorNote>{error}</ErrorNote>}
 
-                <div className="grid md:grid-cols-2 gap-4">
-                    <div className="md:col-span-1">
-                        <label className="block text-sm font-medium text-emerald-800 dark:text-emerald-100/70 mb-2">اسم المؤسسة</label>
-                        <input
-                            type="text"
-                            value={orgName}
-                            onChange={(e) => setOrgName(e.target.value)}
-                            className="w-full px-4 py-2 border border-emerald-300 dark:border-emerald-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                        />
-                    </div>
-                    <div className="md:col-span-1">
-                        <label className="block text-sm font-medium text-emerald-800 dark:text-emerald-100/70 mb-2">الموقع الإلكتروني</label>
-                        <input
-                            type="url"
-                            value={orgWebsite}
-                            onChange={(e) => setOrgWebsite(e.target.value)}
-                            className="w-full px-4 py-2 border border-emerald-300 dark:border-emerald-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                        />
-                    </div>
-                    <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-emerald-800 dark:text-emerald-100/70 mb-2">نبذة عن المؤسسة</label>
-                        <textarea
-                            rows={4}
-                            value={orgAbout}
-                            onChange={(e) => setOrgAbout(e.target.value)}
-                            className="w-full px-4 py-2 border border-emerald-300 dark:border-emerald-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                        />
-                    </div>
-                    <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-emerald-800 dark:text-emerald-100/70 mb-2">شعار المؤسسة</label>
-                        <div className="flex items-center gap-4">
-                            {orgLogo ? (
-                                <img src={URL.createObjectURL(orgLogo)} className="w-16 h-16 rounded-xl object-cover" />
-                            ) : (
-                                <div className="w-16 h-16 rounded-xl bg-emerald-100 dark:bg-emerald-900 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-emerald-700 dark:text-emerald-200">
-                                    Logo
+                            {/* 🔹 Organization Search (shadcn Command) */}
+                            <div>
+                                <input className="p-2 rounded-md border w-full" placeholder={t("settings.organization.search_for_org")} type="text" onChange={(e) => { setOrgSearch(e.currentTarget.value) }} />
+                                <div className="mt-5 space-y-2">
+                                    <p className="text-slate-400 text-sm"> {orgList.length > 0 ? t("settings.organization.plural") : t("settings.organization.no_org_found")} </p>
+                                    {
+                                        orgList.map((org) => {
+                                            return (
+                                                <li onClick={() => { if (selectedOrg?.id === org.id) { setSelectedOrg(null) } else { setSelectedOrg(org) } }} key={org.id}
+                                                    className={` ${selectedOrg?.id === org.id ? 'bg-emerald-50 outline-2  outline-emerald-300 text-emerald-950' : ''} list-none c p-2 cursor-pointer flex items-center gap-2 border rounded-md px-3`}
+                                                >
+                                                    {org.name}
+                                                </li>)
+                                        })
+                                    }
                                 </div>
-                            )}
-                            <button
-                                type="button"
-                                onClick={() => orgLogoRef.current?.click()}
-                                className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
-                            >
-                                رفع الشعار
-                            </button>
-                            <input ref={orgLogoRef} type="file" accept="image/*" className="hidden" onChange={(e) => e.target.files && setOrgLogo(e.target.files[0])} />
-                        </div>
-                    </div>
-                </div>
+                            </div>
 
-                <button
-                    onClick={saveOrganization}
-                    disabled={orgLoading}
-                    className="p-3 disabled:text-slate-500 disabled:cursor-not-allowed px-5 border text-emerald-500 dark:text-emerald-200 dark:hover:text-emerald-300 cursor-pointer rounded-md"
-                >
-                    {orgLoading ? "جارٍ الحفظ..." : "حفظ إعدادات المؤسسة"}
-                </button>
+                            {/* 🔹 Send Request Button */}
+                            <button
+                                onClick={sendJoinRequest}
+                                disabled={loading || !selectedOrg}
+                                className="px-5 py-3 border text-white disabled:bg-transparent cursor-pointer bg-emerald-500 dark:text-emerald-200 rounded-md disabled:text-slate-500 disabled:cursor-not-allowed"
+                            >
+                                {loading ? t("settings.organization.sending") : t("settings.organization.send_join_request")}
+                            </button>
+                        </div>
+                    )
+                }
+                {
+                    requestSent && (
+                        <div className="p-2 flex items-center gap-2 px-4 dark:bg-emerald-800 dark:text-emerald-50 dark:border-emerald-300/50 bg-emerald-50 rounded-md border-2 border-emerald-500 text-emerald-700">
+                            <i className="fi fi-rr-check-double"></i>
+                            <p> {t("settings.organization.join_request_sent")} </p>
+                        </div>
+                    )
+                }
+                {userOrg && (
+                    <div>
+                        <p>
+                            {t("settings.organization.you_belong_to_org")} <strong>{userOrg.name}</strong>
+                        </p>
+                    </div>
+                )}
             </div>
         </div>
-    )
+    );
 }

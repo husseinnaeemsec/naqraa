@@ -1,0 +1,194 @@
+{
+  "login": "تسجيل الدخول",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "remember_me": "تذكرني",
+  "forgot_password": "هل نسيت كلمة المرور؟",
+  "no_account": "ليس لديك حساب؟",
+  "sign_up": "إنشاء حساب",
+  "dashboard": "لوحة التحكم",
+  "language": "اللغة",
+  "english": "الإنجليزية",
+  "arabic": "العربية",
+  "kurdish": "الكردية",
+  "complete_lecture":"اكمل",
+  "logout": "تسجيل الخروج",
+  "alert_confirm_button_text":"حسنا",
+  "error":"خطأ",
+  "unauthoraized_error":"فشل تسجيل الدخول",
+  "unauthoraized_error_text":"الرجاء تسجيل الدخول والمحاولة مرة اخرى",
+  "completed":"مكتمل",
+  "server_error":"حصل خطأ",
+  "server_error_text":"يبدا ان هنالك خلل في الخادم الرجاء المحاولة في وقت لاحق",
+  "not_found_error":"لم يتم العثور على المحتوى المطلوب",
+  "not_found_error_text":"نعتذر,يبدو ان المحتوى الذي طلبته غير متوفر في هذه الصفحة",
+  "unknown_error":"حصل خطأ غير معروف",
+  "unknown_error_text":"نعتذر, لقد حصل خطأ غير معروف اثناء تحميل المحتوى الرجاء المحاولة في وقت لاحق.",
+  "loading_resources":"جاري تحميل المحتوى",
+  "loading_resources_text":"الرجاء الانتظار بينما يتم تحميل المحتوى, لن يستغرق الامر طويلا",
+  "save": "حفظ التغييرات",
+  "low":"منخفض",
+  "medium":"متوسط",
+  "high":"عالي",
+  "urgent":"عاجل",
+  "add_new_task":"اضافة مهمة جديدة",
+  "add_new_collection":"اضافة مجموعة جديدة",
+  "profile_picture": "صورة الملف الشخصي",
+  "change_profile_picture": "تغيير صورة الملف الشخصي",
+  "saving_changes": "جاري حفظ التغييرات...",
+  "account_info_saved": "تم حفظ معلومات الحساب بنجاح.",
+  "edit":"تعديل",
+  "delete":"حذف",
+  "next":"التالي",
+  "prev":"السابق",
+  "settings": {
+    "label": "الإعدادات",
+    "account_info": {
+      "title": "معلومات الحساب",
+      "first_name": "الاسم الأول",
+      "last_name": "اسم العائلة",
+      "email": "البريد الإلكتروني",
+      "theme": "المظهر",
+      "light": "فاتح",
+      "dark": "داكن",
+      "language": {
+        "label": "اللغة",
+        "english": "الإنجليزية",
+        "arabic": "العربية",
+        "kurdish": "الكردية"
+      }
+    },
+    "change_password": {
+      "title": "تغيير كلمة المرور",
+      "send_confirmation_email": "إرسال رمز التحقق",
+      "new_password": "كلمة المرور الجديدة",
+      "confirm_new_password": "تأكيد كلمة المرور الجديدة",
+      "how_to_change_password": "كيفية تغيير كلمة المرور",
+      "tour": {
+        "step1": "اضغط لإرسال رمز التحقق إلى بريدك الإلكتروني.",
+        "step2": "أدخل رمز التحقق الذي وصلك عبر البريد الإلكتروني.",
+        "step3": "أدخل كلمة مرور جديدة قوية وسهلة التذكر.",
+        "step4": "قم بتأكيد كلمة المرور الجديدة.",
+        "step5": "اضغط هنا لحفظ كلمة المرور الجديدة.",
+        "button": "كيفية تغيير كلمة المرور"
+      },
+      "send_pin": "إرسال رمز التحقق",
+      "pin_sent": "تم إرسال الرمز",
+      "pin_label": "رمز التحقق",
+      "send_pin_help": "اضغط على الزر لإرسال رمز تحقق إلى بريدك الإلكتروني",
+      "confirm_password": "تأكيد كلمة المرور الجديدة",
+      "save_button": "حفظ كلمة المرور",
+      "saving": "جاري التغيير...",
+      "success": "تم تغيير كلمة المرور بنجاح",
+      "errors": {
+        "missing_fields": "يرجى ملء جميع الحقول",
+        "passwords_mismatch": "كلمتا المرور غير متطابقتين",
+        "send_failed": "فشل في إرسال رمز التحقق",
+        "save_failed": "فشل في تغيير كلمة المرور"
+      }
+    },
+    "notifications": {
+      "title": "الإشعارات",
+      "email_notifications": "الإشعارات عبر البريد الإلكتروني",
+      "sms_notifications": "الإشعارات عبر الرسائل النصية",
+      "push_notifications": "الإشعارات الفورية",
+      "newsletter": "النشرة الإخبارية",
+      "study_reminders": "تذكيرات الدراسة",
+      "repeat_reminders": "تكرار التذكيرات",
+      "updated_notifications": "تم تحديث إعدادات الإشعارات بنجاح.",
+      "repeat_reminders_options": {
+        "daily": "يوميًا",
+        "weekly": "أسبوعيًا",
+        "monthly": "شهريًا"
+      }
+    },
+    "change_email": {
+      "title": "تغيير البريد الإلكتروني",
+      "new_email": "البريد الإلكتروني الجديد",
+      "errors": {
+        "new_email_required": "البريد الإلكتروني الجديد مطلوب",
+        "invalid_email": "صيغة البريد الإلكتروني غير صحيحة",
+        "update_failed": "فشل في تحديث البريد الإلكتروني"
+      },
+      "success": {
+        "confirmation_email_sent": "تم إرسال رسالة تأكيد إلى بريدك الإلكتروني الجديد.",
+        "email_updated": "تم تحديث البريد الإلكتروني بنجاح."
+      }
+    },
+    "your_orgnization": "المؤسسة التعليمية",
+    "organization": {
+      "title": "مؤسستك التعليمية",
+      "search_for_org": "ابحث عن مؤسستك",
+      "no_org_found": "لم يتم العثور على مؤسسة",
+      "join_org": "الانضمام إلى المؤسسة",
+      "join_request_sent": "تم إرسال طلب الانضمام، يرجى الانتظار للموافقة",
+      "plural": "المؤسسات التعليمية",
+      "send_join_request": "إرسال طلب الانضمام",
+      "you_belong_to_org": "أنت تنتمي إلى ",
+      "sending": "جاري الإرسال...",
+      "errors": {
+        "no_org_selected": "لم يتم اختيار أي مؤسسة",
+        "request_failed": "فشل في إرسال طلب الانضمام"
+      }
+    }
+  },
+  "sidebar": {
+    "dashboard": "لوحة التحكم",
+    "courses": "الدورات",
+    "settings": "الإعدادات",
+    "notifications": "الإشعارات",
+    "organization": "المؤسسة التعليمية",
+    "quizzes": "الاختبارات",
+    "chat": "الدردشة",
+    "community": "المجتمع",
+    "files": "الملفات",
+    "timetable":"جدول الدروس",
+    "todo":"قائمة المهام"
+  },
+  "navbar": {
+    "search_placeholder": "ابحث عن الدورات والموارد",
+    "support": "الدعم",
+    "contact_us": "اتصل بنا",
+    "about": "حول",
+    "resources": "الموارد",
+    "courses": "الدورات"
+  },
+  "dashboard_index": {
+    "greeting": "مرحبًا، {{name}}!",
+    "overview": "استمر بالتعلم لتحقق أقصى استفادة من وقتك. إذا احتجت إلى المساعدة، نحن هنا دائمًا.",
+    "studying_hours": "ساعات الدراسة هذا الأسبوع",
+    "upcoming_exams": "الاختبارات القادمة",
+    "homework": "المهام والواجبات",
+    "recommended_resources": "الموارد الموصى بها",
+    "recommended_courses": "الدورات الموصى بها",
+    "recent_activities": "الأنشطة الأخيرة",
+    "profile_card": {
+      "name": "الاسم",
+      "role": "الدور",
+      "email": "البريد الإلكتروني",
+      "edit_profile": "تعديل الملف الشخصي"
+    },
+    "tasks_card": {
+      "title": "المهام",
+      "view_all": "عرض الكل"
+    },
+    "notifications_card": {
+      "title": "الإشعارات",
+      "view_all": "عرض الكل"
+    },
+    "organization_notifications_card": {
+      "title": "إشعارات المؤسسة التعليمية",
+      "view_all": "عرض الكل"
+    },
+    "calendar_card": {
+      "title": "التقويم",
+      "view_full_calendar": "عرض التقويم الكامل"
+    }
+  },
+  "dahsboard_courses": {
+    "title": "الدورات",
+    "start_learning": "ابدأ التعلم",
+    "continue_learning": "تابع التعلم",
+    "discover_more_courses": "اكتشف المزيد من الدورات"
+  }
+}

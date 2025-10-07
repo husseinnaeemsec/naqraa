@@ -1,7 +1,7 @@
 export default function BeforeQuizNotes( { setShowNotes } : { setShowNotes:(value:boolean)=> void } ) {
     return (
-        <div className="p-6 max-w-3xl w-full space-y-5 bg-white border-2 border-b-4 border-l-4 rounded-xl shadow">
-            <h1 className="text-amber-600 text-2xl font-bold">ملاحظات مهمة قبل بدأ الاختبار</h1>
+        <div className="p-6 max-w-3xl w-full space-y-5 dark:bg-emerald-800 bg-white border-2 border-b-4 border-l-4 rounded-xl shadow">
+            <h1 className="text-amber-600 dark:text-amber-400 text-2xl font-bold">ملاحظات مهمة قبل بدأ الاختبار</h1>
             <ol className="space-y-3 list-decimal pr-4">
                 <li className="flex flex-wrap items-center gap-2 text-sm">
                     <span className="bg-sky-100 flex items-center gap-2 p-2 border-2 border-sky-700 text-sky-800 border-b-4 border-l-4 rounded-md">

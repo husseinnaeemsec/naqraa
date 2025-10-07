@@ -26,7 +26,6 @@ export default function NotificationsPopUp() {
       setShow(false); // notifications not supported
     }
   }, []);
-
   const askForPermission = async () => {
     if ("Notification" in window) {
       try {
@@ -35,7 +34,7 @@ export default function NotificationsPopUp() {
           setHasPermission(true);
           new Notification("✅ تم تفعيل الاشعارات", {
             body: "سوف تصلك اخر التحديثات والتنبيهات مباشرة.",
-            icon: "/logo192.png",
+            icon: "/favicon.svg",
           });
         }
         setShow(false);

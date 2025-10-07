@@ -1,7 +1,7 @@
 // Community Page Component
-const CommunityPage = () => {
+const CommunitiesPage = () => {
     return (
-        <div className="space-y-8">
+        <div className="space-y-8 p-6">
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-bold text-emerald-800">المجتمعات</h1>
                 <button className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors">
@@ -23,9 +23,9 @@ const CommunityPage = () => {
                         <p className="text-sm text-gray-600 mb-4">{community.description}</p>
                         <div className="flex justify-between items-center">
                             <span className="text-sm text-emerald-600">{community.members} عضو</span>
-                            <button className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors">
+                            <a href={`/dashboard/community/${community.members}`} className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors">
                                 الانضمام
-                            </button>
+                            </a>
                         </div>
                     </div>
                 ))}
@@ -34,4 +34,4 @@ const CommunityPage = () => {
     );
 };
 
-export default CommunityPage;
+export default CommunitiesPage;

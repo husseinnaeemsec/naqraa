@@ -1,5 +1,5 @@
 .sidebar{
-    @apply bg-white border h-screen z-40 overflow-y-auto lg:sticky top-0 fixed w-full lg:right-0 -right-[-100%] transition-all ;
+    @apply bg-white border h-dynamic z-40 overflow-y-auto lg:sticky top-0 fixed w-full lg:right-0 -right-[-100%] transition-all ;
     /* Mobile */
 }
 .sidebar.show{

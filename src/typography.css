@@ -1,0 +1,75 @@
+.rich-text {
+  @apply  max-w-none leading-relaxed text-slate-800 dark:text-slate-100;
+}
+
+/* Headings */
+.rich-text h1 {
+  @apply text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4 mt-6;
+}
+
+.rich-text h2 {
+  @apply text-2xl font-semibold text-slate-900 dark:text-slate-100 mb-3 mt-5;
+}
+
+.rich-text h3 {
+  @apply text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2 mt-4;
+}
+
+.rich-text h4 {
+  @apply text-lg font-semibold text-slate-700 dark:text-slate-300 mb-2 mt-3;
+}
+
+/* Paragraphs */
+.rich-text p {
+  @apply mb-3 text-base leading-relaxed;
+}
+
+/* Lists */
+.rich-text ul {
+  @apply list-disc list-inside mb-3 pl-4;
+}
+
+.rich-text ol {
+  @apply list-decimal list-inside mb-3 pl-4;
+}
+
+.rich-text li {
+  @apply mb-1;
+}
+
+/* Links */
+.rich-text a {
+  @apply text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300;
+}
+
+/* Blockquotes */
+.rich-text blockquote {
+  @apply border-l-4 border-slate-400 dark:border-slate-600 pl-4 italic text-slate-700 dark:text-slate-300 my-4;
+}
+
+/* Images */
+.rich-text img {
+  @apply rounded-lg shadow-md my-4 mx-auto;
+}
+
+/* Tables */
+.rich-text table {
+  @apply w-full border-collapse my-4;
+}
+
+.rich-text th {
+  @apply bg-slate-100 dark:bg-slate-800 font-semibold p-2 border border-slate-300 dark:border-slate-700;
+}
+
+.rich-text td {
+  @apply p-2 border border-slate-300 dark:border-slate-700;
+}
+
+/* Code blocks */
+.rich-text pre {
+  @apply bg-slate-100 dark:bg-slate-800 p-3 rounded-lg overflow-x-auto text-sm my-3;
+}
+
+.rich-text code {
+  @apply font-mono text-sm bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded;
+}

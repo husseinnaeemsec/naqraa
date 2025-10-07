@@ -19,7 +19,7 @@ interface NotificationProps {
 
 function NotificationItem({ notification }: { notification: Notification }) {
     return (
-        <div className=" relative z-0 flex items-center gap-3 p-3 border rounded-md bg-white">
+        <div className=" relative z-0 flex items-center gap-3 p-3 border rounded-md dark:bg-emerald-900 bg-white">
             {!notification.read && <div className="size-[8px] absolute top-2   rounded-full bg-emerald-500"></div> }
             {notification.profile_picture ? (
                 <img
@@ -34,8 +34,8 @@ function NotificationItem({ notification }: { notification: Notification }) {
             )}
             <div>
                 <h1 className="font-semibold">{notification.title}</h1>
-                {notification.content && <p className="text-slate-500">{notification.content}</p>}
-                <small className="text-slate-400">{notification.created_at}</small>
+                {notification.content && <p className="text-slate-500 dark:text-emerald-100/70">{notification.content}</p>}
+                <small className="text-slate-400 ">{notification.created_at}</small>
             </div>
         </div>
     );
@@ -72,7 +72,7 @@ export default function NotificationsPage() {
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
                         className={`p-1 rounded-md border px-2 ${
-                            activeTab === tab.id ? "bg-emerald-500 text-white" : "bg-white"
+                            activeTab === tab.id ? "bg-emerald-500 text-white" : "bg-white dark:bg-emerald-950"
                         }`}
                     >
                         {tab.title}

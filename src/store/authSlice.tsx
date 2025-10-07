@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type {Enrollment, InitialAuthState, User} from '../../types';
+import type {Enrollment, InitialAuthState, Notification, User} from '../../types';
 import { getUserProfile } from '../utils/functions';
 
 // Get initial state from localStorage if available
@@ -15,13 +15,21 @@ const initialState : InitialAuthState = {
   // And then set this back to false 
   loadingUser: true,
   authError: [],
-  enrollments:[]
+  enrollments:[],
+  ready_for_notifications:false,
+  notifications:[]
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    setNotificationsState:(state,action:PayloadAction<boolean>)=>{
+      state.ready_for_notifications = action.payload;
+    },
+    setNotifications:( state , action:PayloadAction<Notification[]> )=>{
+      state.notifications = action.payload;
+    },
     setAuthenticationState:(state,action:PayloadAction<boolean>)=>{
       state.isAuthenticated = action.payload;
     },
@@ -50,5 +58,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setAuthenticationState,setUserEnrollments,appendEnrollment,setUser,logoutUser, setLoadingState } = authSlice.actions;
+export const { setAuthenticationState,setNotifications,setNotificationsState,setUserEnrollments,appendEnrollment,setUser,logoutUser, setLoadingState } = authSlice.actions;
 export default authSlice.reducer;

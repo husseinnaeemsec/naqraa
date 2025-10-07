@@ -3,7 +3,7 @@ import axios from "axios";
 export const BASE_API_URL = 'http://localhost:8000/api';
 
 // 🔹 دالة للحصول على الـ CSRF من الكوكيز
-function getCookie(name: string) {
+export function getCookie(name: string) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== "") {
     const cookies = document.cookie.split(";");

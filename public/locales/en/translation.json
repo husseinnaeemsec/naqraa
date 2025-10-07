@@ -1,0 +1,170 @@
+{
+  "login": "Login",
+  "email": "Email",
+  "password": "Password",
+  "remember_me": "Remember Me",
+  "forgot_password": "Forgot Password?",
+  "no_account": "No account?",
+  "sign_up": "Sign Up",
+  "dashboard": "Dashboard",
+  "language": "Language",
+  "english": "English",
+  "arabic": "Arabic",
+  "kurdish": "Kurdish",
+  "logout": "Logout",
+  "save": "Save Changes",
+  "profile_picture": "Profile Picture",
+  "change_profile_picture": "Change Profile Picture",
+  "saving_changes": "Saving changes...",
+  "account_info_saved": "Account information saved successfully.",
+  "settings": {
+    "label": "Settings",
+    "account_info": {
+      "title": "Account Information",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email",
+      "theme": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "language": {
+        "label": "Language",
+        "english": "English",
+        "arabic": "Arabic",
+        "kurdish": "Kurdish"
+      }
+    },
+    "change_password": {
+      "title": "Change Password",
+      "send_confirmation_email": "Send Confirmation Email",
+      "new_password": "New Password",
+      "confirm_new_password": "Confirm New Password",
+      "how_to_change_password": "How to Change Password",
+      "tour": {
+        "step1": "Click to send the verification code to your email.",
+        "step2": "Enter the verification code you received by email.",
+        "step3": "Enter a new strong and memorable password.",
+        "step4": "Confirm the new password.",
+        "step5": "Click here to save the new password.",
+        "button": "How to change the password"
+      },
+      "send_pin": "Send Verification Code",
+      "pin_sent": "Code Sent",
+      "pin_label": "Verification Code",
+      "send_pin_help": "Click the button to send a verification code to your email",
+      "confirm_password": "Confirm New Password",
+      "save_button": "Save Password",
+      "saving": "Changing...",
+      "success": "Password changed successfully",
+      "errors": {
+        "missing_fields": "Please fill in all fields",
+        "passwords_mismatch": "Passwords do not match",
+        "send_failed": "Failed to send verification code",
+        "save_failed": "Failed to change password"
+      }
+    },
+    "notifications": {
+      "title": "Notifications",
+      "email_notifications": "Email Notifications",
+      "sms_notifications": "SMS Notifications",
+      "push_notifications": "Push Notifications",
+      "newsletter": "Newsletter",
+      "study_reminders": "Study Reminders",
+      "repeat_reminders": "Repeat Reminders",
+      "updated_notifications": "Notifications settings updated successfully.",
+      "repeat_reminders_options": {
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "monthly": "Monthly"
+      }
+    },
+    "change_email": {
+      "title": "Change Email",
+      "new_email": "New Email",
+      "errors":{
+        "new_email_required": "New email is required",
+        "invalid_email": "Invalid email format",
+        "update_failed": "Failed to update email"
+      },
+      "success":{
+        "confirmation_email_sent": "A confirmation email has been sent to your new email address.",
+        "email_updated": "Email updated successfully."
+      }
+    },
+    "your_orgnization": "Your Organization",
+    "organization":{
+      "title":"Your Organization",
+      "search_for_org":"Search for your organization",
+      "no_org_found":"No organization found",
+      "join_org":"Join Organization",
+      "join_request_sent":"Join request sent please wait for approval",
+      "plural":"Organizations",
+      "send_join_request":"Send Join Request",
+      "you_belong_to_org":"You belong to ",
+      "sending":"Sending...",
+      "errors":{
+        "no_org_selected":"No organization selected",
+        "request_failed":"Failed to send join request"
+
+      }
+
+    }
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "courses": "Courses",
+    "settings": "Settings",
+    "notifications": "Notifications",
+    "organization": "Organization",
+    "quizzes": "Quizzes",
+    "chat": "Chat",
+    "community": "Community",
+    "files": "Files"
+  },
+  "navbar": {
+    "search_placeholder": "Search for courses and resources",
+    "support": "Support",
+    "contact_us": "Contact Us",
+    "about": "About",
+    "resources": "Resources",
+    "courses": "Courses"
+  },
+  "dashboard_index": {
+    "greeting": "Hello, {{name}}!",
+    "overview": "Keep learning to get the most out of your time. If you need help, we’re here anytime.",
+    "studying_hours": "Study Hours This Week",
+    "upcoming_exams": "Upcoming Exams",
+    "homework": "Homework",
+    "recommended_resources": "Recommended Resources",
+    "recommended_courses": "Recommended Courses",
+    "recent_activities": "Recent Activities",
+    "profile_card": {
+      "name": "Name",
+      "role": "Role",
+      "email": "Email",
+      "edit_profile": "Edit Profile"
+    },
+    "tasks_card": {
+      "title": "Tasks",
+      "view_all": "View All"
+    },
+    "notifications_card": {
+      "title": "Notifications",
+      "view_all": "View All"
+    },
+    "organization_notifications_card": {
+      "title": "Organization Notifications",
+      "view_all": "View All"
+    },
+    "calendar_card": {
+      "title": "Calendar",
+      "view_full_calendar": "View Full Calendar"
+    }
+  },
+  "dahsboard_courses": {
+    "title": "Courses",
+    "start_learning": "Start Learning",
+    "continue_learning": "Continue Learning",
+    "discover_more_courses": "Discover More Courses"
+  }
+}

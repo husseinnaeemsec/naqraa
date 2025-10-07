@@ -7,10 +7,11 @@ import elearn from '../../assets/elearn.svg';
 import community from '../../assets/online-discussion.svg';
 import laptop from '../../assets/science.svg';
 import { endpoints } from '../../api/routes';
-import { Helmet } from "react-helmet";
 import { getLogo } from '../../utils/functions';
+import { useAppSelector } from '../../store/store';
 
 export default function LoginPage() {
+  const {isAuthenticated} = useAppSelector((state)=> state.auth )
   const [username, setUsername] = useState('hussein');
   const [password, setPassword] = useState('2252Test');
   const [errors, setErrors] = useState<string[]>([]);
@@ -34,6 +35,10 @@ export default function LoginPage() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(()=>{
+    setTimeout(()=> isAuthenticated ? navigate("/dashboard") : '' ,0 )
+  })
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setErrors([]);
@@ -46,26 +51,24 @@ export default function LoginPage() {
     }
 
     api.post(endpoints.user.login, { username, password })
-      .then((_res) => navigate("/dashboard"))
+      .then((_res) => setTimeout(() => navigate("/dashboard"), 100)  )
       .catch((e) => {
-        if (e.status === 500) {
-          setErrors(['حصل خطأ في الخادم الرجاء المحاولة في وقت اخر'])
-          return;
-        }
-        else if (e.response && e.status !== 421) {
-          setErrors([e.response.data.error])
-
+        if (e.response) {
+          if (e.response.status === 500) {
+            setErrors(["حصل خطأ في الخادم الرجاء المحاولة في وقت اخر"]);
+          } else if (e.response.status !== 421) {
+            setErrors([e.response.data.error]);
+          }
         } else {
-          setErrors(['حصل خطأ اثناء عملية تسجيل الدخول الرجاء المحاولة في وقت اخر'])
+          setErrors([
+            "حصل خطأ اثناء عملية تسجيل الدخول الرجاء المحاولة في وقت اخر",
+          ]);
         }
       })
       .finally(() => setLoading(false));
   };
   return (
     <>
-      <Helmet>
-        <title> تسجيل الدخول </title>
-      </Helmet>
 
       <div className="bg-emerald-50 dark:bg-dark-emerald w-screen h-screen flex items-center justify-center">
         <div className="container gap-10 m-auto h-[90dvh]  p-5 grid lg:grid-cols-2 items-center justify-center">
@@ -94,7 +97,7 @@ export default function LoginPage() {
             <form className="w-full max-w-sm flex flex-col gap-3" onSubmit={handleLogin}>
               {errors.length > 0 && (
                 <div className="bg-red-100 dark:bg-red-900/50 px-3 text-red-700 dark:text-red-50 p-2 rounded">
-                  {errors.map((err, i) => <p key={i}>{err}</p>)}
+                  {errors.map((err, i) => <p className='text-center' key={i}>{err}</p>)}
                 </div>
               )}
               <input

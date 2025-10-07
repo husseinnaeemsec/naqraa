@@ -1,0 +1,168 @@
+{
+  "login": "چوونەژوورەوە",
+  "email": "ئیمەیل",
+  "password": "وشەی نهێنی",
+  "remember_me": "بیرم بهێنە",
+  "forgot_password": "وشەی نهێنیت بیرچووە؟",
+  "no_account": "هەژمارت نییە؟",
+  "sign_up": "خۆت تۆمار بکە",
+  "dashboard": "لووحەی کۆنترۆڵ",
+  "language": "زمان",
+  "english": "ئینگلیزی",
+  "arabic": "عەرەبی",
+  "kurdish": "کوردی",
+  "logout": "چوونە دەرەوە",
+  "save": "گۆرانکارییەکان پاشەکەوت بکە",
+  "profile_picture": "وێنەی پرۆفایل",
+  "change_profile_picture": "گۆرینی وێنەی پرۆفایل",
+  "saving_changes": "پاشەکەوتکردنی گۆرانکارییەکان...",
+  "account_info_saved": "زانیاری هەژمار بە سەرکەوتوویی پاشەکەوت کرا.",
+  "settings": {
+    "label": "ڕێکخستنەکان",
+    "account_info": {
+      "title": "زانیاری هەژمار",
+      "first_name": "ناوی یەکەم",
+      "last_name": "ناوی دووەم",
+      "email": "ئیمەیل",
+      "theme": "ڕووکار",
+      "light": "ڕووناک",
+      "dark": "تاریک",
+      "language": {
+        "label": "زمان",
+        "english": "ئینگلیزی",
+        "arabic": "عەرەبی",
+        "kurdish": "کوردی"
+      }
+    },
+    "change_password": {
+      "title": "گۆرینی وشەی نهێنی",
+      "send_confirmation_email": "ناردنی ئیمەیلی دڵنیاکردنەوە",
+      "new_password": "وشەی نهێنی نوێ",
+      "confirm_new_password": "دووبارەکردنەوەی وشەی نهێنی نوێ",
+      "how_to_change_password": "چۆنیەتی گۆرینی وشەی نهێنی",
+      "tour": {
+        "step1": "کلیک بکە بۆ ناردنی کۆدی دڵنیاکردنەوە بۆ ئیمەیلت.",
+        "step2": "کۆدی دڵنیاکردنەوە بنوسە کە لە ئیمەیلت پێت گەیشتووە.",
+        "step3": "وشەی نهێنییەکی نوێ بنوسە کە بەهێز و بەسەردەبڕ بێت.",
+        "step4": "وشەی نهێنی نوێ دووبارە بکە.",
+        "step5": "کلیک لێرە بکە بۆ پاشەکەوتکردنی وشەی نهێنی نوێ.",
+        "button": "چۆنیەتی گۆرینی وشەی نهێنی"
+      },
+      "send_pin": "ناردنی کۆدی دڵنیاکردنەوە",
+      "pin_sent": "کۆد نێردرا",
+      "pin_label": "کۆدی دڵنیاکردنەوە",
+      "send_pin_help": "کلیک بکە لەسەر دوگمەکە بۆ ناردنی کۆدی دڵنیاکردنەوە بۆ ئیمەیلت",
+      "confirm_password": "دووبارەکردنەوەی وشەی نهێنی نوێ",
+      "save_button": "پاشەکەوتکردنی وشەی نهێنی",
+      "saving": "لە گۆرانیدایە...",
+      "success": "وشەی نهێنی بە سەرکەوتوویی گۆڕدرا",
+      "errors": {
+        "missing_fields": "تکایە هەموو خانەکان پڕبکەوە",
+        "passwords_mismatch": "وشەی نهێنی یەک ناگرن",
+        "send_failed": "نەیتوانرا کۆدی دڵنیاکردنەوە بنێردرێت",
+        "save_failed": "نەیتوانرا وشەی نهێنی بگۆڕدرێت"
+      }
+    },
+    "notifications": {
+      "title": "ئاگادارکردنەوەکان",
+      "email_notifications": "ئاگادارکردنەوە بە ئیمەیل",
+      "sms_notifications": "ئاگادارکردنەوە بە نامەی تێکست",
+      "push_notifications": "ئاگادارکردنەوەی پەیوەست",
+      "newsletter": "هەواڵنامە",
+      "study_reminders": "بیرهێنانی خوێندن",
+      "repeat_reminders": "دووبارەی بیرهێنان",
+      "updated_notifications": "ڕێکخستنی ئاگادارکردنەوەکان بە سەرکەوتوویی نوێکرایەوە.",
+      "repeat_reminders_options": {
+        "daily": "ڕۆژانە",
+        "weekly": "هەفتانە",
+        "monthly": "مانگانە"
+      }
+    },
+    "change_email": {
+      "title": "گۆرینی ئیمەیل",
+      "new_email": "ئیمەیلی نوێ",
+      "errors": {
+        "new_email_required": "ئیمەیلی نوێ پێویستە",
+        "invalid_email": "فۆرماتی ئیمەیل هەڵەیە",
+        "update_failed": "نەیتوانرا ئیمەیل نوێ بکرێت"
+      },
+      "success": {
+        "confirmation_email_sent": "ئیمەیلی دڵنیاکردنەوە نێردرا بۆ ئیمەیلی نوێت.",
+        "email_updated": "ئیمەیل بە سەرکەوتوویی نوێکرایەوە."
+      }
+    },
+    "your_orgnization": "ڕێکخراوی خوێندنی",
+    "organization": {
+      "title": "ڕێکخراوی خوێندنی",
+      "search_for_org": "گەڕان بۆ ڕێکخراوت",
+      "no_org_found": "هیچ ڕێکخراوێک نەدۆزرایەوە",
+      "join_org": "بەشداربوون لە ڕێکخراو",
+      "join_request_sent": "داواکاری بەشداربوون نێردرا، تکایە چاوەڕوان بە بۆ پەسەندکردن",
+      "plural": "ڕێکخراوەکان",
+      "send_join_request": "ناردنی داواکاری بەشداربوون",
+      "you_belong_to_org": "تۆ بەشداریت لە ",
+      "sending": "لە ناردندایە...",
+      "errors": {
+        "no_org_selected": "هیچ ڕێکخراوێک هەڵنەبژێردراوە",
+        "request_failed": "نەیتوانرا داواکاری نێردرێت"
+      }
+    }
+  },
+  "sidebar": {
+    "dashboard": "لووحەی کۆنترۆڵ",
+    "courses": "وانەکان",
+    "settings": "ڕێکخستنەکان",
+    "notifications": "ئاگادارکردنەوەکان",
+    "organization": "ڕێکخراو",
+    "quizzes": "تاقیکردنەوەکان",
+    "chat": "چات",
+    "community": "کۆمەڵگە",
+    "files": "پەڕگەکان"
+  },
+  "navbar": {
+    "search_placeholder": "گەڕان بۆ وانەکان و سەرچاوەکان",
+    "support": "پاڵپشتی",
+    "contact_us": "پەیوەندیمان پێوە بکە",
+    "about": "دەربارە",
+    "resources": "سەرچاوەکان",
+    "courses": "وانەکان"
+  },
+  "dashboard_index": {
+    "greeting": "سڵاو، {{name}}!",
+    "overview": "بەردەوام بە لە خوێندن بۆ ئەوەی سوود بەرهەمهێنیت لە کاتی خۆت. ئەگەر یارمەتیت پێویست بوو، ئێمە هەمیشە لەگەڵتین.",
+    "studying_hours": "کاتژمێری خوێندن ئەم هەفتەیە",
+    "upcoming_exams": "تاقیکردنەوەی داهاتوو",
+    "homework": "ئەرکەکانی ماڵەوە",
+    "recommended_resources": "سەرچاوە پێشنیارکراوەکان",
+    "recommended_courses": "وانە پێشنیارکراوەکان",
+    "recent_activities": "چالاکیەکانی دوایین",
+    "profile_card": {
+      "name": "ناو",
+      "role": "ڕۆڵ",
+      "email": "ئیمەیل",
+      "edit_profile": "دەستکاری پرۆفایل"
+    },
+    "tasks_card": {
+      "title": "ئەرکەکان",
+      "view_all": "بینینی هەموو"
+    },
+    "notifications_card": {
+      "title": "ئاگادارکردنەوەکان",
+      "view_all": "بینینی هەموو"
+    },
+    "organization_notifications_card": {
+      "title": "ئاگادارکردنەوەی ڕێکخراو",
+      "view_all": "بینینی هەموو"
+    },
+    "calendar_card": {
+      "title": "ساڵنامە",
+      "view_full_calendar": "بینینی ساڵنامەی تەواو"
+    }
+  },
+  "dahsboard_courses": {
+    "title": "وانەکان",
+    "start_learning": "دەستپێکردن بە خوێندن",
+    "continue_learning": "بەردەوامبە لە خوێندن",
+    "discover_more_courses": "زیاتر وانە بدۆزەرەوە"
+  }
+}

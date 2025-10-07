@@ -3,10 +3,13 @@ import type { CourseDiscussionMessage, Enrollment, EnrollmentLecture } from "../
 import api from "../api/client";
 import { endpoints } from "../api/routes";
 import { timeSinceAr } from "../utils/functions";
+import { useAppDispatch, useAppSelector } from "../store/store";
+import ResourceLoader from "./resourceLoader";
+import { setDiscussions } from "../store/enrollmentSlice";
 
 interface Props {
   enrollment: Enrollment | null;
-  activeLecture:EnrollmentLecture|null;
+  activeLecture: EnrollmentLecture | null;
 }
 
 interface CommentProps {
@@ -107,27 +110,40 @@ function Comment({ message, onReply }: CommentProps) {
 }
 
 
-export default function DiscussionTab({ enrollment , activeLecture }: Props) {
-  const [messages, setMessages] = useState<CourseDiscussionMessage[]>([]);
+export default function DiscussionTab({ enrollment, activeLecture }: Props) {
+  const {discussions} = useAppSelector(state=>state.enrollment);
+  const dispatch = useAppDispatch();
+  const [loading,setLoading] = useState(true);
 
   if (!enrollment) return null;
 
+  
+
   useEffect(() => {
-    api.get(endpoints.courses.discussion(activeLecture?.id||0))
+    api.get(endpoints.courses.discussion(activeLecture?.id || 0))
       .then((res) => {
-        setMessages(res.data);
-      });
-  }, [enrollment.course.id]);
+        dispatch(setDiscussions(res.data));
+      })
+      .finally(()=>{ setLoading(false) })
+  }, [activeLecture?.id]);
+
+  if(!discussions.length && loading) return <ResourceLoader  title="جاري تحميل المناقشات" />
+
+  const handleReply = (parentId:number , content:string)=>{
+    
+  }
 
   return (
     <>
       <h1 className="text-xl font-bold mb-2">المناقشة</h1>
       <div className="p-4">
-        {messages.length === 0 ? (
-          <p className="text-center text-slate-500">لا توجد مناقشات بعد</p>
+        {discussions.length === 0 ? (
+          <div className="h-40 w-full  flex items-center  justify-center lg:col-span-4 md:col-span-2 ">
+            لا توجد مناقشات لهذه المحاضرة
+          </div>
         ) : (
-          messages.map((message) => (
-            <Comment onReply={() => { }} key={message.id} message={message} />
+          discussions.map((message) => (
+            <Comment onReply={handleReply} key={message.id} message={message} />
           ))
         )}
       </div>

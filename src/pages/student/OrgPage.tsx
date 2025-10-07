@@ -1,7 +1,7 @@
 // Organization Page Component
 const OrgPage = () => {
     return (
-        <div className="space-y-8">
+        <div className="space-y-8 p-6">
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-bold text-emerald-800">المؤسسة التعليمية</h1>
                 <button className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors">

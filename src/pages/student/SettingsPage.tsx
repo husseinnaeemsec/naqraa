@@ -1,8 +1,5 @@
 import { useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/store";
-import api from "../../api/client";
-import { endpoints } from "../../api/routes";
-import { setAuthenticationState, setLoadingState, setUser } from "../../store/authSlice";
+import { useAppSelector } from "../../store/store";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import ChangePasswordSection from "../../components/ChangePasswordSection";
@@ -10,15 +7,16 @@ import AccountInformationSection from "../../components/AccountInformationSectio
 import NotificationsSection from "../../components/NotificationsSection";
 import ChangeEmailSection from "../../components/ChangeEmailSection";
 import OrganizationSection from "../../components/OrgnizationSection";
+import { useTranslation } from "react-i18next";
 
 gsap.registerPlugin(ScrollToPlugin);
 
 // Small helpers
-export const SectionHeader = ({ title,icon }: { title: string , icon?:any }) => (
+export const SectionHeader = ({ title, icon }: { title: string, icon?: any }) => (
     <h2 className="text-xl  p-2 z-10 flex items-center gap-2 font-semibold text-emerald-800 dark:text-emerald-100/70 mb-6">
         {icon}
         {title}
-        </h2>
+    </h2>
 );
 
 export const Success = ({ children }: { children: React.ReactNode }) => (
@@ -51,33 +49,36 @@ export const Toggle = ({ checked, onChange, label }: { checked: boolean; onChang
 // Settings Page Component
 const SettingsPage = () => {
 
+    const { user } = useAppSelector((state) => state.auth)
+    const { t } = useTranslation();
+
 
     const tabs = [
         {
-            text: 'معلومات الحساب',
+            text: t("settings.account_info.title"),
             link: '#account_information',
-            icon:<i className="fi fi-rr-user"></i>
+            icon: <i className="fi fi-rr-user"></i>
         },
         {
-            text: 'الاشعارات',
+            text: t("settings.notifications.title"),
             link: '#notifications',
-            icon:<i className="fi fi-rr-bell"></i>
-            
+            icon: <i className="fi fi-rr-bell"></i>
+
         },
         {
-            text: 'كلمة المرور',
+            text: t("settings.change_password.title"),
             link: '#password',
-            icon:<i className="fi fi-rr-lock"></i>
+            icon: <i className="fi fi-rr-lock"></i>
         },
         {
-            text: ' تغيير البريد',
+            text: t("settings.change_email.title"),
             link: '#email',
-            icon:<i className="fi fi-rr-envelope"></i>
+            icon: <i className="fi fi-rr-envelope"></i>
         },
         {
-            text: 'المؤسسة التعليمية',
-            link: '#orgnization',
-            icon:<i className="fi fi-rr-building"></i>
+            text: t("settings.your_orgnization"),
+            link: '#organization',
+            icon: <i className="fi fi-rr-building"></i>
         }
     ]
     const scrollerRef = useRef<HTMLDivElement>(null);
@@ -91,9 +92,9 @@ const SettingsPage = () => {
 
         gsap.to(scroller, {
             duration: 0.8,
-            scrollTo:{
-                y:targetEl,
-                offsetY:20
+            scrollTo: {
+                y: targetEl,
+                offsetY: 20
             },
             ease: "power2.out",
         });
@@ -103,22 +104,20 @@ const SettingsPage = () => {
     return (
         <div ref={scrollerRef} className="grid grid-cols-1 lg:grid-cols-12  gap-5 overflow-y-auto h-full p-6 mx-auto">
             <div className="flex justify-between lg:col-span-12   items-center">
-                <h1 className="text-2xl font-bold text-emerald-800 dark:text-emerald-100/70">الإعدادات</h1>
+                <h1 className="text-2xl font-bold text-emerald-800 dark:text-emerald-100/70">{t("settings.label")}</h1>
             </div>
             <aside className="max-h-fit h-20 lg:h-fit overflow-x-auto z-10  lg:col-span-2 gap-3 mb-5 lg:mb-0 items-center lg:items-start  dark:bg-emerald-950 rounded-md bg-white sticky top-0 p-3 flex lg:flex-col">
                 {
                     tabs.map((tab) => {
                         return (
-                            <button onClick={() => { handleScroll(tab.link) ; setActiveSection(tab.link) }} key={tab.link} className={`p-2 flex items-center gap-2 lg:min-w-full  border min-w-fit lg:text-base text-xs h-fit text-right rounded-md ${activeSection === tab.link ? 'dark:bg-emerald-700 bg-emerald-100 border-transparent ' : 'dark:bg-transparent  bg-white dashboard-box dark:hover:bg-emerald-800  hover:bg-emerald-50'} `}>
+                            <button onClick={() => { handleScroll(tab.link); setActiveSection(tab.link) }} key={tab.link} className={`p-2 flex items-center gap-2 lg:min-w-full  border min-w-fit lg:text-base text-xs h-fit text-right rounded-md ${activeSection === tab.link ? 'dark:bg-emerald-700 bg-emerald-100 border-transparent ' : 'dark:bg-transparent  bg-white dashboard-box dark:hover:bg-emerald-800  hover:bg-emerald-50'} `}>
                                 {tab.icon}{tab.text}
                             </button>
                         )
                     })
                 }
             </aside>
-            <div  className="space-y-8 lg:col-span-10 pb-10">
-
-
+            <div className="space-y-8 lg:col-span-10 pb-10">
                 {/* ===== Account Info / Profile ===== */}
                 <AccountInformationSection />
 

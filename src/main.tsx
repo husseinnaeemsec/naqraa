@@ -10,7 +10,7 @@ import FilesPage from './pages/student/FilesPage.tsx'
 import OrgPage from './pages/student/OrgPage.tsx'
 import SettingsPage from './pages/student/SettingsPage.tsx'
 import ChatPage from './pages/student/ChatPage.tsx'
-import CommunityPage from './pages/student/CommunityPage.tsx'
+import CommunitiesPage from './pages/student/Communities/CommunitiesPage.tsx'
 import ClassroomPage from './pages/student/ClassroomPage.tsx'
 import BoardPage from './pages/student/BoardPage.tsx'
 import LoginPage from './pages/public/Login.tsx'
@@ -18,9 +18,13 @@ import { Provider } from 'react-redux';
 import store from './store/store.tsx'
 import AuthProvider from './AuthProvider.tsx'
 import ProtectedRoute from './ProtectedRoute.tsx'
-import './i18n.tsx';
+import './i18n.js';
 import Dashboard from './Dashboard.tsx'
 import CoursesPage from './pages/public/CoursesPage.tsx'
+import CommunityPage from './pages/student/Communities/CommunityPage.tsx';
+import NotificationsPage from './pages/student/NotificationsPage.tsx';
+import TimeTablePage from './pages/student/TimeTablePage.tsx';
+import TodoPage from './pages/student/TodoPage.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -29,15 +33,23 @@ createRoot(document.getElementById('root')!).render(
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<App />} >
-              <Route path='/dashboard' element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} >
+              <Route path='dashboard' element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} >
                 <Route index element={<IndexPage />} />
                 <Route path='courses' element={<StudentCoursesPage />} />
                 <Route path='exams' element={<ExamsPage />} />
                 <Route path='files' element={<FilesPage />} />
                 <Route path='org' element={<OrgPage />} />
+                <Route path='timetable' element={<TimeTablePage />}  />
+                <Route path='todo' element={<TodoPage />} />
                 <Route path='settings' element={<SettingsPage />} />
                 <Route path='chat' element={<ChatPage />} />
-                <Route path='community' element={<CommunityPage />} />
+                <Route path='notifications' >
+                  <Route index element={<NotificationsPage />} />
+                </Route>
+                <Route path='communties'>
+                  <Route index element={<CommunitiesPage />} />
+                  <Route path=':communityId' element={<CommunityPage />} />
+                  </Route>
                 <Route path='classroom/:enrollment_id' element={<ClassroomPage />} />
                 <Route path='board' element={<BoardPage />} />
               </Route>

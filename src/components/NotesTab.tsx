@@ -2,174 +2,180 @@ import { useState, useEffect } from "react";
 import type { Enrollment, EnrollmentLecture, LectureNote } from "../../types";
 import api from "../api/client";
 import { endpoints } from "../api/routes";
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuTrigger,
-} from "@/components/ui/context-menu"
-import { timeSince, timeSinceAr } from "../utils/functions";
-
-
-interface Props {
-  activeLecture: EnrollmentLecture | null;
-  enrollment: Enrollment | null;
-  setActiveLecture: (lecture: EnrollmentLecture) => void; // added from parent
-}
+import { timeSince } from "../utils/functions";
+import { t } from "i18next";
+import { useAppDispatch, useAppSelector } from "../store/store";
+import { setCurrentLecture } from "../store/enrollmentSlice";
 
 interface NoteCardProps {
   note: LectureNote;
-  onDelete: (note_id: number) => void;
+  onDelete: (noteId: number) => void;
+  onEdit: (note: LectureNote) => void;
 }
 
-const NoteCard = ({ note, onDelete }: NoteCardProps) => {
+
+const NoteCard = ({ note, onDelete, onEdit }: NoteCardProps) => {
   const [showNote, setShowNote] = useState(false);
 
   return (
-    <div className={`aspect-square  ${note.color} rounded-2xl p-4 flex flex-col justify-between`}>
-      {/* Full screen note */}
+    <div
+      className={`aspect-square ${note.color} rounded-2xl p-4 flex flex-col justify-between overflow-hidden shadow-sm transition hover:shadow-md`}
+    >
+      {/* ===== Full screen note ===== */}
       {showNote && (
-        <div className="fixed inset-0 z-[100] bg-black/40 flex items-center justify-center">
+        <div className="fixed inset-0 z-[100] bg-black/40 flex items-center justify-center p-2">
           <div
-            className={`relative w-full max-w-2xl h-[90%] ${note.color} rounded-2xl shadow-xl p-6 flex flex-col`}
+            className={`relative w-full max-w-2xl h-[90%] ${note.color} rounded-2xl shadow-xl p-6 flex flex-col overflow-hidden`}
           >
             <button
               onClick={() => setShowNote(false)}
-              className="w-fit p-2 rounded-full"
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-black/10"
             >
-              <i className="fi fi-rr-circle-xmark text-3xl"></i>
+              <i className="fi fi-rr-circle-xmark text-2xl"></i>
             </button>
 
-            <h1 className="text-2xl font-bold mb-2">{note.title}</h1>
+            <div className="overflow-y-auto pr-2 mt-10 flex-1">
+              <h1 className="text-2xl font-bold mb-2 break-words">{note.title}</h1>
 
-            <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
-              <div className="text-right">
+              <div className="text-sm text-gray-600 mb-4">
                 <p>{note.timestamp}</p>
-                <p className="text-xs">{timeSince(note.created_at)} </p>
+                <p className="text-xs">{timeSince(note.created_at)}</p>
               </div>
-            </div>
 
-            <div className="flex-1 overflow-y-auto pr-2 text-gray-800 leading-relaxed">
-              <p>{note.text}</p>
+              <p className="text-gray-800 leading-relaxed whitespace-pre-wrap break-words">
+                {note.text}
+              </p>
             </div>
           </div>
         </div>
       )}
 
-      {/* Card content */}
-      <div className="space-y-2">
+      {/* ===== Card Content ===== */}
+      <div className="space-y-2 overflow-hidden flex-1">
         <h1
           onClick={() => setShowNote(true)}
-          className="text-lg font-bold line-clamp-1 cursor-pointer"
+          className="text-lg font-bold line-clamp-1 cursor-pointer break-words"
         >
           {note.title}
         </h1>
-        <p className="text-sm text-gray-700 line-clamp-3">{note.text}</p>
+
+        <p className="text-sm text-gray-700 line-clamp-4 break-words">
+          {note.text}
+        </p>
       </div>
 
-      <div className="mt-3 space-y-1 text-xs text-gray-600">
-        <p>{note.timestamp}</p>
-        <p>{timeSince(note.created_at)}</p>
-        <button
-          onClick={() => onDelete(note.id)}
-          className="p-2 text-center w-full flex items-center justify-center bg-white rounded-md mt-3 hover:bg-rose-500 hover:text-white transition"
-        >
-          <i className="fi fi-rr-trash"></i>
-          حذف
-        </button>
+      {/* ===== Card Footer ===== */}
+      <div className="mt-3 text-xs text-gray-600 flex flex-col gap-1">
+        <div className="flex justify-between">
+          <p title="تم اخذ الملاحظة من الفديو في هذا الوقت" className="truncate">{note.timestamp || '0:0'}</p>
+          <p className="truncate">{timeSince(note.created_at)}</p>
+        </div>
+
+        <div className="flex gap-2 mt-2">
+          <button
+            onClick={() => onDelete(note.id)}
+            className="flex-1 p-2 rounded-md bg-white text-center hover:bg-rose-500 hover:text-white transition"
+          >
+            <i className="fi fi-rr-trash"></i> حذف
+          </button>
+
+          <button
+            onClick={() => onEdit(note)}
+            className="flex-1 p-2 rounded-md bg-white text-center hover:bg-amber-500 hover:text-white transition"
+          >
+            <i className="fi fi-rr-pencil"></i> تعديل
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default function NotesTab({ activeLecture, enrollment, setActiveLecture }: Props) {
+export default function NotesTab() {
+  const { currentLecture, enrollment } = useAppSelector((state) => state.enrollment);
+  const dispatch = useAppDispatch();
+
   const [showForm, setShowForm] = useState(false);
-  const [newNote, setNewNote] = useState({
+  const [editingNote, setEditingNote] = useState<LectureNote | null>(null);
+  const [noteData, setNoteData] = useState({
     title: "",
     text: "",
     timestamp: "",
     color: "bg-amber-100",
   });
 
-  if (!activeLecture) return null;
+  if (!currentLecture) return null;
 
-  const handleAddNote = async () => {
+  // Sync form when editing
+  useEffect(() => {
+    if (editingNote) {
+      setNoteData({
+        title: editingNote.title,
+        text: editingNote.text,
+        timestamp: editingNote.timestamp || "",
+        color: editingNote.color,
+      });
+      setShowForm(true);
+    }
+  }, [editingNote]);
+
+  const handleSubmit = async () => {
     if (!enrollment) return;
 
-    const data = {
-      title: newNote.title,
-      text: newNote.text,
-      timestamp: newNote.timestamp,
-      color: newNote.color,
-      enrollment_id: enrollment.id,
-      lecture_id: activeLecture.id,
-    };
-
     try {
-      const res = await api.post(endpoints.user.enrollments.addNote, data);
-
-      // update parent activeLecture notes
-      setActiveLecture({
-        ...activeLecture,
-        notes: [...activeLecture.notes, res.data],
-      });
-
+      if (editingNote) {
+        // Update existing note
+        const res = await api.put(endpoints.user.enrollments.manage(editingNote.id), noteData);
+        dispatch(
+          setCurrentLecture({
+            ...currentLecture,
+            notes: currentLecture.notes.map((n) => (n.id === editingNote.id ? res.data : n)),
+          })
+        );
+      } else {
+        // Add new note
+        const res = await api.post(endpoints.user.enrollments.addNote, {
+          ...noteData,
+          enrollment_id: enrollment.id,
+          lecture_id: currentLecture.id,
+        });
+        dispatch(setCurrentLecture({ ...currentLecture, notes: [...(currentLecture.notes || []), res.data] }));
+      }
       setShowForm(false);
-      setNewNote({ title: "", text: "", timestamp: "", color: "bg-amber-100" });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const deleteNote = async (noteId: number) => {
-    try {
-      await api.delete(endpoints.user.enrollments.deleteNote(noteId));
-      setActiveLecture({
-        ...activeLecture,
-        notes: activeLecture.notes.filter((n) => n.id !== noteId),
-      });
+      setEditingNote(null);
+      setNoteData({ title: "", text: "", timestamp: "", color: "bg-amber-100" });
     } catch (err) {
       console.error(err);
     }
   };
 
+  const deleteNote = async (noteId: number) => {
+    try {
+      await api.delete(endpoints.user.enrollments.manage(noteId));
+      dispatch(
+        setCurrentLecture({
+          ...currentLecture,
+          notes: (currentLecture.notes || []).filter((n) => n.id !== noteId),
+        })
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const editNote = (note: LectureNote) => setEditingNote(note);
+
   return (
-    <div key={activeLecture.id}>
+    <div key={currentLecture.notes.length}>
       <h1 className="text-xl font-bold mb-2">الملاحظات</h1>
-      <div className="grid grid-cols-5 gap-3 ">
-        {activeLecture.notes.map((note) => (
-          <div key={note.id}>
-            <ContextMenu>
-            <ContextMenuTrigger>
-              <NoteCard onDelete={deleteNote} key={note.id} note={note} />
-            </ContextMenuTrigger>
-            <ContextMenuContent>
-              <ContextMenuItem >
-                <i className="fi fi-rr-eye mr-2" />
-                View
-              </ContextMenuItem>
-              <ContextMenuItem >
-                <i className="fi fi-rr-pencil mr-2" />
-                Edit
-              </ContextMenuItem>
-              <ContextMenuItem >
-                <i className="fi fi-rr-download mr-2" />
-                Download
-              </ContextMenuItem>
-              <ContextMenuItem
-                className="text-red-600 focus:text-red-600"
-              >
-                <i className="fi fi-rr-trash mr-2" />
-                Delete
-              </ContextMenuItem>
-            </ContextMenuContent>
-          </ContextMenu>
-          </div>
+      <div className="grid grid-cols-5 gap-3">
+        {currentLecture.notes.map((note) => (
+          <NoteCard key={note.id} note={note} onDelete={deleteNote} onEdit={editNote} />
         ))}
 
         <button
           onClick={() => setShowForm(true)}
-          className="aspect-square  flex flex-col gap-2 items-center justify-center dashboard-box p-3 rounded-2xl dark:hover:bg-emerald-800 hover:bg-gray-50 transition"
+          className="aspect-square flex flex-col gap-2 items-center justify-center dashboard-box p-3 rounded-2xl dark:hover:bg-emerald-800 hover:bg-gray-50 transition"
         >
           <i className="fi fi-rr-plus text-2xl"></i>
           <span className="text-sm dark:bg-emerald-900 bg-white p-2 rounded-md">اضافة ملاحظة جديدة</span>
@@ -178,41 +184,40 @@ export default function NotesTab({ activeLecture, enrollment, setActiveLecture }
 
       {showForm && (
         <div className="fixed inset-0 z-[200] bg-black/40 flex items-center justify-center">
-          <div className=" dark:bg-emerald-800 bg-white w-full max-w-lg p-6 rounded-2xl shadow-xl space-y-4">
-            <h2 className="text-xl font-bold">إضافة ملاحظة جديدة</h2>
+          <div className="dark:bg-emerald-800 bg-white w-full max-w-lg p-6 rounded-2xl shadow-xl space-y-4">
+            <h2 className="text-xl font-bold">{editingNote ? "تعديل الملاحظة" : "إضافة ملاحظة جديدة"}</h2>
 
             <input
               type="text"
               placeholder="العنوان"
-              value={newNote.title}
-              onChange={(e) => setNewNote((prev) => ({ ...prev, title: e.target.value }))}
+              value={noteData.title}
+              onChange={(e) => setNoteData((prev) => ({ ...prev, title: e.target.value }))}
               className="w-full border p-2 rounded"
             />
             <textarea
               placeholder="النص"
-              value={newNote.text}
-              onChange={(e) => setNewNote((prev) => ({ ...prev, text: e.target.value }))}
+              value={noteData.text}
+              onChange={(e) => setNoteData((prev) => ({ ...prev, text: e.target.value }))}
               className="w-full border p-2 rounded"
             />
             <input
               type="text"
-              placeholder="التوقيت (مثال: من 0:30 إلى 1:20)"
-              value={newNote.timestamp}
-              onChange={(e) => setNewNote((prev) => ({ ...prev, timestamp: e.target.value }))}
+              placeholder="التوقيت"
+              value={noteData.timestamp}
+              onChange={(e) => setNoteData((prev) => ({ ...prev, timestamp: e.target.value }))}
               className="w-full border p-2 rounded"
             />
 
             <div className="flex gap-2">
-              {["bg-amber-100", "bg-sky-100", "bg-emerald-100", "bg-pink-100"].map(
-                (color) => (
-                  <button
-                    key={color}
-                    onClick={() => setNewNote((prev) => ({ ...prev, color }))}
-                    className={`w-8 h-8 rounded-full border-2 ${newNote.color === color ? "border-black" : "border-white"
-                      } ${color}`}
-                  ></button>
-                )
-              )}
+              {["bg-amber-100", "bg-sky-100", "bg-emerald-100", "bg-pink-100"].map((color) => (
+                <button
+                  key={color}
+                  onClick={() => setNoteData((prev) => ({ ...prev, color }))}
+                  className={`w-8 h-8 rounded-full border-2 ${
+                    noteData.color === color ? "border-black" : "border-white"
+                  } ${color}`}
+                ></button>
+              ))}
             </div>
 
             <div className="flex justify-end gap-2">
@@ -220,10 +225,10 @@ export default function NotesTab({ activeLecture, enrollment, setActiveLecture }
                 إلغاء
               </button>
               <button
-                onClick={handleAddNote}
+                onClick={handleSubmit}
                 className="px-4 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition"
               >
-                إضافة
+                {editingNote ? "تحديث" : "إضافة"}
               </button>
             </div>
           </div>
