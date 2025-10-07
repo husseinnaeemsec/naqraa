@@ -25,6 +25,7 @@ import CommunityPage from './pages/student/Communities/CommunityPage.tsx';
 import NotificationsPage from './pages/student/NotificationsPage.tsx';
 import TimeTablePage from './pages/student/TimeTablePage.tsx';
 import TodoPage from './pages/student/TodoPage.tsx';
+import LandingPage from './pages/public/Index.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -56,7 +57,9 @@ createRoot(document.getElementById('root')!).render(
               {/* Authentication and user related pages */}
               <Route path='login' element={<LoginPage />} />
               {/* Course pages */}
-              <Route path='courses' element={<CoursesPage />} />
+              <Route path='/' element={<LandingPage />} >
+                  <Route path='courses' element={<CoursesPage />} />
+              </Route>
             </Route>
           </Routes>
         </BrowserRouter>

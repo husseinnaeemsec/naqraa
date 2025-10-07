@@ -53,6 +53,10 @@
     --sidebar-ring:oklch(0.704 0.04 256.788);
 }
 
+.herosection {
+    height: calc(100dvh - 72px);
+}
+
 input,textarea,select{
     @apply focus:outline-2 outline-emerald-600;
 }
