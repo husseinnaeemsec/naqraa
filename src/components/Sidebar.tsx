@@ -13,7 +13,6 @@ interface SidebarLinkProps {
   children: ReactNode;
   link: string;
 }
-
 const SidebarLink = ({ link, children }: SidebarLinkProps) => {
   const [isActive, setIsActive] = useState(false);
   const location = useLocation();
@@ -29,7 +28,7 @@ const SidebarLink = ({ link, children }: SidebarLinkProps) => {
   return (
     <Link
       to={link}
-      className={`sidebar-link ${isActive ? "active-sidebar-link" : ""}`}
+      className={`sidebar-link relative z-0 ${isActive ? "active-sidebar-link" : ""}`}
     >
       {children}
     </Link>
@@ -51,10 +50,10 @@ export default function Sidebar() {
     { link: "/dashboard/courses/", icon: "fi fi-rr-play-alt", label: t("sidebar.courses") },
     { link: "/dashboard/timetable/", icon: "fi fi-rr-calendar", label: t("sidebar.timetable") },
     { link: "/dashboard/todo/", icon: "fi fi-rr-memo-circle-check", label: t("sidebar.todo") },
-    { link: "/dashboard/notifications/", icon: "fi fi-rr-bell", label: t("sidebar.notifications") },
+    { link: "/dashboard/notifications/",messages:3, icon: "fi fi-rr-bell", label: t("sidebar.notifications") },
     { link: "/dashboard/org/", icon: "fi fi-rr-building", label: t("sidebar.organization") },
     { link: "/dashboard/exams/", icon: "fi fi-rr-quiz-alt", label: t("sidebar.quizzes") },
-    { link: "/dashboard/chat/", icon: "fi fi-rr-messages", label: t("sidebar.chat") },
+    { link: "/dashboard/chat/",messages:1, icon: "fi fi-rr-messages", label: t("sidebar.chat") },
     { link: "/dashboard/communties/", icon: "fi fi-rr-users-class", label: t("sidebar.community") },
     { link: "/dashboard/files/", icon: "fi fi-rr-folder", label:t("sidebar.files") },
     { link: "/dashboard/settings/", icon: "fi fi-rr-user-gear", label: t("sidebar.settings") },
@@ -91,11 +90,18 @@ export default function Sidebar() {
     <aside className="sidebar">
       <nav className="w-full h-full flex flex-col justify-between">
         <ul className="flex flex-col  items-center justify-center gap-y-3 py-5">
-          {links.map(({ link, icon, label }) => (
+          <Link to={'/'} className="w-full mb-4 mt-2 flex gap-2 items-center  px-2">
+            <img src={'/favicon.svg'} alt="" className="w-10  " />
+            <div>
+              <p className="text-slate-600"> التعليم حق مجاني لكل انسان </p>
+            </div>
+          </Link>
+          {links.map(({ link, icon, label ,messages }) => (
             <li key={link} className="w-full">
               <SidebarLink link={link} >
                 <i className={`${icon} text-xl`} />
                 <span>{label}</span>
+                { messages && ( <span className="rounded-full absolute right-0 -top-1 text-xs  bg-rose-500 text-white flex items-center justify-center size-4"> {messages} </span> ) }
               </SidebarLink>
             </li>
           ))}
