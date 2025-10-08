@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../store/store";
-import { getMedia } from "../utils/functions";
 
 export default function LastWatchedCourseWidget() {
   const { user } = useAppSelector((state) => state.auth);
@@ -8,6 +7,7 @@ export default function LastWatchedCourseWidget() {
   const enrollment = user?.progress?.last_watched_enrollment;
 
   if (!enrollment) return null; // don't render if no last watched course
+
 
 
   return (
