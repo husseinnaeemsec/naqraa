@@ -9,6 +9,8 @@ export interface CurrentLecture extends Lecture {
     video:string;
 }   
 
+
+
 export interface EnrollmentState {
     enrollment:Enrollment|null;
     completed_lectures:number[];
@@ -29,6 +31,13 @@ export interface EnrollmentState {
 }
 
 
+export interface PushNotification{
+    title:string;
+    content:string;
+    group:"public"|string;
+    link:string|null
+    id?:string
+}
 
 export interface Profile {
     theme: string;

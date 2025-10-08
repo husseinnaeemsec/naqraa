@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../store/store";
+import { Computer, ComputerIcon } from "lucide-react";
 
 export default function TopNavigation() {
+
+  const { isAuthenticated } = useAppSelector(state => state.auth);
+
+
+
   return (
     <nav className="flex items-center justify-between  h-18  px-6 md:px-12   bg-slate-50/50 backdrop-blur-xs sticky top-0 z-50">
       {/* Logo */}
@@ -19,21 +26,36 @@ export default function TopNavigation() {
       </div>
 
       {/* Auth buttons */}
-      <div className="flex items-center gap-2">
-        <Link
-          to="/register"
-          className="p-2 px-4 rounded text-sm bg-emerald-500 hover:bg-emerald-600 text-white transition"
-        >
-          إنشاء حساب
-        </Link>
+      {!isAuthenticated ? (
+        <div className="flex items-center gap-2">
+          <Link
+            to="/register"
+            className="p-2 px-4 rounded text-sm bg-emerald-500 hover:bg-emerald-600 text-white transition"
+          >
+            إنشاء حساب
+          </Link>
 
-        <Link
-          to="/login"
-          className="p-2 px-4 rounded text-sm border border-slate-400 hover:border-emerald-500 hover:text-emerald-600 transition"
-        >
-          دخول
-        </Link>
-      </div>
+          <Link
+            to="/login"
+            className="p-2 px-4 rounded text-sm border border-slate-400 hover:border-emerald-500 hover:text-emerald-600 transition"
+          >
+            دخول
+          </Link>
+        </div>
+
+      ) :
+        (
+          <div className="flex items-center gap-2">
+            <Link
+              to="/dashboard/"
+              className="p-2 px-4 flex items-center gap-2 rounded text-sm border border-slate-400 hover:border-emerald-500 hover:text-emerald-600 transition"
+            >
+              <ComputerIcon className="size-4" />
+              لوحة التحكم
+            </Link>
+          </div>
+        )
+      }
     </nav>
   );
 }
