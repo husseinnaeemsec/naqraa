@@ -30,41 +30,41 @@ import LandingPage, { Home } from './pages/public/Index.tsx';
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store} >
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<App />} >
-              <Route path='dashboard' element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} >
-                <Route index element={<IndexPage />} />
-                <Route path='courses' element={<StudentCoursesPage />} />
-                <Route path='exams' element={<ExamsPage />} />
-                <Route path='files' element={<FilesPage />} />
-                <Route path='org' element={<OrgPage />} />
-                <Route path='timetable' element={<TimeTablePage />}  />
-                <Route path='todo' element={<TodoPage />} />
-                <Route path='settings' element={<SettingsPage />} />
-                <Route path='chat' element={<ChatPage />} />
-                <Route path='notifications' >
-                  <Route index element={<NotificationsPage />} />
-                </Route>
-                <Route path='communties'>
-                  <Route index element={<CommunitiesPage />} />
-                  <Route path=':communityId' element={<CommunityPage />} />
+        <AuthProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<App />} >
+                <Route path='dashboard' element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} >
+                  <Route index element={<IndexPage />} />
+                  <Route path='courses' element={<StudentCoursesPage />} />
+                  <Route path='exams' element={<ExamsPage />} />
+                  <Route path='files' element={<FilesPage />} />
+                  <Route path='org' element={<OrgPage />} />
+                  <Route path='timetable' element={<TimeTablePage />} />
+                  <Route path='todo' element={<TodoPage />} />
+                  <Route path='settings' element={<SettingsPage />} />
+                  <Route path='chat' element={<ChatPage />} />
+                  <Route path='notifications' >
+                    <Route index element={<NotificationsPage />} />
                   </Route>
-                <Route path='classroom/:enrollment_id' element={<ClassroomPage />} />
-                <Route path='board' element={<BoardPage />} />
-              </Route>
-              {/* Authentication and user related pages */}
-              <Route path='login' element={<LoginPage />} />
-              {/* Course pages */}
-              <Route path='/' element={<LandingPage />} >
+                  <Route path='communties'>
+                    <Route index element={<CommunitiesPage />} />
+                    <Route path=':communityId' element={<CommunityPage />} />
+                  </Route>
+                  <Route path='classroom/:enrollment_id' element={<ClassroomPage />} />
+                  <Route path='board' element={<BoardPage />} />
+                </Route>
+                {/* Authentication and user related pages */}
+                <Route path='login' element={<LoginPage />} />
+                {/* Course pages */}
+                <Route path='/' element={<LandingPage />} >
                   <Route index element={<Home />} />
                   <Route path='courses' element={<CoursesPage />} />
+                </Route>
               </Route>
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+            </Routes>
+          </BrowserRouter>
+        </AuthProvider>
     </Provider>
   </StrictMode>,
 )

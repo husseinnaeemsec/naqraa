@@ -1,7 +1,9 @@
 import { Outlet } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
-
 const Dashboard = () => {
+
+
+
   return (
     <div className="overflow-hidden grid lg:grid-cols-[280px_1fr]">
       {/* Sidebar */}
