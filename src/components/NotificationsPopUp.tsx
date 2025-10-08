@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import notificationsImage from "../assets/notifications.svg";
 
 export default function NotificationsPopUp() {
-  const [hasPermission, setHasPermission] = useState(false);
+  const [_hasPermission, setHasPermission] = useState(false);
   const [loading, setLoading] = useState(true);
   const [show, setShow] = useState(false);
 
@@ -12,7 +12,6 @@ export default function NotificationsPopUp() {
         setHasPermission(true);
         setLoading(false);
         setShow(false);
-        playTestSound();
       } else {
         // Ask for permission if default or denied
         setLoading(false);
@@ -35,7 +34,6 @@ export default function NotificationsPopUp() {
             body: "سوف تصلك اخر التحديثات والتنبيهات مباشرة.",
             icon: "/favicon.svg",
           });
-          playTestSound();
           setShow(false);
         } else {
           alert("⚠️ يجب تفعيل الاشعارات للاستمرار");
@@ -46,10 +44,7 @@ export default function NotificationsPopUp() {
     }
   };
 
-  const playTestSound = () => {
-    const audio = new Audio("/sounds/notification.mp3"); // replace with your sound
-    audio.play().catch((err) => console.warn("Audio playback failed:", err));
-  };
+
 
   if (loading || !show) return null;
 

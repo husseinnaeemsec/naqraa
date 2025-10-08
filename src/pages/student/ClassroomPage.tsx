@@ -79,7 +79,7 @@ export default function ClassroomPage() {
   return (
     <div className="space-y-8 dark:bg-emerald-950 bg-white">
       <div className="bg-white dark:bg-transparent rounded-lg space-y-5">
-        <div className="grid border px-8 lg:grid-cols-[1fr_30%]  h-full overflow-y-hidden">
+        <div className="grid border px-8 lg:grid-cols-[1fr_30%]  h-full overflow-y">
           <CourseContent />
           <EnrollmentNavigation />
         </div>

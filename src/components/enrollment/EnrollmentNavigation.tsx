@@ -134,12 +134,12 @@ export default function EnrollmentNavigation() {
       {/* Desktop Sidebar */}
       <div
         ref={scrollerRef}
-        className="h-full hidden lg:block overflow-y-auto   sticky top-0 z-0 bg-white dark:bg-emerald-900"
+        className="h-full hidden lg:block overflow-y-autobg-white dark:bg-emerald-900"
       >
-        <h3 className="text-2xl p-6 sticky top-0 z-10  bg-white  font-semibold text-emerald-800  ">
+        <h3 className="text-2xl p-6   bg-white  font-semibold text-emerald-800  ">
           محتوى الدورة
         </h3>
-        <div className="space-y-3 p-4 px-6 pt-0 ">
+        <div className="space-y-3 overflow-y-auto p-4 px-6 pt-0 ">
           {sections.map((s) => (
             <div key={s.id}>
               <h1 className="text-lg font-semibold mb-2">

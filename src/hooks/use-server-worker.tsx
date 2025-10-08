@@ -35,11 +35,9 @@ export default function useServerWorker() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // include Authorization header if using token-based auth
-          // "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(subscription),
-        credentials: "include", // if using session auth
+        credentials: "include", // For Cookie-base authentication
       });
 
       console.log("Subscribed");
