@@ -5,7 +5,7 @@ const Dashboard = () => {
 
 
   return (
-    <div className="overflow-hidden grid lg:grid-cols-[280px_1fr]">
+    <div className="overflow-hidden  grid lg:grid-cols-[280px_1fr]">
       {/* Sidebar */}
       <Sidebar />
       {/* Main Content */}

@@ -38,5 +38,15 @@ export const endpoints = {
         collections:{
             list:'/productivity/tasks/collections/'
         }
+    },
+    chat:{
+        list:'chats/',
+        get:(chatId:number)=> `chats/${chatId}/`,
+        getMessages:(chatId:number) => `chats/${chatId}/messages/`,
     }
+}
+
+
+export const ws_endpoints = {
+    chat:(chatId:number)=> `ws://localhost:8000/ws/chat/${chatId}/` 
 }

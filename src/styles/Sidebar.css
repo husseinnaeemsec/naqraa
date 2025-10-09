@@ -1,7 +1,25 @@
-.sidebar{
-    @apply bg-white border h-dynamic z-40 overflow-y-auto lg:sticky top-0 fixed w-full lg:right-0 -right-[-100%] transition-all ;
-    /* Mobile */
+.sidebar {
+    z-index: 100;
+    @apply  text-center z-0  h-dynamic border-none hidden lg:block  bg-white dark:bg-emerald-950  overflow-y-auto;
 }
-.sidebar.show{
+
+.sidebar ul{
+    @apply p-3;
+}
+
+.sidebar .sidebar-link{
+    @apply rounded-md p-2 flex  items-center  gap-2 w-full;
+}
+
+.sidebar .sidebar-link:not(.active-sidebar-link):hover{
+    @apply opacity-100 bg-emerald-100 dark:bg-emerald-900;
+}
+
+.sidebar .active-sidebar-link{
+    color: var(--color-emerald-700);
+    opacity: 1 !important;
+    background-color: var(--color-emerald-100);
+    @apply font-bold;
+}.sidebar.show{
     @apply right-0 transition-all;
 }

@@ -26,6 +26,7 @@ import NotificationsPage from './pages/student/NotificationsPage.tsx';
 import TimeTablePage from './pages/student/TimeTablePage.tsx';
 import TodoPage from './pages/student/TodoPage.tsx';
 import LandingPage, { Home } from './pages/public/Index.tsx';
+import Chat from './components/Chat.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -43,7 +44,9 @@ createRoot(document.getElementById('root')!).render(
                   <Route path='timetable' element={<TimeTablePage />} />
                   <Route path='todo' element={<TodoPage />} />
                   <Route path='settings' element={<SettingsPage />} />
-                  <Route path='chat' element={<ChatPage />} />
+                  <Route path='chat' element={<ChatPage />} >
+                    <Route path=':chatId' element={<Chat />} />
+                  </Route>
                   <Route path='notifications' >
                     <Route index element={<NotificationsPage />} />
                   </Route>

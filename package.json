@@ -44,6 +44,7 @@
     "react-oauth": "^0.0.1",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.8.1",
+    "react-virtuoso": "^4.14.1",
     "recharts": "^2.15.4",
     "sweetalert2": "^11.22.5",
     "sweetalert2-react-content": "^5.1.0",

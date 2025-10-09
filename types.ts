@@ -30,6 +30,29 @@ export interface EnrollmentState {
     
 }
 
+export interface ChatProps{
+    id:number;
+    chat_name:string;
+    user_avatar:string|null;
+    created_at:string;
+    updated_at:string;
+    last_msg:{
+        text:string
+    }|null
+}
+
+export interface ChatMessageProps {
+    id:number;
+    text:string;
+    created_at:string;
+    me:boolean;
+    sender:{
+        first_name:string;
+        last_name:string;
+        username:string;
+        profile_picture:string|null;
+    }
+}
 
 export interface PushNotification{
     title:string;

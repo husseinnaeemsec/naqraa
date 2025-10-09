@@ -195,30 +195,7 @@ body[dir=rtl] {
 .student-navbar{
     @apply bg-white dark:bg-emerald-950 h-20 p-2 px-10 border-b border-r dark:border-emerald-800  border-emerald-200 flex items-center justify-between;
 }
-.sidebar {
-    z-index: 100;
-    height: calc(100dvh - 80px);
-    @apply  text-center z-0  border-none hidden lg:block  bg-white dark:bg-emerald-950  overflow-y-auto;
-}
 
-.sidebar ul{
-    @apply p-3;
-}
-
-.sidebar .sidebar-link{
-    @apply rounded-md p-2 flex  items-center  gap-2 w-full;
-}
-
-.sidebar .sidebar-link:not(.active-sidebar-link):hover{
-    @apply opacity-100 bg-emerald-100 dark:bg-emerald-900;
-}
-
-.sidebar .active-sidebar-link{
-    color: var(--color-emerald-700);
-    opacity: 1 !important;
-    background-color: var(--color-emerald-100);
-    @apply font-bold;
-}
 
 @theme inline {
     --radius-sm:calc(var(--radius) - 4px);
@@ -343,4 +320,8 @@ body[dir=rtl] {
 
 .todo-checkbox:checked {
   @apply  outline-[4px] border-transparent outline-emerald-500 bg-emerald-300;
+}
+
+.centred{
+    @apply flex items-center justify-center;
 }
