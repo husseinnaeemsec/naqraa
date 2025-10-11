@@ -1,26 +1,24 @@
 import { useEffect, useState } from "react";
 import type { ChatProps } from "../../../types"
 import {  timeSince } from "../../utils/functions"
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 
 
 export default function ChatCard({ chat }: { chat: ChatProps }) {
     const [hash, setHash] = useState(window.location.hash);
+    const [isActive,setIsActive] = useState(false);
+    const location = useLocation()
 
     useEffect(() => {
-        const onHashChange = () => {
-            setHash(window.location.hash);
-        };
-
-        window.addEventListener("hashchange", onHashChange);
-        // Cleanup when component unmounts
-        return () => window.removeEventListener("hashchange", onHashChange);
+        if(location.pathname.endsWith("/")){
+            if(location.pathname === `/dashboard/chat/${chat.id}/`) setIsActive(true)
+        }else if(location.pathname === `/dashboard/chat/${chat.id}`) setIsActive(true)
     }, []);
 
 
     return (
-        <Link to={`/dashboard/chat/${chat.id}/`} className={` ${hash === `#chat_${chat.id}` ? 'bg-slate-100' : 'hover:bg-slate-100' }  flex gap-2 w-full p-2  rounded-md`}>
+        <Link to={`/dashboard/chat/${chat.id}/`} className={` ${isActive ? 'bg-slate-100' :'' }  }  flex gap-2 w-full p-2  rounded-md`}>
             <img src={chat.user_avatar || ""} alt={chat.chat_name} className="size-12 rounded-full bg-emerald-100" />
             {/*  */}
             <div className="flex flex-col  flex-1">

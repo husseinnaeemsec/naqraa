@@ -102,9 +102,7 @@ export default function Chat() {
   return (
     <div className="w-full h-full overflow-y-auto flex flex-col">
       <ChatHeader
-        name={chat.chat_name || ""}
-        avatar={chat.user_avatar}
-        online={isConnected}
+      chat={chat}
       />
       <ChatMessages socket={socketRef.current} chat={chat} />
       <SendMessagesComponent socket={socketRef.current} />

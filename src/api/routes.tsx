@@ -29,7 +29,8 @@ export const endpoints = {
     },
     notifications:{
         list:'/notifications/',
-        update:(notification_id:number) => `/notifications/update/${notification_id}/`
+        update:(notification_id:number) => `/notifications/update/${notification_id}/`,
+        
     },
     productivity:{
         tasks:{

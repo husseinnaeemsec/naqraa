@@ -6,6 +6,7 @@ interface ChatState {
   isConnected: boolean;
   messages: ChatMessageProps[];
   newMessages:ChatMessageProps[],
+  active_users:number[],
 }
 
 const initialState: ChatState = {
@@ -13,6 +14,7 @@ const initialState: ChatState = {
   isConnected: false,
   messages: [],
   newMessages:[],
+  active_users:[],
 };
 
 const chatSlice = createSlice({
@@ -55,7 +57,7 @@ const chatSlice = createSlice({
 
       state.socket = socket;
     },
-
+    setActiveUsers:(state,action)=> {state.active_users = action.payload} ,
     disconnectSocket: (state) => {
       if (state.socket) {
         state.socket.close();
@@ -76,5 +78,5 @@ const chatSlice = createSlice({
   },
 });
 
-export const { connectSocket, disconnectSocket, sendMessage, addMessage } = chatSlice.actions;
+export const { connectSocket,setActiveUsers, disconnectSocket, sendMessage, addMessage } = chatSlice.actions;
 export default chatSlice.reducer;

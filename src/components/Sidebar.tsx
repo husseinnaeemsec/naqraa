@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useAppDispatch } from "../store/store";
+import { useAppDispatch, useAppSelector } from "../store/store";
 import { logoutUser } from "../store/authSlice";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -38,6 +38,7 @@ const SidebarLink = ({ link, children }: SidebarLinkProps) => {
 export default function Sidebar() {
   const location = useLocation();
   const currentPath = location.pathname;
+  const {notifications,user} = useAppSelector(state=>state.auth)
   const dispatch = useAppDispatch();
   const {t} = useTranslation();
 
@@ -50,10 +51,10 @@ export default function Sidebar() {
     { link: "/dashboard/courses/", icon: "fi fi-rr-play-alt", label: t("sidebar.courses") },
     { link: "/dashboard/timetable/", icon: "fi fi-rr-calendar", label: t("sidebar.timetable") },
     { link: "/dashboard/todo/", icon: "fi fi-rr-memo-circle-check", label: t("sidebar.todo") },
-    { link: "/dashboard/notifications/",messages:3, icon: "fi fi-rr-bell", label: t("sidebar.notifications") },
+    { link: "/dashboard/notifications/",messages:notifications.filter(n=> n.read === false ).length, icon: "fi fi-rr-bell", label: t("sidebar.notifications") },
     { link: "/dashboard/org/", icon: "fi fi-rr-building", label: t("sidebar.organization") },
     { link: "/dashboard/exams/", icon: "fi fi-rr-quiz-alt", label: t("sidebar.quizzes") },
-    { link: "/dashboard/chat/",messages:1, icon: "fi fi-rr-messages", label: t("sidebar.chat") },
+    { link: "/dashboard/chat/",messages:0, icon: "fi fi-rr-messages", label: t("sidebar.chat") },
     { link: "/dashboard/communties/", icon: "fi fi-rr-users-class", label: t("sidebar.community") },
     { link: "/dashboard/files/", icon: "fi fi-rr-folder", label:t("sidebar.files") },
     { link: "/dashboard/settings/", icon: "fi fi-rr-user-gear", label: t("sidebar.settings") },
@@ -101,7 +102,7 @@ export default function Sidebar() {
               <SidebarLink link={link} >
                 <i className={`${icon} text-xl`} />
                 <span>{label}</span>
-                { messages && ( <span className="rounded-full absolute right-0 -top-1 text-xs  bg-rose-500 text-white flex items-center justify-center size-4"> {messages} </span> ) }
+                { messages !== null && messages > 0 && ( <span className="rounded-full absolute right-0 -top-1 text-[10px]  bg-rose-500 text-white flex items-center justify-center size-5"> { messages >=100 ? "+99" : messages } </span> ) }
               </SidebarLink>
             </li>
           ))}

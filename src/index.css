@@ -57,6 +57,8 @@
     height: calc(100dvh - 72px);
 }
 
+
+
 input,textarea,select{
     @apply focus:outline-2 outline-emerald-600;
 }
@@ -322,6 +324,6 @@ body[dir=rtl] {
   @apply  outline-[4px] border-transparent outline-emerald-500 bg-emerald-300;
 }
 
-.centred{
+@utility centred{
     @apply flex items-center justify-center;
 }

@@ -32,6 +32,7 @@ export interface EnrollmentState {
 
 export interface ChatProps{
     id:number;
+    user_id:number;
     chat_name:string;
     user_avatar:string|null;
     created_at:string;
@@ -44,6 +45,8 @@ export interface ChatProps{
 export interface ChatMessageProps {
     id:number;
     text:string;
+    type:'chat_message'|'initial_data'|'active_users_update';
+    active_users?:number[];
     created_at:string;
     me:boolean;
     sender:{
@@ -52,6 +55,11 @@ export interface ChatMessageProps {
         username:string;
         profile_picture:string|null;
     }
+}
+
+export interface InitialWSData {
+    type:'initial_data'|'chat_message';
+    active_users:number[];
 }
 
 export interface PushNotification{

@@ -12,7 +12,7 @@ export default function EnrollmentNavigation() {
   const menuRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const { activeLecture, sections,completed_lectures } = useAppSelector(
+  const { activeLecture, sections, completed_lectures } = useAppSelector(
     (state) => state.enrollment
   );
   const dispatch = useAppDispatch();
@@ -25,7 +25,7 @@ export default function EnrollmentNavigation() {
 
     gsap.to(scrollerRef.current, {
       duration: 0.5,
-      scrollTo: { y: target, offsetY: 130 },
+      scrollTo: { y: target,offsetY:120},
     });
   }, [activeLecture?.id]);
 
@@ -105,11 +105,10 @@ export default function EnrollmentNavigation() {
                       setMenuOpen(false);
                     }}
                     id={`lecture-${l.id}`}
-                    className={`p-2 transition-colors border border-emerald-300 rounded flex items-center gap-2 ${
-                      isActiveLecture(l.id)
+                    className={`p-2 transition-colors border border-emerald-300 rounded flex items-center gap-2 ${isActiveLecture(l.id)
                         ? "bg-emerald-600 text-white"
                         : "bg-transparent text-emerald-600 dark:text-emerald-300"
-                    }`}
+                      }`}
                   >
                     {isLectureCompleted(l.id) ? (
                       <HeroCheckedIcon className="size-6" />
@@ -132,16 +131,12 @@ export default function EnrollmentNavigation() {
       </div>
 
       {/* Desktop Sidebar */}
-      <div
-        ref={scrollerRef}
-        className="h-full hidden lg:block overflow-y-autobg-white dark:bg-emerald-900"
-      >
-        <h3 className="text-2xl p-6   bg-white  font-semibold text-emerald-800  ">
-          محتوى الدورة
-        </h3>
-        <div className="space-y-3 overflow-y-auto p-4 px-6 pt-0 ">
+        <div ref={scrollerRef} className="space-y-3 h-dynamic overflow-y-auto hidden lg:block p-4 px-6  ">
+          <h3 className="text-2xl py-y   bg-white  font-semibold text-emerald-800  ">
+            محتوى الدورة
+          </h3>
           {sections.map((s) => (
-            <div key={s.id}>
+            <div key={s.id} >
               <h1 className="text-lg font-semibold mb-2">
                 {s.order} - {s.title}
               </h1>
@@ -151,16 +146,15 @@ export default function EnrollmentNavigation() {
                     key={l.id}
                     onClick={() => dispatch(setActiveLecture(l))}
                     id={`lecture-${l.id}`}
-                    className={`p-2 transition-colors border border-slate-300 rounded flex items-center gap-2 ${
-                      isActiveLecture(l.id)
+                    className={`p-2 transition-colors border border-slate-300 rounded flex items-center gap-2 ${isActiveLecture(l.id)
                         ? "bg-emerald-600 text-white"
                         : "bg-transparent text-slate-500 dark:text-emerald-300"
-                    }`}
+                      }`}
                   >
                     {isLectureCompleted(l.id) ? (
-                      <HeroCheckedIcon className={` size-6 ${isActiveLecture(l.id) ? 'text-white' : 'text-emerald-600' } `} />
+                      <HeroCheckedIcon className={` size-6 ${isActiveLecture(l.id) ? 'text-white' : 'text-emerald-600'} `} />
                     ) : (
-                      <HeroPlayIcon fill className={`size-6 ${isActiveLecture(l.id) ? 'text-white' : 'text-slate-400' }`} />
+                      <HeroPlayIcon fill className={`size-6 ${isActiveLecture(l.id) ? 'text-white' : 'text-slate-400'}`} />
                     )}
                     <div className="space-y-1 text-right">
                       <p>{l.title} - {l.id}</p>
@@ -175,7 +169,6 @@ export default function EnrollmentNavigation() {
             </div>
           ))}
         </div>
-      </div>
     </>
   );
 }

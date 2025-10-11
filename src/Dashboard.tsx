@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
+import DashboardTopNavbar from './components/DashboardTopNavbar';
 const Dashboard = () => {
 
 
@@ -10,6 +11,7 @@ const Dashboard = () => {
       <Sidebar />
       {/* Main Content */}
       <main className="h-dynamic overflow-hidden ">
+        <DashboardTopNavbar />
         {/* Main content */}
         <Outlet />
       </main>

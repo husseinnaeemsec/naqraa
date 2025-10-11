@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import type { ChatProps, ChatMessageProps } from "../../types";
+import type { ChatProps, ChatMessageProps, InitialWSData } from "../../types";
 import ChatMessage from "./ChatMessage";
 import ResourceLoader from "./resourceLoader";
 import api from "../api/client";
 import { endpoints } from "../api/routes";
 import Spinner from "./Spinner";
 import { Virtuoso } from "react-virtuoso";
+import { useAppDispatch } from "../store/store";
+import { setActiveUsers } from "../store/chatSlice";
+import { updateURLParams } from "../utils/urls";
 
 
 export default function ChatMessages({
@@ -20,6 +23,7 @@ export default function ChatMessages({
   const [loading, setLoading] = useState(true);
   const [loadingOlder, setLoadingOlder] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const dispatch = useAppDispatch()
 
   const virtuosoRef = useRef<any>(null);
 
@@ -34,7 +38,7 @@ export default function ChatMessages({
         const res = await api.get(endpoints.chat.getMessages(chat.id));
         // Keep chronological order: oldest first
         setMessages(res.data.results);
-        setNextPage(res.data.next || null);
+        setNextPage(updateURLParams(res.data.next,{ page_size:10 }) || null);
 
         // Scroll to bottom after initial load
         setTimeout(() => {
@@ -63,6 +67,11 @@ export default function ChatMessages({
     const handleMessage = (e: MessageEvent) => {
       const data: ChatMessageProps = JSON.parse(e.data);
       if (!data) return;
+      console.log(data)
+      if(data.type === 'initial_data' || data.type === 'active_users_update') {
+        dispatch(setActiveUsers(data.active_users || []))
+        return;
+      }
 
       setMessages((prev) => {
         const updated = [...prev, data]; // append newest
@@ -96,7 +105,7 @@ export default function ChatMessages({
       const res = await api.get(nextPage);
       // prepend older messages
       setMessages((prev) => [...res.data.results, ...prev]);
-      setNextPage(res.data.next || null);
+      setNextPage(updateURLParams(res.data.next,{ page_size:10 }) || null);
 
       // maintain scroll position
       setTimeout(() => {

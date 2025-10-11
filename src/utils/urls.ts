@@ -102,3 +102,26 @@ export function isTrusted(link:string, trustedHosts = ['localhost'], opts:{ allo
 
   return false;
 }
+
+
+/**
+ * Adds or updates query parameters in a given URL.
+ *
+ * @param url - The base URL (e.g. "http://localhost:8000/path/?foo=bar")
+ * @param newParams - An object of new query params (e.g. { page: 2, sort: "desc" })
+ * @returns A new URL string with updated query parameters.
+ */
+export function updateURLParams(url: string, newParams: Record<string, any>): string {
+  const parsedUrl = new URL(url, window.location.origin);
+
+  // Add or update params
+  Object.entries(newParams).forEach(([key, value]) => {
+    if (value === null || value === undefined) {
+      parsedUrl.searchParams.delete(key);
+    } else {
+      parsedUrl.searchParams.set(key, String(value));
+    }
+  });
+
+  return parsedUrl.toString();
+}

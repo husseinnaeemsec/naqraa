@@ -6,10 +6,6 @@ import RecommendedCoursesWidget from "../../components/RecommendedCoursesWidget"
 import TasksWidget from "../../components/TaskWidget";
 import UsefulResourcesWidget from "../../components/UsefulResourcesWidget";
 import UserProfileWidget from "../../components/UserProfileWidget";
-import NotificationsWidget from "../../components/NotificationsWidget";
-import OrganizationNotificationsWidget from "../../components/OrganizationNotificationsWidget";
-import CalendarWidget from "../../components/CalendarWidget";
-import TasksSidebarWidget from "../../components/TasksWidget";
 import { useAppSelector } from "../../store/store";
 import { Link } from "react-router-dom";
 
@@ -65,21 +61,9 @@ const IndexPage = () => {
                 </div>
 
                 {/* ===== SIDEBAR ===== */}
-                <div className="lg:col-span-3  max-h-dynamic space-y-6 sticky top-6 self-start">
+                <div className="lg:col-span-3  max-h-dynamic z-0 space-y-6 sticky top-6 self-start">
                     {/* 1️⃣ User Profile */}
                     <UserProfileWidget />
-
-                    {/* 2️⃣ Tasks */}
-                    <TasksSidebarWidget />
-
-                    {/* 3️⃣ Notifications */}
-                    <NotificationsWidget />
-
-                    {/* 4️⃣ Organization Notifications */}
-                    <OrganizationNotificationsWidget />
-
-                    {/* 5️⃣ Calendar */}
-                    <CalendarWidget />
                 </div>
             </div>
 
