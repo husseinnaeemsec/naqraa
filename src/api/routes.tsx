@@ -1,6 +1,7 @@
 export const endpoints = {
     user:{
         login:'/users/login/',
+        register:"/users/register/",
         logout:'/users/logout/',
         profile:'/users/status/',
         changePassword:'/users/password/change/',
@@ -25,7 +26,8 @@ export const endpoints = {
     organization:{
         exams:'/organizations/exams/',
         upcoming_exams:'/organizations/exams/upcoming/',
-        upcoming_homework:'organizations/homework/upcoming/'
+        upcoming_homework:'/organizations/homework/upcoming/',
+        search:`/organizations/`
     },
     notifications:{
         list:'/notifications/',
@@ -41,9 +43,13 @@ export const endpoints = {
         }
     },
     chat:{
-        list:'chats/',
+        list:'/chats/',
         get:(chatId:number)=> `chats/${chatId}/`,
         getMessages:(chatId:number) => `chats/${chatId}/messages/`,
+    },
+    content:{
+        subjects:`/academics/subjects/`,
+        
     }
 }
 
