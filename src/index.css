@@ -327,3 +327,20 @@ body[dir=rtl] {
 @utility centred{
     @apply flex items-center justify-center;
 }
+
+
+
+/* Enables hardware acceleration for smooth GSAP animations */
+.features-pin-section {
+  will-change: transform, opacity;
+}
+
+/* Fallback for mobile (optional, but recommended) */
+@media (max-width: 767px) {
+  .features-pin-wrapper > div {
+    position: relative !important;
+    height: auto !important;
+    min-height: 80vh; /* Ensures content is readable before scrolling */
+    opacity: 1 !important;
+  }
+}
