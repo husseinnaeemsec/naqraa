@@ -27,6 +27,7 @@ import TimeTablePage from './pages/student/TimeTablePage.tsx';
 import TodoPage from './pages/student/TodoPage.tsx';
 import LandingPage, { Home } from './pages/public/Index.tsx';
 import Chat from './components/Chat.tsx';
+import RegisterPage from './pages/public/Register.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -59,6 +60,7 @@ createRoot(document.getElementById('root')!).render(
                 </Route>
                 {/* Authentication and user related pages */}
                 <Route path='login' element={<LoginPage />} />
+                <Route path='register' element={<RegisterPage />} />
                 {/* Course pages */}
                 <Route path='/' element={<LandingPage />} >
                   <Route index element={<Home />} />
