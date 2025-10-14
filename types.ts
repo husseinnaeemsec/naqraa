@@ -113,7 +113,9 @@ export interface Level {
 }
 
 export interface Subject {
+    id:number;
     name: string;
+    image?:string;
     description: string;
 }
 
