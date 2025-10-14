@@ -6,6 +6,8 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { emeraldColors } from "../colors";
 import { useTranslation } from "react-i18next";
+import api from "../api/client";
+import { endpoints } from "../api/routes";
 
 const Alert = withReactContent(Swal);
 
@@ -78,7 +80,13 @@ export default function Sidebar() {
       cancelButtonColor: "#ef4444", // red-500
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(logoutUser());
+        api.post(endpoints.user.logout)
+        .then((_res)=>{
+          dispatch(logoutUser());
+        })
+        .catch((e)=>{
+          console.log(e)
+        })
         Alert.fire({
           title: "تم تسجيل الخروج",
           icon: "success",
