@@ -1,6 +1,6 @@
 import type { Enrollment, EnrollmentSection, Profile, User } from "../../types"
 import { BASE_API_URL } from "../api/client";
-import i18n from "../i18n"
+import i18n from '../i18n';
 
 // Get user profile from localStorage
 export function getUserProfile(): Profile | null {
@@ -158,7 +158,7 @@ export function timeSince(dateString: string): string {
 export function timeBefore(targetDate:string) {
   const now = new Date();
   const date = new Date(targetDate);
-  const diffMs = date - now; // difference in milliseconds
+  const diffMs = date.getTime() - now.getTime(); // difference in milliseconds
 
   if (diffMs < 0) return formatDate(date); // already passed, show date
 
@@ -182,7 +182,7 @@ export function timeBefore(targetDate:string) {
 }
 
 // Helper: format date in Arabic style
-function formatDate(date) {
+function formatDate(date:Date) {
   return date.toLocaleDateString("ar-IQ", {
     year: "numeric",
     month: "short",
@@ -191,7 +191,7 @@ function formatDate(date) {
 }
 
 // 2️⃣ Convert HH:mm:ss to readable ص/م time
-export function formatTime(timeString) {
+export function formatTime(timeString:string) {
   const [hour, minute] = timeString.split(":").map(Number);
   let period = hour < 12 ? "ص" : "م";
   let displayHour = hour % 12 || 12; // convert 0-23 to 1-12
@@ -250,5 +250,28 @@ export function calculateProgress(
     completed_lectures: totalCompleted,
     total_lectures: totalLectures,
     sections: sectionProgress
+  };
+}
+
+/**
+ * A simple debounce function for the trailing-edge.
+ * @template T - The type of the function being debounced.
+ * @param {T} func - The function to debounce.
+ * @param {number} delay - The delay in milliseconds.
+ * @returns {(...args: Parameters<T>) => void} - The debounced function.
+ */
+export function simpleDebounce<T extends (...args: any[]) => void>(
+  func: T,
+  delay: number,
+): (...args: Parameters<T>) => void {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+  return function(this: ThisParameterType<T>, ...args: Parameters<T>): void {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
   };
 }
