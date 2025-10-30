@@ -1,9 +1,10 @@
 import { useNavigate, useNavigation,useLocation } from "react-router-dom";
 import type { Notification } from "../../types";
-import { useAppSelector } from "../store/store";
+import { useAppDispatch, useAppSelector } from "../store/store";
 import { getMedia } from "../utils/functions";
-import { HeroBellIcon, HeroXIcon } from "./Icons";
+import { HeroBellIcon, HeroMenuIcon, HeroXIcon } from "./Icons";
 import { useState } from "react";
+import { toggleSidebar } from "../store/uiSlice";
 
 function NotificationItem({ notification }: { notification: Notification }) {
 
@@ -23,6 +24,7 @@ export default function DashboardTopNavbar() {
     const { notifications } = useAppSelector(state => state.auth);
     const unread = notifications.filter(n => n.read === false);
     const [open, setOpen] = useState(false)
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -39,11 +41,13 @@ export default function DashboardTopNavbar() {
 
 
     return (
-        <nav className="flex items-center bg-white/50 sticky top-0 z-[10] backdrop-blur-xs border-b h-16 border-r justify-around px-4 p-3">
-            <div></div>
+        <nav className="flex items-center bg-white/50 sticky top-0 z-[10] backdrop-blur-xs border-b h-16 border-r justify-between lg:justify-around px-4 p-3">
+            <div >
+                <button className="lg:hidden block" onClick={()=>{ dispatch(toggleSidebar()) }}> <HeroMenuIcon className="size-6" /> </button>
+            </div>
             <div></div>
             <div className="flex items-center gap-2 relative z-0">
-                <button onClick={()=>{ setOpen(true) }} className="relative z-0">
+                <button onClick={()=>{ setOpen(prev => !prev) }} className="relative z-0">
                     {unread.length > 0 && <div className="size-4 flex centred text-white absolute -top-2 left-0 bg-rose-500 rounded-full text-xs"> {unread.length} </div>}
                     <HeroBellIcon className="size-6 cursor-pointer" />
                 </button>
