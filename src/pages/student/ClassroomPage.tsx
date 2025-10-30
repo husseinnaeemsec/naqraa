@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import type { EnrollmentLecture } from "../../../types";
-import { useAppDispatch, useAppSelector } from "../../store/store";
+import { useAppDispatch } from "../../store/store";
 import api from "../../api/client";
 import { endpoints } from "../../api/routes";
 import ResourceLoader from "../../components/resourceLoader";
@@ -11,13 +11,13 @@ import NetworkError from "../../components/errors/NetworkError";
 import { setActiveLecture, setEnrollment } from "../../store/enrollmentSlice";
 import EnrollmentNavigation from "../../components/enrollment/EnrollmentNavigation";
 import CourseContent from "../../components/enrollment/CourseContent";
-import { setUser } from "../../store/authSlice";
+import { StudySessionTrackerProvider } from "../../context/StudySessionContext";
 
 export default function ClassroomPage() {
   const { enrollment_id } = useParams<{ enrollment_id: string }>();
-  const { user } = useAppSelector(state => state.auth);
   const enrollmentIdNum = enrollment_id ? Number(enrollment_id) : null;
   const dispatch = useAppDispatch();
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<'network_error' | 'not_found' | 'rate_limiting' | null>(null)
 
@@ -69,13 +69,11 @@ export default function ClassroomPage() {
   }
 
   return (
-    <div className="space-y-8 dark:bg-emerald-950 bg-white ">
-      <div className="bg-white dark:bg-transparent rounded-lg  space-y-5">
-        <div className="grid border px-8 lg:grid-cols-[1fr_30%] ">
-          <CourseContent />
-          <EnrollmentNavigation />
-        </div>
+    <StudySessionTrackerProvider>
+      <div className="grid border px-8 overflow-y-auto lg:grid-cols-[1fr_30%]">
+        <CourseContent />
+        <EnrollmentNavigation />
       </div>
-    </div>
+    </StudySessionTrackerProvider>
   );
 }
