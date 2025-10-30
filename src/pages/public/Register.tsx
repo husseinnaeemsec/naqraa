@@ -5,7 +5,7 @@ import {
   type ChangeEvent,
 } from "react";
 import { endpoints } from "../../api/routes";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../../api/client";
 import { useAppSelector } from "../../store/store";
 import PageLoader from "../../components/PageLoader";
@@ -166,9 +166,9 @@ export default function RegisterPage() {
 
         {/* Right: Register Form */}
         <div className="h-full w-full flex flex-col items-center justify-center gap-5 bg-white dark:bg-emerald-950 rounded-2xl p-8 dashboard-box">
-          <h1 className="text-7xl font-bold font-handjet text-emerald-50 rounded-full flex items-center justify-center">
+          <Link to={'/'} className="text-7xl font-bold font-handjet text-emerald-50 rounded-full flex items-center justify-center">
             <img src={getLogo()} className="size-48" />
-          </h1>
+          </Link>
           <h1 className="text-4xl text-center mb-2 text-emerald-700 dark:text-emerald-200">
             انشاء حساب جديد
           </h1>
@@ -276,8 +276,9 @@ export default function RegisterPage() {
               disabled={loading}
               className="bg-emerald-500 text-white p-2 rounded hover:bg-emerald-600 disabled:bg-gray-400 dark:disabled:bg-gray-700 transition-colors"
             >
-              {loading ? "جارٍ تسجيل الدخول..." : "تسجيل الدخول"}
+              {loading ? "جارٍ انشاء الحساب..." : " انشاء الحساب"}
             </button>
+              <p className='text-sm text-slate-500'>  لديك حساب بالفعل؟ <Link className='underline' to={'/login'} > سجل الدخول لحسابك</Link> </p>
           </form>
         </div>
       </div>
