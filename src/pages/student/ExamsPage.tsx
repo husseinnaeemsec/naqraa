@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { Exam } from "../../../types";
 import api from "../../api/client";
 import { endpoints } from "../../api/routes";
-import { formatTime, timeBefore } from "../../utils/functions";
+import { formatTime, isExpired, timeBefore } from "../../utils/functions";
 
 // Exams Page Component
 const ExamsPage = () => {
@@ -47,9 +47,12 @@ const ExamsPage = () => {
                                             <td className="py-3 px-4"> {exam.subject_name} </td>
                                             <td className="py-3 px-4">
                                                 {timeBefore(exam.date)}
+                                                { isExpired(exam.date) && (<span className="mr-2 text-xs text-rose-500"> منتهي </span>) }
+
                                             </td>
                                             <td className="py-3 px-4">
                                                 {formatTime(exam.time)}
+
                                             </td>
                                         </tr>
                                     )
