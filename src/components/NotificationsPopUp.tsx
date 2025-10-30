@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
 import notificationsImage from "../assets/notifications.svg";
+import { useAppSelector } from "../store/store";
 
 export default function NotificationsPopUp() {
   const [_hasPermission, setHasPermission] = useState(false);
+  const {isAuthenticated} = useAppSelector(state=>state.auth);
   const [loading, setLoading] = useState(true);
   const [show, setShow] = useState(false);
+
+  if(!isAuthenticated){
+    return;
+  }
 
   useEffect(() => {
     if ("Notification" in window) {
