@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAppSelector } from "./store/store";
 import PageLoader from "./components/PageLoader";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   children: React.ReactNode;
@@ -9,20 +9,31 @@ interface Props {
 
 const ProtectedRoute: React.FC<Props> = ({ children }) => {
   const { isAuthenticated, loadingUser } = useAppSelector((state) => state.auth);
+  const [renderContent, setRenderContent] = useState(false);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    // Wait until user loading is finished
+    if (!loadingUser) {
+      if (!isAuthenticated) {
+        // Redirect if not authenticated
+        navigate("/login", { replace: true });
+      } else {
+        // Allow render if authenticated
+        setRenderContent(true);
+      }
+    }
+  }, [isAuthenticated, loadingUser, navigate]);
 
-
-  // إذا لسه يتحقق من المستخدم → نعرض لودر
   if (loadingUser) {
     return <PageLoader title="جاري التحقق من الحساب" />;
   }
 
-  // إذا انتهى التحقق وما المستخدم مو مسجل دخول
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+  if (!renderContent) {
+    // Prevent flashing before redirect
+    return null;
   }
 
-  // إذا المستخدم موثق
   return <>{children}</>;
 };
 
