@@ -9,6 +9,8 @@ interface UiSliceState {
         title?:string;
         message?:string;
     }
+    showSidebar:boolean
+
 }
 
 
@@ -16,7 +18,8 @@ interface UiSliceState {
 const initialState:UiSliceState  = {
     uiState:{
         loading:false
-    }
+    },
+    showSidebar:false
 };
 
 
@@ -27,9 +30,12 @@ const uiSlice = createSlice({
   reducers: {
     setUIState:(state,action:PayloadAction< { loading:boolean; title?:string ; message?:string  } >)=>{
         state.uiState = action.payload;
+    },
+    toggleSidebar:(state)=>{
+        state.showSidebar = !state.showSidebar;
     }
   },
 });
 
-export const { setUIState } = uiSlice.actions;
+export const { setUIState , toggleSidebar} = uiSlice.actions;
 export default uiSlice.reducer;
