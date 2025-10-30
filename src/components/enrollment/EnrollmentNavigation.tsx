@@ -131,7 +131,7 @@ export default function EnrollmentNavigation() {
       </div>
 
       {/* Desktop Sidebar */}
-        <div ref={scrollerRef} className="space-y-3 h-dynamic overflow-y-auto hidden lg:block p-4 px-6  ">
+        <div ref={scrollerRef} className="space-y-3 hidden lg:block p-4 px-6  ">
           <h3 className="text-2xl py-y   bg-white  font-semibold text-emerald-800  ">
             محتوى الدورة
           </h3>
