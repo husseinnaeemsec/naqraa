@@ -1,3 +1,5 @@
+import appleLogo from '../../assets/apple-logo.svg';
+
 export default function Footer() {
     return (
         <footer className="bg-white antialiased dark:bg-gray-900 border-t  border-emerald-100 dark:border-emerald-800">
@@ -66,7 +68,7 @@ export default function Footer() {
                                 <form action="#">
                                     <div className="items-end space-y-4 sm:flex sm:space-y-0">
                                         <div className="relative mr-3 w-full sm:w-96 lg:w-full">
-                                            <label for="email" className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
+                                            <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
                                                 اشترك ليصلك أحدث الدورات والمحتويات التعليمية
                                             </label>
                                             <input
@@ -101,7 +103,7 @@ export default function Footer() {
                                         </a>
 
                                         <a href="#" className="inline-flex w-full items-center justify-center rounded-lg bg-emerald-700 px-4 py-2.5 text-white hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-300 sm:w-auto">
-                                            <svg className="ml-3 h-7 w-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8..." /></svg>
+                                            <img src={appleLogo} className="ml-3 h-9 w-9" alt="" />
                                             <div className="text-right">
                                                 <div className="mb-1 text-xs">حمّل على</div>
                                                 <div className="-mt-1 text-sm font-semibold">App Store</div>
