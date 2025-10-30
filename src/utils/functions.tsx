@@ -275,3 +275,12 @@ export function simpleDebounce<T extends (...args: any[]) => void>(
     }, delay);
   };
 }
+
+export function isExpired(isoTime:string) : boolean {
+  console.log(isoTime)
+  const targetTime = new Date(isoTime).getTime();
+  const now = Date.now();
+
+  // Return true if the target time is in the past
+  return now > targetTime;
+}
