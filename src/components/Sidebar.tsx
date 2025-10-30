@@ -8,6 +8,8 @@ import { emeraldColors } from "../colors";
 import { useTranslation } from "react-i18next";
 import api from "../api/client";
 import { endpoints } from "../api/routes";
+import { toggleSidebar } from "../store/uiSlice";
+import { HeroXIcon } from "./Icons";
 
 const Alert = withReactContent(Swal);
 
@@ -16,14 +18,14 @@ interface SidebarLinkProps {
   link: string;
 }
 const SidebarLink = ({ link, children }: SidebarLinkProps) => {
-  const [isActive, setIsActive] = useState(false);
   const location = useLocation();
+  const [isActive, setIsActive] = useState(false);
 
+  //  Always called, no conditional hook
   useEffect(() => {
     const normalize = (path: string) => path.replace(/\/+$/, ""); // remove trailing /
     const currentPath = normalize(location.pathname);
     const targetPath = normalize(link);
-
     setIsActive(currentPath === targetPath);
   }, [location.pathname, link]);
 
@@ -37,28 +39,24 @@ const SidebarLink = ({ link, children }: SidebarLinkProps) => {
   );
 };
 
-export default function Sidebar() {
-  const location = useLocation();
-  const currentPath = location.pathname;
-  const {notifications,user} = useAppSelector(state=>state.auth)
-  const dispatch = useAppDispatch();
-  const {t} = useTranslation();
 
-  const isActive = (path: string) =>
-    currentPath === path ||
-    (currentPath.startsWith(path) && path.length === currentPath.length);
+export default function Sidebar() {
+  const { notifications } = useAppSelector(state => state.auth)
+  const dispatch = useAppDispatch();
+  const { showSidebar } = useAppSelector(state => state.ui);
+  const { t } = useTranslation();
 
   const links = [
-    { link: "/dashboard/", icon: "fi fi-rr-home", label:t("sidebar.dashboard")},
+    { link: "/dashboard/", icon: "fi fi-rr-home", label: t("sidebar.dashboard") },
     { link: "/dashboard/courses/", icon: "fi fi-rr-play-alt", label: t("sidebar.courses") },
     { link: "/dashboard/timetable/", icon: "fi fi-rr-calendar", label: t("sidebar.timetable") },
-    { link: "/dashboard/todo/", icon: "fi fi-rr-memo-circle-check", label: t("sidebar.todo") },
-    { link: "/dashboard/notifications/",messages:notifications.filter(n=> n.read === false ).length, icon: "fi fi-rr-bell", label: t("sidebar.notifications") },
+    // { link: "/dashboard/todo/", icon: "fi fi-rr-memo-circle-check", label: t("sidebar.todo") },
+    { link: "/dashboard/notifications/", messages: notifications.filter(n => n.read === false).length, icon: "fi fi-rr-bell", label: t("sidebar.notifications") },
     { link: "/dashboard/org/", icon: "fi fi-rr-building", label: t("sidebar.organization") },
     { link: "/dashboard/exams/", icon: "fi fi-rr-quiz-alt", label: t("sidebar.quizzes") },
-    { link: "/dashboard/chat/",messages:0, icon: "fi fi-rr-messages", label: t("sidebar.chat") },
+    { link: "/dashboard/chat/", messages: 0, icon: "fi fi-rr-messages", label: t("sidebar.chat") },
     { link: "/dashboard/communties/", icon: "fi fi-rr-users-class", label: t("sidebar.community") },
-    { link: "/dashboard/files/", icon: "fi fi-rr-folder", label:t("sidebar.files") },
+    { link: "/dashboard/files/", icon: "fi fi-rr-folder", label: t("sidebar.files") },
     { link: "/dashboard/settings/", icon: "fi fi-rr-user-gear", label: t("sidebar.settings") },
   ];
 
@@ -81,12 +79,12 @@ export default function Sidebar() {
     }).then((result) => {
       if (result.isConfirmed) {
         api.post(endpoints.user.logout)
-        .then((_res)=>{
-          dispatch(logoutUser());
-        })
-        .catch((e)=>{
-          console.log(e)
-        })
+          .then((_res) => {
+            dispatch(logoutUser());
+          })
+          .catch((e) => {
+            console.log(e)
+          })
         Alert.fire({
           title: "تم تسجيل الخروج",
           icon: "success",
@@ -95,22 +93,32 @@ export default function Sidebar() {
       }
     });
   };
+
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${showSidebar ? "translate-x-0" : "translate-x-full"}  lg:translate-x-0 transition-transform duration-300 ease-in-out`}>
       <nav className="w-full h-full flex flex-col justify-between">
         <ul className="flex flex-col  items-center justify-center gap-y-3 py-5">
-          <Link to={'/'} className="w-full mb-4 mt-2 flex gap-2 items-center  px-2">
-            <img src={'/favicon.svg'} alt="" className="w-10  " />
-            <div>
-              <p className="text-slate-600"> التعليم حق مجاني لكل انسان </p>
-            </div>
-          </Link>
-          {links.map(({ link, icon, label ,messages }) => (
+          <div className="flex w-full items-center justify-between self-start mb-4 mt-2 px-2">
+            <Link to={'/'} className="flex cursor-pointer gap-2 items-center  px-2">
+              <img src={'/favicon.svg'} alt="" className="w-10" />
+              <div>
+                <p className="text-slate-600"> التعليم حق مجاني لكل انسان </p>
+              </div>
+            </Link>
+            <button className="cursor-pointer lg:hidden block" onClick={()=>{ dispatch(toggleSidebar()) }}>
+              <HeroXIcon className="size-6" />
+            </button>
+          </div>
+          {links.map(({ link, icon, label, messages = 0 }) => (
             <li key={link} className="w-full">
-              <SidebarLink link={link} >
+              <SidebarLink link={link}>
                 <i className={`${icon} text-xl`} />
                 <span>{label}</span>
-                { messages !== null && messages > 0 && ( <span className="rounded-full absolute right-0 -top-1 text-[10px]  bg-rose-500 text-white flex items-center justify-center size-5"> { messages >=100 ? "+99" : messages } </span> ) }
+                {messages > 0 && (
+                  <span className="rounded-full absolute right-0 -top-1 text-[10px] bg-rose-500 text-white flex items-center justify-center size-5">
+                    {messages >= 100 ? "+99" : messages}
+                  </span>
+                )}
               </SidebarLink>
             </li>
           ))}
