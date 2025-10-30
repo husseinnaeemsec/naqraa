@@ -90,7 +90,7 @@ export default function LoginPage() {
 
           {/* يمين: نموذج تسجيل الدخول */}
           <div className="h-full w-full flex flex-col items-center justify-center gap-5 bg-white dark:bg-emerald-950 rounded-2xl p-8 dashboard-box">
-            <h1 className="text-7xl font-bold font-handjet text-emerald-50 rounded-full   flex items-center justify-center"> <img src={getLogo()} className='size-48 ' /></h1>
+            <Link to={'/'} className="text-7xl font-bold font-handjet text-emerald-50 rounded-full   flex items-center justify-center"> <img src={getLogo()} className='size-48 ' /></Link>
             <h1 className="text-4xl text-center mb-2 text-emerald-700 dark:text-emerald-200">تسجيل الدخول</h1>
             <p className="text-center mb-4 text-gray-600 dark:text-gray-300">أدخل بياناتك للوصول إلى حسابك على نقرأ.</p>
 
@@ -121,6 +121,7 @@ export default function LoginPage() {
               >
                 {loading ? 'جارٍ تسجيل الدخول...' : 'تسجيل الدخول'}
               </button>
+              <p className='text-sm text-slate-500'> ليس لديك حساب بعد؟ <Link className='underline' to={'/register'} > انشئ حساب جديد </Link> </p>
             </form>
           </div>
 
