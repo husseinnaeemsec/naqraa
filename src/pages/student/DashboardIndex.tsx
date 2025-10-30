@@ -34,9 +34,7 @@ const IndexPage = () => {
                                 </div>
                             )
                         }
-                        <div className="rounded-xl ">
-                            <StudyHoursChart />
-                        </div>
+                        {user?.week_study_time && ( <div className="rounded-xl "><StudyHoursChart weekData={user?.week_study_time} /></div> )}
                         <div className="lg:col-span-3 ">
                             <UpcomingExams />
                         </div>
