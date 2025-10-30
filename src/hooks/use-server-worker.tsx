@@ -1,11 +1,14 @@
 // hooks/useServerWorker.tsx
 import { useEffect } from "react";
 import { urlBase64ToUint8Array } from "../utils/urlBase64ToUint8Array";
+import { useAppSelector } from "../store/store";
 
 const PPK = 'BKBqLHq78vADus1WZXiTDwXz-79jpRzjpINFHxLY4n93sJOLtIS17cv_Ge6xuPfcJTxZBsBscvnzpGzYKkdawbU';
 
 export default function useServerWorker() {
+  const {isAuthenticated} = useAppSelector(state=>state.auth);
   useEffect(() => {
+    if(!isAuthenticated) return ;
     async function registerAndSubscribe() {
       if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
         return;
@@ -23,7 +26,6 @@ export default function useServerWorker() {
         userVisibleOnly: true,
         applicationServerKey: urlBase64ToUint8Array(PPK),
       });
-      console.log(subscription);
       // send subscription to server
       await fetch("http://localhost:8000/api/notifications/subscribe/", {
         method: "POST",
@@ -34,11 +36,10 @@ export default function useServerWorker() {
         credentials: "include", // For Cookie-base authentication
       });
 
-      console.log("Subscribed");
     }
 
     registerAndSubscribe().catch((e) => console.error(e));
-  }, []);
+  }, [isAuthenticated]);
 
   return {}
 }
