@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type {Enrollment, InitialAuthState, Notification, User} from '../../types';
+import type {Enrollment, InitialAuthState, Notification, StudyTimeWeek, User} from '../../types';
 import { getUserProfile } from '../utils/functions';
 
 // Get initial state from localStorage if available
@@ -17,7 +17,8 @@ const initialState : InitialAuthState = {
   authError: [],
   enrollments:[],
   ready_for_notifications:false,
-  notifications:[]
+  notifications:[],
+  week_study_time:null
 };
 
 const authSlice = createSlice({
@@ -26,6 +27,10 @@ const authSlice = createSlice({
   reducers: {
     setNotificationsState:(state,action:PayloadAction<boolean>)=>{
       state.ready_for_notifications = action.payload;
+    },
+    setWeekStudyTime:( state,action:PayloadAction<StudyTimeWeek|null> )=>{
+      state.week_study_time = action.payload;
+
     },
     setNotifications:( state , action:PayloadAction<Notification[]> )=>{
       state.notifications = action.payload;
@@ -58,5 +63,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setAuthenticationState,setNotifications,setNotificationsState,setUserEnrollments,appendEnrollment,setUser,logoutUser, setLoadingState } = authSlice.actions;
+export const { setAuthenticationState,setWeekStudyTime,setNotifications,setNotificationsState,setUserEnrollments,appendEnrollment,setUser,logoutUser, setLoadingState } = authSlice.actions;
 export default authSlice.reducer;
