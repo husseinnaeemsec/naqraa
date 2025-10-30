@@ -43,7 +43,7 @@ createRoot(document.getElementById('root')!).render(
                   <Route path='files' element={<FilesPage />} />
                   <Route path='org' element={<OrgPage />} />
                   <Route path='timetable' element={<TimeTablePage />} />
-                  <Route path='todo' element={<TodoPage />} />
+                  {/* <Route path='todo' element={<TodoPage />} /> */}
                   <Route path='settings' element={<SettingsPage />} />
                   <Route path='chat' element={<ChatPage />} >
                     <Route path=':chatId' element={<Chat />} />
