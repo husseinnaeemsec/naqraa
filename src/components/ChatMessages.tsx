@@ -143,6 +143,11 @@ export default function ChatMessages({
   // ---------------------------
   return (
     <div className="flex-1 h-full p-6 pb-0">
+      {!messages.length && (
+        <div className="w-full h-full flex items-center justify-center">
+          <p className="text-slate-500">لا توجد رسائل بعد. ابدأ المحادثة الآن!</p>
+        </div>
+      )}
       <Virtuoso
         ref={virtuosoRef}
         style={{ height: "100%" }}
