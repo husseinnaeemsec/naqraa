@@ -3,9 +3,11 @@ export const endpoints = {
         login:'/users/login/',
         register:"/users/register/",
         logout:'/users/logout/',
-        profile:'/users/status/',
+        profile:'/users/profile/',
+        status:"/users/check/",
         changePassword:'/users/password/change/',
         requestPasswordChange:'/users/password/request-password-change/',
+        studySession:'/users/study-time/',
         organization:{
             updateOrganization:''
         },
