@@ -95,7 +95,7 @@ export default function CourseContent() {
 
  
   return (
-    <div ref={scrollerRef} className="h-dynamic overflow-y-auto   pb-0">
+    <div ref={scrollerRef} className="pb-0 overflow-y-auto">
       <div className="p-6 flex flex-col ">
         <h1 className="text-2xl font-bold"> {enrollment.course.title} </h1>
         <p className="text-slate-500"> {enrollment.course.description} </p>
