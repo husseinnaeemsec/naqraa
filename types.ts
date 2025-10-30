@@ -295,7 +295,7 @@ export interface User {
     date_joined: string;
     class_room: ClassRoom | null;
     progress:UserProgress|null;
-
+    week_study_time:StudyTimeWeek|null
 }
 
 export interface InitialAuthState {
@@ -305,7 +305,8 @@ export interface InitialAuthState {
     authError: string[]
     enrollments: Enrollment[]
     ready_for_notifications?: boolean;
-    notifications:Notification[]
+    notifications:Notification[];
+    week_study_time:StudyTimeWeek|null;
 }
 
 export interface UserStatusResponse extends User { }
@@ -370,4 +371,24 @@ export interface CourseDiscussionMessage {
     created_at: string;
     updated_at: string;
     children: CourseDiscussionMessage[];
+}
+
+export interface StudySession {
+    study_time_in_sec:number;
+    is_today:boolean;
+    date:string;
+    day_info:{
+        name:string;
+        number:number;
+    }
+}
+
+export interface StudyTimeWeek {
+  sunday: StudySession | null;
+  monday: StudySession | null;
+  tuesday: StudySession | null;
+  wednesday: StudySession | null;
+  thursday: StudySession | null;
+  friday: StudySession | null;
+  saturday: StudySession | null;
 }
