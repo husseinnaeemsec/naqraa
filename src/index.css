@@ -76,6 +76,11 @@ html,body{
 @utility h-dynamic{
     height: 100dvh;
 }
+
+@utility h-nav{
+    height:calc(100dvh - 70px)
+}
+
 @utility text-muted{
     opacity: .7;
 }
