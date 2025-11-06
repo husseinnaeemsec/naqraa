@@ -3,6 +3,7 @@ import ResourceLoader from './resourceLoader';
 import type { Subject } from '../../types';
 import api from '../api/client';
 import { endpoints } from '../api/routes';
+import { Link } from 'react-router-dom';
 
 
 
@@ -37,13 +38,15 @@ export default function FeaturedSubjects() {
 
     return (
         <div className="px-4 md:px-8">
-            <h1 className="text-2xl md:text-3xl font-bold mb-5 text-center">تصفح الدورات لكل مادة</h1>
-
-            <div className="flex gap-4 overflow-x-auto p-2 snap-x snap-mandatory">
+            <div className="flex items-center justify-between">
+                <h1 className="text-2xl md:text-3xl font-bold mb-5 ">تصفح الدورات لكل مادة</h1>
+                <Link to={'/courses/explore/'} className='underline'> عرض الكل </Link>
+            </div>
+            <div className="grid lg:grid-cols-4 py-5 md:grid-cols-2 grid-cols-1 gap-4   ">
                 {subjects.map((subject) => (
                     <div
                         key={subject.id}
-                        className="flex-shrink-0 w-64 md:w-72 lg:w-80 bg-emerald-100 rounded-lg p-4 flex flex-col justify-between snap-start"
+                        className="flex-shrink-0  bg-emerald-100 rounded-lg p-4 flex flex-col justify-between snap-start"
                     >
                         <div className="space-y-3 flex-1">
                             <img
@@ -54,9 +57,9 @@ export default function FeaturedSubjects() {
                             <h2 className="text-xl md:text-2xl font-semibold text-center">{subject.name}</h2>
                             <p className="text-sm md:text-base text-center">{subject.description}</p>
                         </div>
-                        <button className="mt-4 bg-white border border-gray-300 p-2 px-4 md:px-5 rounded-md hover:bg-gray-50 transition-colors">
+                        <Link to={`/courses/explore/?subject=${subject.id}`}  className="mt-4 text-center bg-white border border-gray-300 p-2 px-4 md:px-5 rounded-md hover:bg-gray-50 transition-colors">
                             تصفح الدورات
-                        </button>
+                        </Link>
                     </div>
                 ))}
             </div>
