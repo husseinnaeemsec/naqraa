@@ -13,7 +13,7 @@ export default function PageLoader({ title, message, img }: Props) {
 
   return (
     <motion.div
-      className="w-full h-full fixed inset-0 z-[100] flex items-center justify-center flex-col bg-white/80 backdrop-blur-sm"
+      className="w-full h-full fixed inset-0 z-[100] flex items-center justify-center flex-col bg-white"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
