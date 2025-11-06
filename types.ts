@@ -125,9 +125,26 @@ export interface Level {
 }
 
 export interface Grade {
+    id:number;
     level: Level;
     number: number;
     name: string;
+}
+
+export interface SubscriptionPlan {
+    id:number;
+    name:string;
+    code:string;
+    price:number;
+    is_free:boolean;
+}
+
+export interface Subscription {
+    plan:SubscriptionPlan;
+    start_date:string;
+    end_date:string;
+    is_active:boolean;
+    remaining_days:number;
 }
 
 export interface Course {
@@ -138,10 +155,32 @@ export interface Course {
     cover: string;
     subject: Subject;
     featured: boolean;
-    available_in: number[];
-    instructor: User;
+    available_in: SubscriptionPlan[];
+    instructor: Instructor;
     level: string;
     grades: number[];
+    rating:number;
+    average_rating:number;
+    total_reviews:number;
+}
+
+export interface CourseReview{
+    id:number;
+    user:{
+        first_name:string;
+        last_name:string;
+        profile_picture:string;
+    };
+    comment:string|null;
+    created_at:string;
+    rating:number;
+}
+
+export interface Instructor{
+    first_name:string;
+    last_name:string;
+    profile_picture:string;
+    username:string;
 }
 
 export interface EnrollmentCourse extends Course {
@@ -295,7 +334,8 @@ export interface User {
     date_joined: string;
     class_room: ClassRoom | null;
     progress:UserProgress|null;
-    week_study_time:StudyTimeWeek|null
+    week_study_time:StudyTimeWeek|null;
+    subscription:Subscription|null;
 }
 
 export interface InitialAuthState {
