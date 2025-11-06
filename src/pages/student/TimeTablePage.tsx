@@ -1,5 +1,18 @@
 import { useAppSelector } from "../../store/store";
 
+
+
+interface EventProps {
+  label:string;
+  color:string;
+}
+
+interface EventsProps {
+  exam:EventProps;
+  homework:EventProps;
+  project:EventProps;
+}
+
 export default function TimeTablePage() {
   const timetable = useAppSelector(
     (state) => state.auth.user?.class_room?.timetable
@@ -15,13 +28,13 @@ export default function TimeTablePage() {
 
   // Arabic days of the week
   const daysOfWeek = [
+    { en: "Saturday", ar: "السبت" },
     { en: "Sunday", ar: "الأحد" },
     { en: "Monday", ar: "الاثنين" },
     { en: "Tuesday", ar: "الثلاثاء" },
     { en: "Wednesday", ar: "الأربعاء" },
     { en: "Thursday", ar: "الخميس" },
     { en: "Friday", ar: "الجمعة" },
-    { en: "Saturday", ar: "السبت" },
   ];
 
   // figure out today’s day
@@ -42,7 +55,9 @@ export default function TimeTablePage() {
       }));
   });
 
-  const eventBadges = {
+
+
+  const eventBadges : EventsProps = {
     exam: { label: "اختبار", color: "bg-red-500" },
     homework: { label: "واجب", color: "bg-yellow-400" },
     project: { label: "مشروع", color: "bg-green-500" },
@@ -56,13 +71,13 @@ export default function TimeTablePage() {
 
       {/* Responsive horizontal scroll on smaller screens */}
       <div className="overflow-x-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  gap-4 ">
           {daysOfWeek.map((day) => {
             const isToday = day.en === todayName;
             return (
               <div
                 key={day.en}
-                className={`rounded-lg shadow p-3 md:p-4 min-w-[150px] ${
+                className={`rounded-lg ${ day.en === 'Friday' ? 'md:col-span-2' : '' } shadow p-3 md:p-4 min-w-[150px] ${
                   isToday
                     ? "bg-emerald-100 dark:bg-emerald-700  border-2 border-emerald-500"
                     : "bg-white dark:bg-emerald-900"
@@ -95,7 +110,7 @@ export default function TimeTablePage() {
 
                       {/* Event badges */}
                       <div className="flex gap-1 mt-1 flex-wrap">
-                        {item.events.map((ev) => (
+                        {item.events.map((ev:string) => (
                           <span
                             key={ev}
                             className={`text-white text-[10px] md:text-xs px-2 py-0.5 rounded ${eventBadges[ev].color}`}
