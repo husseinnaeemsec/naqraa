@@ -1,5 +1,6 @@
 import { t } from 'i18next';
 import not_found from '../../assets/errors/not_found.svg';
+import { Link } from 'react-router-dom';
 
 interface Props {
     className?:string;
@@ -14,6 +15,9 @@ export default function NotFoundError( { title,text,showText,className } : Props
             <img src={not_found} className='max-w-md' alt="" />
             <h1 className="text-2xl font-semibold"> {title || t("not_found_error")} </h1>
             {showText && <p> {text||t("not_found_error_text")} </p> }
+            <div className="flex items-center gap-2 mt-5">
+                <Link to={'/'} className='p-2 px-4 bg-emerald-500 rounded text-white' > العودة للصفحة الرئيسية </Link>
+            </div>
         </div>
     )
 }
