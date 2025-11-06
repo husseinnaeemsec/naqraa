@@ -284,3 +284,18 @@ export function isExpired(isoTime:string) : boolean {
   // Return true if the target time is in the past
   return now > targetTime;
 }
+
+
+export function convertMinutes(minutes:number, type = "hour") {
+  if (typeof minutes !== "number" || minutes < 0) return 0;
+
+  switch (type) {
+    case "day":
+      return (minutes / 60 / 24).toFixed(2); // 2 decimal places
+    case "hour":
+      return (minutes / 60).toFixed(2);
+    case "minute":
+    default:
+      return minutes;
+  }
+}
