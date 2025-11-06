@@ -6,11 +6,11 @@ const Dashboard = () => {
 
 
   return (
-    <div className="overflow-hidden  grid lg:grid-cols-[280px_1fr]">
+    <div className="  grid lg:grid-cols-[280px_1fr]">
       {/* Sidebar */}
       <Sidebar />
       {/* Main Content */}
-      <main className="h-dynamic overflow-hidden ">
+      <main className="">
         <DashboardTopNavbar />
         {/* Main content */}
         <Outlet />
