@@ -20,10 +20,14 @@ export const endpoints = {
             updateLastWatchedLecture:(enrollmentId:number,lectureId:number) => `/enrollments/update-last-watched-lecture/${enrollmentId}/${lectureId}/`,
             completeLecture:(enrollmentId:number,lectureId:number) => `/enrollments/complete-lecture/${enrollmentId}/${lectureId}/`,
             completeQuiz:(quiz_id:number)=> `/enrollments/complete-quiz/${quiz_id}/`,
+            enroll:( course_id:number )=> `/enrollments/enroll/${course_id}/`
         }
     },
     courses:{
-        discussion:(course_id:number) => `/courses/discussion/${course_id}/`
+        list:'/courses/',
+        details:(slug:string)=> `/courses/${slug}/`,
+        discussion:(course_id:number) => `/courses/discussion/${course_id}/`,
+
     },
     organization:{
         exams:'/organizations/exams/',
@@ -51,6 +55,7 @@ export const endpoints = {
     },
     content:{
         subjects:`/academics/subjects/`,
+        grades:'/academics/grades/'
         
     }
 }
