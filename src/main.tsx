@@ -28,6 +28,8 @@ import TodoPage from './pages/student/TodoPage.tsx';
 import LandingPage, { Home } from './pages/public/Index.tsx';
 import Chat from './components/Chat.tsx';
 import RegisterPage from './pages/public/Register.tsx';
+import ExploreCourses from './pages/public/ExploreCourses.tsx';
+import CourseDetailsPage from './pages/public/CourseDetailsPage.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -64,7 +66,11 @@ createRoot(document.getElementById('root')!).render(
                 {/* Course pages */}
                 <Route path='/' element={<LandingPage />} >
                   <Route index element={<Home />} />
-                  <Route path='courses' element={<CoursesPage />} />
+                  <Route path='courses' >
+                    <Route index element={<CoursesPage />} />
+                    <Route path='explore' element={<ExploreCourses />} />
+                    <Route path=':courseSlug' element={<CourseDetailsPage />} />
+                  </Route>
                 </Route>
               </Route>
             </Routes>
