@@ -102,7 +102,7 @@ const SettingsPage = () => {
 
 
     return (
-        <div ref={scrollerRef} className="grid grid-cols-1 lg:grid-cols-12  gap-5 overflow-y-auto h-full p-6 mx-auto">
+        <div ref={scrollerRef} className="grid grid-cols-1 lg:grid-cols-12  gap-5 overflow-y-auto h-nav pb-20 p-6 mx-auto">
             <div className="flex justify-between lg:col-span-12   items-center">
                 <h1 className="text-2xl font-bold text-emerald-800 dark:text-emerald-100/70">{t("settings.label")}</h1>
             </div>
