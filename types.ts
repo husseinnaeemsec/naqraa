@@ -181,6 +181,7 @@ export interface Instructor{
     last_name:string;
     profile_picture:string;
     username:string;
+    bio?:string|null;
 }
 
 export interface EnrollmentCourse extends Course {
@@ -336,6 +337,9 @@ export interface User {
     progress:UserProgress|null;
     week_study_time:StudyTimeWeek|null;
     subscription:Subscription|null;
+    enrolled_courses:{ course:number,enrollment:number }[];
+    verified:boolean;
+    last_verification_request_date:null|string;
 }
 
 export interface InitialAuthState {
