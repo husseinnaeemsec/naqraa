@@ -8,7 +8,7 @@ interface Props {
 }
 
 const ProtectedRoute: React.FC<Props> = ({ children }) => {
-  const { isAuthenticated, loadingUser } = useAppSelector((state) => state.auth);
+  const { isAuthenticated, loadingUser , user } = useAppSelector((state) => state.auth);
   const [renderContent, setRenderContent] = useState(false);
   const navigate = useNavigate();
 
@@ -20,10 +20,14 @@ const ProtectedRoute: React.FC<Props> = ({ children }) => {
         navigate("/login", { replace: true });
       } else {
         // Allow render if authenticated
-        setRenderContent(true);
+        if(user?.verified){
+          setRenderContent(true);
+        }else{
+          navigate("/verify/");
+        }
       }
     }
-  }, [isAuthenticated, loadingUser, navigate]);
+  }, [isAuthenticated,user?.verified,loadingUser, navigate]);
 
   if (loadingUser) {
     return <PageLoader title="جاري التحقق من الحساب" />;
