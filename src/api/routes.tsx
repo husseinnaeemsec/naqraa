@@ -8,6 +8,11 @@ export const endpoints = {
         changePassword:'/users/password/change/',
         requestPasswordChange:'/users/password/request-password-change/',
         studySession:'/users/study-time/',
+        sendVerificationEmail:"/users/send-verification-email/",
+        verification:{
+            verify:'/users/verify/',
+            request:'/users/verify/request/',
+        },
         organization:{
             updateOrganization:''
         },
@@ -20,7 +25,8 @@ export const endpoints = {
             updateLastWatchedLecture:(enrollmentId:number,lectureId:number) => `/enrollments/update-last-watched-lecture/${enrollmentId}/${lectureId}/`,
             completeLecture:(enrollmentId:number,lectureId:number) => `/enrollments/complete-lecture/${enrollmentId}/${lectureId}/`,
             completeQuiz:(quiz_id:number)=> `/enrollments/complete-quiz/${quiz_id}/`,
-            enroll:( course_id:number )=> `/enrollments/enroll/${course_id}/`
+            enroll:( course_id:number )=> `/enrollments/enroll/${course_id}/`,
+            status:(course_id:number)=>`/enrollments/status/${course_id}/`
         }
     },
     courses:{
