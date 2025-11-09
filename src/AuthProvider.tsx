@@ -23,6 +23,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   const { loadingUser } = useAppSelector((state) => state.auth);
   const [error, setError] = useState<string | null>(null);
   const hasCheckedAuth = useRef(false);
+  
 
   const loadCachedUser = (): UserStatusResponse | null => {
     try {
