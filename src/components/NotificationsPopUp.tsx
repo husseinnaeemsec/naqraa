@@ -8,9 +8,7 @@ export default function NotificationsPopUp() {
   const [loading, setLoading] = useState(true);
   const [show, setShow] = useState(false);
 
-  if(!isAuthenticated){
-    return;
-  }
+
 
   useEffect(() => {
     if ("Notification" in window) {
@@ -50,7 +48,9 @@ export default function NotificationsPopUp() {
     }
   };
 
-
+  if(!isAuthenticated){
+    return;
+  }
 
   if (loading || !show) return null;
 
