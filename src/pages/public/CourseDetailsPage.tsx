@@ -6,9 +6,10 @@ import api from "../../api/client";
 import { endpoints } from "../../api/routes";
 import { HeroBookIcon, HeroClockIcon, HeroStarIcon, HeroUserIcon } from "../../components/Icons";
 import { convertMinutes, getMedia } from "../../utils/functions";
-import { useAppSelector } from "../../store/store";
+import { useAppDispatch, useAppSelector } from "../../store/store";
 import NotFoundError from "../../components/errors/NotFoundError";
 import { ErrorAlert, SuccessAlert } from "../../components/alerts";
+import { setUserEnrollments } from "../../store/authSlice";
 
 interface CourseDetailsProps extends Course {
   enrollments_count: number;
@@ -31,6 +32,8 @@ export default function CourseDetailsPage() {
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [coursePlans, setCoursePlans] = useState<SubscriptionPlan[]>([]);
   const [canEnroll, setCanEnroll] = useState<boolean | null>(null);
+  const dispatch = useAppDispatch();
+  const {enrollments} = useAppSelector(state=>state.auth);
 
   const { user } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -97,7 +100,7 @@ export default function CourseDetailsPage() {
       const res = await api.post(endpoints.user.enrollments.enroll(course.id));
       setIsEnrolled(true);
       setEnrollmentId(res.data.id);
-
+      dispatch(setUserEnrollments([...enrollments,res.data]))
       SuccessAlert({
         title: `لقد انضممت إلى ${res.data.course.title}`,
         text: "ابدأ رحلتك التعليمية الآن 🎓",
