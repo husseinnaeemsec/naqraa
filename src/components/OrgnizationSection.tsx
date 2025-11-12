@@ -46,9 +46,8 @@ export default function OrganizationSection() {
             form.append("organization_id", String(selectedOrg?.id));
             await api.post("/organizations/join/", form, { headers: { 'Content-Type': "multipart/form-data" } });
             setSuccess(true);
-        } catch (err) {
-            console.error(err);
-            setError("فشل إرسال الطلب، حاول مرة أخرى");
+        } catch (err:any) {
+            setError(err?.response?.data?.error || "فشل إرسال الطلب، حاول مرة أخرى");
         } finally {
             setLoading(false);
         }
