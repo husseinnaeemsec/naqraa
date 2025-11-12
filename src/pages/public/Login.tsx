@@ -8,15 +8,20 @@ import community from '../../assets/online-discussion.svg';
 import laptop from '../../assets/science.svg';
 import { endpoints } from '../../api/routes';
 import { getLogo } from '../../utils/functions';
-import { useAppSelector } from '../../store/store';
+import { useAppDispatch, useAppSelector } from '../../store/store';
+import { logoutUser, setAuthenticationState, setUser } from '../../store/authSlice';
+import VerificationPage from '../../components/VerificationPage';
 
 export default function LoginPage() {
-  const {isAuthenticated} = useAppSelector((state)=> state.auth )
+  const { isAuthenticated } = useAppSelector((state) => state.auth)
   const [username, setUsername] = useState('hussein');
-  const [password, setPassword] = useState('2252Test');
+  const [password, setPassword] = useState('2252Rexx');
   const [errors, setErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [showVerificationForm, setShowVerificationEmail] = useState(false)
+  const [activateAccount, setActivateAccount] = useState(false);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const slides = [
@@ -35,13 +40,14 @@ export default function LoginPage() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(()=>{
-    setTimeout(()=> isAuthenticated ? navigate("/dashboard") : '' ,0 )
+  useEffect(() => {
+    setTimeout(() => isAuthenticated ? navigate("/dashboard") : '', 0)
   })
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setErrors([]);
+    setActivateAccount(false);
     setLoading(true);
 
     if (!username || !password) {
@@ -49,15 +55,23 @@ export default function LoginPage() {
       setLoading(false);
       return;
     }
-
     api.post(endpoints.user.login, { username, password })
-      .then((_res) => setTimeout(() => navigate("/dashboard"), 100)  )
+      .then((res) => {
+        dispatch(setUser(res.data))
+        dispatch(setAuthenticationState(true))
+      })
       .catch((e) => {
         if (e.response) {
           if (e.response.status === 500) {
             setErrors(["حصل خطأ في الخادم الرجاء المحاولة في وقت اخر"]);
           } else if (e.response.status !== 421) {
-            setErrors([e.response.data.error]);
+            if (e.response.status === 401) {
+              dispatch(logoutUser())
+            }
+            setErrors([e.response.data.error || e.response.data.detail]);
+            if (e.response?.data?.code === 'account_not_active') {
+              setActivateAccount(true)
+            }
           }
         } else {
           setErrors([
@@ -67,6 +81,9 @@ export default function LoginPage() {
       })
       .finally(() => setLoading(false));
   };
+
+  if (showVerificationForm) return <VerificationPage />
+
   return (
     <>
 
@@ -100,9 +117,10 @@ export default function LoginPage() {
                   {errors.map((err, i) => <p className='text-center' key={i}>{err}</p>)}
                 </div>
               )}
+              {activateAccount && <button type='button' onClick={() => { setShowVerificationEmail(true) }} className='underline text-center'> تفعيل الحساب </button>}
               <input
                 type="text"
-                placeholder="اسم المستخدم"
+                placeholder="البريد الألكتروني او اسم المستخدم"
                 className="p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-emerald-950 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-emerald-500"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -114,6 +132,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              
               <button
                 type="submit"
                 disabled={loading}
