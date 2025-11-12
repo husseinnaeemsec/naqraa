@@ -31,6 +31,8 @@ import ExploreCourses from './pages/public/ExploreCourses.tsx';
 import CourseDetailsPage from './pages/public/CourseDetailsPage.tsx';
 import AccountVerified from './pages/public/AccountVerified.tsx';
 import VerificationPage from './components/VerificationPage.tsx';
+import LogoutPage from './pages/public/Logout.tsx';
+import SendVerificationEmailPage from './components/SendVerificationEmailPage.tsx';
 
 
 createRoot(document.getElementById('root')!).render(
@@ -66,7 +68,9 @@ createRoot(document.getElementById('root')!).render(
                 <Route path='login' element={<LoginPage />} />
                 <Route path='register' element={<RegisterPage />} />
                 <Route path='account-verified' element={<AccountVerified />} />
-                <Route path='verify' element={<VerificationPage />} />
+                <Route path='verify/:uid/:token' element={<VerificationPage />} />
+                <Route path="/resend-verification" element={<SendVerificationEmailPage />} />
+                <Route path='logout' element={<ProtectedRoute> <LogoutPage /> </ProtectedRoute>} />
                 {/* Course pages */}
                 <Route path='/' element={<LandingPage />} >
                   <Route index element={<Home />} />
