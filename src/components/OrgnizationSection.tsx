@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../store/store";
+import { useAppSelector } from "../store/store";
 import api from "../api/client";
 import { SectionHeader, Success, ErrorNote } from "../pages/student/SettingsPage";
 import type { Organization } from "../../types";
