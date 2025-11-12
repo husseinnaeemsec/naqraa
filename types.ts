@@ -338,8 +338,6 @@ export interface User {
     week_study_time:StudyTimeWeek|null;
     subscription:Subscription|null;
     enrolled_courses:{ course:number,enrollment:number }[];
-    verified:boolean;
-    last_verification_request_date:null|string;
 }
 
 export interface InitialAuthState {
