@@ -203,6 +203,9 @@ body[dir=rtl] {
     @apply bg-white dark:bg-emerald-950 h-20 p-2 px-10 border-b border-r dark:border-emerald-800  border-emerald-200 flex items-center justify-between;
 }
 
+input[aria-invalid='true']{
+    @apply border border-rose-500;
+}
 
 @theme inline {
     --radius-sm:calc(var(--radius) - 4px);
