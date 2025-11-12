@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import api from "../api/client";
-import { setUser } from "../store/authSlice";
 import { SectionHeader, Success, ErrorNote } from "../pages/student/SettingsPage";
 import type { Organization } from "../../types";
 import { t } from "i18next";
@@ -9,7 +8,6 @@ import { t } from "i18next";
 
 
 export default function OrganizationSection() {
-    const dispatch = useAppDispatch();
     const { user } = useAppSelector((state) => state.auth);
 
     const [orgList, setOrgList] = useState<Organization[]>([]);
