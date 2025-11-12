@@ -299,3 +299,9 @@ export function convertMinutes(minutes:number, type = "hour") {
       return minutes;
   }
 }
+
+export function isValidEmail(email:string | null):boolean {
+  if(!email) return false;
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
+}
