@@ -10,7 +10,7 @@ export const endpoints = {
         studySession:'/users/study-time/',
         sendVerificationEmail:"/users/send-verification-email/",
         verification:{
-            verify:'/users/verify/',
+            verify:(uid:string,token:string) => `/users/verify/${uid}/${token}/`,
             request:'/users/verify/request/',
         },
         organization:{
