@@ -1,4 +1,4 @@
-import { useNavigate, useNavigation,useLocation } from "react-router-dom";
+import { useNavigate,useLocation, Link } from "react-router-dom";
 import type { Notification } from "../../types";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { getMedia } from "../utils/functions";
@@ -45,7 +45,9 @@ export default function DashboardTopNavbar() {
             <div >
                 <button className="lg:hidden block" onClick={()=>{ dispatch(toggleSidebar()) }}> <HeroMenuIcon className="size-6" /> </button>
             </div>
-            <div></div>
+            <div className="flex items-center gap-2">
+                <Link to="/courses/explore"> الدورات  </Link>
+            </div>
             <div className="flex items-center gap-2 relative z-0">
                 <button onClick={()=>{ setOpen(prev => !prev) }} className="relative z-0">
                     {unread.length > 0 && <div className="size-4 flex centred text-white absolute -top-2 left-0 bg-rose-500 rounded-full text-xs"> {unread.length} </div>}
