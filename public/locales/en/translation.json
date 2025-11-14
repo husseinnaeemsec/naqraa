@@ -166,5 +166,62 @@
     "start_learning": "Start Learning",
     "continue_learning": "Continue Learning",
     "discover_more_courses": "Discover More Courses"
-  }
+  },
+"naqraa_features": [
+    {
+      "title": "Educational communities in one place",
+      "description": "Connect, share, and learn within specialized academic communities.",
+      "details": [
+        "Join groups related to your university or field of study.",
+        "Share files and references effortlessly.",
+        "Benefit from organized discussions and scheduled conversations."
+      ],
+      "alt": "community",
+      "cta": "Explore communities"
+    },
+    {
+      "title": "Chat and share ideas easily",
+      "description": "A full messaging system supporting individual and group communication in a safe educational environment.",
+      "details": [
+        "Instant messaging between students and teachers.",
+        "Create discussion rooms for projects and research.",
+        "Support for all file types (PDF, Docs, Media)."
+      ],
+      "alt": "chat",
+      "cta": "Try chat"
+    },
+    {
+      "title": "Smart management for educational institutions",
+      "description": "A centralized tool to manage students, instructors, and learning content efficiently.",
+      "details": [
+        "Track student attendance electronically.",
+        "Organize curriculum and learning resources in a digital library.",
+        "Generate full performance analytics and reports."
+      ],
+      "alt": "org",
+      "cta": "Learn more"
+    },
+    {
+      "title": "Learn for free and share knowledge",
+      "description": "Hundreds of free courses and educational materials at your fingertips.",
+      "details": [
+        "Unlimited access to courses across many fields.",
+        "A large library of open-source references and files.",
+        "Publish and share your own educational content."
+      ],
+      "alt": "learn",
+      "cta": "Browse resources"
+    },
+    {
+      "title": "Create research and projects professionally",
+      "description": "A collaboration tool built for academic writing and scientific research.",
+      "details": [
+        "A writing engine with math and academic formula support.",
+        "Automatic reference formatting.",
+        "Real-time collaboration."
+      ],
+      "alt": "research",
+      "cta": "Start now"
+    }
+  ]
 }
