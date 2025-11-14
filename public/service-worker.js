@@ -8,11 +8,13 @@ self.addEventListener("push", function (event) {
     }
   }
 
+  
+
   const title = payload.title;
   const options = {
     body: payload.body|| "",
     icon: "/favicon.svg",
-    data: payload.link || "/", // optional: open a URL on click
+    data: payload.url || payload.link || "/", // optional: open a URL on click
   };
 
   event.waitUntil(self.registration.showNotification(title, options));
