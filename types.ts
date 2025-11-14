@@ -72,7 +72,7 @@ export interface PushNotification{
 
 export interface Profile {
     theme: string;
-    lang: string;
+    lang: 'en'|'ar'|'ku';
     profile_picture: string;
     email_notifications: boolean;
     push_notifications: boolean;
@@ -433,4 +433,11 @@ export interface StudyTimeWeek {
   thursday: StudySession | null;
   friday: StudySession | null;
   saturday: StudySession | null;
+}
+
+export interface Post {
+    title:string;
+    content:string;
+    id:number;
+    created_at:string;
 }
