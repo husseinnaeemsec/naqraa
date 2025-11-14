@@ -3,6 +3,7 @@ import authReducer from './authSlice';
 import uiReducer from './uiSlice';
 import enrollmentReducer from './enrollmentSlice';
 import chatReducer from './chatSlice';
+import ApiReduceer from './apiSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     ui:uiReducer,
     enrollment:enrollmentReducer,
     chat:chatReducer,
+    api:ApiReduceer,
   },
 });
 
