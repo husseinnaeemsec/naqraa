@@ -6,11 +6,11 @@ const Dashboard = () => {
 
 
   return (
-    <div className="  grid lg:grid-cols-[280px_1fr]">
+    <div className="max-h-dvh  grid lg:grid-cols-[280px_1fr]">
       {/* Sidebar */}
       <Sidebar />
       {/* Main Content */}
-      <main className="">
+      <main className="content">
         <DashboardTopNavbar />
         {/* Main content */}
         <Outlet />
