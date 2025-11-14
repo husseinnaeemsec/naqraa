@@ -1,4 +1,7 @@
 export const endpoints = {
+    community:{
+        posts:(community_id:number) => `/community/${community_id}/posts/`
+    },
     user:{
         login:'/users/login/',
         register:"/users/register/",
