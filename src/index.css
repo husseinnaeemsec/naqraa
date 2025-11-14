@@ -97,10 +97,8 @@ html,body{
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-.content {
-    @apply w-full overflow-y-auto h-full ;
-    padding-bottom: calc(var(--safe-bottom-space) + 20px );
-
+@utility content{
+    @apply overflow-y-auto min-h-dvh;
 }
 
 *::selection {
