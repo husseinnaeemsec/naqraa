@@ -50,6 +50,7 @@ import PartenrsPage from './pages/public/PartenrsPage.tsx';
 import PageNotFound from './pages/public/404.tsx';
 import TermsPage from './pages/public/TermsPage.tsx';
 import SubscriptionPage from './pages/student/SubscriptionPage.tsx';
+import PlansPage from './pages/public/PlansPage.tsx';
 
 
 createRoot(document.getElementById('root')!).render(
@@ -109,6 +110,7 @@ createRoot(document.getElementById('root')!).render(
                   <Route path='communities' element={<PublicCommunitiesPage  />} />
                   <Route path='organizations' element={<OrganizationsPage />} />
                   <Route path='partenrs' element={<PartenrsPage />} />
+                  <Route path='plans' element={<PlansPage />} />
                   <Route path='terms' element={<TermsPage />} />
                   <Route path='resources' >
                     <Route index element={<ResourcesPage />} />

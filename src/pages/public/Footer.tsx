@@ -33,6 +33,7 @@ export default function Footer() {
                                 <h6 className="mb-4 text-sm font-semibold uppercase text-emerald-700 dark:text-emerald-400">الخدمات التعليمية</h6>
                                 <ul className="space-y-3">
                                     <li><Link to="/courses/explore?is_free=on" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">الدورات المجانية</Link></li>
+                                    <li><Link to="/plans" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">خطط الاشتراك</Link></li>
                                     <li><Link to="/resources" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">الأبحاث والمراجع</Link></li>
                                     <li><Link to="/communities" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">المجتمعات الطلابية</Link></li>
                                     <li><Link to="/organizations" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">المؤسسات التعليمية</Link></li>

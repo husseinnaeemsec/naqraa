@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../store/store";
 import { Computer, ComputerIcon } from "lucide-react";
+import LanguageSwitcher from "../LanguageSwitcher";
 
 export default function TopNavigation() {
 
@@ -21,6 +22,7 @@ export default function TopNavigation() {
         <Link to="/" className="hover:text-emerald-600 transition"> الرئيسية</Link>
         <Link to="/about" className="hover:text-emerald-600 transition">من نحن</Link>
         <Link to="/courses" className="hover:text-emerald-600 transition">الدورات</Link>
+        <Link to="/plans" className="hover:text-emerald-600 transition">خطط الاشتراك</Link>
         <Link to="/features" className="hover:text-emerald-600 transition">مميزات المنصة</Link>
         <Link to="/resources" className="hover:text-emerald-600 transition">الموارد</Link>
         <Link to="/contact" className="hover:text-emerald-600 transition">اتصل بنا</Link>
@@ -28,20 +30,25 @@ export default function TopNavigation() {
 
       {/* Auth buttons */}
       {!isAuthenticated ? (
-        <div className="flex items-center gap-2">
-          <Link
-            to="/register"
-            className="p-2 px-4 rounded text-sm bg-emerald-500 hover:bg-emerald-600 text-white transition"
-          >
-            إنشاء حساب
-          </Link>
+        <div className="flex items-center gap-3">
+          {/* Language Switcher */}
+          <LanguageSwitcher />
+          
+          <div className="flex items-center gap-2">
+            <Link
+              to="/register"
+              className="p-2 px-4 rounded text-sm bg-emerald-500 hover:bg-emerald-600 text-white transition"
+            >
+              إنشاء حساب
+            </Link>
 
-          <Link
-            to="/login"
-            className="p-2 px-4 rounded text-sm border border-slate-400 hover:border-emerald-500 hover:text-emerald-600 transition"
-          >
-            دخول
-          </Link>
+            <Link
+              to="/login"
+              className="p-2 px-4 rounded text-sm border border-slate-400 hover:border-emerald-500 hover:text-emerald-600 transition"
+            >
+              دخول
+            </Link>
+          </div>
         </div>
 
       ) :
