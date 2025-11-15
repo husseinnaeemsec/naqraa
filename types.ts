@@ -131,20 +131,56 @@ export interface Grade {
     name: string;
 }
 
+export interface Feature {
+    id: number;
+    code: string;
+    name: string;
+    description: string;
+}
+
 export interface SubscriptionPlan {
-    id:number;
-    name:string;
-    code:string;
-    price:number;
-    is_free:boolean;
+    id: number;
+    name: string;
+    name_ar: string;
+    code: string;
+    price: number;
+    duration_days: number;
+    duration_months: number;
+    role: string;
+    is_free: boolean;
+    is_popular?: boolean;
+    description: string;
+    description_ar: string;
+    features_list: string[];
+    features_ar: string[];
+    features: Feature[];
+    is_recurring: boolean;
+    stripe_price_id?: string;
+    stripe_product_id?: string;
 }
 
 export interface Subscription {
-    plan:SubscriptionPlan;
-    start_date:string;
-    end_date:string;
-    is_active:boolean;
-    remaining_days:number;
+    id: number;
+    plan: SubscriptionPlan;
+    start_date: string;
+    end_date: string;
+    is_active: boolean;
+    auto_renew: boolean;
+    remaining_days: number;
+    is_active_subscription: boolean;
+    stripe_subscription_id?: string;
+    stripe_customer_id?: string;
+}
+
+export interface Payment {
+    id: number;
+    plan: SubscriptionPlan;
+    amount: number;
+    currency: string;
+    status: string;
+    payment_method: string;
+    transaction_id: string;
+    created_at: string;
 }
 
 export interface Course {
@@ -367,6 +403,13 @@ export interface HomeWork {
     subject_name:string;
     class_room_name:string;
     date:string;
+}
+
+export interface HomeWorkResponse {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: HomeWork[];
 }
 
 export interface Task {
