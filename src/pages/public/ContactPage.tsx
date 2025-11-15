@@ -111,7 +111,7 @@ export default function ContactPage() {
           <button
             disabled={loading}
             className={`text-white bg-emerald-700 font-bold py-4 rounded-xl text-lg sm:text-xl transition duration-200
-              ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-emerald-100 hover:scale-105"}`}>
+              ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-emerald-600 hover:scale-105"}`}>
             {loading ? "جاري الإرسال..." : "إرسال الرسالة"}
           </button>
         </form>

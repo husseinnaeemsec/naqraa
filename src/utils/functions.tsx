@@ -312,6 +312,10 @@ export function extractErrors(err: any): string[]{
 
   let errorList: string[] = [];
 
+  if(typeof res.error === 'string'){
+    errorList.push(res.error);
+  }
+
   if (typeof res.detail === "string") {
     errorList.push(res.detail);
   }
