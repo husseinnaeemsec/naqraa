@@ -49,6 +49,7 @@ import OrganizationsPage from './pages/public/OrganizationsPage.tsx';
 import PartenrsPage from './pages/public/PartenrsPage.tsx';
 import PageNotFound from './pages/public/404.tsx';
 import TermsPage from './pages/public/TermsPage.tsx';
+import SubscriptionPage from './pages/student/SubscriptionPage.tsx';
 
 
 createRoot(document.getElementById('root')!).render(
@@ -67,6 +68,7 @@ createRoot(document.getElementById('root')!).render(
                 <Route path='timetable' element={<TimeTablePage />} />
                 <Route path='communities' element={<CommunitiesPage />} />
                 {/* <Route path='todo' element={<TodoPage />} /> */}
+                <Route path='subscription' element={<SubscriptionPage />} />
                 <Route path='settings' element={<SettingsPage />} />
                 <Route path='chat' element={<ChatPage />} >
                   <Route path=':chatId' element={<Chat />} />
