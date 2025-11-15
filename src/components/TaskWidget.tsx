@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { HomeWork } from "../../types";
+import type { HomeWork, HomeWorkResponse } from "../../types";
 import api from "../api/client";
 import { endpoints } from "../api/routes";
 
@@ -10,8 +10,8 @@ export default function TasksWidget() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const res = await api.get<HomeWork[]>(endpoints.organization.upcoming_homework); 
-        setTasks(res.data);
+        const res = await api.get<HomeWorkResponse>(endpoints.organization.upcoming_homework); 
+        setTasks(res.data.results);
       } catch (error) {
         console.error("Error fetching tasks:", error);
       } finally {

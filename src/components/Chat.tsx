@@ -7,7 +7,6 @@ import ResourceLoader from "./resourceLoader";
 import { type ChatProps } from "../../types";
 import api from "../api/client";
 import { endpoints, ws_endpoints } from "../api/routes";
-import { useAppSelector } from "../store/store";
 
 export default function Chat() {
   const { chatId } = useParams();
@@ -15,7 +14,6 @@ export default function Chat() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const chatIdNum = Number(chatId);
-  const { isConnected } = useAppSelector((state) => state.chat);
   const socketRef = useRef<WebSocket | null>(null);
 
   // 🧩 Handle invalid chat ID

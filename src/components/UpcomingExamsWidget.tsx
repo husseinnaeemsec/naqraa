@@ -9,7 +9,7 @@ export default function UpcomingExams() {
   const [exams,setExams] = useState<Exam[]>([])
   
   useEffect(()=>{
-    api.get(endpoints.organization.upcoming_exams).then(res => setExams(res.data))
+    api.get(endpoints.organization.upcoming_exams).then(res => setExams(res.data.results))
   },[])
 
   return (

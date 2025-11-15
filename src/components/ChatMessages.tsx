@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import type { ChatProps, ChatMessageProps, InitialWSData } from "../../types";
+import type { ChatProps, ChatMessageProps } from "../../types";
 import ChatMessage from "./ChatMessage";
 import ResourceLoader from "./resourceLoader";
 import api from "../api/client";
@@ -37,18 +37,21 @@ export default function ChatMessages({
       try {
         const res = await api.get(endpoints.chat.getMessages(chat.id));
         // Keep chronological order: oldest first
-        setMessages(res.data.results);
+        const results = res.data.results || [];
+        setMessages(results);
         setNextPage(updateURLParams(res.data.next,{ page_size:10 }) || null);
 
         // Scroll to bottom after initial load
-        setTimeout(() => {
-          virtuosoRef.current?.scrollToIndex({
-            index: res.data.results.length - 1,
-            align: "end",
-          });
-        }, 50);
+        if (results.length > 0) {
+          setTimeout(() => {
+            virtuosoRef.current?.scrollToIndex({
+              index: results.length - 1,
+              align: "end",
+            });
+          }, 50);
+        }
       } catch (err: any) {
-        if (err.status === 404) setError("لم يتم العثور على المحادثة");
+        if (err.response?.status === 404) setError("لم يتم العثور على المحادثة");
         else setError("حدث خطأ في تحميل الرسائل");
       } finally {
         setLoading(false);
@@ -104,7 +107,8 @@ export default function ChatMessages({
     try {
       const res = await api.get(nextPage);
       // prepend older messages
-      setMessages((prev) => [...res.data.results, ...prev]);
+      const results = res.data.results || [];
+      setMessages((prev) => [...results, ...prev]);
       setNextPage(updateURLParams(res.data.next,{ page_size:10 }) || null);
 
       // maintain scroll position
@@ -113,6 +117,8 @@ export default function ChatMessages({
         const diff = newScrollHeight - prevScrollHeight;
         if (scroller) scroller.scrollTop = diff;
       }, 0);
+    } catch (err) {
+      // Error loading older messages
     } finally {
       setLoadingOlder(false);
     }
@@ -160,7 +166,7 @@ export default function ChatMessages({
           if (!el) return;
           // Scroll listener for near-top loading
           el.addEventListener("scroll", () => {
-            if (el.scrollTop < 50 && !loadingOlder) {
+            if ((el as HTMLElement).scrollTop < 50 && !loadingOlder) {
               loadOlderMessages();
             }
           });

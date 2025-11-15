@@ -41,7 +41,7 @@ const ExamsPage = () => {
                             {
                                 exams.map((exam) => {
                                     return (
-                                        <tr className="border-b  border-emerald-100 hover:bg-emerald-50 transition-colors">
+                                        <tr key={exam.id} className="border-b  border-emerald-100 hover:bg-emerald-50 transition-colors">
                                             <td className="py-3 px-4"> {exam.title} </td>
                                             <td className="py-3 px-4"> {exam.class_room_name} </td>
                                             <td className="py-3 px-4"> {exam.subject_name} </td>
