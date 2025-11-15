@@ -21,6 +21,7 @@
     "@radix-ui/react-tooltip": "^1.2.8",
     "@reactour/tour": "^3.8.0",
     "@reduxjs/toolkit": "^2.8.2",
+    "@stripe/stripe-js": "^8.4.0",
     "@studio-freight/lenis": "^1.0.42",
     "@tailwindcss/vite": "^4.1.12",
     "@uiw/react-head": "^1.0.5",
