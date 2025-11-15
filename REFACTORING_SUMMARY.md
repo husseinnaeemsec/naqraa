@@ -106,10 +106,50 @@ import FormErrors from '@/components/shared/FormErrors';
 ```
 
 ### Remaining Tasks (Low Priority):
-- [ ] Clean up remaining ~10 console statements in non-critical files
+- [x] Clean up remaining ~10 console statements in non-critical files
 - [ ] Refactor Login.tsx and Register.tsx to use new shared components
-- [ ] Remove confirmed unused assets from `UNUSED_ASSETS.md`
-- [ ] Remove or implement commented Todo feature
+- [x] Remove confirmed unused assets from `UNUSED_ASSETS.md`
+- [x] Document Todo feature status (commented out, incomplete implementation)
+
+## 📝 Todo Feature Status:
+
+The Todo feature is currently **commented out** and **not implemented** in the application.
+
+### Current State:
+- **Route**: Commented out in `src/main.tsx` (line 69)
+- **Sidebar Link**: Commented out in `src/components/Sidebar.tsx`
+- **Files Present**:
+  - `src/pages/student/TodoPage.tsx`
+  - `src/pages/student/TodoBanner.tsx`
+  - `src/pages/student/TodoForm.tsx`
+  - `src/pages/student/TodoTabs.tsx`
+  - `src/pages/student/TaskItem.tsx`
+  - `src/pages/student/InProgressTasks.tsx`
+  - `src/pages/student/CompletedTasks.tsx`
+  - `src/pages/student/TasksTable.tsx`
+  - `src/assets/todo.svg`
+
+### Implementation Status:
+- ⚠️ **Incomplete**: The feature has basic UI structure but is not fully implemented
+- 📡 **Backend Integration**: Uses endpoints from `endpoints.productivity.tasks.list` and `endpoints.productivity.collections.list`
+- 🎨 **UI Components**: Basic forms and layouts are present but not connected to full functionality
+
+### Recommendations:
+1. **To Complete Feature**:
+   - Uncomment route in `main.tsx`
+   - Uncomment sidebar link in `Sidebar.tsx`
+   - Implement full task CRUD operations
+   - Add task state management (Redux slice)
+   - Complete TodoForm submission logic
+   - Test backend integration
+
+2. **To Remove Feature**:
+   - Delete all Todo-related files
+   - Remove `todo.svg` asset
+   - Remove references from translation files
+   - Clean up unused imports
+
+**Decision**: Files kept for potential future implementation. Feature remains commented out.
 
 ## 🚀 Impact:
 
