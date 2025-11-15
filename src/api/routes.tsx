@@ -70,6 +70,18 @@ export const endpoints = {
     support:{
         contact:'/support/contact/',
 
+    },
+    subscriptions:{
+        plans: '/subscriptions/plans/',
+        createPaymentIntent:'/subscriptions/create-payment-intent/',
+        createSubscription: '/subscriptions/create-subscription/',
+        createCheckout: '/subscriptions/create-checkout-session/',
+        status: '/subscriptions/status/',
+        cancel:'/subscriptions/cancel/',
+        webhook: '/subscriptions/webhook/',
+        list: '/subscriptions/plans/',  // Alias for backward compatibility
+        current: '/subscriptions/status/',  // Use status endpoint for current subscription
+        history: '/subscriptions/history/'
     }
 }
 
