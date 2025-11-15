@@ -66,6 +66,10 @@ export const endpoints = {
         subjects:`/academics/subjects/`,
         grades:'/academics/grades/'
         
+    },
+    support:{
+        contact:'/support/contact/',
+
     }
 }
 

@@ -32,26 +32,26 @@ const chatSlice = createSlice({
       const socket = new WebSocket(url);
 
       socket.onopen = () => {
-        console.log("✅ WebSocket connected");
+        // WebSocket connected
         state.isConnected = true;
       };
 
       socket.onclose = () => {
-        console.log("❌ WebSocket disconnected");
+        // WebSocket disconnected
         state.isConnected = false;
       };
 
       socket.onerror = (err) => {
-        console.error("⚠️ WebSocket error:", err);
+        // WebSocket error
       };
 
       socket.onmessage = (event) => {
         try {
           const data = JSON.parse(event.data);
-          console.log("📨 Message received:", data);
+          // Message received
           // you can't directly mutate here; will dispatch in middleware or thunk
         } catch {
-          console.error("Failed to parse message");
+          // Failed to parse message
         }
       };
 

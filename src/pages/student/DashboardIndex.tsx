@@ -16,7 +16,7 @@ const IndexPage = () => {
     const { user } = useAppSelector((state) => state.auth)
 
     return (
-        <div className=" content  mx-auto">
+        <div>
 
             <div className="p-6 pb-2 space-y-2 dark:text-emerald-50">
                 <h1 className="text-2xl"> مرحبا <strong> {user?.first_name} </strong>  </h1>

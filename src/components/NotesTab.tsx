@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import type { Enrollment, EnrollmentLecture, LectureNote } from "../../types";
+import type { LectureNote } from "../../types";
 import api from "../api/client";
 import { endpoints } from "../api/routes";
 import { timeSince } from "../utils/functions";
-import { t } from "i18next";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { setCurrentLecture } from "../store/enrollmentSlice";
 
@@ -145,7 +144,7 @@ export default function NotesTab() {
       setEditingNote(null);
       setNoteData({ title: "", text: "", timestamp: "", color: "bg-amber-100" });
     } catch (err) {
-      console.error(err);
+      // Error saving note
     }
   };
 
@@ -159,7 +158,7 @@ export default function NotesTab() {
         })
       );
     } catch (err) {
-      console.error(err);
+      // Error deleting note
     }
   };
 

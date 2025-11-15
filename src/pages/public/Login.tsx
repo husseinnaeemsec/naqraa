@@ -14,8 +14,8 @@ import VerificationPage from '../../components/VerificationPage';
 
 export default function LoginPage() {
   const { isAuthenticated } = useAppSelector((state) => state.auth)
-  const [username, setUsername] = useState('hussein');
-  const [password, setPassword] = useState('2252Rexx');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);

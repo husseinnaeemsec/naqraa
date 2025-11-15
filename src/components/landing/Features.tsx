@@ -8,7 +8,9 @@ import community from "../../assets/community-img.svg";
 import orgmanage from "../../assets/manage-img.svg";
 import learn from "../../assets/learn-img.svg";
 import research from "../../assets/research-img.svg";
+import { t } from "i18next";
 
+const images = [community,chat,orgmanage,learn,research]
 // Register the ScrollTrigger plugin once globally
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,73 +51,73 @@ ArabicCtaSection.displayName = 'ArabicCtaSection';
 
 // --- Feature Data (Remains the same) ---
 const featuresData = [
-  // ... (All 5 feature objects here) ...
   {
-    title: "مجتمعات تعليمية تجمع الكل بمكان واحد",
-    description: "تواصل، تبادل، وتعلّم ضمن مجتمعات متخصصة تلبي شغفك الدراسي.",
+    index:0,
+    title: t("naqraa_features.0.title"),
+    description: t("naqraa_features.0.description"),
     details: [
-      "انضم إلى مجموعات جامعتك أو تخصصك الدراسي.",
-      "شارك الملفات والمراجع التعليمية بسهولة فائقة.",
-      "استفد من نقاشات وحوارات منظمة ومجدولة.",
+      t("naqraa_features.0.details.0"),
+      t("naqraa_features.0.details.1"),
+      t("naqraa_features.0.details.2"),
     ],
-    image: community,
-    alt: "community",
-    cta: "اكتشف المجتمعات",
+    alt: t("naqraa_features.0.alt"),
+    cta: t("naqraa_features.0.cta"),
     reverseLayout: false,
   },
   {
-    title: "دردش وشارك أفكارك بكل بساطة",
-    description: "منصة دردشة متكاملة تدعم التواصل الفردي والجماعي في بيئة تعليمية آمنة.",
+    index:1,
+    title: t("naqraa_features.1.title"),
+    description: t("naqraa_features.1.description"),
     details: [
-      "رسائل فورية بين الطلبة والأساتذة.",
-      "إنشاء غرف نقاش خاصة بالمشاريع والبحوث.",
-      "دعم إرسال جميع أنواع الملفات (PDF, Docs, Media).",
+      t("naqraa_features.1.details.0"),
+      t("naqraa_features.1.details.1"),
+      t("naqraa_features.1.details.2"),
     ],
-    image: chat,
-    alt: "chat",
-    cta: "جرّب الدردشة",
+    alt: t("naqraa_features.1.alt"),
+    cta: t("naqraa_features.1.cta"),
     reverseLayout: true,
   },
   {
-    title: "إدارة ذكية للمؤسسات التعليمية",
-    description: "نظام مركزي يسهل إدارة الطلاب، الأساتذة، والمحتوى التعليمي بكفاءة عالية.",
+    index:2,
+    title: t("naqraa_features.2.title"),
+    description: t("naqraa_features.2.description"),
     details: [
-      "تتبع حضور وغياب الطلاب إلكترونياً.",
-      "تنظيم المناهج والموارد التعليمية في مكتبة رقمية.",
-      "إصدار تقارير وإحصائيات شاملة لأداء المؤسسة.",
+      t("naqraa_features.2.details.0"),
+      t("naqraa_features.2.details.1"),
+      t("naqraa_features.2.details.2"),
     ],
-    image: orgmanage,
-    alt: "org",
-    cta: "تعرّف على النظام",
+    alt: t("naqraa_features.2.alt"),
+    cta: t("naqraa_features.2.cta"),
     reverseLayout: false,
   },
   {
-    title: "تعلّم مجاناً وشارك المعرفة",
-    description: "مئات الدورات والموارد التعليمية المجانية في متناول يدك، لتنمية مهاراتك بشكل مستمر.",
+    index:3,
+    title: t("naqraa_features.3.title"),
+    description: t("naqraa_features.3.description"),
     details: [
-      "وصول غير محدود لدورات في مختلف التخصصات.",
-      "مكتبة ضخمة من المراجع والملفات المفتوحة.",
-      "فرصة لنشر محتواك التعليمي الخاص ومشاركته.",
+      t("naqraa_features.3.details.0"),
+      t("naqraa_features.3.details.1"),
+      t("naqraa_features.3.details.2"),
     ],
-    image: learn,
-    alt: "learn",
-    cta: "تصفّح الموارد",
+    alt: t("naqraa_features.3.alt"),
+    cta: t("naqraa_features.3.cta"),
     reverseLayout: true,
   },
   {
-    title: "أنشئ أبحاثك ومشاريعك بكل احتراف",
-    description: "أداة تعاون متقدمة للكتابة البحثية، مصممة خصيصاً لتلبية احتياجات الأكاديميين والطلاب.",
+    index:4,
+    title: t("naqraa_features.4.title"),
+    description: t("naqraa_features.4.description"),
     details: [
-      "محرك كتابة يدعم المعادلات والصيغ الأكاديمية.",
-      "تنسيق آلي للمراجع والمصادر حسب النمط المطلوب.",
-      "تعاون لحظي مع الزملاء على نفس المستند.",
+      t("naqraa_features.4.details.0"),
+      t("naqraa_features.4.details.1"),
+      t("naqraa_features.4.details.2"),
     ],
-    image: research,
-    alt: "research",
-    cta: "ابدأ بحثك الآن",
+    alt: t("naqraa_features.4.alt"),
+    cta: t("naqraa_features.4.cta"),
     reverseLayout: false,
   },
 ];
+
 // -----------------------------------------------------------------------------
 
 // --- Features Component ---
@@ -196,7 +198,7 @@ export default function Features() {
                         className={`w-full rounded-xl max-h-[70vh] object-contain ${
                         feature.reverseLayout ? "md:order-2" : "md:order-1"
                         }`}
-                        src={feature.image}
+                        src={images[feature.index]}
                         alt={feature.alt}
                     />
 

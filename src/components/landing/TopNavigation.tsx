@@ -18,9 +18,10 @@ export default function TopNavigation() {
       {/* Center links */}
       <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-700">
         {/* TODO: Add mega menus later */}
+        <Link to="/" className="hover:text-emerald-600 transition"> الرئيسية</Link>
         <Link to="/about" className="hover:text-emerald-600 transition">من نحن</Link>
         <Link to="/courses" className="hover:text-emerald-600 transition">الدورات</Link>
-        <Link to="/tools" className="hover:text-emerald-600 transition">الأدوات</Link>
+        <Link to="/features" className="hover:text-emerald-600 transition">مميزات المنصة</Link>
         <Link to="/resources" className="hover:text-emerald-600 transition">الموارد</Link>
         <Link to="/contact" className="hover:text-emerald-600 transition">اتصل بنا</Link>
       </div>

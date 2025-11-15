@@ -76,7 +76,6 @@ export default function AccountInformationSection() {
                 dispatch(setUser(res.data));
             })
             .catch((e) => {
-                console.error(e);
                 setErrors(["فشل في حفظ البيانات"]);
             })
     };

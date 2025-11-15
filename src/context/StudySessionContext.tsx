@@ -54,9 +54,9 @@ export const StudySessionTrackerProvider: React.FC<{ children: React.ReactNode }
     try {
       await api.post(endpoints.user.studySession, { total_seconds: 10000 });
       setLastUpdated(new Date());
-      console.log("✅ Study time submitted:", seconds);
+      // Study time submitted successfully
     } catch (err) {
-      console.error("⚠️ Failed to submit study time", err);
+      // Failed to submit study time
     }
   }, [seconds]);
 

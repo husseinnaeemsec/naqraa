@@ -277,7 +277,6 @@ export function simpleDebounce<T extends (...args: any[]) => void>(
 }
 
 export function isExpired(isoTime:string) : boolean {
-  console.log(isoTime)
   const targetTime = new Date(isoTime).getTime();
   const now = Date.now();
 
@@ -305,3 +304,28 @@ export function isValidEmail(email:string | null):boolean {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email);
 }
+
+
+export function extractErrors(err: any): string[]{
+  const res = err?.response?.data;
+  if (!res) return ["حدث خطأ غير متوقع."];
+
+  let errorList: string[] = [];
+
+  if (typeof res.detail === "string") {
+    errorList.push(res.detail);
+  }
+
+  if (Array.isArray(res.non_field_errors)) {
+    errorList.push(...res.non_field_errors);
+  }
+
+  // collect field errors (email, name, etc.)
+  Object.keys(res).forEach((key) => {
+    if (Array.isArray(res[key])) {
+      res[key].forEach((msg: string) => errorList.push(msg));
+    }
+  });
+
+  return errorList.length ? errorList : ["حدث خطأ غير متوقع."];
+};

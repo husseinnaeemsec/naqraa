@@ -40,14 +40,15 @@ import ContactPage from './pages/public/ContactPage.tsx';
 import BlogPage from './pages/public/BlogPage.tsx';
 import JoinNaqraaTeamPage from './pages/public/JoinNaqraaTeamPage.tsx';
 import NaqraaForOrganizations from './pages/public/NaqraaForOrganizations.tsx';
-import SupportPage from './pages/public/ٍSupportPage.tsx';
+import SupportPage from './pages/public/SupportPage.tsx';
 import FAQPage from './pages/public/FAQPage.tsx';
 import ReportIssuePage from './pages/public/ReportIssuePage.tsx';
 import NaqraaAppFeaturesPage from './pages/public/NaqraaAppFeaturesPage.tsx';
-import PublicCommunitiesPage from './pages/public/Communities.tsx';
+import PublicCommunitiesPage from './pages/public/CommunitiesPage.tsx';
 import OrganizationsPage from './pages/public/OrganizationsPage.tsx';
 import PartenrsPage from './pages/public/PartenrsPage.tsx';
 import PageNotFound from './pages/public/404.tsx';
+import TermsPage from './pages/public/TermsPage.tsx';
 
 
 createRoot(document.getElementById('root')!).render(
@@ -93,7 +94,7 @@ createRoot(document.getElementById('root')!).render(
                   <Route path='verify/:uid/:token' element={<VerificationPage />} />
                   <Route path="resend-verification" element={<SendVerificationEmailPage />} />
                   <Route path='logout' element={<ProtectedRoute> <LogoutPage /> </ProtectedRoute>} />
-                  <Route path='tools' element={<NaqraaFeatures />} />
+                  <Route path='features' element={<NaqraaFeatures />} />
                   <Route path='about' element={<AboutUsPage />} />
                   <Route path='contact' element={<ContactPage />} />
                   <Route path='blog' element={<BlogPage />} />
@@ -106,6 +107,7 @@ createRoot(document.getElementById('root')!).render(
                   <Route path='communities' element={<PublicCommunitiesPage  />} />
                   <Route path='organizations' element={<OrganizationsPage />} />
                   <Route path='partenrs' element={<PartenrsPage />} />
+                  <Route path='terms' element={<TermsPage />} />
                   <Route path='resources' >
                     <Route index element={<ResourcesPage />} />
                     <Route path='search' element={<div> search page </div>} />

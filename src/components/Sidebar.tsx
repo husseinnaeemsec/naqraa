@@ -57,7 +57,7 @@ export default function Sidebar() {
 
     { link: "/dashboard/exams/", icon: "fi fi-rr-quiz-alt", label: t("sidebar.quizzes") },
     { link: "/dashboard/chat/", messages: 0, icon: "fi fi-rr-messages", label: t("sidebar.chat") },
-    { link: "/dashboard/communties/", icon: "fi fi-rr-users-class", label: t("sidebar.community") },
+    { link: "/dashboard/communities/", icon: "fi fi-rr-users-class", label: t("sidebar.community") },
     { link: "/dashboard/files/", icon: "fi fi-rr-folder", label: t("sidebar.files") },
     { link: "/dashboard/settings/", icon: "fi fi-rr-user-gear", label: t("sidebar.settings") },
   ];

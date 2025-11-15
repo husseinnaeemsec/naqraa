@@ -19,7 +19,7 @@ const App = () => {
       try {
         setupUserPrefrences(user);
       } catch (err) {
-        console.error('Error setting up user preferences:', err);
+        // Error setting up user preferences - handle silently or log to service
       }
     }
   }, [isAuthenticated, user]);

@@ -62,7 +62,6 @@ export default function NotificationsSection() {
             setNotifSaved(true);
             if (res?.data) dispatch(setUser(res.data));
         } catch (err: any) {
-            console.error(err);
             setNotifError("تعذر حفظ إعدادات الإشعارات");
         } finally {
             setNotifLoading(false);
