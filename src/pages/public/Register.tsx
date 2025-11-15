@@ -3,7 +3,7 @@ import {
   useEffect,
   type FormEvent,
 } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import api from "../../api/client";
 import { endpoints } from "../../api/routes";
 import { useAppSelector } from "../../store/store";
@@ -45,9 +45,52 @@ const ErrorDisplay = ({ errors }: { errors: ErrorProps }) => (
   </div>
 );
 
+// Utility function to validate safe redirect URLs
+const isValidRedirectUrl = (url: string): boolean => {
+  try {
+    // Define allowed paths/routes for security
+    const allowedPaths = [
+      '/dashboard',
+      '/courses',
+      '/communities',
+      '/resources',
+      '/settings',
+      '/notifications',
+      '/chat',
+      '/exams',
+      '/files',
+      '/org',
+      '/timetable',
+      '/subscription',
+      '/board',
+      '/classroom'
+    ];
+    
+    // Parse the URL
+    const parsedUrl = new URL(url, window.location.origin);
+    
+    // Only allow same-origin URLs
+    if (parsedUrl.origin !== window.location.origin) {
+      return false;
+    }
+    
+    const pathname = parsedUrl.pathname;
+    
+    // Check if the path starts with any allowed path
+    return allowedPaths.some(allowedPath => 
+      pathname === allowedPath || 
+      pathname.startsWith(allowedPath + '/') ||
+      pathname.startsWith('/dashboard')
+    );
+  } catch {
+    return false;
+  }
+};
+
 export default function RegisterPage() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAppSelector((s) => s.auth);
+  const [searchParams] = useSearchParams();
 
   const [loading, setLoading] = useState(false);
   const [created, setCreated] = useState(false);
@@ -70,8 +113,17 @@ export default function RegisterPage() {
   }, []);
 
   useEffect(() => {
-    if (isAuthenticated) navigate("/dashboard/");
-  }, [isAuthenticated]);
+    if (isAuthenticated) {
+      const nextUrl = searchParams.get('next');
+      
+      // Validate and redirect to next URL if safe, otherwise default to dashboard
+      if (nextUrl && isValidRedirectUrl(nextUrl)) {
+        navigate(nextUrl, { replace: true });
+      } else {
+        navigate("/dashboard", { replace: true });
+      }
+    }
+  }, [isAuthenticated, navigate, searchParams]);
 
   const hasError = (field: string) => !!errors[field];
 

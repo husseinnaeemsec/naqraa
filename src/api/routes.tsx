@@ -1,6 +1,12 @@
 export const endpoints = {
     community:{
-        posts:(community_id:number) => `/community/${community_id}/posts/`
+        detail:(community_id:number) => `/community/${community_id}/`,
+        posts:(community_id:number) => `/community/${community_id}/posts/`,
+        createPost:(community_id:number) => `/community/${community_id}/posts/create/`,
+        join:(community_id:number) => `/community/${community_id}/join/`,
+        approveUser:(community_id:number, membership_id:number) => `/community/${community_id}/memberships/${membership_id}/approve/`,
+        postInteract:(community_id:number, post_id:number) => `/community/${community_id}/posts/${post_id}/interact/`,
+        createComment:(post_id:number) => `/community/posts/${post_id}/comments/create/`
     },
     user:{
         login:'/users/login/',
@@ -9,6 +15,7 @@ export const endpoints = {
         profile:'/users/profile/',
         status:"/users/check/",
         changePassword:'/users/password/change/',
+        changeEmail:'/users/change-email/',
         requestPasswordChange:'/users/password/request-password-change/',
         studySession:'/users/study-time/',
         sendVerificationEmail:"/users/send-verification-email/",

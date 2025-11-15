@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Check, X, Crown, Zap, Users, BookOpen, Shield, CreditCard, ExternalLink } from "lucide-react";
+import { Check, X, Crown, Zap, Users, BookOpen, Shield, CreditCard } from "lucide-react";
 import api from "../../api/client";
 import { endpoints } from "../../api/routes";
 import Spinner from "../../components/Spinner";
-import { useNavigate } from "react-router-dom";
+
 import { type SubscriptionPlan, type Subscription as SubscriptionType } from "../../../types";
 import Swal from "sweetalert2";
 import { useAppSelector } from "../../store/store";
@@ -16,7 +16,7 @@ export default function SubscriptionPage() {
   const [processingPlan, setProcessingPlan] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [paymentLoading, setPaymentLoading] = useState(false);
-  const navigate = useNavigate();
+
   const { user } = useAppSelector((state: any) => state.auth);
 
   // Get current subscription from user state if available
@@ -71,7 +71,7 @@ export default function SubscriptionPage() {
 
       // Load available plans
       try {
-        const plansRes = await api.get(endpoints.subscriptions.plans);
+        const plansRes = await api.get(endpoints.subscriptions.plans,{ params: { role:user.role} });
         setPlans(plansRes.data || []);
       } catch (err: any) {
         console.error("Error loading plans:", err);

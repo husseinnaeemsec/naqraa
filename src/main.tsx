@@ -80,7 +80,7 @@ createRoot(document.getElementById('root')!).render(
                 <Route path='classroom/:enrollment_id' element={<ClassroomPage />} />
                 <Route path='board' element={<BoardPage />} />
               </Route>
-              <Route path='communities/:communityId' element={<CommunityPage />} />
+              
               {/* Authentication and user related pages */}
 
               {/* Course pages */}
@@ -93,6 +93,7 @@ createRoot(document.getElementById('root')!).render(
                 </Route>
                   <Route path='login' element={<LoginPage />} />
                   <Route path='register' element={<RegisterPage />} />
+                  <Route path='communities/:communityId' element={<CommunityPage />} />
                   <Route path='account-verified' element={<AccountVerified />} />
                   <Route path='verify/:uid/:token' element={<VerificationPage />} />
                   <Route path="resend-verification" element={<SendVerificationEmailPage />} />

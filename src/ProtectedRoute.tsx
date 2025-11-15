@@ -19,7 +19,10 @@ const ProtectedRoute: React.FC<Props> = ({ children }) => {
     if (loadingUser) return; // ننتظر انتهاء التحميل
 
     if (!isAuthenticated || !user) {
-      navigate("/login", { replace: true });
+      // Get current path for redirect after login
+      const currentPath = window.location.pathname + window.location.search;
+      const loginPath = `/login?next=${encodeURIComponent(currentPath)}`;
+      navigate(loginPath, { replace: true });
       return;
     }
 

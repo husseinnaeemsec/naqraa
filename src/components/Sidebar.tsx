@@ -85,7 +85,7 @@ export default function Sidebar() {
             dispatch(logoutUser());
           })
           .catch((e) => {
-            console.log(e)
+            // Error getting enrollments
           })
         Alert.fire({
           title: "تم تسجيل الخروج",

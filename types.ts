@@ -361,7 +361,8 @@ export interface UserProgress {
     }|null;
 }
 
-export interface User {
+export interface AuthUser {
+    id: number;
     first_name: string;
     username: string;
     last_name: string | null;
@@ -377,7 +378,7 @@ export interface User {
 }
 
 export interface InitialAuthState {
-    user: User | null;
+    user: AuthUser | null;
     isAuthenticated: boolean;
     loadingUser: boolean;
     authError: string[]
@@ -387,7 +388,7 @@ export interface InitialAuthState {
     week_study_time:StudyTimeWeek|null;
 }
 
-export interface UserStatusResponse extends User { }
+export interface UserStatusResponse extends AuthUser { }
 
 export interface Organization {
     id: number;
@@ -478,9 +479,75 @@ export interface StudyTimeWeek {
   saturday: StudySession | null;
 }
 
+export interface User {
+    id: number;
+    username: string;
+    first_name: string;
+    last_name: string | null;
+    profile_picture?: string;
+}
+
+export interface Tag {
+    id: number;
+    name: string;
+}
+
+export interface Topic {
+    id: number;
+    name: string;
+    description: string;
+}
+
+export interface Comment {
+    id: number;
+    user: User;
+    content: string;
+    parent?: number;
+    replies: Comment[];
+    created_at: string;
+    edited_at: string;
+    is_reply: boolean;
+}
+
 export interface Post {
-    title:string;
-    content:string;
-    id:number;
-    created_at:string;
+    id: number;
+    user: User;
+    title: string;
+    content: string;
+    post_type: 'text' | 'link' | 'image';
+    link_url?: string;
+    image?: string;
+    tags: Tag[];
+    topic?: Topic;
+    is_approved: boolean;
+    is_pinned: boolean;
+    created_at: string;
+    edited: string;
+    likes_count: number;
+    comments_count: number;
+    views_count: number;
+    total_interactions: number;
+    comments: Comment[];
+}
+
+export interface CommunityMembership {
+    id: number;
+    user: User;
+    status: 'pending' | 'active' | 'banned' | 'moderator';
+    can_post: boolean;
+    can_comment: boolean;
+    can_moderate: boolean;
+    joined_at: string;
+}
+
+export interface Community {
+    id: number;
+    name: string;
+    description: string;
+    visibility: 'public' | 'private';
+    owner: User;
+    created_at: string;
+    posts_count: number;
+    members_count: number;
+    user_membership?: CommunityMembership;
 }

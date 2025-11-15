@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import api from '../../api/client';
 import learning from '../../assets/online-learning.svg';
 import maths from '../../assets/maths-bg.svg';
@@ -12,6 +12,48 @@ import { useAppDispatch, useAppSelector } from '../../store/store';
 import { logoutUser, setAuthenticationState, setUser } from '../../store/authSlice';
 import VerificationPage from '../../components/VerificationPage';
 
+// Utility function to validate safe redirect URLs
+const isValidRedirectUrl = (url: string): boolean => {
+  try {
+    // Define allowed paths/routes for security
+    const allowedPaths = [
+      '/dashboard',
+      '/courses',
+      '/communities',
+      '/resources',
+      '/settings',
+      '/notifications',
+      '/chat',
+      '/exams',
+      '/files',
+      '/org',
+      '/timetable',
+      '/subscription',
+      '/board',
+      '/classroom'
+    ];
+    
+    // Parse the URL
+    const parsedUrl = new URL(url, window.location.origin);
+    
+    // Only allow same-origin URLs
+    if (parsedUrl.origin !== window.location.origin) {
+      return false;
+    }
+    
+    const pathname = parsedUrl.pathname;
+    
+    // Check if the path starts with any allowed path
+    return allowedPaths.some(allowedPath => 
+      pathname === allowedPath || 
+      pathname.startsWith(allowedPath + '/') ||
+      pathname.startsWith('/dashboard')
+    );
+  } catch {
+    return false;
+  }
+};
+
 export default function LoginPage() {
   const { isAuthenticated } = useAppSelector((state) => state.auth)
   const [username, setUsername] = useState('');
@@ -23,6 +65,7 @@ export default function LoginPage() {
   const [activateAccount, setActivateAccount] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const slides = [
     { id: 1, img: learning, title: 'دراستك أكثر متعة وفعالية', subtitle: 'مع نقرأ توفر لك أحدث الطرق والأدوات التي تجعل دراستك أسهل وأسرع.' },
@@ -41,8 +84,17 @@ export default function LoginPage() {
   }, []);
 
   useEffect(() => {
-    setTimeout(() => isAuthenticated ? navigate("/dashboard") : '', 0)
-  })
+    if (isAuthenticated) {
+      const nextUrl = searchParams.get('next');
+      
+      // Validate and redirect to next URL if safe, otherwise default to dashboard
+      if (nextUrl && isValidRedirectUrl(nextUrl)) {
+        navigate(nextUrl, { replace: true });
+      } else {
+        navigate("/dashboard", { replace: true });
+      }
+    }
+  }, [isAuthenticated, navigate, searchParams]);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,6 +111,14 @@ export default function LoginPage() {
       .then((res) => {
         dispatch(setUser(res.data))
         dispatch(setAuthenticationState(true))
+        
+        // Handle redirect after successful login
+        const nextUrl = searchParams.get('next');
+        if (nextUrl && isValidRedirectUrl(nextUrl)) {
+          navigate(nextUrl, { replace: true });
+        } else {
+          navigate("/dashboard", { replace: true });
+        }
       })
       .catch((e) => {
         if (e.response) {
@@ -140,7 +200,7 @@ export default function LoginPage() {
               >
                 {loading ? 'جارٍ تسجيل الدخول...' : 'تسجيل الدخول'}
               </button>
-              <p className='text-sm text-slate-500'> ليس لديك حساب بعد؟ <Link className='underline' to={'/register'} > انشئ حساب جديد </Link> </p>
+              <p className='text-sm text-slate-500'> ليس لديك حساب بعد؟ <Link className='underline' to={searchParams.get('next') ? `/register?next=${encodeURIComponent(searchParams.get('next')!)}` : '/register'} > انشئ حساب جديد </Link> </p>
             </form>
           </div>
 

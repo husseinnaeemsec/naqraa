@@ -20,7 +20,7 @@ export default function QuizBoard({ quiz, onClose, onComplete }: Props) {
     const submitAnswers = (answers: Record<number, number[]|number>) => {
         if (answers) {
             
-            // console.log(answers);
+            // Process quiz answers
             // return ;
 
             api.post(endpoints.user.enrollments.completeQuiz(quiz.id), {
