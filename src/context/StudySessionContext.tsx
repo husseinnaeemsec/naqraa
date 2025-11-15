@@ -52,7 +52,7 @@ export const StudySessionTrackerProvider: React.FC<{ children: React.ReactNode }
 
   const submit = useCallback(async () => {
     try {
-      await api.post(endpoints.user.studySession, { total_seconds: 10000 });
+      await api.post(endpoints.user.studySession, { total_seconds: seconds });
       setLastUpdated(new Date());
       // Study time submitted successfully
     } catch (err) {
