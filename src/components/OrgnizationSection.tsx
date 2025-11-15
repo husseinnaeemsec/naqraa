@@ -27,8 +27,8 @@ export default function OrganizationSection() {
             .then((res) => {
                 setOrgList(res.data)
             })
-            .catch((e) => {
-                console.log(e)
+            .catch((_e) => {
+                // Handle organization search error
             })
 
     }, [orgSearch]);

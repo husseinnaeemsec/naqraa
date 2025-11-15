@@ -13,7 +13,7 @@ export default function QuizCard({ quiz, onQuizStart, onQuizClose }: Props) {
     const isAnswered = completed_quizzes.findIndex(qid => qid === quiz.id) != -1;
 
     useEffect(() => {
-        console.log(completed_quizzes, quiz.id)
+        // Component initialization
     }, [])
 
     return (

@@ -59,7 +59,7 @@ export default function ResourcesPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic here
-    console.log('Form submitted with:', { grade, subject });
+    // TODO: Implement form submission logic
   };
 
   return (

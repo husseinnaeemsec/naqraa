@@ -84,8 +84,8 @@ export default function Sidebar() {
           .then((_res) => {
             dispatch(logoutUser());
           })
-          .catch((e) => {
-            console.log(e)
+          .catch((_e) => {
+            // Handle logout error silently
           })
         Alert.fire({
           title: "تم تسجيل الخروج",

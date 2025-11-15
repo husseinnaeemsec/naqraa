@@ -12,7 +12,7 @@ export default function ReportIssuePage() {
   const handleSubmit = (e:FormEvent) => {
     e.preventDefault();
     // هنا يمكن إضافة منطق إرسال البيانات إلى API أو بريد إلكتروني
-    console.log('Report submitted:', formData);
+    // TODO: Implement API submission logic
     setSubmitted(true);
     setFormData({ name: '', email: '', issue: '' });
   };
