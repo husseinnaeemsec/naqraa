@@ -14,6 +14,7 @@ import CommunitiesPage from './pages/student/Communities/Communities.tsx'
 import ClassroomPage from './pages/student/ClassroomPage.tsx'
 import BoardPage from './pages/student/BoardPage.tsx'
 import LoginPage from './pages/public/Login.tsx'
+import UnauthorizedPage from './pages/public/UnauthorizedPage.tsx'
 import { Provider } from 'react-redux';
 import store from './store/store.tsx'
 import AuthProvider from './AuthProvider.tsx'
@@ -51,6 +52,8 @@ import PageNotFound from './pages/public/404.tsx';
 import TermsPage from './pages/public/TermsPage.tsx';
 import SubscriptionPage from './pages/student/SubscriptionPage.tsx';
 import PlansPage from './pages/public/PlansPage.tsx';
+import NewsletterDemo from './pages/NewsletterDemo.tsx';
+import TodoPage from './pages/student/TodoPage.tsx';
 
 
 createRoot(document.getElementById('root')!).render(
@@ -68,6 +71,7 @@ createRoot(document.getElementById('root')!).render(
                 <Route path='org' element={<OrgPage />} />
                 <Route path='timetable' element={<TimeTablePage />} />
                 <Route path='communities' element={<CommunitiesPage />} />
+                <Route path='todo' element={<TodoPage />} />
                 {/* <Route path='todo' element={<TodoPage />} /> */}
                 <Route path='subscription' element={<SubscriptionPage />} />
                 <Route path='settings' element={<SettingsPage />} />
@@ -93,7 +97,9 @@ createRoot(document.getElementById('root')!).render(
                 </Route>
                   <Route path='login' element={<LoginPage />} />
                   <Route path='register' element={<RegisterPage />} />
+                  <Route path='unauthorized' element={<UnauthorizedPage />} />
                   <Route path='communities/:communityId' element={<CommunityPage />} />
+                  <Route path='newsletter' element={<NewsletterDemo />} />
                   <Route path='account-verified' element={<AccountVerified />} />
                   <Route path='verify/:uid/:token' element={<VerificationPage />} />
                   <Route path="resend-verification" element={<SendVerificationEmailPage />} />

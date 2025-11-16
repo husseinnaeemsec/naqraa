@@ -37,6 +37,10 @@ const authSlice = createSlice({
       state.week_study_time = action.payload?.week_study_time || null 
 
     },
+    updateUser: (state, action: PayloadAction<User>) => {
+      state.user = action.payload;
+      state.week_study_time = action.payload?.week_study_time || null;
+    },
     setLoadingState: (state, action: PayloadAction<boolean>) => {
       state.loadingUser = action.payload;
     },
@@ -58,5 +62,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setAuthenticationState, setWeekStudyTime, setNotifications, setNotificationsState, setUserEnrollments, appendEnrollment, setUser, logoutUser, setLoadingState } = authSlice.actions;
+export const { setAuthenticationState, setWeekStudyTime, setNotifications, setNotificationsState, setUserEnrollments, appendEnrollment, setUser, updateUser, logoutUser, setLoadingState } = authSlice.actions;
 export default authSlice.reducer;

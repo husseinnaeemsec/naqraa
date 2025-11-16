@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../store/store";
-import { Computer, ComputerIcon, Menu, X, Search } from "lucide-react";
+import { ComputerIcon, Menu, X, Search } from "lucide-react";
 import LanguageSwitcher from "../LanguageSwitcher";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -22,7 +22,7 @@ export default function TopNavigation() {
 
   return (
     <>
-      <nav className="flex items-center justify-between h-16 lg:h-18 px-4 md:px-6 lg:px-12 bg-slate-50/50 backdrop-blur-xs sticky top-0 z-50 border-b border-slate-200">
+      <nav className="flex items-center justify-between h-16 lg:h-20 px-4 md:px-6 lg:px-12 bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-emerald-100 shadow-lg shadow-emerald-50">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 flex-shrink-0">
           <img src="/logo.svg" alt="Naqraa Logo" className="w-10 md:w-14 lg:w-16" />
@@ -31,11 +31,11 @@ export default function TopNavigation() {
         {/* Desktop Search Bar */}
         <div className="hidden lg:block w-full max-w-md mx-4">
           <div className="relative">
-            <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 size-4 text-slate-400" />
+            <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 size-4 text-emerald-500" />
             <input 
               type="search" 
               placeholder="ابحث في المنصة..." 
-              className="p-2 w-full pr-10 bg-slate-100 border border-slate-300 rounded-3xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition" 
+              className="p-3 w-full pr-10 bg-emerald-50/50 backdrop-blur-sm border border-emerald-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 placeholder:text-emerald-400" 
             />
           </div>
         </div>
@@ -85,21 +85,21 @@ export default function TopNavigation() {
         </div>
 
         {/* Mobile Right Section */}
-        <div className="flex md:hidden items-center gap-2">
+        <div className="flex md:hidden items-center gap-3">
           {/* Mobile Search Toggle */}
           <button
             onClick={() => setSearchVisible(!searchVisible)}
-            className="p-2 rounded-lg hover:bg-slate-200 transition"
+            className="p-2 rounded-xl hover:bg-emerald-50 transition-colors"
             aria-label="البحث"
           >
-            <Search className="size-5 text-slate-600" />
+            <Search className="size-5 text-emerald-600" />
           </button>
 
           {/* Mobile Auth Buttons */}
           {!isAuthenticated && (
             <Link
               to="/login"
-              className="text-xs px-2 py-1 rounded border border-slate-400 hover:border-emerald-500 hover:text-emerald-600 transition"
+              className="text-sm px-3 py-2 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition-colors font-medium"
             >
               دخول
             </Link>
@@ -118,13 +118,13 @@ export default function TopNavigation() {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg hover:bg-slate-200 transition"
+            className="p-2 rounded-xl hover:bg-emerald-50 transition-colors"
             aria-label={mobileMenuOpen ? "إغلاق القائمة" : "فتح القائمة"}
           >
             {mobileMenuOpen ? (
-              <X className="size-5 text-slate-600" />
+              <X className="size-6 text-emerald-600" />
             ) : (
-              <Menu className="size-5 text-slate-600" />
+              <Menu className="size-6 text-emerald-600" />
             )}
           </button>
         </div>

@@ -39,4 +39,24 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+// 🔹 إضافة معالج للاستجابة للتعامل مع 401 errors
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Clear any stored auth data
+      document.cookie = 'access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie = 'refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      
+      // Get current path for redirect after login
+      const currentPath = window.location.pathname + window.location.search;
+      const unauthorizedPath = `/unauthorized?next=${encodeURIComponent(currentPath)}`;
+      
+      // Redirect to unauthorized page
+      window.location.href = unauthorizedPath;
+    }
+    return Promise.reject(error);
+  }
+);
+
 export default api;

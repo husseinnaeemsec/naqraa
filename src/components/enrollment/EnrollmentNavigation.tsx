@@ -131,10 +131,13 @@ export default function EnrollmentNavigation() {
       </div>
 
       {/* Desktop Sidebar */}
-        <div ref={scrollerRef} className="space-y-3 hidden lg:block p-4 px-6  ">
-          <h3 className="text-2xl py-y   bg-white  font-semibold text-emerald-800  ">
+      <div className="hidden lg:flex lg:flex-col h-screen bg-white dark:bg-emerald-950 border-l border-gray-200 dark:border-emerald-800">
+        <div className="sticky top-0 bg-white dark:bg-emerald-950 border-b border-gray-200 dark:border-emerald-800 p-4 z-10">
+          <h3 className="text-xl font-semibold text-emerald-800 dark:text-emerald-300">
             محتوى الدورة
           </h3>
+        </div>
+        <div ref={scrollerRef} className="flex-1 overflow-y-auto p-4 space-y-3">
           {sections.map((s) => (
             <div key={s.id} >
               <h1 className="text-lg font-semibold mb-2">
@@ -157,7 +160,7 @@ export default function EnrollmentNavigation() {
                       <HeroPlayIcon fill className={`size-6 ${isActiveLecture(l.id) ? 'text-white' : 'text-slate-400'}`} />
                     )}
                     <div className="space-y-1 text-right">
-                      <p>{l.title} - {l.id}</p>
+                      <p className="font-medium">{l.title}</p>
                       <div className="flex items-center gap-2 text-xs opacity-80">
                         <HeroClockIcon className="size-4" />
                         <span>{l.duration} دقيقة</span>
@@ -169,6 +172,7 @@ export default function EnrollmentNavigation() {
             </div>
           ))}
         </div>
+      </div>
     </>
   );
 }

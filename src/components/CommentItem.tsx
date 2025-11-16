@@ -54,7 +54,7 @@ export default function CommentItem({
       setIsSubmitting(true);
 
       const response = await api.post(
-        endpoints.community.createComment(community.id, post.id),
+        endpoints.community.createComment(community.id),
         {
           content: replyContent.trim(),
           parent: comment.id

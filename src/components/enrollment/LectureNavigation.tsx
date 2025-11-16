@@ -107,30 +107,30 @@ export default function LectureNavigation() {
 
   // --- Render ---
   return (
-    <div className="bg-white dark:bg-emerald-950 lg:sticky lg:bottom-0 lg:border-t p-2 z-20">
-      <div className="flex items-center justify-between">
-        <button
-          onClick={handleNext}
-          disabled={nextButtonDisabled}
-          className={`px-4 py-2 rounded-md text-white transition-all duration-200 ${
-            nextButtonDisabled
-              ? "bg-slate-300 cursor-not-allowed"
-              : "bg-emerald-600 hover:bg-emerald-700"
-          }`}
-        >
-          {nextButtonText}
-        </button>
-
+    <div className="p-4 pb-safe">
+      <div className="flex items-center justify-between gap-4 max-w-2xl mx-auto">
         <button
           onClick={handlePrev}
           disabled={!prevLecture}
-          className={`px-4 py-2 rounded-md transition-all duration-200 ${
+          className={`flex-1 px-4 py-3 rounded-lg font-medium transition-all duration-200 max-w-[180px] ${
             prevLecture
-              ? "bg-slate-200 dark:bg-slate-700 hover:bg-slate-600"
-              : "bg-slate-300 cursor-not-allowed"
+              ? "bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 shadow-md hover:shadow-lg"
+              : "bg-slate-200 text-slate-400 cursor-not-allowed"
           }`}
         >
           السابق
+        </button>
+
+        <button
+          onClick={handleNext}
+          disabled={nextButtonDisabled}
+          className={`flex-1 px-4 py-3 rounded-lg font-medium transition-all duration-200 max-w-[180px] ${
+            nextButtonDisabled
+              ? "bg-slate-300 text-slate-500 cursor-not-allowed"
+              : "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md hover:shadow-lg"
+          }`}
+        >
+          {nextButtonText}
         </button>
       </div>
     </div>

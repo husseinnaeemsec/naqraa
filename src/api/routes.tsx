@@ -37,7 +37,9 @@ export const endpoints = {
             completeQuiz:(quiz_id:number)=> `/enrollments/complete-quiz/${quiz_id}/`,
             enroll:( course_id:number )=> `/enrollments/enroll/${course_id}/`,
             status:(course_id:number)=>`/enrollments/status/${course_id}/`
-        }
+        },
+        preferences: '/users/preferences/',
+        completeOnboarding: '/users/preferences/complete-onboarding/'
     },
     courses:{
         list:'/courses/',
@@ -68,6 +70,10 @@ export const endpoints = {
         list:'/chats/',
         get:(chatId:number)=> `chats/${chatId}/`,
         getMessages:(chatId:number) => `chats/${chatId}/messages/`,
+    },
+    academics:{
+        subjects:`/academics/subjects/`,
+        grades:'/academics/grades/'
     },
     content:{
         subjects:`/academics/subjects/`,

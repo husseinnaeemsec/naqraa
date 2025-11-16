@@ -83,6 +83,32 @@ export interface Profile {
     organization_request_sent: boolean;
 }
 
+export interface UserPreference {
+    id: number;
+    subjects_to_improve: Subject[];
+    subjects_to_improve_ids?: number[];
+    preferred_study_type: 'reading' | 'watching' | 'listening' | 'interactive' | 'practice' | 'mixed';
+    preferred_study_type_display: string;
+    preferred_study_time: 'morning' | 'afternoon' | 'evening' | 'night' | 'flexible';
+    preferred_study_time_display: string;
+    preferred_difficulty: 'beginner' | 'intermediate' | 'advanced' | 'mixed';
+    preferred_difficulty_display: string;
+    max_video_duration: number;
+    max_reading_time: number;
+    interested_in_communities: boolean;
+    interested_in_study_groups: boolean;
+    study_goal: string;
+    weekly_study_hours_goal: number;
+    receive_course_recommendations: boolean;
+    receive_quiz_recommendations: boolean;
+    receive_resource_recommendations: boolean;
+    receive_community_recommendations: boolean;
+    completed_onboarding: boolean;
+    is_setup_complete: boolean;
+    created_at: string;
+    updated_at: string;
+}
+
 export interface Notification {
     id:number;
     type:'system'|'org'|'user';
@@ -369,6 +395,7 @@ export interface AuthUser {
     email: string;
     role: 'organization' | 'user' | 'student';
     profile: Profile | null;
+    preference: UserPreference | null;
     date_joined: string;
     class_room: ClassRoom | null;
     progress:UserProgress|null;

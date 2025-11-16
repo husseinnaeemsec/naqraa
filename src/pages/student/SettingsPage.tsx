@@ -8,6 +8,7 @@ import NotificationsSection from "../../components/NotificationsSection";
 import ChangeEmailSection from "../../components/ChangeEmailSection";
 import OrganizationSection from "../../components/OrgnizationSection";
 import { useTranslation } from "react-i18next";
+import useApiErrorHandler from "../../hooks/use-api-error-handler";
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -48,7 +49,7 @@ export const Toggle = ({ checked, onChange, label }: { checked: boolean; onChang
 
 // Settings Page Component
 const SettingsPage = () => {
-
+    useApiErrorHandler();
     const { user } = useAppSelector((state) => state.auth)
     const { t } = useTranslation();
 

@@ -33,7 +33,7 @@ interface Props {
 const chartConfig = {
   hours: {
     label: "ساعات الدراسة",
-    color: "var(--chart-1)",
+    color: "hsl(var(--emerald-600))",
   },
 };
 
@@ -65,20 +65,31 @@ export default function StudyHoursChartShadcn({ weekData }: Props) {
   }));
 
   return (
-    <Card className="w-full">
-      <CardHeader>
-        <CardTitle className="text-lg font-bold dark:text-emerald-50">
+    <Card className="w-full bg-white dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800 shadow-sm">
+      <CardHeader className="pb-4">
+        <CardTitle className="text-lg font-bold text-gray-900 dark:text-emerald-50 flex items-center gap-2">
+          <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
           عدد ساعات الدراسة الأسبوعي
         </CardTitle>
       </CardHeader>
 
       <CardContent>
-        <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+        <ChartContainer config={chartConfig} className="h-[180px] w-full">
           <BarChart data={data}>
-            <CartesianGrid vertical={false} strokeDasharray="3 3" />
-            <XAxis dataKey="day" tickLine={false} axisLine={false} />
+            <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#e5e7eb" />
+            <XAxis 
+              dataKey="day" 
+              tickLine={false} 
+              axisLine={false}
+              tick={{ fill: '#6b7280', fontSize: 11 }}
+            />
             <ChartTooltip content={<ChartTooltipContent />} />
-            <Bar dataKey="hours" fill="var(--chart-1)" radius={4} />
+            <Bar 
+              dataKey="hours" 
+              fill="#10b981" 
+              radius={[3, 3, 0, 0]}
+              className="fill-emerald-500 hover:fill-emerald-600 transition-colors"
+            />
           </BarChart>
         </ChartContainer>
       </CardContent>

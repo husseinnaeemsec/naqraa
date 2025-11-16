@@ -12,8 +12,10 @@ import { setActiveLecture, setEnrollment } from "../../store/enrollmentSlice";
 import EnrollmentNavigation from "../../components/enrollment/EnrollmentNavigation";
 import CourseContent from "../../components/enrollment/CourseContent";
 import { StudySessionTrackerProvider } from "../../context/StudySessionContext";
+import useApiErrorHandler from "../../hooks/use-api-error-handler";
 
 export default function ClassroomPage() {
+  useApiErrorHandler();
   const { enrollment_id } = useParams<{ enrollment_id: string }>();
   const enrollmentIdNum = enrollment_id ? Number(enrollment_id) : null;
   const dispatch = useAppDispatch();
@@ -70,7 +72,7 @@ export default function ClassroomPage() {
 
   return (
     <StudySessionTrackerProvider>
-      <div className="grid border px-8 overflow-y-auto lg:grid-cols-[1fr_30%]">
+      <div className="h-screen flex lg:grid lg:grid-cols-[1fr_25%] overflow-hidden">
         <CourseContent />
         <EnrollmentNavigation />
       </div>

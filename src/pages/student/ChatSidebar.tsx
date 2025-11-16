@@ -38,22 +38,31 @@ export default function ChatSidebar() {
     };
 
     return (
-        <div className="w-full lg:block hidden relative z-10 p-5 bg-white border-r h-full overflow-y-auto">
+        <div className="w-full lg:block hidden relative z-10 p-5 bg-emerald-50/50 dark:bg-emerald-950 border-r border-emerald-200 dark:border-emerald-800 h-full overflow-y-auto">
             <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                    <h1 className="text-xl font-semibold"> الرسائل </h1>
-                    <button>
-                        <HeroPenSquareIcon className="size-5 text-slate-500 hover:text-slate-900 cursor-pointer" />
+                    <h1 className="text-xl font-semibold text-gray-900 dark:text-emerald-50"> الرسائل </h1>
+                    <button className="p-2 hover:bg-emerald-100 dark:hover:bg-emerald-900 rounded-lg transition-colors">
+                        <HeroPenSquareIcon className="size-5 text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 cursor-pointer" />
                     </button>
                 </div>
                 <div className="mt-5 relative flex items-center z-0">
-                    <input onKeyDown={handleSearch} placeholder="ابحث عن جهة اتصال" type="search" className="p-1.5 px-3 pr-10 bg-slate-100 w-full rounded-md" id="" />
-                    <HeroSearchIcon className="size-5 absolute right-2 text-slate-400" />
+                    <input 
+                        onKeyDown={handleSearch} 
+                        placeholder="ابحث عن جهة اتصال" 
+                        type="search" 
+                        className="p-1.5 px-3 pr-10 bg-white dark:bg-emerald-900 border border-emerald-200 dark:border-emerald-700 text-gray-900 dark:text-emerald-50 placeholder-gray-500 dark:placeholder-emerald-400 w-full rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" 
+                    />
+                    <HeroSearchIcon className="size-5 absolute right-2 text-emerald-500 dark:text-emerald-400" />
                 </div>
             </div>
             <div className="mt-5 space-y-2">
                 {
-                    loading && ( <div className="text-slate-500 h-20 my-auto items-center justify-center flex"> جاري تحميل جهات الاتصال... </div> )
+                    loading && ( 
+                        <div className="text-emerald-600 dark:text-emerald-400 h-20 my-auto items-center justify-center flex"> 
+                            جاري تحميل جهات الاتصال... 
+                        </div> 
+                    )
                 }
                 {
                     chats.map((c)=>{

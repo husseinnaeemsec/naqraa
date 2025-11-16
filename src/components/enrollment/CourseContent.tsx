@@ -95,22 +95,35 @@ export default function CourseContent() {
 
  
   return (
-    <div ref={scrollerRef} className="pb-0 overflow-y-auto">
-      <div className="p-6 flex flex-col ">
-        <h1 className="text-2xl font-bold"> {enrollment.course.title} </h1>
-        <p className="text-slate-500"> {enrollment.course.description} </p>
+    <div className="flex flex-col h-screen bg-white dark:bg-gray-900">
+      {/* Course Header - Sticky */}
+      <div className="sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-6 z-10">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{enrollment.course.title}</h1>
+        <p className="text-slate-500 dark:text-slate-400">{enrollment.course.description}</p>
       </div>
-      {/* Video Player */}
-      <VideoPlayer lecture={currentLecture} />
-      {/* Tabs */}
-      <ClassroomTabs
-        activeTab={activeTab}
-        onChange={(tab) => setActiveTab(tab as LectureTab)}
-      />
-      {/* Tab content */}
-      <div id="content" className="flex flex-col justify-between min-h-96 pb-20 lg:pb-0 ">
-        <div className="p-4"> {renderTab()} </div>
-        {/* Sticky Bottom Actions */}
+      
+      {/* Scrollable Content */}
+      <div ref={scrollerRef} className="flex-1 overflow-y-auto">
+        {/* Video Player */}
+        <div className="px-6 py-4">
+          <VideoPlayer lecture={currentLecture} />
+        </div>
+        
+        {/* Tabs */}
+        <div className="sticky top-[120px] bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 z-10">
+          <ClassroomTabs
+            activeTab={activeTab}
+            onChange={(tab) => setActiveTab(tab as LectureTab)}
+          />
+        </div>
+        {/* Tab content */}
+        <div id="content" className="flex-1 p-6">
+          {renderTab()}
+        </div>
+      </div>
+      
+      {/* Sticky Bottom Navigation */}
+      <div className="sticky bottom-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 z-30 shadow-lg">
         <LectureNavigation />
       </div>
     </div>

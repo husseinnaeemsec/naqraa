@@ -18,7 +18,7 @@ import community from "../../assets/online-discussion.svg";
 import laptop from "../../assets/science.svg";
 
 interface ErrorProps {
-  [key: string]: string[] | undefined;
+  [key: string]: string[] | string | undefined;
 }
 
 const slides = [
@@ -35,7 +35,7 @@ const ErrorDisplay = ({ errors }: { errors: ErrorProps }) => (
       messages ? (
         <div key={field} className="bg-rose-50 p-1.5 rounded text-red-500">
           <ul className={field !== "non_field_errors" ? "pl-3" : ""}>
-            {messages.map((msg, idx) => (
+            {(Array.isArray(messages) ? messages : [messages]).map((msg, idx) => (
               <li key={idx}>{msg}</li>
             ))}
           </ul>
@@ -96,9 +96,10 @@ export default function RegisterPage() {
   const [created, setCreated] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const [firstName, setFirstName] = useState("حسين");
-  const [lastName, setLastName] = useState("نعيم");
-  const [email, setEmail] = useState("phusseinnaim@gmail.com");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [gender, setGender] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [termsAccepted, setTermsAccepted] = useState(false);
@@ -137,6 +138,7 @@ export default function RegisterPage() {
     if (!firstName) localErrors["first_name"] = ["الرجاء ملأ الاسم الأول"];
     if (!lastName) localErrors["last_name"] = ["الرجاء ملأ الاسم الأخير"];
     if (!email) localErrors["email"] = ["الرجاء إدخال البريد الإلكتروني"];
+    if (!gender) localErrors["gender"] = ["الرجاء اختيار الجنس"];
     if (password !== passwordConfirm) localErrors["password_confirm"] = ["كلمة المرور غير متطابقة"];
 
     if (Object.keys(localErrors).length > 0) {
@@ -152,6 +154,7 @@ export default function RegisterPage() {
           first_name: firstName,
           last_name: lastName,
           email,
+          gender,
           password,
           password_confirm: passwordConfirm,
           terms_accepted: termsAccepted,
@@ -250,6 +253,22 @@ export default function RegisterPage() {
                   id="email"
                   className="p-2 border w-full rounded-md"
                 />
+              </div>
+
+              <div className="space-y-1 lg:col-span-2">
+                <label htmlFor="gender">الجنس *</label>
+                <select
+                  value={gender}
+                  required
+                  aria-invalid={hasError("gender") ? "true" : "false"}
+                  onChange={(e) => setGender(e.target.value)}
+                  id="gender"
+                  className="p-2 border w-full rounded-md"
+                >
+                  <option value="">اختر الجنس</option>
+                  <option value="male">ذكر</option>
+                  <option value="female">أنثى</option>
+                </select>
               </div>
 
               <div className="space-y-1">

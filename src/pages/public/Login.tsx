@@ -56,7 +56,7 @@ const isValidRedirectUrl = (url: string): boolean => {
 
 export default function LoginPage() {
   const { isAuthenticated } = useAppSelector((state) => state.auth)
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
@@ -102,12 +102,12 @@ export default function LoginPage() {
     setActivateAccount(false);
     setLoading(true);
 
-    if (!username || !password) {
-      setErrors(['اسم المستخدم وكلمة المرور مطلوبة.']);
+    if (!email || !password) {
+      setErrors(['البريد الإلكتروني وكلمة المرور مطلوبة.']);
       setLoading(false);
       return;
     }
-    api.post(endpoints.user.login, { username, password })
+    api.post(endpoints.user.login, { email, password })
       .then((res) => {
         dispatch(setUser(res.data))
         dispatch(setAuthenticationState(true))
@@ -180,10 +180,10 @@ export default function LoginPage() {
               {activateAccount && <button type='button' onClick={() => { setShowVerificationEmail(true) }} className='underline text-center'> تفعيل الحساب </button>}
               <input
                 type="text"
-                placeholder="البريد الألكتروني او اسم المستخدم"
+                placeholder="البريد الإلكتروني"
                 className="p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-emerald-950 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-emerald-500"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 type="password"

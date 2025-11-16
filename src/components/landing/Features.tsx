@@ -1,6 +1,6 @@
-import React, { useLayoutEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React from "react";
+import { motion } from "framer-motion";
+import { ChevronRight, CheckCircle } from "lucide-react";
 
 // Import your assets
 import chat from "../../assets/chat-img.svg";
@@ -11,41 +11,61 @@ import research from "../../assets/research-img.svg";
 import { t } from "i18next";
 
 const images = [community,chat,orgmanage,learn,research]
-// Register the ScrollTrigger plugin once globally
-gsap.registerPlugin(ScrollTrigger);
+
 
 // --- Arabic CTA Component (Remains the same, but simplified import) ---
 
-const ArabicCtaSection = React.forwardRef<HTMLElement, {}>(({}, ref) => {
-    const PlayIcon = () => (
-        <svg className="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
-        </svg>
-    );
-    
+const ArabicCtaSection = () => {
     return (
-        <section ref={ref} className="bg-white dark:bg-gray-900" dir="rtl">
-            <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
-                <div className="max-w-screen-md text-right">
-                    <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-                        ابدأ رحلتك التعليمية الآن.
-                    </h2>
-                    <p className="mb-8 font-light text-gray-500 sm:text-xl dark:text-gray-400">
-                        منصة نقرأ هي بوابتك نحو مجتمعات متخصصة، وأدوات بحث متقدمة، ومكتبة ضخمة من الموارد المجانية. لا تكتفِ بالقراءة، بل تواصل، تبادل، وشارك في بناء المعرفة.
-                    </p>
-                    <div className="flex flex-col gap-4 space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 sm:space-x-reverse ">
-                        <a 
-                            href="/register" 
-                            className="inline-flex items-center justify-center px-4 py-2.5 text-base font-medium text-center text-white bg-emerald-700 rounded-lg hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-300 dark:focus:ring-emerald-900"
-                        >
-                            ابدأ مجاناً اليوم
-                        </a>
+        <motion.section 
+            className="bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800 text-white"
+            dir="rtl"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+        >
+            <div className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 mx-auto max-w-4xl text-center">
+                <motion.div 
+                    className="space-y-6 sm:space-y-8"
+                    initial={{ y: 30, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                    <div>
+                        <h2 className="mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
+                            ابدأ رحلتك التعليمية الآن 🎓
+                        </h2>
+                        <p className="mb-6 sm:mb-8 text-emerald-100 text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+                            منصة نقرأ هي بوابتك نحو مجتمعات متخصصة، وأدوات بحث متقدمة، ومكتبة ضخمة من الموارد المجانية. لا تكتفِ بالقراءة، بل تواصل، تبادل، وشارك في بناء المعرفة.
+                        </p>
                     </div>
-                </div>
+                    
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center">
+                        <motion.a 
+                            href="/register"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="inline-flex items-center justify-center gap-2 sm:gap-3 bg-white text-emerald-700 font-bold px-6 py-3 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl hover:bg-emerald-50 transition-all duration-300 shadow-lg hover:shadow-xl text-sm sm:text-base"
+                        >
+                            <CheckCircle className="size-4 sm:size-5" />
+                            ابدأ مجاناً اليوم
+                        </motion.a>
+                        <motion.button 
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="inline-flex items-center justify-center gap-2 border-2 border-white text-white font-medium px-6 py-3 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl hover:bg-white hover:text-emerald-700 transition-all duration-300 text-sm sm:text-base"
+                        >
+                            تعلم المزيد
+                            <ChevronRight className="size-4" />
+                        </motion.button>
+                    </div>
+                </motion.div>
             </div>
-        </section>
+        </motion.section>
     );
-});
+};
 ArabicCtaSection.displayName = 'ArabicCtaSection'; 
 // -----------------------------------------------------------------------------
 
@@ -122,124 +142,100 @@ const featuresData = [
 
 // --- Features Component ---
 export default function Features() {
-  const componentRef = useRef<HTMLElement | null>(null);
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const ctaRef = useRef<HTMLElement | null>(null); 
-
-  useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
-      const sections = sectionRefs.current.filter(Boolean) as HTMLDivElement[];
-
-      sections.forEach((section, i) => {
-        // Initial state: Hidden and slightly pushed down
-        gsap.set(section, { autoAlpha: 0, y: 50 });
-
-        // Create a simple animation for each section
-        gsap.to(section, {
-          autoAlpha: 1, // Fades opacity to 1 and visibility to visible
-          y: 0,         // Slides up to its original position
-          duration: 1,
-          ease: "power2.out",
-          // ScrollTrigger setup for when the section enters the viewport
-          scrollTrigger: {
-            trigger: section,
-            start: "top 85%", // Start animation when the section is 85% down the viewport
-            toggleActions: "play none none none", // Play once on scroll down
-            scrub:true,
-          },
-        });
-      });
-      
-      // Since we removed complex pinning, we no longer need to wait for image loads, 
-      // but refreshing is still good practice for layout stability.
-      ScrollTrigger.refresh();
-
-    }, componentRef);
-
-    return () => ctx.revert();
-  }, []); 
-
-  // Callback to populate the sectionRefs array
-  const setRef = (el: HTMLDivElement | null, index: number) => {
-    sectionRefs.current[index] = el;
-  };
-
-  const FeatureLinkIcon = () => (
-    <svg className="mr-2 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-      <path
-        fillRule="evenodd"
-        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 
-        010 1.414l-6 6a1 1 0 
-        01-1.414-1.414L14.586 11H3a1 1 0 
-        110-2h11.586l-4.293-4.293a1 1 
-        0 010-1.414z"
-        clipRule="evenodd"
-      />
-    </svg>
-  );
-
   return (
-    <section className="bg-white dark:bg-gray-900 overflow-hidden" dir="rtl" ref={componentRef}>
-        {/*
-          CRITICAL CHANGE: Removed the pin wrapper and the h-screen/h-[100vh] classes.
-          The features now stack normally, taking up their natural space.
-        */}
-        <div className="features-stack-wrapper space-y-24 py-12"> 
+    <section className="bg-gradient-to-b from-white to-emerald-50 overflow-hidden" dir="rtl">
+        <div className="space-y-12 sm:space-y-16 md:space-y-20 lg:space-y-24 py-8 sm:py-12 md:py-16"> 
             {featuresData.map((feature, index) => (
-                <div
+                <motion.div
                     key={index}
-                    ref={(el) => setRef(el, index)}
-                    // Removed 'absolute inset-0' and used standard Tailwind layout classes
-                    className={`gap-8 items-center px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 lg:px-6 
-                    bg-white dark:bg-gray-900`}
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className={`gap-6 sm:gap-8 lg:gap-16 items-center px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl md:grid md:grid-cols-2`}
                 >
                     {/* Image Column */}
-                    <img
-                        className={`w-full rounded-xl max-h-[70vh] object-contain ${
+                    <motion.div
+                        className={`relative mb-8 md:mb-0 ${
                         feature.reverseLayout ? "md:order-2" : "md:order-1"
                         }`}
-                        src={images[feature.index]}
-                        alt={feature.alt}
-                    />
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        <div className="relative rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8">
+                            <img
+                                className="w-full max-h-[70vh] object-contain"
+                                src={images[feature.index]}
+                                alt={feature.alt}
+                            />
+                            {/* Floating badge */}
+                            <motion.div 
+                                className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 bg-emerald-600 text-white px-2 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-semibold shadow-lg"
+                                animate={{ rotate: [0, 5, 0, -5, 0] }}
+                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                            >
+                                جديد!
+                            </motion.div>
+                        </div>
+                    </motion.div>
 
                     {/* Text Content Column */}
-                    <div
-                        className={`mt-4 md:mt-0  text-content ${
+                    <motion.div
+                        className={`space-y-4 sm:space-y-6 ${
                         feature.reverseLayout ? "md:order-1" : "md:order-2"
                         }`}
+                        initial={{ opacity: 0, x: feature.reverseLayout ? -30 : 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
                     >
-                        <h2 className="mb-4 text-3xl md:text-4xl tracking-tight font-extrabold text-emerald-800 dark:text-emerald-200">
+                        <div className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-800 px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium">
+                            <CheckCircle className="size-4" />
+                            ميزة مميزة
+                        </div>
+                        
+                        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 leading-tight">
                             {feature.title}
                         </h2>
-                        <p className="mb-6 font-light text-gray-600 md:text-lg dark:text-gray-400">
+                        
+                        <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed">
                             {feature.description}
                         </p>
 
-                        {/* Detailed Bullet Points */}
-                        <ul className="space-y-3 mb-6 w-full  text-gray-600 dark:text-gray-400 list-none">
+                        {/* Detailed Points with Icons */}
+                        <div className="space-y-3 sm:space-y-4">
                             {feature.details.map((detail, detailIndex) => (
-                                <li key={detailIndex} className="flex items-start">
-                                    <span className="font-medium text-emerald-700 dark:text-emerald-300 ml-2 text-xl">
-                                        &bull;
-                                    </span>
-                                    <p className="mr-2 text-lg">{detail}</p>
-                                </li>
+                                <motion.div 
+                                    key={detailIndex} 
+                                    className="flex items-start gap-2 sm:gap-3 p-3 sm:p-4 bg-white/60 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-emerald-100 shadow-sm"
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.4, delay: detailIndex * 0.1 }}
+                                    whileHover={{ x: 5 }}
+                                >
+                                    <div className="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                        <CheckCircle className="size-4 text-emerald-600" />
+                                    </div>
+                                    <p className="text-gray-700 leading-relaxed">{detail}</p>
+                                </motion.div>
                             ))}
-                        </ul>
+                        </div>
                         
-                        <a
+                        <motion.a
                             href="#"
-                            className="inline-flex items-center text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-emerald-900"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="inline-flex items-center justify-center gap-2 sm:gap-3 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-semibold px-6 py-3 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl text-sm sm:text-base transition-all duration-300 shadow-lg hover:shadow-emerald-200 w-full sm:w-auto"
                         >
                             {feature.cta}
-                            <FeatureLinkIcon />
-                        </a>
-                    </div>
-                </div>
+                            <ChevronRight className="size-5" />
+                        </motion.a>
+                    </motion.div>
+                </motion.div>
             ))}
         </div>
-        {/* The CTA component follows naturally, no more pin-gap issues! */}
-        <ArabicCtaSection ref={ctaRef} /> 
+        <ArabicCtaSection /> 
     </section>
   );
 }
