@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
 import { Star, Trophy, TrendingUp, Gift } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -17,6 +18,7 @@ interface StudentPoints {
 }
 
 export default function StudentPointsWidget() {
+  const { t } = useTranslation();
   const [points, setPoints] = useState<StudentPoints | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -29,13 +31,13 @@ export default function StudentPointsWidget() {
     try {
       setLoading(true);
       setError(null);
-      const response = await api.get<StudentPoints>('/api/users/points/');
+      const response = await api.get<StudentPoints>('/users/points/');
       setPoints(response.data);
     } catch (err: any) {
       console.error('Error fetching student points:', err);
       // Set fallback data if API fails but not due to auth issues
       if (err.response?.status !== 401) {
-        setError('فشل في تحميل النقاط');
+        setError(t('student_points.error_loading'));
         setPoints({
           total_points: 0,
           earned_this_week: 0,
@@ -80,7 +82,7 @@ export default function StudentPointsWidget() {
               onClick={fetchStudentPoints}
               className="text-xs text-emerald-600 hover:text-emerald-700 underline"
             >
-              إعادة المحاولة
+              {t('student_points.retry')}
             </button>
           </div>
         </CardContent>
@@ -98,7 +100,7 @@ export default function StudentPointsWidget() {
           >
             <Star className="size-5 text-emerald-500 fill-emerald-500" />
           </motion.div>
-          نقاط المساهمة
+          {t('student_points.title')}
         </CardTitle>
       </CardHeader>
 
@@ -113,7 +115,7 @@ export default function StudentPointsWidget() {
           >
             {points?.total_points?.toLocaleString() || '0'}
           </motion.div>
-          <p className="text-sm text-emerald-700 dark:text-emerald-300">إجمالي النقاط</p>
+          <p className="text-sm text-emerald-700 dark:text-emerald-300">{t('student_points.total_points')}</p>
         </div>
 
         {/* Recent Earnings */}
@@ -121,7 +123,7 @@ export default function StudentPointsWidget() {
           <div className="bg-emerald-50/50 dark:bg-emerald-900/20 p-3 rounded-lg text-center border border-emerald-100 dark:border-emerald-800/50">
             <div className="flex items-center justify-center gap-1 text-sm text-emerald-600 dark:text-emerald-400 mb-1">
               <TrendingUp className="size-3" />
-              هذا الأسبوع
+              {t('student_points.this_week')}
             </div>
             <div className="font-semibold text-emerald-800 dark:text-emerald-200">
               +{points?.earned_this_week || 0}
@@ -131,7 +133,7 @@ export default function StudentPointsWidget() {
           <div className="bg-emerald-50/50 dark:bg-emerald-900/20 p-3 rounded-lg text-center border border-emerald-100 dark:border-emerald-800/50">
             <div className="flex items-center justify-center gap-1 text-sm text-emerald-600 dark:text-emerald-400 mb-1">
               <TrendingUp className="size-3" />
-              هذا الشهر
+              {t('student_points.this_month')}
             </div>
             <div className="font-semibold text-emerald-800 dark:text-emerald-200">
               +{points?.earned_this_month || 0}
@@ -142,18 +144,18 @@ export default function StudentPointsWidget() {
         {/* Contribution Breakdown */}
         {points?.contribution_breakdown && (
           <div className="space-y-2">
-            <p className="text-xs font-medium text-emerald-700 dark:text-emerald-300">مصادر النقاط:</p>
+            <p className="text-xs font-medium text-emerald-700 dark:text-emerald-300">{t('student_points.sources')}:</p>
             <div className="space-y-1 text-xs">
               <div className="flex justify-between text-emerald-600 dark:text-emerald-400">
-                <span>مساهمات الامتحانات</span>
+                <span>{t('student_points.exam_contributions')}</span>
                 <span>{points.contribution_breakdown.exam_contributions}</span>
               </div>
               <div className="flex justify-between text-emerald-600 dark:text-emerald-400">
-                <span>مساهمات المقالات</span>
+                <span>{t('student_points.article_contributions')}</span>
                 <span>{points.contribution_breakdown.article_contributions}</span>
               </div>
               <div className="flex justify-between text-emerald-600 dark:text-emerald-400">
-                <span>مساهمات الموارد</span>
+                <span>{t('student_points.resource_contributions')}</span>
                 <span>{points.contribution_breakdown.resource_contributions}</span>
               </div>
             </div>
@@ -164,7 +166,7 @@ export default function StudentPointsWidget() {
         <div className="pt-2">
           <button className="w-full bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium py-2 px-3 rounded-lg transition-colors flex items-center justify-center gap-2">
             <Gift className="size-4" />
-            استبدال النقاط
+            {t('student_points.redeem_points')}
           </button>
         </div>
       </CardContent>

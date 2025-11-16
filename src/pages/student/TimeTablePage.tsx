@@ -1,6 +1,7 @@
 import { useAppSelector } from "../../store/store";
 import { motion } from "framer-motion";
 import { Calendar, Clock, BookOpen, AlertCircle, RefreshCw } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import Card from "../../components/ui/Card";
 
 interface EventProps {
@@ -16,6 +17,7 @@ interface EventsProps {
 }
 
 export default function TimeTablePage() {
+  const { t } = useTranslation();
   const timetable = useAppSelector(
     (state) => state.auth.user?.class_room?.timetable
   );
@@ -32,27 +34,27 @@ export default function TimeTablePage() {
             <Calendar className="w-12 h-12 text-emerald-500" />
           </div>
           <div className="text-center space-y-2">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-emerald-50">لا يوجد جدول دروس</h2>
-            <p className="text-gray-600 dark:text-emerald-200/70">سيتم عرض جدولك الدراسي هنا عند توفره</p>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-emerald-50">{t('timetable_page.no_timetable')}</h2>
+            <p className="text-gray-600 dark:text-emerald-200/70">{t('timetable_page.timetable_will_show')}</p>
           </div>
           <button className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg transition-colors">
             <RefreshCw className="w-4 h-4" />
-            إعادة التحميل
+            {t('timetable_page.reload')}
           </button>
         </motion.div>
       </div>
     );
   }
 
-  // Arabic days of the week
+  // Days of the week with translations
   const daysOfWeek = [
-    { en: "Saturday", ar: "السبت" },
-    { en: "Sunday", ar: "الأحد" },
-    { en: "Monday", ar: "الاثنين" },
-    { en: "Tuesday", ar: "الثلاثاء" },
-    { en: "Wednesday", ar: "الأربعاء" },
-    { en: "Thursday", ar: "الخميس" },
-    { en: "Friday", ar: "الجمعة" },
+    { en: "Saturday", ar: t('timetable_page.saturday') },
+    { en: "Sunday", ar: t('timetable_page.sunday') },
+    { en: "Monday", ar: t('timetable_page.monday') },
+    { en: "Tuesday", ar: t('timetable_page.tuesday') },
+    { en: "Wednesday", ar: t('timetable_page.wednesday') },
+    { en: "Thursday", ar: t('timetable_page.thursday') },
+    { en: "Friday", ar: t('timetable_page.friday') },
   ];
 
   // figure out today’s day
@@ -76,9 +78,9 @@ export default function TimeTablePage() {
 
 
   const eventBadges : EventsProps = {
-    exam: { label: "اختبار", color: "bg-red-500" },
-    homework: { label: "واجب", color: "bg-yellow-400" },
-    project: { label: "مشروع", color: "bg-green-500" },
+    exam: { label: t('timetable_page.exam'), color: "bg-red-500" },
+    homework: { label: t('timetable_page.homework'), color: "bg-yellow-400" },
+    project: { label: t('timetable_page.project'), color: "bg-green-500" },
   };
 
   return (
@@ -92,7 +94,7 @@ export default function TimeTablePage() {
         <div className="flex items-center gap-3 mb-2">
           <Calendar className="w-8 h-8 text-emerald-600" />
           <h1 className="text-3xl font-bold text-gray-900 dark:text-emerald-50">
-            جدول الدروس
+            {t('timetable_page.title')}
           </h1>
         </div>
         <p className="text-gray-600 dark:text-emerald-200/70 text-lg">
@@ -130,7 +132,7 @@ export default function TimeTablePage() {
                     </h2>
                   </div>
                   {isToday && (
-                    <p className="text-xs text-center text-emerald-100 mt-1">اليوم</p>
+                    <p className="text-xs text-center text-emerald-100 mt-1">{t('timetable_page.today')}</p>
                   )}
                 </div>
 
@@ -140,7 +142,7 @@ export default function TimeTablePage() {
                     <div className="text-center py-8">
                       <BookOpen className="w-8 h-8 text-gray-300 dark:text-emerald-700 mx-auto mb-2" />
                       <p className="text-gray-400 dark:text-emerald-400 text-sm">
-                        لا توجد حصص
+                        {t('timetable_page.no_classes')}
                       </p>
                     </div>
                   ) : (

@@ -13,8 +13,10 @@ import EnrollmentNavigation from "../../components/enrollment/EnrollmentNavigati
 import CourseContent from "../../components/enrollment/CourseContent";
 import { StudySessionTrackerProvider } from "../../context/StudySessionContext";
 import useApiErrorHandler from "../../hooks/use-api-error-handler";
+import { useTranslation } from "react-i18next";
 
 export default function ClassroomPage() {
+  const { t } = useTranslation();
   useApiErrorHandler();
   const { enrollment_id } = useParams<{ enrollment_id: string }>();
   const enrollmentIdNum = enrollment_id ? Number(enrollment_id) : null;
@@ -26,8 +28,8 @@ export default function ClassroomPage() {
   if (!enrollmentIdNum) {
     return (
       <div className="w-full h-dynamic flex items-center justify-center flex-col gap-2">
-        <h1 className="text-3xl text-rose-600 font-semibold"> خطأ </h1>
-        <p className="text-lg text-rose-900"> معرف الدورة غير صحيح , يجب ان يكون معرف الدورة رقما </p>
+        <h1 className="text-3xl text-rose-600 font-semibold">{t('classroom_page.error')}</h1>
+        <p className="text-lg text-rose-900">{t('classroom_page.invalid_course_id')}</p>
       </div>
     )
   }
@@ -56,7 +58,7 @@ export default function ClassroomPage() {
   }, [])
 
   if (loading) {
-    return <ResourceLoader className="h-dynamic" title="جاري تحميل الدورة التدريبية" />
+    return <ResourceLoader className="h-dynamic" title={t('classroom_page.loading_course')} />
   }
 
   if (error) {

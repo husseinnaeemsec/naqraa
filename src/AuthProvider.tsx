@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "./store/store";
 import { endpoints } from "./api/routes";
 import type { UserStatusResponse } from "../types";
@@ -18,6 +19,7 @@ interface Props {
 
 
 const AuthProvider: React.FC<Props> = ({ children }) => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { loadingUser } = useAppSelector((state) => state.auth);
   const [error, setError] = useState<string | null>(null);
@@ -62,7 +64,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 
   // ✅ هذا الشرط لا يغيّر ترتيب الـ hooks
   if (loadingUser && !error) {
-    return <PageLoader title="جاري التحقق من الحساب" />;
+    return <PageLoader title={t('auth.verifyingAccount')} />;
   }
 
   return <>{children}</>;

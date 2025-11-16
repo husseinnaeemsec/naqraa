@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import ChatHeader from "./ChatHeader";
 import ChatMessages from "./ChatMessages";
 import SendMessagesComponent from "./SendMessagesComponent";
@@ -9,6 +10,7 @@ import api from "../api/client";
 import { endpoints, ws_endpoints } from "../api/routes";
 
 export default function Chat() {
+  const { t } = useTranslation();
   const { chatId } = useParams();
   const [chat, setChat] = useState<ChatProps | null>(null);
   const [loading, setLoading] = useState(true);
@@ -20,8 +22,8 @@ export default function Chat() {
   if (isNaN(chatIdNum)) {
     return (
       <ErrorView
-        title="خطأ"
-        message="معرف المحادثة غير صالح"
+        title={t('chat.error')}
+        message={t('chat.invalid_chat_id')}
       />
     );
   }
@@ -34,7 +36,7 @@ export default function Chat() {
         const res = await api.get(endpoints.chat.get(chatIdNum));
 
         if (!res?.data) {
-          throw new Error("لم يتم العثور على المحادثة");
+          throw new Error(t('chat.not_found'));
         }
 
         if (!isMounted) return;
@@ -55,7 +57,7 @@ export default function Chat() {
           console.error("⚠️ WebSocket error:", err);
           socketRef.current = null;
           if (isMounted) {
-            setError("فشل الاتصال بالخادم");
+            setError(t('chat.connection_failed'));
             setLoading(false);
           }
         };
@@ -64,14 +66,14 @@ export default function Chat() {
           console.log("❌ Chat socket closed");
           socketRef.current = null;
           if (isMounted) {
-            setError("تم قطع الاتصال بالخادم");
+            setError(t('chat.connection_lost'));
             setLoading(false);
           }
         };
       } catch (err: any) {
         console.error("Chat fetch error:", err);
         if (isMounted) {
-          setError("تعذر تحميل المحادثة");
+          setError(t('chat.loading_failed'));
           setLoading(false);
         }
       }
@@ -88,12 +90,12 @@ export default function Chat() {
 
   // ⏳ Loading
   if (loading) {
-    return <ResourceLoader text="الرجاء الانتظار ..." title="جاري تحميل المحادثة" />;
+    return <ResourceLoader text={t('chat.please_wait')} title={t('chat.loading_chat')} />;
   }
 
   // ❌ Error
   if (error || !chat) {
-    return <ErrorView title="خطأ" message={error || "لم يتم العثور على المحادثة"} />;
+    return <ErrorView title={t('chat.error')} message={error || t('chat.not_found')} />;
   }
 
   // ✅ Connected and ready
@@ -109,6 +111,8 @@ export default function Chat() {
 }
 
 function ErrorView({ title, message }: { title: string; message: string }) {
+  const { t } = useTranslation();
+  
   return (
     <div className="w-full h-full flex items-center gap-2 flex-col justify-center">
       <h1 className="text-2xl text-rose-500 font-semibold">{title}</h1>
@@ -117,7 +121,7 @@ function ErrorView({ title, message }: { title: string; message: string }) {
         onClick={() => window.location.reload() }
         className="p-2 px-3 border rounded-md border-slate-300 cursor-pointer hover:bg-slate-100"
       >
-        اعادة المحاولة 
+        {t('chat.retry')}
       </button>
     </div>
   );

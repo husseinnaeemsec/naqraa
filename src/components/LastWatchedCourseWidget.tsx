@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../store/store";
 import { useState, useEffect } from "react";
 import api from "../api/client";
@@ -14,6 +15,7 @@ interface EnrollmentProgress {
 }
 
 export default function LastWatchedCourseWidget() {
+  const { t } = useTranslation();
   const { user } = useAppSelector((state) => state.auth);
   const [progressData, setProgressData] = useState<EnrollmentProgress | null>(null);
   const [loading, setLoading] = useState(false);
@@ -76,10 +78,10 @@ export default function LastWatchedCourseWidget() {
             <BookOpen className="size-12 text-gray-400 mx-auto" />
             <div className="space-y-2">
               <h3 className="font-bold text-lg text-gray-600 dark:text-gray-300">
-                لا توجد دورات
+                {t('last_watched_course.no_courses')}
               </h3>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                ابدأ رحلتك التعليمية بالتسجيل في دورة جديدة
+                {t('last_watched_course.start_learning_journey')}
               </p>
             </div>
             <Link
@@ -87,7 +89,7 @@ export default function LastWatchedCourseWidget() {
               className="inline-flex items-center gap-2 bg-emerald-600 text-white px-5 py-2.5 rounded-lg font-semibold text-sm hover:bg-emerald-700 transition-all duration-200"
             >
               <BookOpen className="size-4" />
-              استكشف الدورات
+              {t('last_watched_course.explore_courses')}
             </Link>
           </div>
         </div>
@@ -113,7 +115,7 @@ export default function LastWatchedCourseWidget() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium">
             <Play className="size-3" />
-            {isCompleted ? 'مكتمل' : 'قيد المتابعة'}
+            {isCompleted ? t('last_watched_course.completed') : t('last_watched_course.in_progress')}
           </div>
 
           {/* Title + Description */}
@@ -129,8 +131,8 @@ export default function LastWatchedCourseWidget() {
           {/* Progress */}
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs text-emerald-100">
-              <span>التقدم</span>
-              <span>{Math.round(progressPercentage)}% مكتمل</span>
+              <span>{t('last_watched_course.progress')}</span>
+              <span>{t('last_watched_course.percent_completed', { percentage: Math.round(progressPercentage) })}</span>
             </div>
             
             <div className="w-full bg-white/20 h-2 rounded-full overflow-hidden backdrop-blur-sm">
@@ -141,7 +143,7 @@ export default function LastWatchedCourseWidget() {
             </div>
             
             <div className="text-xs text-emerald-100 opacity-75">
-              {completedLessons} من {totalLessons} دروس
+              {t('last_watched_course.lessons_progress', { completed: completedLessons, total: totalLessons })}
             </div>
           </div>
 
@@ -153,17 +155,17 @@ export default function LastWatchedCourseWidget() {
             {loading ? (
               <>
                 <div className="animate-spin h-4 w-4 border-2 border-emerald-600 border-t-transparent rounded-full"></div>
-                جاري التحميل...
+                {t('ui.loading')}
               </>
             ) : isCompleted ? (
               <>
                 <BookOpen className="size-4" />
-                مراجعة الدورة
+                {t('last_watched_course.review_course')}
               </>
             ) : (
               <>
                 <Play className="size-4" />
-                استمر بالتعلم
+                {t('last_watched_course.continue_learning')}
               </>
             )}
           </Link>

@@ -1,19 +1,21 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import type { Enrollment } from "../../types";
 import { getMedia } from "../utils/functions";
 
 
 export default function StudentCourseCard({ enrollment }: { enrollment:Enrollment } ) {
+  const { t } = useTranslation();
   const { course } = enrollment;
 
   const getLinkText = ()=>{
     if(enrollment.progress === 100){
-        return 'مراجعة'
+        return t('student_course_card.review')
     }else if(enrollment.progress < 100 && enrollment.progress > 0){
-        return 'اكمل التعلم'
+        return t('student_course_card.continue_learning')
     }
 
-    return 'ابدأ التعلم'
+    return t('student_course_card.start_learning')
   }
 
   return (
@@ -43,7 +45,7 @@ export default function StudentCourseCard({ enrollment }: { enrollment:Enrollmen
         </p>
         <div className="space-y-2 text-xs my-2">
             <div className="flex items-center justify-between">
-                مستوى التقدم 
+                {t('student_course_card.progress_level')}
                 <span> {enrollment.progress}% </span>
             </div>
             <div className="h-1 bg-slate-200 w-full overflow-hidden rounded">

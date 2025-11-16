@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { Calendar, Target, Zap, Trophy, Clock, BookOpen } from "lucide-react";
 import Card from "./ui/Card";
 import Button from "./ui/Button";
@@ -12,27 +13,11 @@ interface LearningGoal {
   color: string;
 }
 
-// Mock data - this would come from the backend
-const mockGoals: LearningGoal[] = [
-  {
-    id: '1',
-    title: 'ساعات الدراسة الأسبوعية',
-    progress: 12,
-    target: 20,
-    unit: 'ساعة',
-    color: 'emerald'
-  },
-  {
-    id: '2',
-    title: 'دروس مكتملة هذا الشهر',
-    progress: 8,
-    target: 15,
-    unit: 'درس',
-    color: 'blue'
-  }
-];
+
 
 export default function LearningProgressWidget() {
+  const { t } = useTranslation();
+  
   // Mock data - these would come from the backend
   const currentStreak = 7;
   const longestStreak = 15;
@@ -40,11 +25,31 @@ export default function LearningProgressWidget() {
   const weeklyGoal = 20;
   const completedLessonsToday = 3;
 
+  // Mock data - this would come from the backend
+  const mockGoals: LearningGoal[] = [
+    {
+      id: '1',
+      title: t('learning_progress.weekly_study_hours'),
+      progress: 12,
+      target: 20,
+      unit: t('learning_progress.hours'),
+      color: 'emerald'
+    },
+    {
+      id: '2',
+      title: t('learning_progress.completed_lessons_month'),
+      progress: 8,
+      target: 15,
+      unit: t('learning_progress.lessons'),
+      color: 'blue'
+    }
+  ];
+
   const streakMotivationMessage = () => {
-    if (currentStreak === 0) return "ابدأ رحلة التعلم اليوم!";
-    if (currentStreak < 7) return "استمر! أنت في طريقك الصحيح";
-    if (currentStreak < 30) return "ممتاز! حافظ على هذا التقدم";
-    return "مذهل! أنت متعلم مثابر حقاً";
+    if (currentStreak === 0) return t('learning_progress.start_journey');
+    if (currentStreak < 7) return t('learning_progress.keep_going');
+    if (currentStreak < 30) return t('learning_progress.excellent_progress');
+    return t('learning_progress.amazing_learner');
   };
 
   const getProgressColor = (progress: number, target: number) => {
@@ -64,7 +69,7 @@ export default function LearningProgressWidget() {
       <div className="p-4 bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20 border-b border-emerald-200 dark:border-emerald-800">
         <div className="flex items-center gap-3">
           <Target className="size-5 text-emerald-600" />
-          <h4 className="font-bold text-gray-900 dark:text-emerald-50">تقدم التعلم</h4>
+          <h4 className="font-bold text-gray-900 dark:text-emerald-50">{t('learning_progress.title')}</h4>
         </div>
       </div>
 
@@ -83,7 +88,7 @@ export default function LearningProgressWidget() {
           <div className="space-y-2">
             <div className="text-3xl font-bold text-emerald-700 dark:text-emerald-300">{currentStreak}</div>
             <div className="text-sm text-emerald-600 dark:text-emerald-400">
-              أيام متتالية من التعلم
+              {t('learning_progress.consecutive_learning_days')}
             </div>
             <div className="text-xs text-emerald-600 dark:text-emerald-400">
               {streakMotivationMessage()}
@@ -91,8 +96,8 @@ export default function LearningProgressWidget() {
             
             <div className="mt-3 pt-3 border-t border-emerald-200 dark:border-emerald-800">
               <div className="flex items-center justify-between text-xs">
-                <span className="text-emerald-600 dark:text-emerald-400">أطول فترة:</span>
-                <span className="font-semibold text-emerald-700 dark:text-emerald-300">{longestStreak} يوم</span>
+                <span className="text-emerald-600 dark:text-emerald-400">{t('learning_progress.longest_streak')}:</span>
+                <span className="font-semibold text-emerald-700 dark:text-emerald-300">{t('learning_progress.days_count', { count: longestStreak })}</span>
               </div>
             </div>
           </div>
@@ -102,7 +107,7 @@ export default function LearningProgressWidget() {
         <div className="space-y-3">
           <h5 className="font-semibold text-gray-900 dark:text-emerald-50 flex items-center gap-2">
             <Calendar className="size-4 text-emerald-600" />
-            إنجاز اليوم
+            {t('learning_progress.today_achievement')}
           </h5>
           
           <div className="grid grid-cols-2 gap-3">
@@ -112,7 +117,7 @@ export default function LearningProgressWidget() {
             >
               <Clock className="size-4 text-emerald-600 mx-auto mb-1" />
               <div className="text-lg font-bold text-emerald-700 dark:text-emerald-300">{todayStudyTime}</div>
-              <div className="text-xs text-emerald-600 dark:text-emerald-400">ساعة دراسة</div>
+              <div className="text-xs text-emerald-600 dark:text-emerald-400">{t('learning_progress.study_hours')}</div>
             </motion.div>
             
             <motion.div 
@@ -121,7 +126,7 @@ export default function LearningProgressWidget() {
             >
               <BookOpen className="size-4 text-emerald-700 mx-auto mb-1" />
               <div className="text-lg font-bold text-emerald-800 dark:text-emerald-200">{completedLessonsToday}</div>
-              <div className="text-xs text-emerald-700 dark:text-emerald-300">دروس مكتملة</div>
+              <div className="text-xs text-emerald-700 dark:text-emerald-300">{t('learning_progress.completed_lessons')}</div>
             </motion.div>
           </div>
         </div>
@@ -130,7 +135,7 @@ export default function LearningProgressWidget() {
         <div className="space-y-3">
           <h5 className="font-semibold text-gray-900 dark:text-emerald-50 flex items-center gap-2">
             <Trophy className="size-4 text-emerald-600" />
-            أهداف التعلم
+            {t('learning_progress.learning_goals')}
           </h5>
           
           <div className="space-y-3">
@@ -162,7 +167,7 @@ export default function LearningProgressWidget() {
                   </div>
                   
                   <div className="text-xs text-gray-500 dark:text-emerald-400">
-                    {percentage.toFixed(0)}% مكتمل
+                    {t('learning_progress.completed_percentage', { percentage: percentage.toFixed(0) })}
                   </div>
                 </motion.div>
               );
@@ -181,7 +186,7 @@ export default function LearningProgressWidget() {
             className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800"
             icon={<Zap className="size-4" />}
           >
-            ابدأ جلسة دراسة
+            {t('learning_progress.start_study_session')}
           </Button>
         </motion.div>
       </div>

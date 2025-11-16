@@ -1,4 +1,4 @@
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 import warning from '../../assets/errors/warning.svg';
 
 interface Props {
@@ -9,6 +9,8 @@ interface Props {
 }
 
 export default function UnknownError( { title,text,showText,className } : Props ){
+    const { t } = useTranslation();
+    
     return (
         <div className={`flex items-center justify-center flex-col gap-2 ${className}`}>
             <img src={warning} className='max-w-md' alt="" />

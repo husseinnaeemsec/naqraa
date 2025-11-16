@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { FileText, Download, Eye, Search, Upload, Filter, MoreVertical, File, Image, Video } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 import Card from "../../components/ui/Card";
 import Button from "../../components/ui/Button";
 
 const FilesPage = () => {
+    const { t } = useTranslation();
     const [files] = useState([
-        { id: 1, name: "مشروع الرياضيات", type: "PDF", size: "2.1 MB", date: "15 أبريل 2026", color: "text-red-600" },
-        { id: 2, name: "مذكرة اللغة العربية", type: "DOCX", size: "1.5 MB", date: "10 أبريل 2026", color: "text-blue-600" },
-        { id: 3, name: "عرض تقديمي للعلوم", type: "PPTX", size: "3.2 MB", date: "5 أبريل 2026", color: "text-orange-600" },
-        { id: 4, name: "مذكرة التاريخ", type: "PDF", size: "1.8 MB", date: "1 أبريل 2026", color: "text-red-600" },
-        { id: 5, name: "مذكرة الجغرافيا", type: "DOCX", size: "2.3 MB", date: "28 مارس 2026", color: "text-blue-600" },
-        { id: 6, name: "مذكرة الكيمياء", type: "PDF", size: "1.9 MB", date: "22 مارس 2026", color: "text-red-600" },
+        { id: 1, name: t('files_page.sample_math_project'), type: "PDF", size: "2.1 MB", date: "15 أبريل 2026", color: "text-red-600" },
+        { id: 2, name: t('files_page.sample_arabic_note'), type: "DOCX", size: "1.5 MB", date: "10 أبريل 2026", color: "text-blue-600" },
+        { id: 3, name: t('files_page.sample_science_presentation'), type: "PPTX", size: "3.2 MB", date: "5 أبريل 2026", color: "text-orange-600" },
+        { id: 4, name: t('files_page.sample_history_note'), type: "PDF", size: "1.8 MB", date: "1 أبريل 2026", color: "text-red-600" },
+        { id: 5, name: t('files_page.sample_geography_note'), type: "DOCX", size: "2.3 MB", date: "28 مارس 2026", color: "text-blue-600" },
+        { id: 6, name: t('files_page.sample_chemistry_note'), type: "PDF", size: "1.9 MB", date: "22 مارس 2026", color: "text-red-600" },
     ]);
     const [searchTerm, setSearchTerm] = useState("");
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -43,13 +45,13 @@ const FilesPage = () => {
                     <div className="flex items-center gap-3">
                         <FileText className="w-8 h-8 text-emerald-600" />
                         <div>
-                            <h1 className="text-3xl font-bold text-gray-900 dark:text-emerald-50">ملفاتي</h1>
-                            <p className="text-gray-600 dark:text-emerald-200/70">إدارة ومشاركة الملفات</p>
+                            <h1 className="text-3xl font-bold text-gray-900 dark:text-emerald-50">{t('files_page.title')}</h1>
+                            <p className="text-gray-600 dark:text-emerald-200/70">{t('files_page.subtitle')}</p>
                         </div>
                     </div>
                     <Button className="bg-emerald-500 hover:bg-emerald-600 text-white flex items-center gap-2">
                         <Upload className="w-4 h-4" />
-                        تحميل ملف
+                        {t('files_page.upload_file')}
                     </Button>
                 </div>
             </motion.div>
@@ -67,7 +69,7 @@ const FilesPage = () => {
                             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                             <input
                                 type="text"
-                                placeholder="بحث في الملفات..."
+                                placeholder={t('files_page.search_placeholder')}
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 className="w-full pl-10 pr-4 py-2 border border-emerald-200 dark:border-emerald-800 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-emerald-950 text-gray-900 dark:text-emerald-50"
@@ -79,14 +81,14 @@ const FilesPage = () => {
                                 onClick={() => setViewMode('grid')}
                                 className="px-3 py-2"
                             >
-                                شبكة
+                                {t('files_page.grid_view')}
                             </Button>
                             <Button 
                                 variant={viewMode === 'list' ? 'primary' : 'secondary'}
                                 onClick={() => setViewMode('list')}
                                 className="px-3 py-2"
                             >
-                                قائمة
+                                {t('files_page.list_view')}
                             </Button>
                             <Button variant="secondary" className="px-3 py-2">
                                 <Filter className="w-4 h-4" />
@@ -193,14 +195,14 @@ const FilesPage = () => {
                 >
                     <FileText className="w-16 h-16 text-gray-300 dark:text-emerald-700 mx-auto mb-4" />
                     <h3 className="text-lg font-medium text-gray-900 dark:text-emerald-50 mb-2">
-                        {searchTerm ? 'لم يتم العثور على ملفات' : 'لا توجد ملفات بعد'}
+                        {searchTerm ? t('files_page.no_files_found') : t('files_page.no_files_yet')}
                     </h3>
                     <p className="text-gray-500 dark:text-emerald-400 mb-6">
-                        {searchTerm ? 'جرب بحث آخر' : 'ابدأ بتحميل ملفاتك الأولى'}
+                        {searchTerm ? t('files_page.try_different_search') : t('files_page.start_uploading')}
                     </p>
                     <Button className="bg-emerald-500 hover:bg-emerald-600 text-white">
                         <Upload className="w-4 h-4 mr-2" />
-                        تحميل ملف
+                        {t('files_page.upload_file')}
                     </Button>
                 </motion.div>
             )}

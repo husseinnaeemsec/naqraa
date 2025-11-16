@@ -64,12 +64,12 @@ export default function Sidebar() {
 
   const handleLogout = () => {
     Alert.fire({
-      title: "هل أنت متأكد؟",
-      text: "سيتم تسجيل خروجك من الحساب",
+      title: t('sidebar.logout_confirm_title'),
+      text: t('sidebar.logout_confirm_text'),
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "نعم، تسجيل الخروج",
-      cancelButtonText: "إلغاء",
+      confirmButtonText: t('sidebar.logout_confirm_yes'),
+      cancelButtonText: t('sidebar.logout_confirm_cancel'),
       background: document.documentElement.classList.contains("dark")
         ? emeraldColors['950']
         : "#ffffff",
@@ -88,7 +88,7 @@ export default function Sidebar() {
             // Error getting enrollments
           })
         Alert.fire({
-          title: "تم تسجيل الخروج",
+          title: t('sidebar.logout_success'),
           icon: "success",
           confirmButtonColor: "#059669",
         });
@@ -104,7 +104,7 @@ export default function Sidebar() {
             <Link to={'/'} className="flex cursor-pointer gap-2 items-center  px-2">
               <img src={'/favicon.svg'} alt="" className="w-10" />
               <div>
-                <p className="text-slate-600"> التعليم حق مجاني لكل انسان </p>
+                <p className="text-slate-600"> {t('sidebar.slogan')} </p>
               </div>
             </Link>
             <button className="cursor-pointer lg:hidden block" onClick={()=>{ dispatch(toggleSidebar()) }}>

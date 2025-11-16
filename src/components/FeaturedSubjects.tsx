@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import ResourceLoader from './resourceLoader';
@@ -13,6 +14,7 @@ import { Link } from 'react-router-dom';
 
 
 export default function FeaturedSubjects() {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [subjects, setSubjects] = useState<Subject[]>([]);
 
@@ -61,7 +63,7 @@ export default function FeaturedSubjects() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
-          <ResourceLoader title="جاري تحميل المواد" />
+          <ResourceLoader title={t('featured_subjects.loading')} />
         </motion.div>
       </div>
     );
@@ -78,10 +80,10 @@ export default function FeaturedSubjects() {
       >
         <div>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
-            تصفح الدورات لكل مادة
+            {t('featured_subjects.title')}
           </h2>
           <p className="text-gray-600 text-sm md:text-base">
-            اختر المادة التي تريد تعلمها وابدأ رحلتك التعليمية
+            {t('featured_subjects.subtitle')}
           </p>
         </div>
         
@@ -93,7 +95,7 @@ export default function FeaturedSubjects() {
             to="/courses/explore/" 
             className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg group"
           >
-            <span>عرض جميع الدورات</span>
+            <span>{t('featured_subjects.view_all')}</span>
             <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </motion.div>
@@ -145,7 +147,7 @@ export default function FeaturedSubjects() {
                     {subject.name}
                   </h3>
                   <p className="text-sm md:text-base text-gray-600 leading-relaxed">
-                    {subject.description || "استكشف دورات متقدمة في هذه المادة"}
+                    {subject.description || t('featured_subjects.default_description')}
                   </p>
                 </div>
               </div>

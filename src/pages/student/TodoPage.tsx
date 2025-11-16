@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Plus, CheckSquare, Clock, Filter, Search, Calendar, Target, AlertCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import TodoBanner from './TodoBanner';
 import TodoTabs from './TodoTabs';
 import { type Task, type TaskCollection } from '../../../types';
@@ -15,6 +16,7 @@ import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 
 export default function TodoPage() {
+    const { t } = useTranslation();
 
     const [tasks, setTasks] = useState<Task[]>([])
     const [collections, setCollections] = useState<TaskCollection[]>([]);
@@ -43,8 +45,8 @@ export default function TodoPage() {
                     <div className="flex items-center gap-3">
                         <CheckSquare className="w-8 h-8 text-emerald-600" />
                         <div>
-                            <h1 className="text-3xl font-bold text-gray-900 dark:text-emerald-50">المهام</h1>
-                            <p className="text-gray-600 dark:text-emerald-200/70">نظم وتابع مهامك اليومية</p>
+                            <h1 className="text-3xl font-bold text-gray-900 dark:text-emerald-50">{t('todo_page.title')}</h1>
+                            <p className="text-gray-600 dark:text-emerald-200/70">{t('todo_page.subtitle')}</p>
                         </div>
                     </div>
                     <Button 
@@ -52,7 +54,7 @@ export default function TodoPage() {
                         onClick={() => setShowForm(true)}
                     >
                         <Plus className="w-4 h-4" />
-                        مهمة جديدة
+                        {t('todo_page.new_task')}
                     </Button>
                 </div>
             </motion.div>
@@ -85,7 +87,7 @@ export default function TodoPage() {
                                 </div>
                                 <div>
                                     <p className="text-2xl font-bold text-gray-900 dark:text-emerald-50">{tasks.length}</p>
-                                    <p className="text-sm text-gray-600 dark:text-emerald-200/70">إجمالي المهام</p>
+                                    <p className="text-sm text-gray-600 dark:text-emerald-200/70">{t('todo_page.total_tasks')}</p>
                                 </div>
                             </div>
                         </Card>
@@ -97,7 +99,7 @@ export default function TodoPage() {
                                 </div>
                                 <div>
                                     <p className="text-2xl font-bold text-gray-900 dark:text-emerald-50">{pendingTasks.length}</p>
-                                    <p className="text-sm text-gray-600 dark:text-emerald-200/70">قيد التنفيذ</p>
+                                    <p className="text-sm text-gray-600 dark:text-emerald-200/70">{t('todo_page.in_progress')}</p>
                                 </div>
                             </div>
                         </Card>
@@ -109,7 +111,7 @@ export default function TodoPage() {
                                 </div>
                                 <div>
                                     <p className="text-2xl font-bold text-gray-900 dark:text-emerald-50">{completedTasks.length}</p>
-                                    <p className="text-sm text-gray-600 dark:text-emerald-200/70">مكتملة</p>
+                                    <p className="text-sm text-gray-600 dark:text-emerald-200/70">{t('todo_page.completed')}</p>
                                 </div>
                             </div>
                         </Card>
@@ -127,7 +129,7 @@ export default function TodoPage() {
                                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                                 <input
                                     type="text"
-                                    placeholder="ابحث في المهام..."
+                                    placeholder={t('todo_page.search_placeholder')}
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-emerald-700 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-emerald-950 text-gray-900 dark:text-emerald-50"
@@ -142,9 +144,9 @@ export default function TodoPage() {
                                 onChange={(e) => setFilterStatus(e.target.value as any)}
                                 className="px-3 py-2 border border-gray-300 dark:border-emerald-700 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-emerald-950 text-gray-900 dark:text-emerald-50"
                             >
-                                <option value="all">جميع المهام</option>
-                                <option value="pending">قيد التنفيذ</option>
-                                <option value="completed">مكتملة</option>
+                                <option value="all">{t('todo_page.filter_all')}</option>
+                                <option value="pending">{t('todo_page.filter_pending')}</option>
+                                <option value="completed">{t('todo_page.filter_completed')}</option>
                             </select>
                         </div>
                     </motion.div>
@@ -164,7 +166,7 @@ export default function TodoPage() {
                                         className="mt-4 bg-emerald-500 hover:bg-emerald-600 text-white"
                                         onClick={() => setShowForm(true)}
                                     >
-                                        ابدأ بإضافة مهمة
+                                        {t('todo_page.start_adding_task')}
                                     </Button>
                                 </div>
                             </Card>
@@ -176,7 +178,7 @@ export default function TodoPage() {
                                         <div className="flex items-center gap-2 mb-4">
                                             <AlertCircle className="w-5 h-5 text-red-500" />
                                             <h3 className="text-lg font-semibold text-gray-900 dark:text-emerald-50">
-                                                مهام عاجلة ({urgentTasks.length})
+                                                {t('todo_page.urgent_tasks')} ({urgentTasks.length})
                                             </h3>
                                         </div>
                                         <div className="space-y-3">
@@ -198,7 +200,7 @@ export default function TodoPage() {
                                 <Card className="overflow-hidden">
                                     <div className="p-4 bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20 border-b border-emerald-200 dark:border-emerald-800">
                                         <h3 className="text-lg font-semibold text-gray-900 dark:text-emerald-50">
-                                            جميع المهام ({tasks.length})
+                                            {t('todo_page.all_tasks')} ({tasks.length})
                                         </h3>
                                     </div>
                                     <div className="p-6">

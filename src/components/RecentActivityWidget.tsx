@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import api from '../api/client';
 import Card from './ui/Card';
@@ -31,46 +32,43 @@ const activityIcons = {
   default: Clock
 };
 
-const activityMessages = {
-  lesson_watch: 'شاهدت درس',
-  exam_complete: 'أكملت اختبار',
-  post_create: 'نشرت منشور في',
-  assignment_submit: 'أرسلت واجب',
-  course_enroll: 'انضممت إلى دورة',
-};
 
-function formatTimeAgo(timestamp: string): string {
-  const now = new Date();
-  const activityTime = new Date(timestamp);
-  const diffMs = now.getTime() - activityTime.getTime();
-  
-  const diffMinutes = Math.floor(diffMs / (1000 * 60));
-  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-  
-  if (diffMinutes < 60) {
-    return `قبل ${diffMinutes} دقيقة`;
-  } else if (diffHours < 24) {
-    return `قبل ${diffHours} ساعة`;
-  } else if (diffDays < 7) {
-    return `قبل ${diffDays} يوم`;
-  } else {
-    return activityTime.toLocaleDateString('ar-SA');
-  }
-}
+
+
 
 export default function RecentActivityWidget() {
+  const { t } = useTranslation();
   useApiErrorHandler();
   const [activities, setActivities] = useState<UserActivity[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const formatTimeAgo = (timestamp: string): string => {
+    const now = new Date();
+    const activityTime = new Date(timestamp);
+    const diffMs = now.getTime() - activityTime.getTime();
+    
+    const diffMinutes = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    
+    if (diffMinutes < 60) {
+      return t('recent_activity.time_minutes_ago', { count: diffMinutes });
+    } else if (diffHours < 24) {
+      return t('recent_activity.time_hours_ago', { count: diffHours });
+    } else if (diffDays < 7) {
+      return t('recent_activity.time_days_ago', { count: diffDays });
+    } else {
+      return activityTime.toLocaleDateString('ar-SA');
+    }
+  };
 
   useEffect(() => {
     const fetchRecentActivity = async () => {
       try {
         setLoading(true);
         // Note: This endpoint might need to be implemented in your backend
-        const response = await api.get<ActivityResponse>('/api/users/activity/?limit=5');
+        const response = await api.get<ActivityResponse>('/users/activity/?limit=5');
         setActivities(response.data.results);
       } catch (err: any) {
         console.error('Error fetching recent activity:', err);
@@ -81,30 +79,30 @@ export default function RecentActivityWidget() {
             {
               id: 1,
               type: 'lesson_watch',
-              description: 'شاهدت درس الجبر الأساسي',
+              description: t('recent_activity.mock_lesson_watch'),
               timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
             },
             {
               id: 2,
               type: 'exam_complete',
-              description: 'أكملت اختبار الرياضيات',
+              description: t('recent_activity.mock_exam_complete'),
               timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(),
             },
             {
               id: 3,
               type: 'post_create',
-              description: 'نشرت سؤال في منتدى العلوم',
+              description: t('recent_activity.mock_post_create'),
               timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
             },
             {
               id: 4,
               type: 'course_enroll',
-              description: 'انضممت إلى دورة الكيمياء العضوية',
+              description: t('recent_activity.mock_course_enroll'),
               timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
             },
           ]);
         } else {
-          setError('فشل في تحميل النشاط الأخير');
+          setError(t('recent_activity.error_loading'));
         }
       } finally {
         setLoading(false);
@@ -119,7 +117,7 @@ export default function RecentActivityWidget() {
       <Card variant="dashboard" className="w-full p-6">
         <div className="flex items-center gap-3 mb-4">
           <Activity className="size-6 text-emerald-600" />
-          <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">النشاط الأخير</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('recent_activity.title')}</h2>
         </div>
         <div className="space-y-3">
           {[1, 2, 3, 4].map((i) => (
@@ -141,7 +139,7 @@ export default function RecentActivityWidget() {
       <Card variant="dashboard" className="w-full p-6">
         <div className="flex items-center gap-3 mb-4">
           <Activity className="size-6 text-emerald-600" />
-          <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">النشاط الأخير</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('recent_activity.title')}</h2>
         </div>
         <div className="text-center py-8">
           <p className="text-gray-500 dark:text-gray-400">{error}</p>
@@ -155,11 +153,11 @@ export default function RecentActivityWidget() {
       <Card variant="dashboard" className="w-full p-6">
         <div className="flex items-center gap-3 mb-4">
           <Activity className="size-6 text-emerald-600" />
-          <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">النشاط الأخير</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('recent_activity.title')}</h2>
         </div>
         <div className="text-center py-8">
           <Activity className="size-12 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-          <p className="text-gray-500 dark:text-gray-400">لا يوجد نشاط حديث</p>
+          <p className="text-gray-500 dark:text-gray-400">{t('recent_activity.no_activity')}</p>
         </div>
       </Card>
     );
@@ -169,7 +167,7 @@ export default function RecentActivityWidget() {
     <Card variant="dashboard" className="w-full p-6">
       <div className="flex items-center gap-3 mb-6">
         <Activity className="size-6 text-emerald-600" />
-        <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">النشاط الأخير</h2>
+        <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('recent_activity.title')}</h2>
       </div>
 
       <div className="space-y-3 max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-emerald-300 scrollbar-track-gray-100">

@@ -222,5 +222,934 @@
         "alt": "research",
         "cta": "دەست پێبکە"
       }
-    ]
+    ],
+    "boards": {
+      "title": "تەختەکانی پلاندانان",
+      "subtitle": "کارەکانت بە شێوەی کاریگەر ڕێکبخە و بەدوایدا بکەوە",
+      "new_board": "تەختەی نوێ",
+      "tasks": "کار",
+      "open": "کردنەوە",
+      "view": "بینین",
+      "edit": "دەستکاریکردن",
+      "create_new_board": "دروستکردنی تەختەی نوێ",
+      "start_organizing_tasks": "دەست بکە بە ڕێکخستنی کارە نوێیەکانت",
+      "sample_board": "شوێنکاری تاقیکردنەوە",
+      "daily_tasks": {
+        "name": "تەختەی کارەکانی ڕۆژانە",
+        "description": "ڕێکخستن و بەدواداچوونی کارەکانی ڕۆژانە",
+        "updated": "لە پێش ٢ کاتژمێر"
+      },
+      "research_project": {
+        "name": "پرۆژەی لێکۆڵینەوە",
+        "description": "بەدواداچوونی پێشکەوتنی پرۆژەی لێکۆڵینەوەی زانستی",
+        "updated": "دوێنێ"
+      },
+      "study_plan": {
+        "name": "پلانی خوێندن",
+        "description": "کاتخستن و ڕێکخستنی وانە و پێداچوونەوەکان",
+        "updated": "لە پێش ٣ ڕۆژ"
+      },
+      "kanban": {
+        "todo": "لیستی کارەکان",
+        "in_progress": "لە بەردەوامیدا",
+        "done": "تەواو",
+        "tasks": {
+          "math_review": "پێداچوونەوەی بیرکاری",
+          "assigned_to_mohammad": "محەممەد",
+          "write_report": "نووسینی ڕاپۆرت",
+          "due_tomorrow": "سبەینێ",
+          "solve_exercises": "چارەسەرکردنی ڕاهێنانەکان",
+          "assigned_to_fatima": "فاتیمە",
+          "read_chapter_one": "خوێندنەوەی بەشی یەکەم",
+          "completed_two_days_ago": "لە پێش ٢ ڕۆژ"
+        }
+      }
+  },
+  "recommended_quizzes": {
+    "title": "تاقیکردنەوە پێشنیارکراوەکان",
+    "error_loading": "شکستی خواردن لە بارکردنی تاقیکردنەوە پێشنیارکراوەکان",
+    "retry": "دووبارە هەوڵبدەرەوە",
+    "minutes": "خولەک",
+    "questions": "پرسیار",
+    "no_quizzes": "لە ئێستادا هیچ تاقیکردنەوەی پێشنیارکراو بەردەست نیە",
+    "view_all": "بینینی هەموو تاقیکردنەوەکان",
+    "difficulty": {
+      "easy": "ئاسان",
+      "medium": "مامناوەند",
+      "hard": "سەخت"
+    },
+    "sample_quiz_1": {
+      "title": "بنەڕەتەکانی جەبر",
+      "description": "تاقیکردنەوەی گشتگیر لە بنەڕەتەکانی جەبر و هاوکێشەکان",
+      "subject": "بیرکاری",
+      "reason": "بەپێی ئاستی ئێستات"
+    },
+    "sample_quiz_2": {
+      "title": "یاساکانی ڕێزمانی عەرەبی",
+      "description": "تاقیکردنەوە لە یاساکانی ڕێزمان و شێواز",
+      "subject": "زمانی عەرەبی",
+      "reason": "بۆ باشترکردنی کارکردنت"
+    }
+  },
+  "useful_resources": {
+    "title": "سەرچاوە بەسودەکان",
+    "subtitle": "سەرچاوەی فێرکاری بۆ گەشەپێدانی لێهاتووییەکانت",
+    "view_all": "هەموو ببینە",
+    "no_resources": "هیچ سەرچاوەیەک لە ئێستادا بەردەست نییە",
+    "browse_all": "هەموو سەرچاوەکان بگەڕێ",
+    "loading": "باربوون...",
+    "error": "هەڵە لە باربوونی سەرچاوەکان",
+    "retry": "دووبارە تاقیبکەوە",
+    "resource_types": {
+      "PDF": "فایلی PDF",
+      "VIDEO": "ڤیدیۆ",
+      "LINK": "بەستەر",
+      "IMAGE": "وێنە",
+      "AUDIO": "فایلی دەنگ",
+      "DOCUMENT": "بەڵگەنامە"
+    },
+    "sample_resources": {
+      "advanced_algorithms": "ئەلگۆریتمی پێشکەوتوو",
+      "machine_learning_guide": "ڕێبەری فێربوونی ئامێر",
+      "web_security_basics": "بنەماکانی ئاسایشی وێب",
+      "database_design": "دیزاینی بنکەداتا",
+      "mobile_development": "گەشەپێدانی مۆبایل"
+    }
+  },
+  "course_card": {
+    "course_badge": "کۆرس",
+    "view_details": "وردەکاری ببینە"
+  },
+  "study_chart": {
+    "title": "کاتژمێری خوێندنی هەفتانە",
+    "hours_label": "کاتژمێری خوێندن",
+    "days": {
+      "saturday": "شەممە",
+      "sunday": "یەکشەممە",
+      "monday": "دووشەممە",
+      "tuesday": "سێشەممە",
+      "wednesday": "چوارشەممە",
+      "thursday": "پێنجشەممە",
+      "friday": "هەینی"
+    }
+  },
+  "dashboard_navbar": {
+    "notification": "ئاگادارکردنەوە",
+    "courses": "کۆرسەکان",
+    "notifications": "ئاگادارکردنەوەکان",
+    "close": "داخستن"
+  },
+  "pagination": {
+    "previous": "پێشتر",
+    "next": "داهاتوو"
+  },
+  "quiz_notes": {
+    "title": "تێبینییەکانی گرنگ پێش دەستپێکردنی تاقیکردنەوە",
+    "stable_internet": "دڵنیا بە وە کە پەیوەندیت بە ئینتەرنێت جێگیر بێت",
+    "when_clicking": "لە کاتی کرتەکردن لەسەر",
+    "start_quiz": "دەستپێکردنی تاقیکردنەوە",
+    "no_leaving": "جێهێلین یان گۆڕینی لاپەڕە لە کاتی تاقیکردنەوە قەدەغە کراوە",
+    "no_going_back": "ناتوانیت بگەڕێیتەوە بۆ پرسیارە پێشووەکان دوای چوون بۆ پرسیاری دایەتر",
+    "answer_carefully": "ورد بە وەڵامەکانت بدەرەوە",
+    "time_tracking": "ئەو کاتەی کە بۆ تەواوکردنی تاقیکردنەوە دەبێت تۆمار دەکرێت",
+    "no_rush": "پەلە مەکە لە وەڵامدانەوە چونکە کاتی بەکارهێنراو گرنگ نییە",
+    "leaving_fails": "لە حاڵەتی جێهێشتنی لاپەڕە یان بچووکردنەوەی تابەکە، وەک شکاوخۆر دادەنرێیت",
+    "no_cheating": "ەەوڵە قۆڵ فرۆفرۆشتن یان گۆڕینی تاب مەکە",
+    "understood": "تێگەیشتم"
+  },
+  "chat": {
+    "error": "هەڵە",
+    "invalid_chat_id": "ناسنامەی گفتوگۆ دروست نییە",
+    "not_found": "گفتوگۆ نەدۆزرایەوە",
+    "connection_failed": "پەیوەندی بە راژەکار سەرکەوتوو",
+    "connection_lost": "پەیوەندی بە راژەکار بڕا",
+    "loading_failed": "باربوونی گفتوگۆ سەرکەوتوو",
+    "please_wait": "تکایه چاوەرێ بکە ...",
+    "loading_chat": "گفتوگۆ باردەکرێت",
+    "retry": "دووبارە تاقیبکەوە"
+  },
+  "settings": {
+    "notifications": {
+      "title": "ئاگادارکردنەوەکان",
+      "updated_notifications": "رێکخستنەکانی ئاگادارکردنەوە بە سەرکەوتوویی پاشەکەوت کرا",
+      "save_error": "پاشەکەوتکردنی رێکخستنەکانی ئاگادارکردنەوە سەرکەوتوو",
+      "email_notifications": "ئاگادارکردنەوەی ئیمەیل",
+      "push_notifications": "ئاگادارکردنەوەی فۆری",
+      "study_reminders": "بیرەوەریکردنەوەی خوێندن",
+      "newsletter": "هەواڵنامە",
+      "repeat_reminders": "پزراندنی بیرەوەریکردنەوە",
+      "repeat_reminders_options": {
+        "daily": "ڕۆژانە",
+        "weekly": "هەفتانە",
+        "monthly": "مانگانە"
+      }
+    }
+  },
+  "verification": {
+    "verifying": "هەژماری کەسی بەکارهێنەرت بە رێوەرین دەکرێن...",
+    "success_message": "هەژماری تۆ بە سەرکەوتوویی چالاک کرا",
+    "success_title": "هەژمار بە سەرکەوتوویی چالاک کرا 🎉",
+    "redirecting": "لە ماوەی دوو چرکەدا بۆ ژوورەوەی خۆتان گوازراوەت دەکرێن...",
+    "invalid_link": "بەستەری رێوەرین هەڵەیە یان بەسەرچووە",
+    "error_occurred": "هەڵەیەک لە کاتی رێوەریندا ڕوویدا، تکایه دووبارە تاقیبکەرەوە",
+    "failed_title": "رێوەرینی هەژمار سەرکەوتوو",
+    "resend_link": "بەستەری رێوەرینی نوێ بنێرە"
+  },
+  "discussion": {
+    "title": "گفتوگۆ",
+    "edited": "دەستکاری کرا",
+    "reply": "وەڵام",
+    "reply_placeholder": "وەڵامەکەت لێرە بنووسە...",
+    "send": "ناردن",
+    "cancel": "پاشگوزراندنەوە",
+    "loading": "گفتوگۆکان باردەکرێن",
+    "no_discussions": "هیچ گفتوگۆیەک نییە بۆ ئەم وانەیە"
+  },
+  "sidebar": {
+    "dashboard": "داشبۆرد",
+    "courses": "کۆرسەکان",
+    "timetable": "خشتەی کاتەکان",
+    "todo": "لیستی ئەرکەکان",
+    "notifications": "ئاگادارکردنەوەکان",
+    "organization": "رێکخراو",
+    "subscription": "بەشداریتی",
+    "quizzes": "تاقیکردنەوەکان",
+    "chat": "گفتوگۆ",
+    "community": "کۆمەڵگا",
+    "files": "فایلەکان",
+    "settings": "رێکخستنەکان",
+    "logout_confirm_title": "دڵنیایی؟",
+    "logout_confirm_text": "لە هەژمارەکەت دەرچییت",
+    "logout_confirm_yes": "بەڵێ، دەرچوون",
+    "logout_confirm_cancel": "پاشگوزراندنەوە",
+    "logout_success": "بە سەرکەوتوویی دەرچوویت",
+    "slogan": "پەروەردە مافی هەموو مرۆڤەکە"
+  },
+  "quiz_question": {
+    "no_questions": "هیچ پرسیارێک لەم تاقیکردنەوەیە نییە",
+    "question_counter": "پرسیاری {{current}} لە {{total}}",
+    "finish": "کوتایی",
+    "next": "داهاتوو",
+    "all_answered": "وەڵامی هەموو پرسیارەکانت داوەتەوە",
+    "submit_answers": "ناردنی وەڵامەکان"
+  },
+  "email_verification": {
+    "invalid_link": "بەستەری دەنیاکردنەوە نادروست یان بوونی نییە",
+    "success_message": "ئیمەیلەکەت بە سەرکەوتوویی دەنیا کراوەتەوە! بەخێربێیت بۆ نەقڕا",
+    "verification_failed": "شکستی هێنا لە دەنیاکردنەوەی ئیمەیل",
+    "connection_error": "هەڵەیەک ڕووی دا لە پەیوەندیدا. تکایە دووبارە هەوڵبدەرەوە",
+    "verifying": "دەنیاکردنەوە...",
+    "please_wait": "تکایە چاوەڕێبە لەکاتێکدا ئێمە دەنیاکردنەوەی ئیمەیلەکەت دەکەین",
+    "verification_successful": "دەنیاکردنەوە سەرکەوتووبوو!",
+    "verification_failed_title": "دەنیاکردنەوە شکستی هێنا",
+    "welcome_message": "بەخێربێیت بۆ کۆمەڵگای پەروەردەیی نەقڕا",
+    "verification_failed_subtitle": "ببورە، نەمانتوانی دەنیاکردنەوەی ئیمەیلەکەت بکەین",
+    "email_label": "ئیمەیل",
+    "whats_next": "چی دواتر؟",
+    "explore_courses": "کۆرسەکان بگەڕێ",
+    "explore_courses_description": "کتێبخانە فراوانەکەمان لە کۆرسە پەروەردەییەکان بگەڕێ",
+    "join_community": "بەشداری کۆمەڵگا بکە",
+    "join_community_description": "پەیوەندی لەگەڵ قوتابی و مامۆستایان لە کۆمەڵگاکەماندا بکە",
+    "track_progress": "پێشکەوتنەکەت بشوێنە",
+    "track_progress_description": "دەستکەوت و گەشەسەندنی کارامەییەکانت بچاوێنە",
+    "set_goals": "ئامانجەکانت دابنێ",
+    "set_goals_description": "ئامانجە پەروەردەییەکانت دابنێ و ئاواتەکانت بەدی بهێنە",
+    "start_learning": "ئێستا فێربوون دەستپێبکە",
+    "dashboard": "داشبۆرد",
+    "possible_reasons": "هۆکارە ئەگەریییەکان:",
+    "link_expired": "بەستەر بەسەرچووە",
+    "link_expired_description": "بەستەر تەنها بۆ ماوەی 24 کاتژمێر دروستە",
+    "invalid_link_title": "بەستەری نادروست",
+    "invalid_link_description": "بەستەر لەوانەیە شکاو یان ناتەواو بێت",
+    "already_verified": "پێشتر دەنیاکراوەتەوە",
+    "already_verified_description": "لەوانەیە ئیمەیلەکە پێشتر دەنیاکراوە بێت",
+    "try_again": "دووبارە هەوڵبدەرەوە",
+    "back_to_home": "گەڕانەوە بۆ سەرەکی",
+    "security_message": "ئێمە گرنگی بە ئاسایش و نهێنیی داتاکانت دەدەین",
+    "privacy_policy": "سیاسەتی نهێنی",
+    "terms_of_use": "مەرجەکانی بەکارهێنان",
+    "contact_us": "پەیوەندیمان پێوە بکە"
+  },
+  "exams_page": {
+    "title": "تاقیکردنەوەکان",
+    "subtitle": "هەموو تاقیکردنەوە کاتی دیاریکراو و داهاتووەکانت بشوێنە",
+    "download_schedule": "داگرتنی خشتە",
+    "exam_schedule": "خشتەی تاقیکردنەوەکان",
+    "total_exams": "کۆی گشتی تاقیکردنەوەکان",
+    "upcoming_exams": "تاقیکردنەوە داهاتووەکان",
+    "completed_exams": "تاقیکردنەوە کۆتاییهاتووەکان",
+    "search_placeholder": "لە تاقیکردنەوەکاندا بگەڕێ...",
+    "filter_all": "هەموو تاقیکردنەوەکان",
+    "filter_upcoming": "داهاتووەکان",
+    "filter_completed": "کۆتاییهاتووەکان",
+    "exam_table_title": "خشتەی تاقیکردنەوەکان",
+    "table_status": "باری",
+    "table_exam": "تاقیکردنەوە",
+    "table_subject": "بابەت",
+    "table_class": "پۆل",
+    "table_date": "بەروار",
+    "table_time": "کات",
+    "table_actions": "کردارەکان",
+    "no_search_results": "هیچ ئەنجامێک بۆ گەڕان نەدۆزرایەوە",
+    "no_exams": "هیچ تاقیکردنەوەیەک نەدۆزرایەوە",
+    "view_button": "بینین",
+    "status_completed": "کۆتایی هات",
+    "status_urgent": "پەلە",
+    "status_soon": "نزیک",
+    "status_upcoming": "داهاتوو",
+    "status_scheduled": "کاتی دیاریکراو"
+  },
+  "files_page": {
+    "title": "فایلەکانم",
+    "subtitle": "بەڕێوەبردن و هاوبەشی فایلەکان",
+    "upload_file": "بارکردنی فایل",
+    "search_placeholder": "لە فایلەکاندا بگەڕێ...",
+    "grid_view": "تۆڕ",
+    "list_view": "لیست",
+    "no_files_found": "هیچ فایلێک نەدۆزرایەوە",
+    "no_files_yet": "هێشتا هیچ فایلێک نییە",
+    "try_different_search": "گەڕانێکی جیاواز تاقی بکەرەوە",
+    "start_uploading": "بە بارکردنی یەکەم فایلەکانت دەست پێبکە",
+    "sample_math_project": "پرۆژەی بیرکاری",
+    "sample_arabic_note": "تێبینیی زمانی عەرەبی",
+    "sample_science_presentation": "پێشکەشی زانست",
+    "sample_history_note": "تێبینیی مێژوو",
+    "sample_geography_note": "تێبینیی جوغرافیا",
+    "sample_chemistry_note": "تێبینیی کیمیا"
+  },
+  "tasks_table": {
+    "title_header": "ناونیشان",
+    "description_header": "پێناسه",
+    "due_date_header": "بەرواری راگرتن",
+    "priority_header": "پێشینه",
+    "no_tasks": "هیچ ئەرکێک نەدۆزرایەوە",
+    "priority_low": "نزم",
+    "priority_medium": "مامناوەند",
+    "priority_high": "بەرز",
+    "priority_urgent": "پەلە"
+  },
+  "notifications_page": {
+    "title": "ئاگادارییەکان",
+    "subtitle": "هەموو ئاگاداری و نوێکردنەوەکانت بشوێنە",
+    "tab_all": "هەموو",
+    "tab_unread": "نەخوێندراوەکان",
+    "tab_read": "خوێندراوەکان",
+    "mark_all_read": "هەموو وەک خوێندراو دیاری بکە",
+    "clear_all": "هەموو بسڕێنەوە",
+    "settings": "رێکخستنی ئاگادارییەکان",
+    "total_notifications": "کۆی گشتی ئاگادارییەکان",
+    "unread": "نەخوێندراوەکان",
+    "read": "خوێندراوەکان",
+    "from": "لەلایەن",
+    "close": "داخستن",
+    "time_just_now": "ئێستا",
+    "time_hours_ago": "پێش {{hours}} کاتژمێر",
+    "time_days_ago": "پێش {{days}} ڕۆژ",
+    "no_notifications": "هیچ ئاگادارییەک نییە",
+    "no_unread_notifications": "هیچ ئاگادارییەکی نەخوێندراو نییە",
+    "no_read_notifications": "هیچ ئاگادارییەکی خوێندراو نییە",
+    "empty_message": "ئاگادارییە نوێیەکان لێرە دەردەکەون کاتیک گەیشتن"
+  },
+  "todo_page": {
+    "title": "ئەرکەکان",
+    "subtitle": "ئەرکە ڕۆژانەکانت ڕێکخستن و بەدوایدابوون",
+    "new_task": "ئەرکی نوێ",
+    "total_tasks": "کۆی گشتی ئەرکەکان",
+    "in_progress": "لە جێبەجێکردندا",
+    "completed": "تەواوکراوەکان",
+    "search_placeholder": "لە ئەرکەکاندا بگەڕێ...",
+    "filter_all": "هەموو ئەرکەکان",
+    "filter_pending": "لە جێبەجێکردندا",
+    "filter_completed": "تەواوکراوەکان",
+    "start_adding_task": "بە زیادکردنی ئەرکێک دەست پێبکە",
+    "urgent_tasks": "ئەرکە پەلەکان",
+    "all_tasks": "هەموو ئەرکەکان"
+  },
+  "todo_banner": {
+    "title": "کاتی قوتابییەکەت لەگەڵ سیستەمی ئەرک ڕێکخراوەکان رێکبخە",
+    "description": "لەگەڵ سیستەمی بەڕێوەبردنی ئەرکەکاندا دەتوانیت ئێستا وانەکانت بە ئاسانی جادوڵ بکەیت لەگەڵ چالاککردنی ئاگادارییەکاندا بۆ زۆرترین قازانج لە کاتەکەت"
+  },
+  "todo_tabs": {
+    "today": "ئەمڕۆ",
+    "repeat": "دووبارەکردنەوە",
+    "tasks_label": "ئەرکەکان",
+    "collections_label": "کۆمەڵەکان",
+    "add_collection": "کۆمەڵە زیادبکە",
+    "add_new_task": "ئەرکی نوێ زیادبکە",
+    "add_new_collection": "کۆمەڵەی نوێ زیادبکە"
+  },
+  "chat_sidebar": {
+    "messages": "پەیامەکان",
+    "search_contacts": "گەڕان بەدوای پەیوەندییەک",
+    "loading_contacts": "بارکردنی پەیوەندییەکان..."
+  },
+  "task_widget": {
+    "title": "ئەرکەکان و ئەرکە خوێندنەکان",
+    "loading": "بارکردنی ئەرکەکان...",
+    "no_tasks": "هیچ ئەرکێک نییە",
+    "untitled_task": "ئەرکی بێ ناونیشان",
+    "due_date": "بەرواری کۆتایی"
+  },
+  "student_points": {
+    "title": "خاڵی بەشداری",
+    "error_loading": "شکستی بارکردنی خاڵەکان",
+    "retry": "دووبارە هەوڵبدەرەوە",
+    "total_points": "کۆی خاڵەکان",
+    "this_week": "ئەم هەفتەیە",
+    "this_month": "ئەم مانگە",
+    "sources": "سەرچاوەی خاڵەکان",
+    "exam_contributions": "بەشداری تاقیکردنەوە",
+    "article_contributions": "بەشداری وتار",
+    "resource_contributions": "بەشداری سەرچاوە",
+    "redeem_points": "گۆڕینی خاڵەکان"
+  },
+  "recent_activity": {
+    "title": "چالاکی نوێ",
+    "error_loading": "شکستی بارکردنی چالاکی نوێ",
+    "no_activity": "هیچ چالاکی نوێیەک نییە",
+    "time_minutes_ago": "{{count}} خولەک لەمەوپێش",
+    "time_hours_ago": "{{count}} کاتژمێر لەمەوپێش",
+    "time_days_ago": "{{count}} ڕۆژ لەمەوپێش",
+    "mock_lesson_watch": "وانەی ئەلجەبرای بنەڕەتیم بینی",
+    "mock_exam_complete": "تاقیکردنەوەی بیرکاری تەواوکرد",
+    "mock_post_create": "پرسیارێکم لە فۆڕۆمی زانست دانا",
+    "mock_course_enroll": "ناومم لە خولی کیمیای ئۆرگانی نووسی"
+  },
+  "notification_widget": {
+    "title": "ئاگاداریەکان",
+    "show_more": "زیاتر",
+    "show_less": "کەمتر", 
+    "no_notifications": "هیچ ئاگادارییەکی نوێ نییە",
+    "time_just_now": "ئێستا",
+    "time_hours_ago": "{{count}} کاتژمێر لەمەوپێش",
+    "time_days_ago": "{{count}} ڕۆژ لەمەوپێش",
+    "mark_all_read": "هەموو وەک خوێندراو نیشانبکە",
+    "clear_all": "هەموو بسڕەوە"
+  },
+  "not_found_error": {
+    "back_to_home": "گەڕانەوە بۆ سەرەتا"
+  },
+  "ui": {
+    "loading": "بارکردن..."
+  },
+  "upcoming_exams": {
+    "title": "تاقیکردنەوە داهاتووەکان",
+    "urgent": "پەلە",
+    "soon": "نزیک", 
+    "upcoming": "داهاتوو",
+    "scheduled": "کاتەکی دیاریکراو",
+    "exam_count": "{{count}} تاقیکردنەوە",
+    "no_exams": "هیچ تاقیکردنەوەیەکی داهاتوو نییە",
+    "no_exams_subtitle": "تاقیکردنەوە کاتەکی دیاریکراوەکان لێرە دەردەکەون",
+    "view_all": "هەموو تاقیکردنەوەکان ببینە"
+  },
+  "user_profile": {
+    "role_organization": "هەژماری ڕێکخراو",
+    "role_student": "قوتابی",
+    "role_contributor": "بەشداربوو",
+    "role_undefined": "دیارینەکراو",
+    "joined_on": "پەیوەندی لە {{date}}",
+    "enrolled_courses": "{{count}} خولی ناونووسکراو",
+    "edit_profile": "دەستکاری پرۆفایل",
+    "study_statistics": "ئاماری خوێندن",
+    "consecutive_days": "ڕۆژی بەردەوام",
+    "study_hours": "کاتژمێری خوێندن",
+    "completed_courses": "خولی تەواوکراو",
+    "average_rating": "ناوەندی هەڵسەنگاندن",
+    "outstanding_student": "قوتابی نایاب",
+    "achievement_description": "بۆ ماوەی یەک هەفتە خوێندنت بەردەوام کردووە!",
+    "quick_actions": "کردارە خێراکان",
+    "explore_courses": "خولەکان بگەڕێ",
+    "notifications": "ئاگاداریەکان",
+    "learning_resources": "سەرچاوەی فێربوون",
+    "premium_membership": "ئەندامەتی تایبەت",
+    "active_until": "چالاک تا {{date}}"
+  },
+  "learning_progress": {
+    "title": "پێشکەوتنی فێربوون",
+    "weekly_study_hours": "کاتژمێری خوێندنی هەفتانە",
+    "completed_lessons_month": "وانە تەواوکراوەکانی ئەم مانگە",
+    "hours": "کاتژمێر",
+    "lessons": "وانە",
+    "start_journey": "ئەمڕۆ گەشتی فێربوونت دەستپێبکە!",
+    "keep_going": "بەردەوام بە! لە ڕێگای دروستدایت",
+    "excellent_progress": "نایاب! ئەم پێشکەوتنە بپارێزە",
+    "amazing_learner": "سەرسوڕهێنەر! تۆ فێرخوازێکی بەڕاستی سوورهەڵگیریت",
+    "consecutive_learning_days": "ڕۆژی بەردەوامی فێربوون",
+    "longest_streak": "درێژترین ماوە",
+    "days_count": "{{count}} ڕۆژ",
+    "today_achievement": "دەستکەوتی ئەمڕۆ",
+    "study_hours": "کاتژمێری خوێندن",
+    "completed_lessons": "وانە تەواوکراوەکان",
+    "learning_goals": "ئامانجەکانی فێربوون",
+    "completed_percentage": "{{percentage}}% تەواو",
+    "start_study_session": "دانیشتنی خوێندن دەستپێبکە"
+  },
+  "page_loader": {
+    "loading": "بارکردن",
+    "please_wait": "تکایە چاوەڕوان بە تا سەرچاوەکان بار دەبن"
+  },
+  "video_player": {
+    "lecture": "وانە ({{order}}) {{title}}",
+    "next_to_watch": "داهاتوو بۆ تەماشاکردن",
+    "duration_minutes": "{{duration}} خولەک"
+  },
+  "last_watched_course": {
+    "no_courses": "هیچ خولێک نییە",
+    "start_learning_journey": "گەشتی فێربوونت دەستپێبکە بە ناونووسکردن لە خولێکی نوێ",
+    "explore_courses": "خولەکان بگەڕێ",
+    "completed": "تەواو",
+    "in_progress": "بەردەوامە",
+    "progress": "پێشکەوتن",
+    "percent_completed": "{{percentage}}% تەواو",
+    "lessons_progress": "{{completed}} لە {{total}} وانە",
+    "review_course": "پێداچوونەوەی خول",
+    "continue_learning": "بەردەوامبە لە فێربوون"
+  },
+  "not_implemented": {
+    "page_title": "پەڕە",
+    "note": "تێبینی",
+    "page_incomplete": "ئەم پەڕەیە هێشتا تەواو نەبووە"
+  },
+  "dashboard_index": {
+    "welcome_user": "بەخێربێی، {{name}}",
+    "continue_learning_message": "بەردەوام بە لە فێربوون بۆ زۆرترین سوودوەرگرتن لە کاتەکەت. ئەگەر پێویستیت بە هیچ",
+    "support": "یارمەتی",
+    "always_here": "لەبیرت نەچێت ئێمە هەمیشە لێرەین",
+    "enrolled_courses": "{{count}} کۆرسی تۆمارکراو",
+    "active_today": "چالاک ئەمڕۆ",
+    "continue_learning": "بەردەوامبوون لە فێربوون",
+    "top_priority": "لەپێشینەی یەکەم",
+    "start_journey": "گەشتی فێربوونەکەت دەست پێ بکە",
+    "no_courses_yet": "هێشتا لە هیچ کۆرسێکدا تۆمار نەکراوی. کۆمەڵە بەرفراوانەکەمان لە کۆرسەکان بگەڕێ",
+    "explore_courses": "کۆرسەکان بگەڕێ",
+    "urgent_tasks_exams": "ئەرک و تاقیکردنەوە بەپەلەکان",
+    "performance_progress": "کارایی و پێشکەوتن",
+    "resources_recommendations": "سەرچاوەکان و ڕاسپاردەکان"
+  },
+  "timetable_page": {
+    "title": "خشتەی کاتەکان",
+    "no_timetable": "هیچ خشتەی کاتێک نییە",
+    "timetable_will_show": "خشتەی کارەکانت لێرە نيشان دراوە کاتێک بەردەست بێت",
+    "reload": "دووبارە بارکردن",
+    "saturday": "شەممە",
+    "sunday": "یەکشەممە",
+    "monday": "دووشەممە",
+    "tuesday": "سێشەممە",
+    "wednesday": "چوارشەممە",
+    "thursday": "پێنجشەممە",
+    "friday": "هەینی",
+    "exam": "تاقیکردنەوە",
+    "homework": "ناوماڵی",
+    "project": "پرۆژە",
+    "today": "ئەمڕۆ",
+    "no_classes": "هیچ وانەیەک نییە"
+  },
+  "classroom_page": {
+    "error": "هەڵە",
+    "invalid_course_id": "ناسنامەی کۆرس نادروستە، ناسنامەی کۆرس دەبێت ژمارەیەک بێت",
+    "loading_course": "کۆرسی ڕاهێنان دادهگرین"
+  },
+  "student_course_page": {
+    "my_courses": "کۆرسەکانم",
+    "subtitle": "پێشکەوتنت لە هەموو کۆرسە تۆمارکراوەکاندا بدوانەرێ",
+    "browse_courses": "گەڕان لە کۆرسەکان",
+    "loading_courses": "کۆرسەکان دادهگرین، تکایە چاوەڕێ بکە...",
+    "total_courses": "کۆی گشتی کۆرسەکان",
+    "in_progress": "لە پێشەوەدا",
+    "completed": "تەواو",
+    "search_placeholder": "لە کۆرسەکانتدا بگەڕێ...",
+    "sort_recent": "نوێترین",
+    "sort_progress": "پێشکەوتن",
+    "sort_name": "ناو",
+    "no_search_results": "هیچ ئەنجامێکی گەڕان نەدۆزرایەوە",
+    "try_different_search": "وشەی گەڕانی جیاواز تاقی بکەرەوە",
+    "no_courses_enrolled": "هێشتا لە هیچ کۆرسێکدا تۆمار نەکراوی",
+    "start_learning_journey": "گەشتی فێربوونەکەت دەست پێ بکە و کۆمەڵە بەرفراوانەکەمان لە کۆرسە پسپۆڕەکان بگەڕێ",
+    "browse_available_courses": "کۆرسە بەردەستەکان بگەڕێ",
+    "view_all_courses": "هەموو کۆرسەکان ببینە"
+  },
+  "subscription_page": {
+    "upgrade_experience": "ئاستی ئەزموونی فێربوونەکەت بەرز بکەرەوە",
+    "choose_plan": "ئەو پلانە هەڵبڿێرە کە لەگەڵ پێداویستی و ئامانجە فێربوونییەکانت دەگونجێت",
+    "success": "سەرکەوتن!",
+    "subscription_activated": "اشتراکەکەت بە سەرکەوتووی چالاک کرا. بەخێربێی!",
+    "ok": "باشە",
+    "cancelled": "کارەکە هەڵوەشاندرایەوە",
+    "payment_cancelled": "پارەدان هەڵوەشاندرایەوە. دەتوانیت جاری تر تاقی بکەیتەوە.",
+    "error_loading_plans": "هەڵە لە بارکردنی پلانە اشتراکییەکان",
+    "error_loading_data": "هەڵە لە بارکردنی داتاکان",
+    "loading_data": "داتاکان دادهگرین...",
+    "preparing_payment": "پرۆسەی پارەدان ئامادە دەکرێت...",
+    "current_subscription": "اشتراکی ئێستا",
+    "expires_on": "بەسەردێت لە",
+    "status": "حاڵەت",
+    "active": "چالاک",
+    "inactive": "ناچالاک",
+    "days_remaining": "ڕۆژە ماوەکان",
+    "most_popular": "باوترین",
+    "free": "بەخۆڕایی",
+    "month": "مانگ",
+    "months": "{{count}} مانگ",
+    "days": "ڕۆژ",
+    "will_replace_current": "اشتراکی ئێستات جێگرتن دەکات ({{plan}})",
+    "processing": "پرۆسەس دەکریت...",
+    "current_plan": "پلانی ئێستا",
+    "replace_with_free": "جێگرتن بە پلانی بەخۆڕایی",
+    "replace_subscription": "اشتراک جێگرتن",
+    "activate_plan": "پلان چالاککردن",
+    "select_plan": "پلان هەڵبژاردن",
+    "faq": "پرسیارە زۆر پرسراوەکان",
+    "faq_cancel_question": "ئایا دەتوانم لە هەر کاتێکدا اشتراکەکەم هەڵوەشێنەم؟",
+    "faq_cancel_answer": "بەڵێ، دەتوانیت لە هەر کاتێکدا اشتراکەکەت هەڵوەشێنیت لە داشبۆردەوە. دەسیت هەتا کۆتایی کاتی اشتراکەکەت.",
+    "faq_trial_question": "ئایا کاتی تاقیکردنەوەی بەخۆڕایی هەیە؟",
+    "faq_trial_answer": "بەڵێ، هەموو پلانەکان لەگەڵ کاتی تاقیکردنەوەی بەخۆڕایی 7 ڕۆژ دێن.",
+    "payment_error": "هەڵە لە پرۆسەی پارەدان",
+    "error": "هەڵە!",
+    "confirm_subscription": "پشتڕاستکردنی اشتراک",
+    "activate_free_plan_confirm": "دەتەوێت پلانی بەخۆڕایی چالاک بکەیت: {{plan}}؟",
+    "yes_activate": "بەڵێ، چالاک بکە",
+    "cancel": "هەڵوەشاندنەوە",
+    "warning_replace_subscription": "⚠️ ئاگاداری - اشتراک جێگرتن",
+    "warning_replace_paid_subscription": "⚠️ ئاگاداری - اشتراکی پارەدانکراو جێگرتن",
+    "important_warning": "ئاگاداری گرنگ",
+    "current_active_plan": "ئێستا اشتراکی چالاکت هەیە لە پلان",
+    "new_plan_activation": "بە چالاککردنی پلانی نوێ",
+    "new_plan_name": "پلانی نوێ",
+    "will_cancel_current": "اشتراکی ئێستات بە تەواوی هەڵدەکرێت و جێگرین بە پلانی نوێ",
+    "no_refund": "پارەی پەرەکراو بۆ پلانی ئێستا ناگەڕێنرێتەوە",
+    "remaining_days_current": "ڕۆژە ماوەکان لە اشتراکی ئێستات",
+    "yes_replace_subscription": "بەڵێ، اشتراک جێگرێ",
+    "yes_replace_and_pay": "بەڵێ، اشتراک جێگرێ و پارە بدە",
+    "free_plan_activated": "پلانی بەخۆڕایی بە سەرکەوتووی چالاک کرا!",
+    "plan": "پلان",
+    "price": "نرخ",
+    "redirect_to_payment": "دەتبرێتە لاپەڕەی پارەدانی پارێزراو",
+    "continue_to_payment": "بەردەوامبوون بۆ پارەدان"
+  },
+  "completed_tasks": {
+    "title": "تەواو"
+  },
+  "todo_form": {
+    "add_new_task": "ئەرکی نوێ زیاد بکە",
+    "title_placeholder": "ناونیشان",
+    "description_placeholder": "پێناسە",
+    "importance": "گرنگی",
+    "priority_low": "نزم",
+    "priority_medium": "ناوەند",
+    "priority_high": "بەرز",
+    "priority_urgent": "پەلە"
+  },
+  "org_page": {
+    "educational_institution": "دامەزرانی پەروەردەیی",
+    "reports_statistics": "ڕاپۆرت و ئامارە ئەکادیمییەکان",
+    "comprehensive_report": "ڕاپۆرتی فرەهەموو",
+    "math": "بیرکاری",
+    "arabic": "زمانی عەرەبی",
+    "science": "زانست",
+    "history": "مێژوو",
+    "class_participation": "بەشداری لە پۆلدا",
+    "attendance": "ئامادەبوون",
+    "teamwork": "کاری گرووپی",
+    "achievements": "دەستکەوتنەکان",
+    "academic_grades": "نمرە ئەکادیمییەکان",
+    "download": "دابەزاندن",
+    "performance_analysis": "شیکردنەوەی کارایی",
+    "above_average": "لە سەر ناوەند",
+    "average": "ناوەند",
+    "needs_improvement": "پێویستی بە باشترکردن هەیە",
+    "recommendations": "ڕاسپاردەکان",
+    "focus_on_science": "زیاتر جەخت بکە لەسەر زانست",
+    "review_math": "پێداچوونەوەی بابەتەکانی بیرکاری",
+    "participate_more": "زیاتر بەشداری لە چالاکییەکان بکە"
+  },
+  "chat_card": {
+    "start_conversation": "دەستپێکردنی گفتوگۆ"
+  },
+  "post_card": {
+    "login_required_title": "چوونەژوورەوە پێویستە",
+    "login_required_text": "پێویستە یەکەم چووە ژوورەوە بۆ ئەوەی حەزت لەم بابەتە دەربڕیت.",
+    "cancel": "پاشگوزراندنەوە",
+    "login_button": "چوونەژوورەوە",
+    "time_just_now": "تازەتر",
+    "time_hours_ago": "{{count}} کاتژمێر لەمەوپێش",
+    "time_days_ago": "{{count}} ڕۆژ لەمەوپێش",
+    "external_link": "بەستەری دەرەکی",
+    "unknown_user": "بەکارهێنەری نەناسراو",
+    "pinned": "چەسپاو",
+    "edited": "دەستکاریکراوە",
+    "view_all_comments": "بینینی هەموو کۆمێنتەکان ({{count}})"
+  },
+  "contact_page": {
+    "title": "پەیوەندیمان پێوە بکە لە نەقرا",
+    "subtitle": "پرسیارێکت هەیە، پێشنیارێک یان دەتەوێت هاوکاری بکەیت؟ ئێمە لێرەین بۆ پشتگیری و یارمەتیدانت لە هەموو ئەوەی پێویستت بێت.",
+    "form_title": "نامەیەکی ڕاستەوخۆ بنێرە",
+    "all_fields_required": "هەموو خانەکان پێویستن.",
+    "success_message": "نامەکەت بە سەرکەوتوویی نێردراوە! زوو پەیوەندیت پێوە دەکەین.",
+    "name_placeholder": "ناوی تەواو",
+    "email_placeholder": "ئیمەیل",
+    "message_placeholder": "لێرە نامەکەت بنووسە...",
+    "sending": "ناردن...",
+    "send_message": "ناردنی نامە",
+    "cards": {
+      "technical_support": {
+        "title": "پشتگیری تەکنیکی",
+        "description": "بۆ هەر کێشەیەکی تەکنیکی یان پرسیاری هەژمار، تیمەکەمان لێرەیە بۆ یارمەتیدانت بە خێرایی."
+      },
+      "partnerships": {
+        "title": "هاوبەشی و هاوکاری",
+        "description": "دەتەوێت هاوکاریمان بکەیت یان نوێنەری دامەزراوەیەکی پەروەردەیی؟ ڕاستەوخۆ پەیوەندیمان پێوە بکە."
+      },
+      "graduation_projects": {
+        "title": "پرۆژەکانی دەرچوون",
+        "description": "بۆ وەرگرتنی پشتگیری لە پرۆژەی دەرچوونت یان گەشەپێدانی بیرۆکەت، ئێمە لەگەڵت دەبین هەنگاو بە هەنگاو."
+      }
+    }
+  },
+  "report_issue": {
+    "title": "گوزارشت لە کێشەیەک بکە",
+    "subtitle": "ئێمە بەهای بۆچوونەکانت دەدەین و بەردەوام کار دەکەین بۆ باشترکردنی ئەزموونەکەت. تکایە ئەو کێشەیە باس بکە کە ڕووبەڕووی بوویتەوە.",
+    "success": {
+      "title": "سوپاس بۆ پەیوەندیکردنت!",
+      "message": "گوزارشەکەت وەرگیراوە و زوو شوێنکەوتنت دەکەین. ئێمە بەهای بۆچوونەکانت دەدەین و کار دەکەین بۆ باشترکردنی ئەزموونەکەت.",
+      "new_report": "ناردنی گوزارشتی نوێ"
+    },
+    "form": {
+      "name_label": "ناوی تەواو",
+      "name_placeholder": "ناوی تەواوت بنووسە",
+      "email_label": "ئیمەیل",
+      "email_placeholder": "ئیمەیلەکەت بنووسە",
+      "issue_label": "وەسفی کێشەکە",
+      "issue_placeholder": "کێشەکە بە وردی باس بکە...",
+      "submit_button": "ناردنی گوزارشت"
+    }
+  },
+  "support_page": {
+    "title": "پشتگیری تەکنیکی لە نەقرا",
+    "subtitle": "تیمەکەمان ئامادەیە یارمەتیت بدات لە هەر پرسیارێکی تەکنیکی یان کێشەیەک کە ڕووبەڕووی دەبیتەوە لەسەر پلاتفۆرمەکە.",
+    "all_fields_required": "هەموو خانەکان پێویستن",
+    "request_error": "هەڵەیەک ڕوویدا لەکاتی ناردنی داواکاری",
+    "request_error_generic": "هەڵەیەک ڕوویدا لەکاتی ناردنی داواکاری. تکایە دووبارە هەوڵ بدەوە.",
+    "success": {
+      "title": "داواکاریەکەت بە سەرکەوتوویی نێردراوە",
+      "message": "سڵاو {{name}}، داواکاریەکەت بە سەرکەوتوویی نێردراوە و تیمی پشتگیری لە ماوەی ٤٨ کاتژمێردا پەیوەندیت پێوە دەکات، سوپاس بۆ پەیوەندیکردنت لەگەڵمان.",
+      "back_home": "گەڕانەوە بۆ پەڕەی سەرەکی"
+    },
+    "form": {
+      "title": "داواکاری پشتگیری بنێرە",
+      "description": "پێمان بڵێ چیت پێویستە و زوو وەڵامت دەدەینەوە.",
+      "name_placeholder": "ناوی تەواو",
+      "email_placeholder": "ئیمەیل",
+      "message_placeholder": "کێشەکە یان داواکارییەکە باس بکە",
+      "sending": "ناردن...",
+      "submit": "ناردنی داواکاری"
+    },
+    "topics": {
+      "technical": {
+        "title": "کێشە تەکنیکییەکان",
+        "description": "بۆ هەر کێشەیەکی تەکنیکی لە هەژمارەکەت یان سیستەمەکە، ئێمە لێرەین بۆ پێشکەشکردنی پشتگیری خێرا."
+      },
+      "education": {
+        "title": "پەروەردە و ڕاهێنان",
+        "description": "پرسیار لەسەر کۆرسەکان، پرۆژەکان، یان سەرچاوە پەروەردەییەکان."
+      },
+      "partnerships": {
+        "title": "هاوبەشی و هاوکاری",
+        "description": "پرسیار لەسەر هاوکاری لەگەڵ زانکۆ یان کۆمپانیا پەروەردەییەکان."
+      }
+    },
+    "cta": {
+      "title": "پێویستت بە یارمەتی زیاترە؟",
+      "description": "ڕاستەوخۆ پەیوەندیمان پێوە بکە لە ڕێگەی ئیمەیل یان تەلەفۆنەوە.",
+      "button": "ئێستا پەیوەندی بە پشتگیری بکە"
+    }
+  },
+  "user_preferences": {
+    "header": {
+      "title": "دابەزاندنی هەڵبژاردەکان",
+      "step_counter": "هەنگاوی {{current}} لە {{total}}"
+    },
+    "navigation": {
+      "previous": "پێشوو",
+      "next": "دواتر",
+      "finish": "تەواوکردنی دامەزراندن",
+      "saving": "پاشەکەوتکردن..."
+    },
+    "success": {
+      "title": "🎉 هەڵبژاردەکانت بە سەرکەوتوویی پاشەکەوت کران!",
+      "message": "ئێمە هەوڵدەدەین باشترین سەرچاوە، کۆرس، کەرەستە فێرکردن و ڕاسپاردەکانی کۆمەڵگا پێشکەش بکەین کە تایبەتن بە تۆ بەپێی ئامانج و هەڵبژاردە خوێندنەکانت. چێژ لە ئەزموونێکی فێربوونی تەواو تایبەتمەند وەربگرە!",
+      "start_journey": "دەست پێکردنی گەشتەکە"
+    },
+    "step1": {
+      "title": "کام بابەتەکان دەتەوێت باشتر بکەیت؟",
+      "description": "ئەو بابەتانە هەڵبژێرە کە دەتەوێت تیایاندا جەخت بکەیت (دەتوانیت زیاتر لە یەکێک هەڵبژێریت)",
+      "selected_count": "{{count}} بابەت هەڵبژێردراوە"
+    },
+    "step2": {
+      "title": "چۆن حەز دەکەیت فێر ببیت؟",
+      "description": "ئەو جۆرە ناوەڕۆکە هەڵبژێرە کە حەزت لێیەتی"
+    },
+    "step3": {
+      "title": "کەی حەز دەکەیت بخوێنیتەوە؟",
+      "description": "ئەو کاتە هەڵبژێرە کە گونجاوە لەگەڵت بۆ فێربوون",
+      "content_preferences": "هەڵبژاردەکانی ناوەڕۆک",
+      "video_duration_label": "ماوەی ڤیدیۆی حەز لێکراو (بە خولەک)",
+      "video_duration_min": "5 خولەک",
+      "video_duration_current": "{{duration}} خولەک",
+      "video_duration_max": "60 خولەک",
+      "reading_duration_label": "ماوەی خوێندنەوەی حەز لێکراو (بە خولەک)",
+      "reading_duration_min": "5 خولەک",
+      "reading_duration_current": "{{duration}} خولەک",
+      "reading_duration_max": "45 خولەک"
+    },
+    "step4": {
+      "title": "ئامانجت چییە لە فێربوونەوە؟",
+      "description": "ئامانجەکەت پێمان بڵێ بۆ ئەوەی یارمەتیمان بدەیت ناوەڕۆک تایبەت بکەین بۆت",
+      "goal_label": "ئامانجم لە فێربوونەوە *",
+      "difficulty_label": "ئاستی سەختیی حەز لێکراو",
+      "weekly_hours_label": "ئامانجی کاتژمێرەکانی خوێندنی هەفتانە: {{hours}} کاتژمێر",
+      "hours_one": "یەک کاتژمێر",
+      "hours_25": "25 کاتژمێر",
+      "hours_50": "50 کاتژمێر",
+      "social_preferences": "هەڵبژاردە کۆمەڵایەتییەکان",
+      "interested_in_communities": "حەزم لە بەشداری کردنە لە کۆمەڵگە خوێندنەکان",
+      "interested_in_study_groups": "دەمەوێت بەشداری لە گرووپە خوێندنەکان بکەم"
+    },
+    "study_types": {
+      "reading": {
+        "label": "خوێندنەوە",
+        "description": "ناوەڕۆک نووسراو و کتێبەکان باشترن"
+      },
+      "watching": {
+        "label": "تەماشاکردنی ڤیدیۆ",
+        "description": "فێربوون لە ڕێگای ڤیدیۆ فێرکارییەکانەوە"
+      },
+      "listening": {
+        "label": "گوێگرتن",
+        "description": "ناوەڕۆکی دەنگی و پۆدکاست"
+      },
+      "interactive": {
+        "label": "کارلێکی",
+        "description": "ڕاهێنان و چالاکی کارلێکییەکان"
+      },
+      "practice": {
+        "label": "پراکتیس",
+        "description": "چارەسەرکردنی ڕاهێنان و تاقیکردنەوەکان"
+      },
+      "mixed": {
+        "label": "تێکەڵ",
+        "description": "تێکەڵ لە هەموو جۆرەکان"
+      }
+    },
+    "study_times": {
+      "morning": {
+        "label": "بەیانی",
+        "time": "6 ی بەیانی - 12 ی نیوەڕۆ"
+      },
+      "afternoon": {
+        "label": "دوای نیوەڕۆ",
+        "time": "12 ی نیوەڕۆ - 6 ی ئێوارە"
+      },
+      "evening": {
+        "label": "ئێوارە",
+        "time": "6 ی ئێوارە - 10 ی شەو"
+      },
+      "night": {
+        "label": "شەو",
+        "time": "10 ی شەو - 2 ی بەیانی"
+      },
+      "flexible": {
+        "label": "نەرم",
+        "time": "هەر کاتێک"
+      }
+    },
+    "study_goals": {
+      "improve_grades": {
+        "label": "باشترکردنی نمرە ئەکادیمییەکان",
+        "description": "بەرزکردنەوەی GPA و نمرەکان لە بابەتەکاندا"
+      },
+      "exam_preparation": {
+        "label": "ئامادەکردن بۆ تاقیکردنەوە",
+        "description": "ئامادەکردن بۆ تاقیکردنەوە کۆتاییەکان یان ستاندارەکان"
+      },
+      "skill_development": {
+        "label": "گەشەپێدانی لێهاتوویی نوێ",
+        "description": "بەدەستهێنانی لێهاتوویی و زانستی نوێ"
+      },
+      "career_advancement": {
+        "label": "پێشخستنی کار",
+        "description": "گەشەپێدانی کار و ڕێگای پیشەیی"
+      },
+      "personal_interest": {
+        "label": "حەزی کەسی",
+        "description": "فێربوون وەک خولیا یان حەزی کەسی"
+      },
+      "certification": {
+        "label": "بەدەستهێنانی بڕوانامەکان",
+        "description": "بەدەستهێنانی بڕوانامە پەسندکراوەکان"
+      },
+      "catch_up": {
+        "label": "گەیشتن بە مەنهەجەکە",
+        "description": "قەرەبووکردنەوەی مەنهەجی لەدەستچوو"
+      },
+      "advance_learning": {
+        "label": "فێربوونی پێشکەوتوو",
+        "description": "قووڵکردنەوەی زانست لە بابەتە حەزلێکراوەکان"
+      },
+      "competition_prep": {
+        "label": "ئامادەکردن بۆ ڕکابەری",
+        "description": "ئامادەکردن بۆ ڕکابەری ئەکادیمییەکان"
+      },
+      "general_knowledge": {
+        "label": "فراوانکردنی زانستی گشتی",
+        "description": "زیادکردنی کلتوور و زانستی گشتی"
+      }
+    },
+    "difficulty_levels": {
+      "beginner": {
+        "label": "سەرەتایی",
+        "description": "دەست پێک لە بنچینەکانەوە"
+      },
+      "intermediate": {
+        "label": "ناوەند",
+        "description": "زانستێکی بنچینەیی هەمە"
+      },
+      "advanced": {
+        "label": "پێشکەوتوو",
+        "description": "ناوەڕۆکی پێشکەوتوو دەمەوێت"
+      },
+      "mixed": {
+        "label": "تێکەڵ",
+        "description": "بەپێی بابەتەکە"
+      }
+    }
+  },
+  "recent_activity": {
+    "title": "چالاکی نوێترین"
+  },
+  "featured_subjects": {
+    "loading": "بارکردنی بابەتەکان",
+    "title": "گەڕان لە کۆرسەکان بەپێی بابەت",
+    "subtitle": "ئەو بابەتە هەڵبژێرە کە دەتەوێت فێری ببیت و گەشتی خوێندنەکەت دەست پێبکە",
+    "view_all": "بینینی هەموو کۆرسەکان",
+    "default_description": "کۆرسە پێشکەوتووەکانی ئەم بابەتە بگەڕێ"
+  },
+  "auth": {
+    "verifyingAccount": "پشکنینی هەژمار",
+    "checkYourEmail": "تکایە ئیمەیڵەکەت بپشکنە",
+    "verificationEmailSent": "بەستەری پشتڕاستکردنەوەی هەژمارمان نارد بۆ ئیمەیڵەکەت {{email}} تکایە پشکنینی بکە بۆ چالاککردنی هەژمارەکەت",
+    "loginToAccount": "چوونە ژوورەوە بۆ هەژمارەکەت",
+    "createNewAccount": "دروستکردنی هەژماری نوێ",
+    "login": "چوونە ژوورەوە"
+  },
+  "navigation": {
+    "home": "سەرەتا",
+    "about": "دەربارەمان", 
+    "courses": "کۆرسەکان",
+    "subscriptionPlans": "پلانەکانی ئەندامەتی",
+    "platformFeatures": "تایبەتمەندییەکانی پلاتفۆرمەکە",
+    "resources": "سەرچاوەکان",
+    "contact": "پەیوەندیمان پێوە بکە",
+    "backToHome": "گەڕانەوە بۆ لاپەڕەی سەرەکی"
+  }
 }

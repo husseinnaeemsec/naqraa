@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { HeroBookIcon, HeroBuildingLibraryIcon, HeroWrenchScrewdriverIcon } from "../../components/Icons";
 import { useState, type FormEvent } from "react";
 import api from "../../api/client";
@@ -7,6 +8,7 @@ import chatBot from '../../assets/chat_bot.svg';
 import { Link } from "react-router-dom";
 
 export default function SupportPage() {
+  const { t } = useTranslation();
   const [sent,setSent] = useState(false);
   const [loading,setLoading] = useState(false);
   const [errors,setErrors] = useState<string[]>([]);
@@ -20,7 +22,7 @@ export default function SupportPage() {
     setSent(false);
     setLoading(true);
     if([email,name,message].some(input => input.trim() === '' )){
-      setErrors(['جميع الحقول مطلوبة']);
+      setErrors([t('support_page.all_fields_required')]);
       setLoading(false);
       return;
     }
@@ -30,9 +32,9 @@ export default function SupportPage() {
       setSent(true);
     }catch(e:any){
       if(e.response?.status === 400){
-        setErrors([e?.response?.data?.error || 'حصل خطأ اثناء ارسال الطلب'])
+        setErrors([e?.response?.data?.error || t('support_page.request_error')])
       }else{
-        setErrors(['حصل خطأ اثناء ارسال الطلب الرجاء المحاولة في وقت لاحق.'])
+        setErrors([t('support_page.request_error_generic')])
       }
     }finally{
       setLoading(false);
@@ -43,11 +45,11 @@ export default function SupportPage() {
     return (
       <div className="w-dvw h-dvh flex items-center flex-col gap-3 justify-center">
         <img src={chatBot} className="max-w-96" alt="" />
-        <h1 className="text-3xl font-bold"> تم ارسال طلبك بنجاح </h1>
+        <h1 className="text-3xl font-bold"> {t('support_page.success.title')} </h1>
         <p className="max-w-xs text-center">
-          مرحبا {name} لقد تم ارسال طلبك بنجاح وسيقوم فريق الدعم بالتواصل معك خلال 48 ساعة , شكرا لتواصلك معنا.
+          {t('support_page.success.message', { name })}
         </p>
-        <Link to={'/'} className="p-2 rounded-md px-4 border border-slate-300 hover:bg-emerald-50" > العودة للصفحة الرئيسية  </Link>
+        <Link to={'/'} className="p-2 rounded-md px-4 border border-slate-300 hover:bg-emerald-50" > {t('support_page.success.back_home')}  </Link>
       </div>
     )
   }
@@ -67,7 +69,7 @@ export default function SupportPage() {
           transition={{ duration: 0.8 }}
           className="text-4xl sm:text-5xl md:text-6xl font-bold text-emerald-700 leading-tight"
         >
-          الدعم الفني في نقرا
+          {t('support_page.title')}
         </motion.h1>
         <motion.p
           initial={{ opacity: 0 }}
@@ -75,7 +77,7 @@ export default function SupportPage() {
           transition={{ delay: 0.3, duration: 0.8 }}
           className="text-lg sm:text-xl md:text-2xl text-slate-700 max-w-3xl mx-auto leading-relaxed"
         >
-          فريقنا جاهز لمساعدتك في أي استفسار تقني أو مشكلة تواجهها على المنصة.
+          {t('support_page.subtitle')}
         </motion.p>
       </section>
 
@@ -87,10 +89,10 @@ export default function SupportPage() {
           viewport={{ once: true }}
           className="text-3xl sm:text-4xl font-bold mb-6 text-center"
         >
-          أرسل طلب دعم
+          {t('support_page.form.title')}
         </motion.h2>
         <p className="text-center text-lg mb-8 text-emerald-900">
-          اخبرنا بما تحتاج وسنعاود التواصل معك في أسرع وقت.
+          {t('support_page.form.description')}
         </p>
         <form onSubmit={handleSubmit} className="grid gap-4 sm:gap-6">
           {
@@ -103,7 +105,7 @@ export default function SupportPage() {
           <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
             <input
               type="text"
-              placeholder="الاسم الكامل"
+              placeholder={t('support_page.form.name_placeholder')}
               className="p-4 rounded-xl bg-slate-100  focus:ring-2 ring-emerald-400"
               required
               value={name}
@@ -111,7 +113,7 @@ export default function SupportPage() {
             />
             <input
               type="email"
-              placeholder="البريد الإلكتروني"
+              placeholder={t('support_page.form.email_placeholder')}
               className="p-4 rounded-xl bg-slate-100  focus:ring-2 ring-emerald-400"
               required
               value={email}
@@ -119,7 +121,7 @@ export default function SupportPage() {
             />
           </div>
           <textarea
-            placeholder="وصف المشكلة أو الطلب"
+            placeholder={t('support_page.form.message_placeholder')}
             rows={6}
             className="p-4 rounded-xl bg-slate-100  focus:ring-2 ring-emerald-400 resize-none"
             required
@@ -130,7 +132,7 @@ export default function SupportPage() {
             disabled={loading}
             className="text-white bg-emerald-700 font-bold py-4 rounded-xl text-lg sm:text-xl transition duration-200 hover:bg-emerald-100 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? 'جاري الإرسال...' : 'إرسال الطلب'}
+            {loading ? t('support_page.form.sending') : t('support_page.form.submit')}
           </button>
         </form>
       </section>
@@ -139,18 +141,18 @@ export default function SupportPage() {
       <section className="max-w-7xl mx-auto grid md:grid-cols-3 gap-6 sm:gap-8 mb-16">
         {[
           {
-            title: "المشاكل التقنية",
-            desc: "لأي مشكلة تقنية في حسابك أو النظام، نحن هنا لتقديم الدعم السريع.",
+            title: t('support_page.topics.technical.title'),
+            desc: t('support_page.topics.technical.description'),
             icon: <HeroWrenchScrewdriverIcon className="size-14 text-emerald-800" />
           },
           {
-            title: "التعليم والتدريب",
-            desc: "استفسارات عن الدورات، المشاريع، أو الموارد التعليمية.",
+            title: t('support_page.topics.education.title'),
+            desc: t('support_page.topics.education.description'),
             icon: <HeroBookIcon className="size-14 text-emerald-800" />
           },
           {
-            title: "الشراكات والتعاون",
-            desc: "استفسارات حول التعاون مع الجامعة أو الشركات التعليمية.",
+            title: t('support_page.topics.partnerships.title'),
+            desc: t('support_page.topics.partnerships.description'),
             icon: <HeroBuildingLibraryIcon className="size-14 text-emerald-800" />
           }
         ].map((s, i) => (
@@ -177,7 +179,7 @@ export default function SupportPage() {
           viewport={{ once: true }}
           className="text-3xl font-bold text-slate-800"
         >
-          هل تحتاج لمزيد من المساعدة؟
+          {t('support_page.cta.title')}
         </motion.h3>
         <motion.p
           initial={{ opacity: 0 }}
@@ -186,14 +188,14 @@ export default function SupportPage() {
           transition={{ delay: 0.2 }}
           className="text-xl text-slate-600"
         >
-          تواصل معنا مباشرة عبر البريد الإلكتروني أو الهاتف.
+          {t('support_page.cta.description')}
         </motion.p>
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="px-10 py-4 bg-emerald-600 text-white rounded-xl text-xl font-bold hover:bg-emerald-700 transition"
         >
-          اتصل بالدعم الآن
+          {t('support_page.cta.button')}
         </motion.button>
       </section>
     </div>

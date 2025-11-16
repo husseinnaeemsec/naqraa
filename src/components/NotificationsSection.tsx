@@ -1,12 +1,13 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ErrorNote, SectionHeader, Success, Toggle } from "../pages/student/SettingsPage";
 import { endpoints } from "../api/routes";
 import api from "../api/client";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { setUser } from "../store/authSlice";
-import { t } from "i18next";
 
 export default function NotificationsSection() {
+    const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const { user } = useAppSelector((state) => state.auth)
 
@@ -62,7 +63,7 @@ export default function NotificationsSection() {
             setNotifSaved(true);
             if (res?.data) dispatch(setUser(res.data));
         } catch (err: any) {
-            setNotifError("تعذر حفظ إعدادات الإشعارات");
+            setNotifError(t('settings.notifications.save_error'));
         } finally {
             setNotifLoading(false);
         }
@@ -71,7 +72,7 @@ export default function NotificationsSection() {
 
     return (
         <div id="notifications" className="bg-white dark:bg-emerald-950 border dark:border-emerald-800 border-emerald-300 rounded-lg p-6 shadow-md">
-            <SectionHeader icon={<i className="fi fi-rr-bell text-2xl"></i>} title="الإشعارات" />
+            <SectionHeader icon={<i className="fi fi-rr-bell text-2xl"></i>} title={t('settings.notifications.title')} />
             <div className="space-y-4">
                 {notifSaved && <Success>{t("settings.notifications.updated_notifications")}</Success>}
                 {notifError && <ErrorNote>{notifError}</ErrorNote>}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { BookOpen, Search, Filter, Grid, List, Plus, TrendingUp } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import api from "../../api/client";
 import { endpoints } from "../../api/routes";
@@ -14,6 +15,7 @@ import useApiErrorHandler from "../../hooks/use-api-error-handler";
 
 // Courses Page Component
 const StudentCoursesPage = () => {
+    const { t } = useTranslation();
     useApiErrorHandler();
     const dispatch = useAppDispatch();
     const [loading, setLoading] = useState(true);
@@ -63,7 +65,7 @@ const StudentCoursesPage = () => {
     const completedCourses = enrollments.filter(e => (e.progress || 0) >= 100);
 
     if (loading) {
-        return <PageLoader message="جاري تحميل الدورات الرجاء الانتظار..." />
+        return <PageLoader message={t('student_course_page.loading_courses')} />
     }
 
     return (
@@ -78,17 +80,17 @@ const StudentCoursesPage = () => {
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
                         <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-700 to-emerald-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-emerald-300">
-                            دوراتي
+                            {t('student_course_page.my_courses')}
                         </h1>
                         <p className="text-gray-600 dark:text-emerald-200 mt-1">
-                            تابع تقدمك في جميع الدورات المسجل بها
+                            {t('student_course_page.subtitle')}
                         </p>
                     </div>
                     
                     <div className="flex items-center gap-3">
                         <Link to="/courses/explore">
                             <Button variant="primary" size="sm" icon={<Plus className="size-4" />}>
-                                تصفح الدورات
+                                {t('student_course_page.browse_courses')}
                             </Button>
                         </Link>
                     </div>
@@ -110,7 +112,7 @@ const StudentCoursesPage = () => {
                             </div>
                             <div>
                                 <div className="text-2xl font-bold text-emerald-700 dark:text-emerald-300">{enrollments.length}</div>
-                                <div className="text-sm text-emerald-600 dark:text-emerald-400">إجمالي الدورات</div>
+                                <div className="text-sm text-emerald-600 dark:text-emerald-400">{t('student_course_page.total_courses')}</div>
                             </div>
                         </div>
                     </Card>
@@ -122,7 +124,7 @@ const StudentCoursesPage = () => {
                             </div>
                             <div>
                                 <div className="text-2xl font-bold text-emerald-800 dark:text-emerald-200">{inProgressCourses.length}</div>
-                                <div className="text-sm text-emerald-700 dark:text-emerald-300">قيد الدراسة</div>
+                                <div className="text-sm text-emerald-700 dark:text-emerald-300">{t('student_course_page.in_progress')}</div>
                             </div>
                         </div>
                     </Card>
@@ -134,7 +136,7 @@ const StudentCoursesPage = () => {
                             </div>
                             <div>
                                 <div className="text-2xl font-bold text-emerald-900 dark:text-emerald-100">{completedCourses.length}</div>
-                                <div className="text-sm text-emerald-800 dark:text-emerald-200">مكتملة</div>
+                                <div className="text-sm text-emerald-800 dark:text-emerald-200">{t('student_course_page.completed')}</div>
                             </div>
                         </div>
                     </Card>
@@ -154,7 +156,7 @@ const StudentCoursesPage = () => {
                                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 size-4" />
                                     <input
                                         type="text"
-                                        placeholder="ابحث في دوراتك..."
+                                        placeholder={t('student_course_page.search_placeholder')}
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(e.target.value)}
                                         className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-emerald-700 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-emerald-950 text-gray-900 dark:text-emerald-50"
@@ -170,9 +172,9 @@ const StudentCoursesPage = () => {
                                         onChange={(e) => setSortBy(e.target.value as any)}
                                         className="px-3 py-2 border border-gray-300 dark:border-emerald-700 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-emerald-950 text-gray-900 dark:text-emerald-50"
                                     >
-                                        <option value="recent">الأحدث</option>
-                                        <option value="progress">التقدم</option>
-                                        <option value="name">الاسم</option>
+                                        <option value="recent">{t('student_course_page.sort_recent')}</option>
+                                        <option value="progress">{t('student_course_page.sort_progress')}</option>
+                                        <option value="name">{t('student_course_page.sort_name')}</option>
                                     </select>
                                 </div>
                                 
@@ -203,10 +205,10 @@ const StudentCoursesPage = () => {
                                 <Card variant="dashboard" className="p-12 text-center">
                                     <Search className="size-12 text-gray-400 mx-auto mb-4" />
                                     <h3 className="text-lg font-semibold text-gray-700 dark:text-emerald-200 mb-2">
-                                        لا توجد نتائج للبحث
+                                        {t('student_course_page.no_search_results')}
                                     </h3>
                                     <p className="text-gray-500 dark:text-emerald-400">
-                                        جرب مصطلحات بحث مختلفة
+                                        {t('student_course_page.try_different_search')}
                                     </p>
                                 </Card>
                             ) : (
@@ -241,20 +243,20 @@ const StudentCoursesPage = () => {
                         <Card variant="dashboard" className="p-12 text-center">
                             <BookOpen className="size-16 text-emerald-300 mx-auto mb-6" />
                             <h2 className="text-2xl font-bold text-gray-900 dark:text-emerald-50 mb-3">
-                                لم تشترك في أي دورة حتى الآن
+                                {t('student_course_page.no_courses_enrolled')}
                             </h2>
                             <p className="text-gray-600 dark:text-emerald-200 mb-6 max-w-md mx-auto">
-                                ابدأ رحلة التعلم واستكشف مجموعتنا الواسعة من الدورات التعليمية المتخصصة
+                                {t('student_course_page.start_learning_journey')}
                             </p>
                             <div className="space-y-3">
                                 <Link to="/courses/explore">
                                     <Button variant="primary" size="lg" icon={<BookOpen className="size-5" />}>
-                                        تصفح الدورات المتاحة
+                                        {t('student_course_page.browse_available_courses')}
                                     </Button>
                                 </Link>
                                 <Link to="/courses">
                                     <Button variant="outline" size="md">
-                                        عرض جميع الدورات
+                                        {t('student_course_page.view_all_courses')}
                                     </Button>
                                 </Link>
                             </div>

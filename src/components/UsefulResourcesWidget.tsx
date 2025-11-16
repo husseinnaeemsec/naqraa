@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import api from '../api/client';
 import { endpoints } from '../api/routes';
 import Card from './ui/Card';
@@ -51,15 +52,20 @@ const resourceColors = {
   image: "bg-purple-500 text-white"
 };
 
-const resourceLabels = {
-  pdf: "PDF",
-  video: "فيديو",
-  document: "مستند",
-  link: "رابط",
-  image: "صورة"
+// Dynamic resource labels based on translations
+const getResourceLabel = (type: string, t: any) => {
+  const labels = {
+    pdf: "PDF",
+    video: t('resources.types.video'),
+    document: t('resources.types.document'),
+    link: t('resources.types.link'),
+    image: t('resources.types.image')
+  };
+  return labels[type as keyof typeof labels] || type;
 };
 
 export default function UsefulResourcesWidget() {
+  const { t } = useTranslation();
   useApiErrorHandler();
   const [resources, setResources] = useState<Resource[]>([]);
   const [loading, setLoading] = useState(true);
@@ -70,7 +76,7 @@ export default function UsefulResourcesWidget() {
       try {
         setLoading(true);
         // Fetch recommended/featured resources (limit to 6 for widget)
-        const response = await api.get<ResourcesResponse>(`${endpoints.resources}?featured=true&limit=6`);
+        const response = await api.get<ResourcesResponse>(endpoints.resources.list,{ params:{ featured: true, limit: 6 } });
         setResources(response.data.results);
       } catch (err: any) {
         console.error('Error fetching recommended resources:', err);
@@ -80,40 +86,40 @@ export default function UsefulResourcesWidget() {
           setResources([
             {
               id: 1,
-              title: "ورقة مفاهيم الجبر المتقدم",
-              description: "شرح مفصل لمفاهيم الجبر مع أمثلة تطبيقية",
+              title: t('resources.sample_1.title'),
+              description: t('resources.sample_1.description'),
               file_type: "pdf",
               created_at: new Date().toISOString(),
               downloads_count: 150
             },
             {
               id: 2,
-              title: "فيديو درس الكيمياء العضوية",
-              description: "شرح تفاعلات الكيمياء العضوية",
+              title: t('resources.sample_2.title'),
+              description: t('resources.sample_2.description'),
               file_type: "video",
               created_at: new Date().toISOString(),
               downloads_count: 89
             },
             {
               id: 3,
-              title: "ملخص قواعد اللغة العربية",
-              description: "ملخص شامل لقواعد النحو والصرف",
+              title: t('resources.sample_3.title'),
+              description: t('resources.sample_3.description'),
               file_type: "document",
               created_at: new Date().toISOString(),
               downloads_count: 203
             },
             {
               id: 4,
-              title: "تمارين الرياضيات المحلولة",
-              description: "مجموعة من التمارين مع الحلول التفصيلية",
+              title: t('resources.sample_4.title'),
+              description: t('resources.sample_4.description'),
               file_type: "pdf",
               created_at: new Date().toISOString(),
               downloads_count: 127
             },
             {
               id: 5,
-              title: "موقع تعلم اللغة الإنجليزية",
-              description: "منصة تفاعلية لتعلم اللغة الإنجليزية",
+              title: t('resources.sample_5.title'),
+              description: t('resources.sample_5.description'),
               file_type: "link",
               external_url: "https://example.com",
               created_at: new Date().toISOString(),
@@ -121,15 +127,15 @@ export default function UsefulResourcesWidget() {
             },
             {
               id: 6,
-              title: "شرح الفيزياء النووية", 
-              description: "مقدمة في الفيزياء النووية والإشعاع",
+              title: t('resources.sample_6.title'),
+              description: t('resources.sample_6.description'),
               file_type: "video",
               created_at: new Date().toISOString(),
               downloads_count: 94
             }
           ]);
         } else {
-          setError('فشل في تحميل المصادر المقترحة');
+          setError(t('resources.error_loading'));
         }
       } finally {
         setLoading(false);
@@ -152,10 +158,10 @@ export default function UsefulResourcesWidget() {
       <Card variant="dashboard" className="w-full p-6">
         <div className="flex items-center gap-3 mb-4">
           <Lightbulb className="size-6 text-emerald-600" />
-          <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">مصادر مقترحة</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('resources.title')}</h2>
         </div>
         <p className="text-gray-600 dark:text-gray-300 text-sm mb-6">
-          مصادر مقترحة لك بناء على نشاطك التعليمي الأخير
+          {t('resources.subtitle')}
         </p>
         <div className="grid md:grid-cols-3 gap-4">
           {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -175,7 +181,7 @@ export default function UsefulResourcesWidget() {
       <Card variant="dashboard" className="w-full p-6">
         <div className="flex items-center gap-3 mb-4">
           <Lightbulb className="size-6 text-emerald-600" />
-          <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">مصادر مقترحة</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('useful_resources.title')}</h2>
         </div>
         <div className="text-center py-8">
           <p className="text-gray-500 dark:text-gray-400 mb-4">{error}</p>
@@ -184,7 +190,7 @@ export default function UsefulResourcesWidget() {
             size="sm"
             onClick={() => window.location.reload()}
           >
-            إعادة المحاولة
+            {t('useful_resources.retry')}
           </Button>
         </div>
       </Card>
@@ -196,14 +202,14 @@ export default function UsefulResourcesWidget() {
       <Card variant="dashboard" className="w-full p-6">
         <div className="flex items-center gap-3 mb-4">
           <Lightbulb className="size-6 text-emerald-600" />
-          <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">مصادر مقترحة</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('useful_resources.title')}</h2>
         </div>
         <div className="text-center py-8">
           <Lightbulb className="size-12 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-          <p className="text-gray-500 dark:text-gray-400 mb-4">لا توجد مصادر مقترحة حالياً</p>
+          <p className="text-gray-500 dark:text-gray-400 mb-4">{t('useful_resources.no_resources')}</p>
           <Link to="/resources">
             <Button variant="primary" size="sm">
-              تصفح جميع المصادر
+              {t('useful_resources.browse_all')}
             </Button>
           </Link>
         </div>
@@ -216,15 +222,15 @@ export default function UsefulResourcesWidget() {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
           <Lightbulb className="size-6 text-emerald-600" />
-          <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">مصادر مقترحة</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('useful_resources.title')}</h2>
         </div>
         <Link to="/resources" className="text-emerald-600 hover:text-emerald-700 text-sm font-medium">
-          عرض الكل
+          {t('useful_resources.view_all')}
         </Link>
       </div>
       
       <p className="text-gray-600 dark:text-gray-300 text-sm mb-6">
-        مصادر مقترحة لك بناء على نشاطك التعليمي الأخير
+        {t('useful_resources.subtitle')}
       </p>
 
       <div className="grid md:grid-cols-3 gap-4">
@@ -252,7 +258,7 @@ export default function UsefulResourcesWidget() {
                         <IconComponent className="size-4" />
                       </div>
                       <span className={`text-xs font-medium px-2 py-1 rounded-full ${resourceColors[resource.file_type]}`}>
-                        {resourceLabels[resource.file_type]}
+                        {getResourceLabel(resource.file_type, t)}
                       </span>
                     </div>
                     

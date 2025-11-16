@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bell, Check, Eye, Trash2, Settings, X, User, BookOpen, Calendar, MessageSquare } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 import type { Notification } from "../../../types";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import api from "../../api/client";
@@ -11,6 +12,7 @@ import Button from "../../components/ui/Button";
 import useApiErrorHandler from "../../hooks/use-api-error-handler";
 
 export function NotificationItem({ notification, index }: { notification: Notification; index: number }) {
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const { notifications } = useAppSelector(state => state.auth);
     const dispatch = useAppDispatch();
@@ -55,11 +57,11 @@ export function NotificationItem({ notification, index }: { notification: Notifi
         const notificationTime = new Date(timestamp);
         const diffInHours = Math.floor((now.getTime() - notificationTime.getTime()) / (1000 * 60 * 60));
         
-        if (diffInHours < 1) return 'منذ قليل';
-        if (diffInHours < 24) return `منذ ${diffInHours} ساعة`;
+        if (diffInHours < 1) return t('notifications_page.time_just_now');
+        if (diffInHours < 24) return t('notifications_page.time_hours_ago', { hours: diffInHours });
         
         const diffInDays = Math.floor(diffInHours / 24);
-        if (diffInDays < 7) return `منذ ${diffInDays} أيام`;
+        if (diffInDays < 7) return t('notifications_page.time_days_ago', { days: diffInDays });
         
         return notificationTime.toLocaleDateString('ar-SA');
     };
@@ -132,7 +134,7 @@ export function NotificationItem({ notification, index }: { notification: Notifi
                                 </span>
                                 {notification.sneder && (
                                     <span className="text-xs text-gray-500 dark:text-emerald-400">
-                                        من {notification.sneder}
+                                        {t('notifications_page.from')} {notification.sneder}
                                     </span>
                                 )}
                             </div>
@@ -181,7 +183,7 @@ export function NotificationItem({ notification, index }: { notification: Notifi
                                     {notification.sneder && (
                                         <>
                                             <span>•</span>
-                                            <span>من {notification.sneder}</span>
+                                            <span>{t('notifications_page.from')} {notification.sneder}</span>
                                         </>
                                     )}
                                 </div>
@@ -193,7 +195,7 @@ export function NotificationItem({ notification, index }: { notification: Notifi
                                     size="sm"
                                     onClick={() => setOpen(false)}
                                 >
-                                    إغلاق
+                                    {t('notifications_page.close')}
                                 </Button>
                             </div>
                         </motion.div>
@@ -205,15 +207,16 @@ export function NotificationItem({ notification, index }: { notification: Notifi
 }
 
 export default function NotificationsPage() {
+    const { t } = useTranslation();
     useApiErrorHandler();
     const [activeTab, setActiveTab] = useState("all");
     const { notifications } = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
     
     const tabs = [
-        { title: "الكل", id: "all", icon: Bell },
-        { title: "غير مقروءة", id: "unread", icon: Eye },
-        { title: "مقروءة", id: "read", icon: Check },
+        { title: t('notifications_page.tab_all'), id: "all", icon: Bell },
+        { title: t('notifications_page.tab_unread'), id: "unread", icon: Eye },
+        { title: t('notifications_page.tab_read'), id: "read", icon: Check },
     ];
 
     const unread_count = notifications.filter(n => n.read === false).length;
@@ -250,7 +253,7 @@ export default function NotificationsPage() {
                     <div>
                         <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-700 to-emerald-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-emerald-300 flex items-center gap-3">
                             <Bell className="size-8 text-emerald-600" />
-                            الإشعارات
+                            {t('notifications_page.title')}
                             {unread_count > 0 && (
                                 <span className="bg-red-500 text-white text-sm px-2 py-1 rounded-full">
                                     {unread_count}
@@ -258,7 +261,7 @@ export default function NotificationsPage() {
                             )}
                         </h1>
                         <p className="text-gray-600 dark:text-emerald-200 mt-1">
-                            تابع جميع الإشعارات والتحديثات الخاصة بك
+                            {t('notifications_page.subtitle')}
                         </p>
                     </div>
                     
@@ -271,7 +274,7 @@ export default function NotificationsPage() {
                                     onClick={markAllAsRead}
                                     icon={<Check className="size-4" />}
                                 >
-                                    تحديد الكل كمقروء
+                                    {t('notifications_page.mark_all_read')}
                                 </Button>
                                 <Button 
                                     variant="outline" 
@@ -279,12 +282,12 @@ export default function NotificationsPage() {
                                     onClick={clearAllNotifications}
                                     icon={<Trash2 className="size-4" />}
                                 >
-                                    مسح الكل
+                                    {t('notifications_page.clear_all')}
                                 </Button>
                             </>
                         )}
                         <Button variant="primary" size="sm" icon={<Settings className="size-4" />}>
-                            إعدادات الإشعارات
+                            {t('notifications_page.settings')}
                         </Button>
                     </div>
                 </div>
@@ -305,7 +308,7 @@ export default function NotificationsPage() {
                             </div>
                             <div>
                                 <div className="text-2xl font-bold text-emerald-700 dark:text-emerald-300">{notifications.length}</div>
-                                <div className="text-sm text-emerald-600 dark:text-emerald-400">إجمالي الإشعارات</div>
+                                <div className="text-sm text-emerald-600 dark:text-emerald-400">{t('notifications_page.total_notifications')}</div>
                             </div>
                         </div>
                     </Card>
@@ -317,7 +320,7 @@ export default function NotificationsPage() {
                             </div>
                             <div>
                                 <div className="text-2xl font-bold text-emerald-800 dark:text-emerald-200">{unread_count}</div>
-                                <div className="text-sm text-emerald-700 dark:text-emerald-300">غير مقروءة</div>
+                                <div className="text-sm text-emerald-700 dark:text-emerald-300">{t('notifications_page.unread')}</div>
                             </div>
                         </div>
                     </Card>
@@ -329,7 +332,7 @@ export default function NotificationsPage() {
                             </div>
                             <div>
                                 <div className="text-2xl font-bold text-emerald-900 dark:text-emerald-100">{notifications.length - unread_count}</div>
-                                <div className="text-sm text-emerald-800 dark:text-emerald-200">مقروءة</div>
+                                <div className="text-sm text-emerald-800 dark:text-emerald-200">{t('notifications_page.read')}</div>
                             </div>
                         </div>
                     </Card>
@@ -394,12 +397,12 @@ export default function NotificationsPage() {
                                 >
                                     <Bell className="size-16 text-gray-300 dark:text-emerald-600 mx-auto mb-4" />
                                     <h3 className="text-lg font-semibold text-gray-700 dark:text-emerald-200 mb-2">
-                                        {activeTab === 'unread' ? 'لا توجد إشعارات غير مقروءة' :
-                                         activeTab === 'read' ? 'لا توجد إشعارات مقروءة' :
-                                         'لا توجد إشعارات'}
+                                        {activeTab === 'unread' ? t('notifications_page.no_unread_notifications') :
+                                         activeTab === 'read' ? t('notifications_page.no_read_notifications') :
+                                         t('notifications_page.no_notifications')}
                                     </h3>
                                     <p className="text-gray-500 dark:text-emerald-400">
-                                        ستظهر هنا الإشعارات الجديدة عند وصولها
+                                        {t('notifications_page.empty_message')}
                                     </p>
                                 </motion.div>
                             </div>

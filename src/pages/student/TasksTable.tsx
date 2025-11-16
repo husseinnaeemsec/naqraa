@@ -1,4 +1,4 @@
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import type { Task } from "../../../types";
 
 interface Props {
@@ -10,6 +10,7 @@ interface Props {
 }
 
 export default function TasksTable({ tasks, title ,completed, className , headerColor = 'emerald' }: Props) {
+  const { t } = useTranslation();
   const priorityColors: Record<Task["priority"], string> = {
     low: "bg-green-200 text-green-800",
     medium: "bg-yellow-200 text-yellow-800",
@@ -32,16 +33,16 @@ export default function TasksTable({ tasks, title ,completed, className , header
           <tr>
             <th className="p-2 w-6 border-b"></th>
             <th className="p-2 border-b text-sm">
-              <i className="fi fi-rr-pencil mr-1"></i> العنوان
+              <i className="fi fi-rr-pencil mr-1"></i> {t('tasks_table.title_header')}
             </th>
             <th className="p-2 border-b text-sm">
-              <i className="fi fi-rr-align-left mr-1"></i> الوصف
+              <i className="fi fi-rr-align-left mr-1"></i> {t('tasks_table.description_header')}
             </th>
             <th className="p-2 border-b text-sm">
-              <i className="fi fi-rr-calendar-check mr-1"></i> تاريخ الاكمال
+              <i className="fi fi-rr-calendar-check mr-1"></i> {t('tasks_table.due_date_header')}
             </th>
             <th className="p-2 border-b text-sm">
-              <i className="fi fi-rr-flag mr-1"></i> الاهمية
+              <i className="fi fi-rr-flag mr-1"></i> {t('tasks_table.priority_header')}
             </th>
           </tr>
         </thead>
@@ -69,15 +70,15 @@ export default function TasksTable({ tasks, title ,completed, className , header
                 <span
                   className={`px-2 py-0.5 rounded text-xs font-medium ${priorityColors[task.priority]}`}
                 >
-                  {t(task.priority).toUpperCase()}
+                  {t(`tasks_table.priority_${task.priority}`)}
                 </span>
               </td>
             </tr>
           ))}
           {tasks.length === 0 && (
             <tr>
-              <td colSpan={4} className="text-center text-gray-400 p-4">
-                لا توجد مهام
+              <td colSpan={5} className="text-center text-gray-400 p-4">
+                {t('tasks_table.no_tasks')}
               </td>
             </tr>
           )}

@@ -1,6 +1,7 @@
 "use client";
 
 import { BarChart, Bar, XAxis, CartesianGrid } from "recharts";
+import { useTranslation } from "react-i18next";
 import {
   ChartContainer,
   ChartTooltip,
@@ -30,12 +31,7 @@ interface Props {
   weekData: StudyTimeWeek | null;
 }
 
-const chartConfig = {
-  hours: {
-    label: "ساعات الدراسة",
-    color: "hsl(var(--emerald-600))",
-  },
-};
+// Chart configuration will be created inside component to access t() function
 
 // 🧠 Helper to convert seconds → hours (1 decimal)
 function secondsToHours(seconds: number): number {
@@ -43,22 +39,32 @@ function secondsToHours(seconds: number): number {
 }
 
 export default function StudyHoursChartShadcn({ weekData }: Props) {
-  // Arabic day order: Saturday → Friday
-  const arabicDays: { key: keyof StudyTimeWeek; label: string }[] = [
-    { key: "saturday", label: "السبت" },
-    { key: "sunday", label: "الأحد" },
-    { key: "monday", label: "الإثنين" },
-    { key: "tuesday", label: "الثلاثاء" },
-    { key: "wednesday", label: "الأربعاء" },
-    { key: "thursday", label: "الخميس" },
-    { key: "friday", label: "الجمعة" },
+  const { t } = useTranslation();
+  
+  // Day order with translation keys
+  const weekDays: { key: keyof StudyTimeWeek; labelKey: string }[] = [
+    { key: "saturday", labelKey: "study_chart.days.saturday" },
+    { key: "sunday", labelKey: "study_chart.days.sunday" },
+    { key: "monday", labelKey: "study_chart.days.monday" },
+    { key: "tuesday", labelKey: "study_chart.days.tuesday" },
+    { key: "wednesday", labelKey: "study_chart.days.wednesday" },
+    { key: "thursday", labelKey: "study_chart.days.thursday" },
+    { key: "friday", labelKey: "study_chart.days.friday" },
   ];
   
   if(!weekData) return;
 
+  // Chart configuration with translation
+  const chartConfig = {
+    hours: {
+      label: t('study_chart.hours_label'),
+      color: "hsl(var(--emerald-600))",
+    },
+  };
+
   // Prepare chart data
-  const data = arabicDays.map((d) => ({
-    day: d.label,
+  const data = weekDays.map((d) => ({
+    day: t(d.labelKey),
     hours: weekData[d.key]
       ? secondsToHours(weekData[d.key]!.study_time_in_sec)
       : 0,
@@ -69,7 +75,7 @@ export default function StudyHoursChartShadcn({ weekData }: Props) {
       <CardHeader className="pb-4">
         <CardTitle className="text-lg font-bold text-gray-900 dark:text-emerald-50 flex items-center gap-2">
           <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-          عدد ساعات الدراسة الأسبوعي
+          {t('study_chart.title')}
         </CardTitle>
       </CardHeader>
 

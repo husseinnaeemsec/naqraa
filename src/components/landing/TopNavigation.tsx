@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../store/store";
 import { ComputerIcon, Menu, X, Search } from "lucide-react";
 import LanguageSwitcher from "../LanguageSwitcher";
@@ -6,18 +7,19 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function TopNavigation() {
+  const { t } = useTranslation();
   const { isAuthenticated } = useAppSelector(state => state.auth);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchVisible, setSearchVisible] = useState(false);
 
   const navigationLinks = [
-    { to: "/", label: "الرئيسية" },
-    { to: "/about", label: "من نحن" },
-    { to: "/courses", label: "الدورات" },
-    { to: "/plans", label: "خطط الاشتراك" },
-    { to: "/features", label: "مميزات المنصة" },
-    { to: "/resources", label: "الموارد" },
-    { to: "/contact", label: "اتصل بنا" },
+    { to: "/", label: t('navigation.home') },
+    { to: "/about", label: t('navigation.about') },
+    { to: "/courses", label: t('navigation.courses') },
+    { to: "/plans", label: t('navigation.subscriptionPlans') },
+    { to: "/features", label: t('navigation.platformFeatures') },
+    { to: "/resources", label: t('navigation.resources') },
+    { to: "/contact", label: t('navigation.contact') },
   ];
 
   return (
@@ -184,14 +186,14 @@ export default function TopNavigation() {
                     onClick={() => setMobileMenuOpen(false)}
                     className="block w-full p-3 text-center rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white transition font-medium"
                   >
-                    إنشاء حساب جديد
+                    {t('auth.createNewAccount')}
                   </Link>
                   <Link
                     to="/login"
                     onClick={() => setMobileMenuOpen(false)}
                     className="block w-full p-3 text-center rounded-lg border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition font-medium"
                   >
-                    تسجيل الدخول
+                    {t('auth.login')}
                   </Link>
                   <div className="flex justify-center pt-2">
                     <LanguageSwitcher />

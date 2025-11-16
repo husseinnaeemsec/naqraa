@@ -1,35 +1,37 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Plus, Trello, Edit3, MoreVertical, Calendar, User, Tag } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import Card from "../../components/ui/Card";
 import Button from "../../components/ui/Button";
 
 // Board Page Component
 const BoardPage = () => {
+    const { t } = useTranslation();
     const [boards] = useState([
         {
             id: 1,
-            name: "لوحة المهام اليومية",
-            description: "تنظيم ومتابعة المهام اليومية",
+            name: t('boards.daily_tasks.name'),
+            description: t('boards.daily_tasks.description'),
             tasks: 12,
             color: "bg-emerald-500",
-            updated: "منذ ساعتين"
+            updated: t('boards.daily_tasks.updated')
         },
         {
             id: 2,
-            name: "مشروع البحث",
-            description: "متابعة تقدم مشروع البحث العلمي",
+            name: t('boards.research_project.name'),
+            description: t('boards.research_project.description'),
             tasks: 8,
             color: "bg-blue-500",
-            updated: "أمس"
+            updated: t('boards.research_project.updated')
         },
         {
             id: 3,
-            name: "خطة الدراسة",
-            description: "جدولة وتنظيم الدروس والمراجعة",
+            name: t('boards.study_plan.name'),
+            description: t('boards.study_plan.description'),
             tasks: 15,
             color: "bg-purple-500",
-            updated: "منذ 3 أيام"
+            updated: t('boards.study_plan.updated')
         }
     ]);
 
@@ -45,13 +47,13 @@ const BoardPage = () => {
                     <div className="flex items-center gap-3">
                         <Trello className="w-8 h-8 text-emerald-600" />
                         <div>
-                            <h1 className="text-3xl font-bold text-gray-900 dark:text-emerald-50">لوحات التخطيط</h1>
-                            <p className="text-gray-600 dark:text-emerald-200/70">نظم وتابع مهامك بفعالية</p>
+                            <h1 className="text-3xl font-bold text-gray-900 dark:text-emerald-50">{t('boards.title')}</h1>
+                            <p className="text-gray-600 dark:text-emerald-200/70">{t('boards.subtitle')}</p>
                         </div>
                     </div>
                     <Button className="bg-emerald-500 hover:bg-emerald-600 text-white flex items-center gap-2">
                         <Plus className="w-4 h-4" />
-                        لوحة جديدة
+                        {t('boards.new_board')}
                     </Button>
                 </div>
             </motion.div>
@@ -95,7 +97,7 @@ const BoardPage = () => {
                                     <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-emerald-400">
                                         <div className="flex items-center gap-1">
                                             <Tag className="w-4 h-4" />
-                                            <span>{board.tasks} مهمة</span>
+                                            <span>{board.tasks} {t('boards.tasks')}</span>
                                         </div>
                                         <div className="flex items-center gap-1">
                                             <Calendar className="w-4 h-4" />
@@ -107,7 +109,7 @@ const BoardPage = () => {
                                         size="sm"
                                         className="opacity-0 group-hover:opacity-100 transition-opacity"
                                     >
-                                        فتح
+                                        {t('boards.open')}
                                     </Button>
                                 </div>
                             </div>
@@ -128,10 +130,10 @@ const BoardPage = () => {
                             </div>
                             <div className="text-center">
                                 <h3 className="font-semibold text-gray-900 dark:text-emerald-50 mb-1">
-                                    إنشاء لوحة جديدة
+                                    {t('boards.create_new_board')}
                                 </h3>
                                 <p className="text-sm text-gray-500 dark:text-emerald-400">
-                                    ابدأ بتنظيم مهامك الجديدة
+                                    {t('boards.start_organizing_tasks')}
                                 </p>
                             </div>
                         </div>
@@ -149,14 +151,14 @@ const BoardPage = () => {
                     <div className="flex items-center justify-between mb-6">
                         <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50 flex items-center gap-2">
                             <Edit3 className="w-5 h-5 text-emerald-600" />
-                            لوحة عمل تجريبية
+                            {t('boards.sample_board')}
                         </h2>
                         <div className="flex gap-2">
                             <Button variant="secondary" size="sm">
-                                عرض
+                                {t('boards.view')}
                             </Button>
                             <Button variant="secondary" size="sm">
-                                تعديل
+                                {t('boards.edit')}
                             </Button>
                         </div>
                     </div>
@@ -167,22 +169,22 @@ const BoardPage = () => {
                         <div className="space-y-3">
                             <div className="flex items-center gap-2 mb-4">
                                 <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
-                                <h3 className="font-semibold text-gray-900 dark:text-emerald-50">قائمة المهام</h3>
+                                <h3 className="font-semibold text-gray-900 dark:text-emerald-50">{t('boards.kanban.todo')}</h3>
                                 <span className="bg-gray-100 dark:bg-emerald-900/30 text-gray-600 dark:text-emerald-400 text-xs px-2 py-1 rounded-full">3</span>
                             </div>
                             <div className="space-y-3">
                                 <div className="p-3 bg-white dark:bg-emerald-950 border border-gray-200 dark:border-emerald-800 rounded-lg shadow-sm">
-                                    <h4 className="font-medium text-gray-900 dark:text-emerald-50 text-sm mb-2">مراجعة الرياضيات</h4>
+                                    <h4 className="font-medium text-gray-900 dark:text-emerald-50 text-sm mb-2">{t('boards.kanban.tasks.math_review')}</h4>
                                     <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-emerald-400">
                                         <User className="w-3 h-3" />
-                                        <span>محمد</span>
+                                        <span>{t('boards.kanban.tasks.assigned_to_mohammad')}</span>
                                     </div>
                                 </div>
                                 <div className="p-3 bg-white dark:bg-emerald-950 border border-gray-200 dark:border-emerald-800 rounded-lg shadow-sm">
-                                    <h4 className="font-medium text-gray-900 dark:text-emerald-50 text-sm mb-2">كتابة التقرير</h4>
+                                    <h4 className="font-medium text-gray-900 dark:text-emerald-50 text-sm mb-2">{t('boards.kanban.tasks.write_report')}</h4>
                                     <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-emerald-400">
                                         <Calendar className="w-3 h-3" />
-                                        <span>غداً</span>
+                                        <span>{t('boards.kanban.tasks.due_tomorrow')}</span>
                                     </div>
                                 </div>
                             </div>
@@ -192,18 +194,18 @@ const BoardPage = () => {
                         <div className="space-y-3">
                             <div className="flex items-center gap-2 mb-4">
                                 <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                                <h3 className="font-semibold text-gray-900 dark:text-emerald-50">قيد التنفيذ</h3>
+                                <h3 className="font-semibold text-gray-900 dark:text-emerald-50">{t('boards.kanban.in_progress')}</h3>
                                 <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs px-2 py-1 rounded-full">2</span>
                             </div>
                             <div className="space-y-3">
                                 <div className="p-3 bg-white dark:bg-emerald-950 border border-blue-200 dark:border-blue-800 rounded-lg shadow-sm">
-                                    <h4 className="font-medium text-gray-900 dark:text-emerald-50 text-sm mb-2">حل التمارين</h4>
+                                    <h4 className="font-medium text-gray-900 dark:text-emerald-50 text-sm mb-2">{t('boards.kanban.tasks.solve_exercises')}</h4>
                                     <div className="w-full bg-gray-200 dark:bg-emerald-900/30 rounded-full h-2 mb-2">
                                         <div className="bg-blue-500 h-2 rounded-full" style={{width: '60%'}}></div>
                                     </div>
                                     <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-emerald-400">
                                         <User className="w-3 h-3" />
-                                        <span>فاطمة</span>
+                                        <span>{t('boards.kanban.tasks.assigned_to_fatima')}</span>
                                     </div>
                                 </div>
                             </div>
@@ -213,15 +215,15 @@ const BoardPage = () => {
                         <div className="space-y-3">
                             <div className="flex items-center gap-2 mb-4">
                                 <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>
-                                <h3 className="font-semibold text-gray-900 dark:text-emerald-50">مكتمل</h3>
+                                <h3 className="font-semibold text-gray-900 dark:text-emerald-50">{t('boards.kanban.done')}</h3>
                                 <span className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 text-xs px-2 py-1 rounded-full">4</span>
                             </div>
                             <div className="space-y-3">
                                 <div className="p-3 bg-white dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800 rounded-lg shadow-sm opacity-75">
-                                    <h4 className="font-medium text-gray-900 dark:text-emerald-50 text-sm mb-2">قراءة الفصل الأول</h4>
+                                    <h4 className="font-medium text-gray-900 dark:text-emerald-50 text-sm mb-2">{t('boards.kanban.tasks.read_chapter_one')}</h4>
                                     <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-emerald-400">
                                         <Calendar className="w-3 h-3" />
-                                        <span>منذ يومين</span>
+                                        <span>{t('boards.kanban.tasks.completed_two_days_ago')}</span>
                                     </div>
                                 </div>
                             </div>

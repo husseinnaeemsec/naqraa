@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import type { CurrentLecture, LectureTimeline } from "../../types";
 import { getMedia } from "../utils/functions";
 import { HeroPlayIcon } from "./Icons";
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export default function VideoPlayer({ lecture, onAddNote }: Props) {
+  const { t } = useTranslation();
   const [showVideo, setShowVideo] = useState(false);
   const [ended, setEnded] = useState(false);
   const { lectures , enrollment } = useAppSelector((state) => state.enrollment);
@@ -64,7 +66,7 @@ export default function VideoPlayer({ lecture, onAddNote }: Props) {
             </div>
               {
                 !lecture.cover && (
-                  <h1 className="text-2xl  font-semibold"> المحاضرة ({lecture.order}) {lecture.title} </h1>
+                  <h1 className="text-2xl  font-semibold"> {t('video_player.lecture', { order: lecture.order, title: lecture.title })} </h1>
                 )
               }
           </div>
@@ -93,7 +95,7 @@ export default function VideoPlayer({ lecture, onAddNote }: Props) {
       {/* Next lectures overlay */}
       {ended && nextLectures.length > 0 && (
         <div className="absolute inset-0 z-20 bg-emerald-900/50 flex flex-col items-center justify-center gap-4 p-4 text-white">
-          <h3 className="text-lg font-semibold mb-2">التالي لمشاهدته</h3>
+          <h3 className="text-lg font-semibold mb-2">{t('video_player.next_to_watch')}</h3>
           <div className="flex flex-col gap-2 w-full max-w-md">
             {nextLectures.map((l) => (
               <button
@@ -104,7 +106,7 @@ export default function VideoPlayer({ lecture, onAddNote }: Props) {
                 <HeroPlayIcon fill className="size-6" />
                 <div>
                   <p className="font-medium">{l.title}</p>
-                  <span className="text-xs opacity-80">{l.duration} دقيقة</span>
+                  <span className="text-xs opacity-80">{t('video_player.duration_minutes', { duration: l.duration })}</span>
                 </div>
               </button>
             ))}

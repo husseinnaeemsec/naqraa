@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../store/store";
 import { motion } from "framer-motion";
 import { 
@@ -21,18 +22,19 @@ import Card from "./ui/Card";
 import Button from "./ui/Button";
 
 export default function UserProfileWidget() {
+  const { t } = useTranslation();
   const { user } = useAppSelector((state) => state.auth);
 
   const getUserRole = () => {
     switch (user?.role) {
       case 'organization':
-        return { label: 'حساب مؤسسة', icon: '🏢', color: 'text-blue-600' };
+        return { label: t('user_profile.role_organization'), icon: '🏢', color: 'text-blue-600' };
       case 'student':
-        return { label: 'طالب', icon: '🎓', color: 'text-emerald-600' };
+        return { label: t('user_profile.role_student'), icon: '🎓', color: 'text-emerald-600' };
       case 'user':
-        return { label: 'مساهم', icon: '✨', color: 'text-purple-600' };
+        return { label: t('user_profile.role_contributor'), icon: '✨', color: 'text-purple-600' };
       default:
-        return { label: 'غير محدد', icon: '👤', color: 'text-gray-600' };
+        return { label: t('user_profile.role_undefined'), icon: '👤', color: 'text-gray-600' };
     }
   };
 
@@ -91,19 +93,19 @@ export default function UserProfileWidget() {
             {joinDate && (
               <div className="flex items-center gap-3 text-gray-700 dark:text-emerald-200">
                 <Calendar className="size-4 text-emerald-600" />
-                <span>انضم في {joinDate}</span>
+                <span>{t('user_profile.joined_on', { date: joinDate })}</span>
               </div>
             )}
             
             <div className="flex items-center gap-3 text-gray-700 dark:text-emerald-200">
               <BookOpen className="size-4 text-emerald-600" />
-              <span>{enrolledCoursesCount} دورة مسجل</span>
+              <span>{t('user_profile.enrolled_courses', { count: enrolledCoursesCount })}</span>
             </div>
           </div>
 
           <Link to="/dashboard/settings">
             <Button variant="outline" size="sm" className="w-full" icon={<Settings className="size-4" />}>
-              تعديل الملف الشخصي
+              {t('user_profile.edit_profile')}
             </Button>
           </Link>
         </div>
@@ -113,7 +115,7 @@ export default function UserProfileWidget() {
       <Card variant="dashboard" className="p-6">
         <div className="flex items-center gap-3 mb-4">
           <TrendingUp className="size-5 text-emerald-600" />
-          <h4 className="font-bold text-gray-900 dark:text-emerald-50">إحصائيات الدراسة</h4>
+          <h4 className="font-bold text-gray-900 dark:text-emerald-50">{t('user_profile.study_statistics')}</h4>
         </div>
         
         <div className="grid grid-cols-2 gap-4">
@@ -125,7 +127,7 @@ export default function UserProfileWidget() {
               <Zap className="size-5 text-emerald-600" />
             </div>
             <div className="text-2xl font-bold text-emerald-700 dark:text-emerald-200">{studyStreak}</div>
-            <div className="text-xs text-emerald-600 dark:text-emerald-300">أيام متتالية</div>
+            <div className="text-xs text-emerald-600 dark:text-emerald-300">{t('user_profile.consecutive_days')}</div>
           </motion.div>
           
           <motion.div 
@@ -136,7 +138,7 @@ export default function UserProfileWidget() {
               <Clock className="size-5 text-emerald-700" />
             </div>
             <div className="text-2xl font-bold text-emerald-800 dark:text-emerald-100">{totalStudyHours}</div>
-            <div className="text-xs text-emerald-700 dark:text-emerald-200">ساعة دراسة</div>
+            <div className="text-xs text-emerald-700 dark:text-emerald-200">{t('user_profile.study_hours')}</div>
           </motion.div>
           
           <motion.div 
@@ -147,7 +149,7 @@ export default function UserProfileWidget() {
               <Trophy className="size-5 text-emerald-700" />
             </div>
             <div className="text-2xl font-bold text-emerald-800 dark:text-emerald-100">{completedCourses}</div>
-            <div className="text-xs text-emerald-700 dark:text-emerald-200">دورة مكتملة</div>
+            <div className="text-xs text-emerald-700 dark:text-emerald-200">{t('user_profile.completed_courses')}</div>
           </motion.div>
           
           <motion.div 
@@ -158,7 +160,7 @@ export default function UserProfileWidget() {
               <Star className="size-5 text-emerald-800" />
             </div>
             <div className="text-2xl font-bold text-emerald-900 dark:text-emerald-50">4.8</div>
-            <div className="text-xs text-emerald-800 dark:text-emerald-200">متوسط التقييم</div>
+            <div className="text-xs text-emerald-800 dark:text-emerald-200">{t('user_profile.average_rating')}</div>
           </motion.div>
         </div>
       </Card>
@@ -170,8 +172,8 @@ export default function UserProfileWidget() {
             <Crown className="size-5 text-emerald-600" />
           </div>
           <div className="flex-1">
-            <h4 className="font-semibold text-emerald-800 dark:text-emerald-300">طالب متميز</h4>
-            <p className="text-xs text-emerald-700 dark:text-emerald-400">حافظت على التعلم لمدة أسبوع!</p>
+            <h4 className="font-semibold text-emerald-800 dark:text-emerald-300">{t('user_profile.outstanding_student')}</h4>
+            <p className="text-xs text-emerald-700 dark:text-emerald-400">{t('user_profile.achievement_description')}</p>
           </div>
         </div>
       </Card>
@@ -180,23 +182,23 @@ export default function UserProfileWidget() {
       <Card variant="dashboard" className="p-4">
         <h4 className="font-bold text-gray-900 dark:text-emerald-50 mb-4 flex items-center gap-2">
           <Target className="size-4 text-emerald-600" />
-          إجراءات سريعة
+          {t('user_profile.quick_actions')}
         </h4>
         
         <div className="space-y-2">
           <Link to="/courses" className="flex items-center gap-3 p-3 hover:bg-emerald-50 dark:hover:bg-emerald-900/50 rounded-lg transition-colors group">
             <BookOpen className="size-4 text-emerald-600 group-hover:scale-110 transition-transform" />
-            <span className="text-sm text-gray-700 dark:text-emerald-200">استكشف الدورات</span>
+            <span className="text-sm text-gray-700 dark:text-emerald-200">{t('user_profile.explore_courses')}</span>
           </Link>
           
           <Link to="/dashboard/notifications" className="flex items-center gap-3 p-3 hover:bg-emerald-50 dark:hover:bg-emerald-900/50 rounded-lg transition-colors group">
             <Bell className="size-4 text-emerald-600 group-hover:scale-110 transition-transform" />
-            <span className="text-sm text-gray-700 dark:text-emerald-200">الإشعارات</span>
+            <span className="text-sm text-gray-700 dark:text-emerald-200">{t('user_profile.notifications')}</span>
           </Link>
           
           <Link to="/resources" className="flex items-center gap-3 p-3 hover:bg-emerald-50 dark:hover:bg-emerald-900/50 rounded-lg transition-colors group">
             <Gift className="size-4 text-emerald-600 group-hover:scale-110 transition-transform" />
-            <span className="text-sm text-gray-700 dark:text-emerald-200">المصادر التعليمية</span>
+            <span className="text-sm text-gray-700 dark:text-emerald-200">{t('user_profile.learning_resources')}</span>
           </Link>
         </div>
       </Card>
@@ -209,8 +211,8 @@ export default function UserProfileWidget() {
               <Crown className="size-5 text-emerald-600" />
             </div>
             <div className="flex-1">
-              <h4 className="font-semibold text-emerald-800 dark:text-emerald-300">العضوية المميزة</h4>
-              <p className="text-xs text-emerald-700 dark:text-emerald-400">نشطة حتى {new Date(user.subscription.end_date).toLocaleDateString('ar-SA')}</p>
+              <h4 className="font-semibold text-emerald-800 dark:text-emerald-300">{t('user_profile.premium_membership')}</h4>
+              <p className="text-xs text-emerald-700 dark:text-emerald-400">{t('user_profile.active_until', { date: new Date(user.subscription.end_date).toLocaleDateString('ar-SA') })}</p>
             </div>
           </div>
         </Card>

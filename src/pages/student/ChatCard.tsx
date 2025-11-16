@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import type { ChatProps } from "../../../types"
 import {  timeSince } from "../../utils/functions"
 import { Link, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 
 
 export default function ChatCard({ chat }: { chat: ChatProps }) {
+    const { t } = useTranslation();
     const [hash, setHash] = useState(window.location.hash);
     const [isActive,setIsActive] = useState(false);
     const location = useLocation()
@@ -29,7 +31,7 @@ export default function ChatCard({ chat }: { chat: ChatProps }) {
                 </div>
                 {/*  */}
                 <div className="flex items-center justify-between mt-1">
-                    <p className="text-xs text-slate-400"> {chat.last_msg?.text || 'ابدأ  المحادثة'} </p>
+                    <p className="text-xs text-slate-400"> {chat.last_msg?.text || t('chat_card.start_conversation')} </p>
                 </div>
             </div>
             {/*  */}

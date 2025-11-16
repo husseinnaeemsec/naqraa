@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { CourseDiscussionMessage, Enrollment, EnrollmentLecture } from "../../types";
 import api from "../api/client";
 import { endpoints } from "../api/routes";
@@ -18,6 +19,7 @@ interface CommentProps {
 }
 
 function Comment({ message, onReply }: CommentProps) {
+  const { t } = useTranslation();
   const [isReplying, setIsReplying] = useState(false);
   const [replyText, setReplyText] = useState("");
 
@@ -49,7 +51,7 @@ function Comment({ message, onReply }: CommentProps) {
             </h1>
             <span className="text-xs text-slate-500">
               {timeSinceAr(message.created_at)}
-              {isEdited && " (تم التعديل)"}
+              {isEdited && ` (${t('discussion.edited')})`}
             </span>
           </div>
 
@@ -61,7 +63,7 @@ function Comment({ message, onReply }: CommentProps) {
               onClick={() => setIsReplying((prev) => !prev)}
               className="hover:underline"
             >
-              رد
+              {t('discussion.reply')}
             </button>
           </div>
 
@@ -73,14 +75,14 @@ function Comment({ message, onReply }: CommentProps) {
                 onChange={(e) => setReplyText(e.target.value)}
                 className="w-full rounded-lg border p-2 text-sm focus:outline-none focus:ring focus:ring-emerald-300"
                 rows={2}
-                placeholder="اكتب ردك هنا..."
+                placeholder={t('discussion.reply_placeholder')}
               />
               <div className="flex gap-2 mt-2">
                 <button
                   onClick={handleReplySubmit}
                   className="px-3 py-1 bg-emerald-600 text-white text-sm rounded-lg hover:bg-emerald-700"
                 >
-                  إرسال
+                  {t('discussion.send')}
                 </button>
                 <button
                   onClick={() => {
@@ -89,7 +91,7 @@ function Comment({ message, onReply }: CommentProps) {
                   }}
                   className="px-3 py-1 bg-gray-200 text-sm rounded-lg hover:bg-gray-300"
                 >
-                  إلغاء
+                  {t('discussion.cancel')}
                 </button>
               </div>
             </div>
@@ -111,6 +113,7 @@ function Comment({ message, onReply }: CommentProps) {
 
 
 export default function DiscussionTab({ enrollment, activeLecture }: Props) {
+  const { t } = useTranslation();
   const {discussions} = useAppSelector(state=>state.enrollment);
   const dispatch = useAppDispatch();
   const [loading,setLoading] = useState(true);
@@ -127,7 +130,7 @@ export default function DiscussionTab({ enrollment, activeLecture }: Props) {
       .finally(()=>{ setLoading(false) })
   }, [activeLecture?.id]);
 
-  if(!discussions.length && loading) return <ResourceLoader  title="جاري تحميل المناقشات" />
+  if(!discussions.length && loading) return <ResourceLoader  title={t('discussion.loading')} />
 
   const handleReply = (parentId:number , content:string)=>{
     
@@ -135,11 +138,11 @@ export default function DiscussionTab({ enrollment, activeLecture }: Props) {
 
   return (
     <>
-      <h1 className="text-xl font-bold mb-2">المناقشة</h1>
+      <h1 className="text-xl font-bold mb-2">{t('discussion.title')}</h1>
       <div className="p-4">
         {discussions.length === 0 ? (
           <div className="h-40 w-full  flex items-center  justify-center lg:col-span-4 md:col-span-2 ">
-            لا توجد مناقشات لهذه المحاضرة
+            {t('discussion.no_discussions')}
           </div>
         ) : (
           discussions.map((message) => (

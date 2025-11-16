@@ -1,4 +1,5 @@
 import { useNavigate,useLocation, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import type { Notification } from "../../types";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { getMedia } from "../utils/functions";
@@ -7,11 +8,12 @@ import { useState } from "react";
 import { toggleSidebar } from "../store/uiSlice";
 
 function NotificationItem({ notification }: { notification: Notification }) {
+    const { t } = useTranslation();
 
     return (
         <div className="flex items-start px-3 gap-2 not-last:border-b pb-2 p-1 ">
-            {!notification.profile_picture && (<div className="min-w-8 min-h-8 text-xs rounded-full border flex centred"> اشعار </div>)}
-            {notification.profile_picture && (<img src={getMedia(notification.profile_picture)} alt="اشعار" className="min-w-8 min-h-8 text-xs border bg-white flex centred rounded-full" />)}
+            {!notification.profile_picture && (<div className="min-w-8 min-h-8 text-xs rounded-full border flex centred"> {t('dashboard_navbar.notification')} </div>)}
+            {notification.profile_picture && (<img src={getMedia(notification.profile_picture)} alt={t('dashboard_navbar.notification')} className="min-w-8 min-h-8 text-xs border bg-white flex centred rounded-full" />)}
             <div>
                 <h1 className="font-semibold"> {notification.title} </h1>
                 <p className="text-slate-500 text-xs"> {notification.content} </p>
@@ -21,6 +23,7 @@ function NotificationItem({ notification }: { notification: Notification }) {
 }
 
 export default function DashboardTopNavbar() {
+    const { t } = useTranslation();
     const { notifications } = useAppSelector(state => state.auth);
     const unread = notifications.filter(n => n.read === false);
     const [open, setOpen] = useState(false)
@@ -46,7 +49,7 @@ export default function DashboardTopNavbar() {
                 <button className="lg:hidden block" onClick={()=>{ dispatch(toggleSidebar()) }}> <HeroMenuIcon className="size-6" /> </button>
             </div>
             <div className="flex items-center gap-2">
-                <Link to="/courses/explore"> الدورات  </Link>
+                <Link to="/courses/explore"> {t('dashboard_navbar.courses')} </Link>
             </div>
             <div className="flex items-center gap-2 relative z-0">
                 <button onClick={()=>{ setOpen(prev => !prev) }} className="relative z-0">
@@ -57,7 +60,7 @@ export default function DashboardTopNavbar() {
                     open && (
                         <div className="w-96   max-h-[450px] overflow-y-auto bg-white border rounded-md absolute left-0 top-[110%] shadow">
                             <h1 className="text-xl p-3 border-b flex items-center justify-between bg-slate-50 font-semibold sticky top-0 z-0">
-                                الاشعارات
+                                {t('dashboard_navbar.notifications')}
                                 <button onClick={()=>{ setOpen(false) }}> <HeroXIcon className="size-5 cursor-pointer" /> </button>
                             </h1>
                             <ul className="flex flex-col  space-y-2">
@@ -66,7 +69,7 @@ export default function DashboardTopNavbar() {
                                 }
                             </ul>
                             <div className="sticky bottom-0 p-2 bg-slate-50 border-t mt-2">
-                                <button onClick={()=>{ setOpen(false) }} className="p-2 px-3 border bg-white"> اغلاق  </button>
+                                <button onClick={()=>{ setOpen(false) }} className="p-2 px-3 border bg-white"> {t('dashboard_navbar.close')} </button>
                             </div>
                         </div>
                     )

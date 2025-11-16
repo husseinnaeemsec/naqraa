@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import loader from "../assets/plug-and-play.svg";
 
 interface Props {
@@ -8,8 +9,10 @@ interface Props {
 }
 
 export default function PageLoader({ title, message, img }: Props) {
-  const defaultTitle = "جاري التحميل";
-  const defaultMessage = "الرجاء الانتظار بينما يتم تحميل الموارد";
+  const { t } = useTranslation();
+  
+  const defaultTitle = t('page_loader.loading');
+  const defaultMessage = t('page_loader.please_wait');
 
   return (
     <motion.div

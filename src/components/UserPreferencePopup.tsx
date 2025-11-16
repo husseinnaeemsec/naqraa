@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle, BookOpen, Clock, Target, Users, ArrowRight, ArrowLeft } from 'lucide-react';
 import api from '../api/client';
@@ -37,6 +38,7 @@ interface UserPreferencePopupProps {
 }
 
 const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClose }) => {
+    const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const [currentStep, setCurrentStep] = useState(1);
     const [subjects, setSubjects] = useState<Subject[]>([]);
@@ -60,40 +62,40 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
     });
 
     const studyTypes = [
-        { value: 'reading', label: 'القراءة', icon: <BookOpen className="w-6 h-6" />, description: 'أفضل المحتوى المكتوب والكتب' },
-        { value: 'watching', label: 'مشاهدة الفيديو', icon: '🎥', description: 'التعلم من خلال الفيديوهات التعليمية' },
-        { value: 'listening', label: 'الاستماع', icon: '🎧', description: 'المحتوى الصوتي والبودكاست' },
-        { value: 'interactive', label: 'التفاعلي', icon: '🎮', description: 'التمارين والأنشطة التفاعلية' },
-        { value: 'practice', label: 'الممارسة', icon: '✏️', description: 'حل التمارين والاختبارات' },
-        { value: 'mixed', label: 'متنوع', icon: '🔄', description: 'خليط من جميع الأنواع' },
+        { value: 'reading', label: t('user_preferences.study_types.reading.label'), icon: <BookOpen className="w-6 h-6" />, description: t('user_preferences.study_types.reading.description') },
+        { value: 'watching', label: t('user_preferences.study_types.watching.label'), icon: '🎥', description: t('user_preferences.study_types.watching.description') },
+        { value: 'listening', label: t('user_preferences.study_types.listening.label'), icon: '🎧', description: t('user_preferences.study_types.listening.description') },
+        { value: 'interactive', label: t('user_preferences.study_types.interactive.label'), icon: '🎮', description: t('user_preferences.study_types.interactive.description') },
+        { value: 'practice', label: t('user_preferences.study_types.practice.label'), icon: '✏️', description: t('user_preferences.study_types.practice.description') },
+        { value: 'mixed', label: t('user_preferences.study_types.mixed.label'), icon: '🔄', description: t('user_preferences.study_types.mixed.description') },
     ];
 
     const studyTimes = [
-        { value: 'morning', label: 'الصباح', time: '6 ص - 12 م', icon: '🌅' },
-        { value: 'afternoon', label: 'بعد الظهر', time: '12 م - 6 م', icon: '☀️' },
-        { value: 'evening', label: 'المساء', time: '6 م - 10 م', icon: '🌆' },
-        { value: 'night', label: 'الليل', time: '10 م - 2 ص', icon: '🌙' },
-        { value: 'flexible', label: 'مرن', time: 'أي وقت', icon: '🔄' },
+        { value: 'morning', label: t('user_preferences.study_times.morning.label'), time: t('user_preferences.study_times.morning.time'), icon: '🌅' },
+        { value: 'afternoon', label: t('user_preferences.study_times.afternoon.label'), time: t('user_preferences.study_times.afternoon.time'), icon: '☀️' },
+        { value: 'evening', label: t('user_preferences.study_times.evening.label'), time: t('user_preferences.study_times.evening.time'), icon: '🌆' },
+        { value: 'night', label: t('user_preferences.study_times.night.label'), time: t('user_preferences.study_times.night.time'), icon: '🌙' },
+        { value: 'flexible', label: t('user_preferences.study_times.flexible.label'), time: t('user_preferences.study_times.flexible.time'), icon: '🔄' },
     ];
 
     const studyGoals = [
-        { value: 'improve_grades', label: 'تحسين الدرجات الأكاديمية', icon: '📈', description: 'رفع المعدل والدرجات في المواد الدراسية' },
-        { value: 'exam_preparation', label: 'الاستعداد للامتحانات', icon: '📝', description: 'التحضير للامتحانات النهائية أو المعيارية' },
-        { value: 'skill_development', label: 'تطوير مهارات جديدة', icon: '🚀', description: 'اكتساب مهارات ومعرفة جديدة' },
-        { value: 'career_advancement', label: 'التقدم المهني', icon: '💼', description: 'تطوير المسار المهني والوظيفي' },
-        { value: 'personal_interest', label: 'اهتمام شخصي', icon: '❤️', description: 'التعلم كهواية أو اهتمام شخصي' },
-        { value: 'certification', label: 'الحصول على شهادات', icon: '🏆', description: 'الحصول على شهادات معتمدة' },
-        { value: 'catch_up', label: 'اللحاق بالمنهج', icon: '⏰', description: 'تعويض ما فات من المنهج الدراسي' },
-        { value: 'advance_learning', label: 'التعلم المتقدم', icon: '🎯', description: 'التعمق أكثر في المواد المفضلة' },
-        { value: 'competition_prep', label: 'التحضير للمسابقات', icon: '🥇', description: 'الاستعداد للمسابقات الأكاديمية' },
-        { value: 'general_knowledge', label: 'توسيع المعرفة العامة', icon: '🧠', description: 'زيادة الثقافة والمعرفة العامة' },
+        { value: 'improve_grades', label: t('user_preferences.study_goals.improve_grades.label'), icon: '📈', description: t('user_preferences.study_goals.improve_grades.description') },
+        { value: 'exam_preparation', label: t('user_preferences.study_goals.exam_preparation.label'), icon: '📝', description: t('user_preferences.study_goals.exam_preparation.description') },
+        { value: 'skill_development', label: t('user_preferences.study_goals.skill_development.label'), icon: '🚀', description: t('user_preferences.study_goals.skill_development.description') },
+        { value: 'career_advancement', label: t('user_preferences.study_goals.career_advancement.label'), icon: '💼', description: t('user_preferences.study_goals.career_advancement.description') },
+        { value: 'personal_interest', label: t('user_preferences.study_goals.personal_interest.label'), icon: '❤️', description: t('user_preferences.study_goals.personal_interest.description') },
+        { value: 'certification', label: t('user_preferences.study_goals.certification.label'), icon: '🏆', description: t('user_preferences.study_goals.certification.description') },
+        { value: 'catch_up', label: t('user_preferences.study_goals.catch_up.label'), icon: '⏰', description: t('user_preferences.study_goals.catch_up.description') },
+        { value: 'advance_learning', label: t('user_preferences.study_goals.advance_learning.label'), icon: '🎯', description: t('user_preferences.study_goals.advance_learning.description') },
+        { value: 'competition_prep', label: t('user_preferences.study_goals.competition_prep.label'), icon: '🥇', description: t('user_preferences.study_goals.competition_prep.description') },
+        { value: 'general_knowledge', label: t('user_preferences.study_goals.general_knowledge.label'), icon: '🧠', description: t('user_preferences.study_goals.general_knowledge.description') },
     ];
 
     const difficultyLevels = [
-        { value: 'beginner', label: 'مبتدئ', description: 'أبدأ من الأساسيات', color: 'text-green-600' },
-        { value: 'intermediate', label: 'متوسط', description: 'لدي معرفة أساسية', color: 'text-yellow-600' },
-        { value: 'advanced', label: 'متقدم', description: 'أريد محتوى متقدم', color: 'text-red-600' },
-        { value: 'mixed', label: 'متنوع', description: 'حسب الموضوع', color: 'text-blue-600' },
+        { value: 'beginner', label: t('user_preferences.difficulty_levels.beginner.label'), description: t('user_preferences.difficulty_levels.beginner.description'), color: 'text-green-600' },
+        { value: 'intermediate', label: t('user_preferences.difficulty_levels.intermediate.label'), description: t('user_preferences.difficulty_levels.intermediate.description'), color: 'text-yellow-600' },
+        { value: 'advanced', label: t('user_preferences.difficulty_levels.advanced.label'), description: t('user_preferences.difficulty_levels.advanced.description'), color: 'text-red-600' },
+        { value: 'mixed', label: t('user_preferences.difficulty_levels.mixed.label'), description: t('user_preferences.difficulty_levels.mixed.description'), color: 'text-blue-600' },
     ];
 
     useEffect(() => {
@@ -135,9 +137,9 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
             
             // Show success message with personalized recommendations promise
             SuccessAlert({
-                title: "🎉 تم حفظ تفضيلاتك بنجاح!",
-                text: "سنبذل قصارى جهدنا لتقديم أفضل المصادر والدورات والمواد التعليمية وتوصيات المجتمع المخصصة لك بناءً على أهدافك وتفضيلاتك الدراسية. استمتع بتجربة تعلم مخصصة تماماً لاحتياجاتك!",
-                confirmText: "ابدأ الرحلة",
+                title: t('user_preferences.success.title'),
+                text: t('user_preferences.success.message'),
+                confirmText: t('user_preferences.success.start_journey'),
                 onConfirm: () => {
                     onClose();
                 }
@@ -169,10 +171,10 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
             <div className="text-center space-y-2">
                 <BookOpen className="w-16 h-16 text-emerald-500 mx-auto" />
                 <h3 className="text-xl font-bold text-gray-900 dark:text-emerald-50">
-                    ما هي المواد التي تريد تحسينها؟
+                    {t('user_preferences.step1.title')}
                 </h3>
                 <p className="text-gray-600 dark:text-emerald-200">
-                    اختر المواد التي تركز عليها (يمكنك اختيار أكثر من مادة)
+                    {t('user_preferences.step1.description')}
                 </p>
             </div>
 
@@ -209,7 +211,7 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
             {preferences.subjects_to_improve_ids.length > 0 && (
                 <div className="text-center">
                     <p className="text-sm text-emerald-600 dark:text-emerald-400">
-                        تم اختيار {preferences.subjects_to_improve_ids.length} مادة
+                        {t('user_preferences.step1.selected_count', { count: preferences.subjects_to_improve_ids.length })}
                     </p>
                 </div>
             )}
@@ -226,10 +228,10 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
             <div className="text-center space-y-2">
                 <div className="text-4xl">📚</div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-emerald-50">
-                    كيف تفضل التعلم؟
+                    {t('user_preferences.step2.title')}
                 </h3>
                 <p className="text-gray-600 dark:text-emerald-200">
-                    اختر نوع المحتوى الذي تفضله
+                    {t('user_preferences.step2.description')}
                 </p>
             </div>
 
@@ -276,10 +278,10 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
             <div className="text-center space-y-2">
                 <Clock className="w-16 h-16 text-emerald-500 mx-auto" />
                 <h3 className="text-xl font-bold text-gray-900 dark:text-emerald-50">
-                    متى تفضل الدراسة؟
+                    {t('user_preferences.step3.title')}
                 </h3>
                 <p className="text-gray-600 dark:text-emerald-200">
-                    اختر الوقت المناسب لك للتعلم
+                    {t('user_preferences.step3.description')}
                 </p>
             </div>
 
@@ -317,12 +319,12 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
             </div>
 
             <div className="space-y-4">
-                <h4 className="font-medium text-gray-900 dark:text-emerald-50">تفضيلات المحتوى</h4>
+                <h4 className="font-medium text-gray-900 dark:text-emerald-50">{t('user_preferences.step3.content_preferences')}</h4>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-emerald-300 mb-2">
-                            مدة الفيديو المفضلة (بالدقائق)
+                            {t('user_preferences.step3.video_duration_label')}
                         </label>
                         <input
                             type="range"
@@ -336,15 +338,15 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
                             className="w-full"
                         />
                         <div className="flex justify-between text-xs text-gray-500 dark:text-emerald-400">
-                            <span>5 دقائق</span>
-                            <span>{preferences.max_video_duration} دقيقة</span>
-                            <span>60 دقيقة</span>
+                            <span>{t('user_preferences.step3.video_duration_min')}</span>
+                            <span>{t('user_preferences.step3.video_duration_current', { duration: preferences.max_video_duration })}</span>
+                            <span>{t('user_preferences.step3.video_duration_max')}</span>
                         </div>
                     </div>
 
                     <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-emerald-300 mb-2">
-                            مدة القراءة المفضلة (بالدقائق)
+                            {t('user_preferences.step3.reading_duration_label')}
                         </label>
                         <input
                             type="range"
@@ -358,9 +360,9 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
                             className="w-full"
                         />
                         <div className="flex justify-between text-xs text-gray-500 dark:text-emerald-400">
-                            <span>5 دقائق</span>
-                            <span>{preferences.max_reading_time} دقيقة</span>
-                            <span>45 دقيقة</span>
+                            <span>{t('user_preferences.step3.reading_duration_min')}</span>
+                            <span>{t('user_preferences.step3.reading_duration_current', { duration: preferences.max_reading_time })}</span>
+                            <span>{t('user_preferences.step3.reading_duration_max')}</span>
                         </div>
                     </div>
                 </div>
@@ -378,17 +380,17 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
             <div className="text-center space-y-2">
                 <Target className="w-16 h-16 text-emerald-500 mx-auto" />
                 <h3 className="text-xl font-bold text-gray-900 dark:text-emerald-50">
-                    ما هو هدفك من التعلم؟
+                    {t('user_preferences.step4.title')}
                 </h3>
                 <p className="text-gray-600 dark:text-emerald-200">
-                    اكتب هدفك ليساعدنا في تخصيص المحتوى لك
+                    {t('user_preferences.step4.description')}
                 </p>
             </div>
 
             <div className="space-y-4">
                 <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-emerald-300 mb-4">
-                        هدفي من التعلم *
+                        {t('user_preferences.step4.goal_label')}
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {studyGoals.map((goal) => (
@@ -430,7 +432,7 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
 
                 <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-emerald-300 mb-2">
-                        مستوى الصعوبة المفضل
+                        {t('user_preferences.step4.difficulty_label')}
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {difficultyLevels.map((level) => (
@@ -465,7 +467,7 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
 
                 <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-emerald-300 mb-2">
-                        هدف ساعات الدراسة الأسبوعية: {preferences.weekly_study_hours_goal} ساعة
+                        {t('user_preferences.step4.weekly_hours_label', { hours: preferences.weekly_study_hours_goal })}
                     </label>
                     <input
                         type="range"
@@ -479,9 +481,9 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
                         className="w-full"
                     />
                     <div className="flex justify-between text-xs text-gray-500 dark:text-emerald-400">
-                        <span>ساعة واحدة</span>
-                        <span>25 ساعة</span>
-                        <span>50 ساعة</span>
+                        <span>{t('user_preferences.step4.hours_one')}</span>
+                        <span>{t('user_preferences.step4.hours_25')}</span>
+                        <span>{t('user_preferences.step4.hours_50')}</span>
                     </div>
                 </div>
             </div>
@@ -489,7 +491,7 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
             <div className="space-y-3">
                 <h4 className="font-medium text-gray-900 dark:text-emerald-50 flex items-center gap-2">
                     <Users className="w-5 h-5" />
-                    التفضيلات الاجتماعية
+                    {t('user_preferences.step4.social_preferences')}
                 </h4>
                 
                 <div className="space-y-3">
@@ -504,7 +506,7 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
                             className="w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500"
                         />
                         <span className="text-gray-900 dark:text-emerald-50">
-                            أهتم بالانضمام للمجتمعات الدراسية
+                            {t('user_preferences.step4.interested_in_communities')}
                         </span>
                     </label>
                     
@@ -519,7 +521,7 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
                             className="w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500"
                         />
                         <span className="text-gray-900 dark:text-emerald-50">
-                            أرغب في المشاركة في مجموعات الدراسة
+                            {t('user_preferences.step4.interested_in_study_groups')}
                         </span>
                     </label>
                 </div>
@@ -548,10 +550,10 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
                     <div className="p-6 border-b border-gray-200 dark:border-emerald-800 flex items-center justify-between">
                         <div>
                             <h2 className="text-2xl font-bold text-gray-900 dark:text-emerald-50">
-                                إعداد التفضيلات
+                                {t('user_preferences.header.title')}
                             </h2>
                             <p className="text-gray-600 dark:text-emerald-200 text-sm">
-                                الخطوة {currentStep} من 4
+                                {t('user_preferences.header.step_counter', { current: currentStep, total: 4 })}
                             </p>
                         </div>
                         <button
@@ -593,7 +595,7 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
                             className="flex items-center gap-2"
                         >
                             <ArrowRight className="w-4 h-4" />
-                            السابق
+                            {t('user_preferences.navigation.previous')}
                         </Button>
 
                         <div className="flex items-center gap-2">
@@ -603,7 +605,7 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
                                     disabled={!canProceed()}
                                     className="flex items-center gap-2"
                                 >
-                                    التالي
+                                    {t('user_preferences.navigation.next')}
                                     <ArrowLeft className="w-4 h-4" />
                                 </Button>
                             ) : (
@@ -612,7 +614,7 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
                                     disabled={!canProceed() || submitting}
                                     className="flex items-center gap-2"
                                 >
-                                    {submitting ? 'جاري الحفظ...' : 'إنهاء الإعداد'}
+                                    {submitting ? t('user_preferences.navigation.saving') : t('user_preferences.navigation.finish')}
                                     <CheckCircle className="w-4 h-4" />
                                 </Button>
                             )}

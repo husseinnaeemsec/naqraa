@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Check, X, Crown, Zap, Users, BookOpen, Shield, CreditCard } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import api from "../../api/client";
 import { endpoints } from "../../api/routes";
 import Spinner from "../../components/Spinner";
@@ -10,6 +11,7 @@ import Swal from "sweetalert2";
 import { useAppSelector } from "../../store/store";
 
 export default function SubscriptionPage() {
+  const { t } = useTranslation();
   const [plans, setPlans] = useState<SubscriptionPlan[]>([]);
   const [currentSubscription, setCurrentSubscription] = useState<SubscriptionType | null>(null);
   const [loading, setLoading] = useState(true);
@@ -33,20 +35,20 @@ export default function SubscriptionPage() {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('success') === 'true') {
       Swal.fire({
-        title: 'تم بنجاح!',
-        text: 'تم تفعيل اشتراكك بنجاح. مرحباً بك!',
+        title: t('subscription_page.success'),
+        text: t('subscription_page.subscription_activated'),
         icon: 'success',
-        confirmButtonText: 'حسنا'
+        confirmButtonText: t('subscription_page.ok')
       }).then(() => {
         // Clear URL params
         window.history.replaceState({}, document.title, window.location.pathname);
       });
     } else if (urlParams.get('cancelled') === 'true') {
       Swal.fire({
-        title: 'تم إلغاء العملية',
-        text: 'تم إلغاء عملية الدفع. يمكنك المحاولة مرة أخرى.',
+        title: t('subscription_page.cancelled'),
+        text: t('subscription_page.payment_cancelled'),
         icon: 'info',
-        confirmButtonText: 'حسنا'
+        confirmButtonText: t('subscription_page.ok')
       }).then(() => {
         window.history.replaceState({}, document.title, window.location.pathname);
       });
@@ -75,10 +77,10 @@ export default function SubscriptionPage() {
         setPlans(plansRes.data || []);
       } catch (err: any) {
         console.error("Error loading plans:", err);
-        setError("حدث خطأ في تحميل خطط الاشتراك");
+        setError(t('subscription_page.error_loading_plans'));
       }
     } catch (err: any) {
-      setError(err.response?.data?.message || "حدث خطأ في تحميل البيانات");
+      setError(err.response?.data?.message || t('subscription_page.error_loading_data'));
     } finally {
       setLoading(false);
     }
@@ -99,31 +101,31 @@ export default function SubscriptionPage() {
       // Handle free plans
       if (selectedPlan.is_free) {
         let confirmationConfig: any = {
-          title: 'تأكيد الاشتراك',
-          text: `هل تريد تفعيل الخطة المجانية: ${selectedPlan.name_ar || selectedPlan.name}؟`,
+          title: t('subscription_page.confirm_subscription'),
+          text: t('subscription_page.activate_free_plan_confirm', { plan: selectedPlan.name_ar || selectedPlan.name }),
           icon: 'question',
           showCancelButton: true,
-          confirmButtonText: 'نعم، فعّل',
-          cancelButtonText: 'إلغاء'
+          confirmButtonText: t('subscription_page.yes_activate'),
+          cancelButtonText: t('subscription_page.cancel')
         };
 
         // Add warning if user has existing subscription
         if (hasExistingSubscription) {
           confirmationConfig = {
-            title: '⚠️ تحذير - استبدال الاشتراك',
+            title: t('subscription_page.warning_replace_subscription'),
             html: `
               <div class="text-right">
-                <p class="text-red-600 font-bold mb-3">⚠️ تحذير مهم:</p>
-                <p class="mb-2">لديك حاليا اشتراك نشط في خطة: <strong>${currentSubscription.plan.name_ar || currentSubscription.plan.name}</strong></p>
-                <p class="mb-2">بتفعيل الخطة الجديدة: <strong>${selectedPlan.name_ar || selectedPlan.name}</strong></p>
-                <p class="text-red-600 mb-3">سيتم إلغاء اشتراكك الحالي نهائياً واستبداله بالخطة الجديدة</p>
-                <p class="text-sm text-gray-600">الأيام المتبقية في اشتراكك الحالي: ${currentSubscription.remaining_days} يوم</p>
+                <p class="text-red-600 font-bold mb-3">⚠️ ${t('subscription_page.important_warning')}:</p>
+                <p class="mb-2">${t('subscription_page.current_active_plan')}: <strong>${currentSubscription.plan.name_ar || currentSubscription.plan.name}</strong></p>
+                <p class="mb-2">${t('subscription_page.new_plan_activation')}: <strong>${selectedPlan.name_ar || selectedPlan.name}</strong></p>
+                <p class="text-red-600 mb-3">${t('subscription_page.will_cancel_current')}</p>
+                <p class="text-sm text-gray-600">${t('subscription_page.remaining_days_current')}: ${currentSubscription.remaining_days} ${t('subscription_page.days')}</p>
               </div>
             `,
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'نعم، استبدل الاشتراك',
-            cancelButtonText: 'إلغاء'
+            confirmButtonText: t('subscription_page.yes_replace_subscription'),
+            cancelButtonText: t('subscription_page.cancel')
           };
         }
 
@@ -137,10 +139,10 @@ export default function SubscriptionPage() {
           
           if (freeResponse.data.success) {
             Swal.fire({
-              title: 'نجح!',
-              text: 'تم تفعيل الخطة المجانية بنجاح!',
+              title: t('subscription_page.success'),
+              text: t('subscription_page.free_plan_activated'),
               icon: 'success',
-              confirmButtonText: 'حسنا'
+              confirmButtonText: t('subscription_page.ok')
             });
             await loadData();
           }
@@ -150,39 +152,39 @@ export default function SubscriptionPage() {
 
       // Handle paid plans - First show subscription replacement warning if needed
       let confirmationConfig: any = {
-        title: 'تأكيد الاشتراك',
+        title: t('subscription_page.confirm_subscription'),
         html: `
           <div class="text-right">
-            <p><strong>الخطة:</strong> ${selectedPlan.name_ar || selectedPlan.name}</p>
-            <p><strong>السعر:</strong> $${selectedPlan.price} / ${selectedPlan.duration_months > 1 ? `${selectedPlan.duration_months} أشهر` : 'شهر'}</p>
-            <p class="text-sm text-gray-600 mt-2">سيتم توجيهك إلى صفحة الدفع الآمنة</p>
+            <p><strong>${t('subscription_page.plan')}:</strong> ${selectedPlan.name_ar || selectedPlan.name}</p>
+            <p><strong>${t('subscription_page.price')}:</strong> $${selectedPlan.price} / ${selectedPlan.duration_months > 1 ? t('subscription_page.months', { count: selectedPlan.duration_months }) : t('subscription_page.month')}</p>
+            <p class="text-sm text-gray-600 mt-2">${t('subscription_page.redirect_to_payment')}</p>
           </div>
         `,
         icon: 'info',
         showCancelButton: true,
-        confirmButtonText: 'متابعة للدفع',
-        cancelButtonText: 'إلغاء'
+        confirmButtonText: t('subscription_page.continue_to_payment'),
+        cancelButtonText: t('subscription_page.cancel')
       };
 
       // Add warning for existing subscription replacement
       if (hasExistingSubscription) {
         confirmationConfig = {
-          title: '⚠️ تحذير - استبدال الاشتراك المدفوع',
+          title: t('subscription_page.warning_replace_paid_subscription'),
           html: `
             <div class="text-right">
-              <p class="text-red-600 font-bold mb-3">⚠️ تحذير مهم:</p>
-              <p class="mb-2">لديك حاليا اشتراك نشط في خطة: <strong>${currentSubscription.plan.name_ar || currentSubscription.plan.name}</strong></p>
-              <p class="mb-2">الخطة الجديدة: <strong>${selectedPlan.name_ar || selectedPlan.name}</strong> - $${selectedPlan.price}</p>
-              <p class="text-red-600 mb-2">سيتم إلغاء اشتراكك الحالي نهائياً واستبداله بالخطة الجديدة</p>
-              <p class="text-orange-600 mb-3">لن يتم استرداد المبلغ المدفوع للخطة الحالية</p>
-              <p class="text-sm text-gray-600 border-t pt-2">الأيام المتبقية في اشتراكك الحالي: ${currentSubscription.remaining_days} يوم</p>
-              <p class="text-sm text-gray-600 mt-1">سيتم توجيهك إلى صفحة الدفع الآمنة</p>
+              <p class="text-red-600 font-bold mb-3">⚠️ ${t('subscription_page.important_warning')}:</p>
+              <p class="mb-2">${t('subscription_page.current_active_plan')}: <strong>${currentSubscription.plan.name_ar || currentSubscription.plan.name}</strong></p>
+              <p class="mb-2">${t('subscription_page.new_plan_name')}: <strong>${selectedPlan.name_ar || selectedPlan.name}</strong> - $${selectedPlan.price}</p>
+              <p class="text-red-600 mb-2">${t('subscription_page.will_cancel_current')}</p>
+              <p class="text-orange-600 mb-3">${t('subscription_page.no_refund')}</p>
+              <p class="text-sm text-gray-600 border-t pt-2">${t('subscription_page.remaining_days_current')}: ${currentSubscription.remaining_days} ${t('subscription_page.days')}</p>
+              <p class="text-sm text-gray-600 mt-1">${t('subscription_page.redirect_to_payment')}</p>
             </div>
           `,
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonText: 'نعم، استبدل الاشتراك والدفع',
-          cancelButtonText: 'إلغاء'
+          confirmButtonText: t('subscription_page.yes_replace_and_pay'),
+          cancelButtonText: t('subscription_page.cancel')
         };
       }
 
@@ -209,13 +211,13 @@ export default function SubscriptionPage() {
       }
       
     } catch (err: any) {
-      const errorMessage = err.response?.data?.error || err.response?.data?.message || "حدث خطأ في معالجة الدفع";
+      const errorMessage = err.response?.data?.error || err.response?.data?.message || t('subscription_page.payment_error');
       setError(errorMessage);
       Swal.fire({
-        title: 'خطأ!',
+        title: t('subscription_page.error'),
         text: errorMessage,
         icon: 'error',
-        confirmButtonText: 'حسنا'
+        confirmButtonText: t('subscription_page.ok')
       });
     } finally {
       setProcessingPlan(null);
@@ -242,7 +244,7 @@ export default function SubscriptionPage() {
         <div className="text-center">
           <Spinner />
           <p className="mt-4 text-gray-600">
-            {loading ? 'جاري تحميل البيانات...' : 'جاري تجهيز عملية الدفع...'}
+            {loading ? t('subscription_page.loading_data') : t('subscription_page.preparing_payment')}
           </p>
         </div>
       </div>
@@ -259,7 +261,7 @@ export default function SubscriptionPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4"
           >
-            ارتقِ بتجربتك التعليمية
+            {t('subscription_page.upgrade_experience')}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -267,7 +269,7 @@ export default function SubscriptionPage() {
             transition={{ delay: 0.1 }}
             className="text-xl text-gray-600 max-w-3xl mx-auto"
           >
-            اختر الخطة التي تناسب احتياجاتك وأهدافك التعليمية
+            {t('subscription_page.choose_plan')}
           </motion.p>
         </div>
 
@@ -282,16 +284,16 @@ export default function SubscriptionPage() {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">
-                  الاشتراك الحالي: {currentSubscription.plan.name_ar || currentSubscription.plan.name}
+                  {t('subscription_page.current_subscription')}: {currentSubscription.plan.name_ar || currentSubscription.plan.name}
                 </h3>
                 <p className="text-gray-600">
-                  ينتهي في: {new Date(currentSubscription.end_date).toLocaleDateString('ar')}
+                  {t('subscription_page.expires_on')}: {new Date(currentSubscription.end_date).toLocaleDateString('ar')}
                 </p>
                 <p className="text-sm text-gray-500">
-                  الحالة: {currentSubscription.is_active_subscription ? 'نشط' : 'غير نشط'}
+                  {t('subscription_page.status')}: {currentSubscription.is_active_subscription ? t('subscription_page.active') : t('subscription_page.inactive')}
                 </p>
                 <p className="text-sm text-gray-500">
-                  الأيام المتبقية: {currentSubscription.remaining_days}
+                  {t('subscription_page.days_remaining')}: {currentSubscription.remaining_days}
                 </p>
               </div>
               <div className="text-emerald-600">
@@ -330,7 +332,7 @@ export default function SubscriptionPage() {
               {plan.is_popular && (
                 <div className="absolute top-0 left-0 right-0">
                   <div className="bg-gradient-to-r from-emerald-500 to-blue-500 text-white text-center py-2 text-sm font-medium">
-                    الأكثر شعبية
+                    {t('subscription_page.most_popular')}
                   </div>
                 </div>
               )}
@@ -355,7 +357,7 @@ export default function SubscriptionPage() {
                 <div className="text-center mb-8">
                   {plan.is_free ? (
                     <span className="text-4xl font-bold text-emerald-600">
-                      مجانية
+                      {t('subscription_page.free')}
                     </span>
                   ) : (
                     <>
@@ -363,7 +365,7 @@ export default function SubscriptionPage() {
                         ${plan.price}
                       </span>
                       <span className="text-gray-600 mr-2">
-                        / {plan.duration_months > 1 ? `${plan.duration_months} أشهر` : 'شهر'}
+                        / {plan.duration_months > 1 ? t('subscription_page.months', { count: plan.duration_months }) : t('subscription_page.month')}
                       </span>
                     </>
                   )}
@@ -390,7 +392,7 @@ export default function SubscriptionPage() {
                   <div className="mb-4 p-3 bg-orange-50 border border-orange-200 rounded-lg">
                     <div className="flex items-center text-orange-800 text-sm">
                       <X className="w-4 h-4 ml-2 text-orange-600" />
-                      <span>سيتم استبدال اشتراكك الحالي ({currentSubscription.plan.name_ar || currentSubscription.plan.name})</span>
+                      <span>{t('subscription_page.will_replace_current', { plan: currentSubscription.plan.name_ar || currentSubscription.plan.name })}</span>
                     </div>
                   </div>
                 )}
@@ -411,21 +413,21 @@ export default function SubscriptionPage() {
                   {processingPlan === plan.id ? (
                     <div className="flex items-center justify-center">
                       <Spinner />
-                      <span className="mr-2">جاري المعالجة...</span>
+                      <span className="mr-2">{t('subscription_page.processing')}</span>
                     </div>
                   ) : currentSubscription?.plan.id === plan.id ? (
-                    'الخطة الحالية'
+                    t('subscription_page.current_plan')
                   ) : (
                     <div className="flex items-center justify-center">
                       {currentSubscription && currentSubscription.is_active_subscription && currentSubscription.plan.id !== plan.id ? (
                         <>
                           <X className="w-4 h-4 ml-2" />
-                          {plan.is_free ? 'استبدال بخطة مجانية' : 'استبدال الاشتراك'}
+                          {plan.is_free ? t('subscription_page.replace_with_free') : t('subscription_page.replace_subscription')}
                         </>
                       ) : (
                         <>
                           {!plan.is_free && <CreditCard className="w-4 h-4 ml-2" />}
-                          {plan.is_free ? 'تفعيل الخطة' : 'اختيار الخطة'}
+                          {plan.is_free ? t('subscription_page.activate_plan') : t('subscription_page.select_plan')}
                         </>
                       )}
                     </div>
@@ -444,23 +446,23 @@ export default function SubscriptionPage() {
           className="mt-20 text-center"
         >
           <h2 className="text-3xl font-bold text-gray-900 mb-8">
-            أسئلة شائعة
+            {t('subscription_page.faq')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="bg-white rounded-xl p-6 shadow-sm">
               <h3 className="font-semibold text-gray-900 mb-2">
-                هل يمكنني إلغاء الاشتراك في أي وقت؟
+                {t('subscription_page.faq_cancel_question')}
               </h3>
               <p className="text-gray-600">
-                نعم، يمكنك إلغاء اشتراكك في أي وقت من لوحة التحكم. ستحتفظ بالوصول حتى نهاية فترة الاشتراك.
+                {t('subscription_page.faq_cancel_answer')}
               </p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-sm">
               <h3 className="font-semibold text-gray-900 mb-2">
-                هل توجد فترة تجريبية مجانية؟
+                {t('subscription_page.faq_trial_question')}
               </h3>
               <p className="text-gray-600">
-                نعم، جميع الخطط تأتي مع فترة تجريبية مجانية لمدة 7 أيام.
+                {t('subscription_page.faq_trial_answer')}
               </p>
             </div>
           </div>

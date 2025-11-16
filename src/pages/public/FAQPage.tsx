@@ -1,31 +1,34 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-const faqs = [
+const getFaqs = (t: any) => [
   {
-    question: "ما هي خدمة مشاريع التخرج في نقرا؟",
-    answer: "خدمة شاملة لدعم الطلاب في مشاريع التخرج من توليد الفكرة حتى العرض النهائي، تشمل دعم برمجي، مراجعة أكاديمية، وقوالب جاهزة."
+    question: t('faq.graduation_projects_question'),
+    answer: t('faq.graduation_projects_answer')
   },
   {
-    question: "كيف يمكنني التواصل مع الدعم الفني؟",
-    answer: "يمكنك استخدام صفحة الدعم لإرسال طلبك أو الاتصال بنا مباشرة عبر البريد الإلكتروني أو الهاتف المدرج في صفحة الاتصال."
+    question: t('faq.technical_support_question'),
+    answer: t('faq.technical_support_answer')
   },
   {
-    question: "هل الموارد التعليمية مجانية؟",
-    answer: "نعم، جميع الدورات والملخصات والمراجع متاحة مجاناً للطلاب على منصة نقرا.",
+    question: t('faq.free_resources_question'),
+    answer: t('faq.free_resources_answer')
   },
   {
-    question: "هل هناك شهادات للدورات المهنية؟",
-    answer: "نعم، بعد إتمام الدورة المهنية بنجاح ستتلقى شهادة إتمام يمكن استخدامها في سوق العمل.",
+    question: t('faq.certificates_question'),
+    answer: t('faq.certificates_answer')
   },
   {
-    question: "كيف يمكنني مشاركة أبحاثي أو مشاريعي؟",
-    answer: "يمكنك رفع ملفاتك على منصة نقرا ضمن مجتمعك أو الدورة الخاصة بك، أو من خلال لوحة التحكم في المشاريع.",
+    question: t('faq.share_research_question'),
+    answer: t('faq.share_research_answer')
   }
 ];
 
 export default function FAQPage() {
+  const { t } = useTranslation();
+  const faqs = getFaqs(t);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const toggleFAQ = (index: number) => {
@@ -40,7 +43,7 @@ export default function FAQPage() {
         transition={{ duration: 0.8 }}
         className="text-center text-5xl md:text-6xl font-extrabold text-emerald-700 mb-16"
       >
-        الأسئلة الشائعة
+        {t('faq.title')}
       </motion.h1>
 
       <div className="max-w-4xl mx-auto space-y-6">
@@ -67,9 +70,9 @@ export default function FAQPage() {
 
       {/* Footer CTA */}
       <div className="text-center mt-20">
-        <p className="text-lg text-slate-700 mb-4">لم تجد إجابتك؟</p>
+        <p className="text-lg text-slate-700 mb-4">{t('faq.not_found_answer')}</p>
         <Link to={'/contact'} className="px-10 py-4 bg-emerald-600 text-white rounded-xl text-xl font-bold hover:bg-emerald-700 transition">
-          تواصل معنا
+          {t('faq.contact_us')}
         </Link>
       </div>
 

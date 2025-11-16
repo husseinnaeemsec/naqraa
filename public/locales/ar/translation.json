@@ -256,5 +256,934 @@
       "cta": "ابدأ بحثك الآن",
       "reverseLayout": false
     }
-  ]
+  ],
+  "boards": {
+    "title": "لوحات التخطيط",
+    "subtitle": "نظم وتابع مهامك بفعالية",
+    "new_board": "لوحة جديدة",
+    "tasks": "مهمة",
+    "open": "فتح",
+    "view": "عرض",
+    "edit": "تعديل",
+    "create_new_board": "إنشاء لوحة جديدة",
+    "start_organizing_tasks": "ابدأ بتنظيم مهامك الجديدة",
+    "sample_board": "لوحة عمل تجريبية",
+    "daily_tasks": {
+      "name": "لوحة المهام اليومية",
+      "description": "تنظيم ومتابعة المهام اليومية",
+      "updated": "منذ ساعتين"
+    },
+    "research_project": {
+      "name": "مشروع البحث",
+      "description": "متابعة تقدم مشروع البحث العلمي",
+      "updated": "أمس"
+    },
+    "study_plan": {
+      "name": "خطة الدراسة",
+      "description": "جدولة وتنظيم الدروس والمراجعة",
+      "updated": "منذ 3 أيام"
+    },
+    "kanban": {
+      "todo": "قائمة المهام",
+      "in_progress": "قيد التنفيذ",
+      "done": "مكتمل",
+      "tasks": {
+        "math_review": "مراجعة الرياضيات",
+        "assigned_to_mohammad": "محمد",
+        "write_report": "كتابة التقرير",
+        "due_tomorrow": "غداً",
+        "solve_exercises": "حل التمارين",
+        "assigned_to_fatima": "فاطمة",
+        "read_chapter_one": "قراءة الفصل الأول",
+        "completed_two_days_ago": "منذ يومين"
+      }
+    }
+  },
+  "recommended_quizzes": {
+    "title": "الاختبارات المقترحة",
+    "error_loading": "فشل في تحميل الاختبارات المقترحة",
+    "retry": "إعادة المحاولة",
+    "minutes": "د",
+    "questions": "سؤال",
+    "no_quizzes": "لا توجد اختبارات مقترحة حالياً",
+    "view_all": "عرض جميع الاختبارات",
+    "difficulty": {
+      "easy": "سهل",
+      "medium": "متوسط",
+      "hard": "صعب"
+    },
+    "sample_quiz_1": {
+      "title": "أساسيات الجبر",
+      "description": "اختبار شامل في أساسيات الجبر والمعادلات",
+      "subject": "الرياضيات",
+      "reason": "بناءً على مستواك الحالي"
+    },
+    "sample_quiz_2": {
+      "title": "قواعد اللغة العربية",
+      "description": "اختبار في قواعد النحو والصرف",
+      "subject": "اللغة العربية",
+      "reason": "لتحسين أدائك"
+    }
+  },
+  "useful_resources": {
+    "title": "مصادر مقترحة",
+    "subtitle": "مصادر تعليمية مفيدة لتطوير مهاراتك",
+    "view_all": "عرض الكل",
+    "no_resources": "لا توجد مصادر متاحة حالياً",
+    "browse_all": "تصفح جميع المصادر",
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ في تحميل المصادر",
+    "retry": "إعادة المحاولة",
+    "resource_types": {
+      "PDF": "ملف PDF",
+      "VIDEO": "فيديو",
+      "LINK": "رابط",
+      "IMAGE": "صورة",
+      "AUDIO": "ملف صوتي",
+      "DOCUMENT": "مستند"
+    },
+    "sample_resources": {
+      "advanced_algorithms": "خوارزميات متقدمة",
+      "machine_learning_guide": "دليل تعلم الآلة",
+      "web_security_basics": "أساسيات أمان الويب",
+      "database_design": "تصميم قواعد البيانات",
+      "mobile_development": "تطوير التطبيقات المحمولة"
+    }
+  },
+  "course_card": {
+    "course_badge": "دورة",
+    "view_details": "عرض التفاصيل"
+  },
+  "study_chart": {
+    "title": "عدد ساعات الدراسة الأسبوعي",
+    "hours_label": "ساعات الدراسة",
+    "days": {
+      "saturday": "السبت",
+      "sunday": "الأحد",
+      "monday": "الإثنين",
+      "tuesday": "الثلاثاء",
+      "wednesday": "الأربعاء",
+      "thursday": "الخميس",
+      "friday": "الجمعة"
+    }
+  },
+  "dashboard_navbar": {
+    "notification": "اشعار",
+    "courses": "الدورات",
+    "notifications": "الاشعارات",
+    "close": "إغلاق"
+  },
+  "pagination": {
+    "previous": "السابق",
+    "next": "التالي"
+  },
+  "quiz_notes": {
+    "title": "ملاحظات مهمة قبل بدأ الاختبار",
+    "stable_internet": "تأكد من أن يكون اتصالك بالإنترنت مستقر",
+    "when_clicking": "عند الضغط على",
+    "start_quiz": "ابدأ الاختبار",
+    "no_leaving": "يمنع مغادرة أو تغيير الصفحة أثناء الاختبار",
+    "no_going_back": "لا يمكنك الرجوع إلى الأسئلة السابقة بعد الانتقال للسؤال التالي",
+    "answer_carefully": "احرص على الإجابة بدقة",
+    "time_tracking": "سيتم احتساب الوقت الذي استغرقته لإكمال الاختبار",
+    "no_rush": "لا تستعجل في الإجابة حيث أن الوقت المستغرق لأخذ الاختبار غير مهم",
+    "leaving_fails": "في حالة مغادرة الصفحة أو تقليل التبويب، سيتم اعتبارك راسبًا",
+    "no_cheating": "لا تحاول الغش أو تبديل التبويبات",
+    "understood": "فهمت"
+  },
+  "chat": {
+    "error": "خطأ",
+    "invalid_chat_id": "معرف المحادثة غير صالح",
+    "not_found": "لم يتم العثور على المحادثة",
+    "connection_failed": "فشل الاتصال بالخادم",
+    "connection_lost": "تم قطع الاتصال بالخادم",
+    "loading_failed": "تعذر تحميل المحادثة",
+    "please_wait": "الرجاء الانتظار ...",
+    "loading_chat": "جاري تحميل المحادثة",
+    "retry": "إعادة المحاولة"
+  },
+  "settings": {
+    "notifications": {
+      "title": "الإشعارات",
+      "updated_notifications": "تم حفظ إعدادات الإشعارات بنجاح",
+      "save_error": "تعذر حفظ إعدادات الإشعارات",
+      "email_notifications": "إشعارات البريد الإلكتروني",
+      "push_notifications": "الإشعارات الفورية",
+      "study_reminders": "تذكيرات الدراسة",
+      "newsletter": "النشرة البريدية",
+      "repeat_reminders": "تكرار التذكيرات",
+      "repeat_reminders_options": {
+        "daily": "يومياً",
+        "weekly": "أسبوعياً",
+        "monthly": "شهرياً"
+      }
+    }
+  },
+  "verification": {
+    "verifying": "جاري التحقق من حسابك...",
+    "success_message": "تم تفعيل حسابك بنجاح",
+    "success_title": "تم تفعيل حسابك بنجاح 🎉",
+    "redirecting": "سيتم تحويلك إلى تسجيل الدخول خلال ثانيتين...",
+    "invalid_link": "رابط التحقق غير صالح أو منتهي الصلاحية",
+    "error_occurred": "حدث خطأ أثناء التحقق، حاول لاحقاً",
+    "failed_title": "فشل التحقق من الحساب",
+    "resend_link": "أرسل رابط تحقق جديد"
+  },
+  "discussion": {
+    "title": "المناقشة",
+    "edited": "تم التعديل",
+    "reply": "رد",
+    "reply_placeholder": "اكتب ردك هنا...",
+    "send": "إرسال",
+    "cancel": "إلغاء",
+    "loading": "جاري تحميل المناقشات",
+    "no_discussions": "لا توجد مناقشات لهذه المحاضرة"
+  },
+  "sidebar": {
+    "dashboard": "لوحة التحكم",
+    "courses": "المقررات",
+    "timetable": "الجدول الزمني",
+    "todo": "قائمة المهام",
+    "notifications": "الإشعارات",
+    "organization": "المنظمة",
+    "subscription": "الاشتراك",
+    "quizzes": "الاختبارات",
+    "chat": "المحادثة",
+    "community": "المجتمع",
+    "files": "الملفات",
+    "settings": "الإعدادات",
+    "logout_confirm_title": "هل أنت متأكد؟",
+    "logout_confirm_text": "سيتم تسجيل خروجك من الحساب",
+    "logout_confirm_yes": "نعم، تسجيل الخروج",
+    "logout_confirm_cancel": "إلغاء",
+    "logout_success": "تم تسجيل الخروج",
+    "slogan": "التعليم حق مجاني لكل إنسان"
+  },
+  "quiz_question": {
+    "no_questions": "لا توجد أسئلة في هذا الاختبار",
+    "question_counter": "سؤال {{current}} من {{total}}",
+    "finish": "إنهاء",
+    "next": "التالي",
+    "all_answered": "لقد أجبت على جميع الأسئلة",
+    "submit_answers": "إرسال الإجابات"
+  },
+  "email_verification": {
+    "invalid_link": "رابط التحقق غير صالح أو مفقود",
+    "success_message": "تم تأكيد بريدك الإلكتروني بنجاح! مرحباً بك في نقرا",
+    "verification_failed": "فشل في تأكيد البريد الإلكتروني",
+    "connection_error": "حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى",
+    "verifying": "جاري التحقق...",
+    "please_wait": "يرجى الانتظار بينما نتحقق من بريدك الإلكتروني",
+    "verification_successful": "تم التحقق بنجاح!",
+    "verification_failed_title": "فشل التحقق",
+    "welcome_message": "مرحباً بك في مجتمع نقرا التعليمي",
+    "verification_failed_subtitle": "عذراً، لم نتمكن من التحقق من بريدك الإلكتروني",
+    "email_label": "البريد الإلكتروني",
+    "whats_next": "ماذا بعد؟",
+    "explore_courses": "استكشف الدورات",
+    "explore_courses_description": "تصفح مكتبتنا الواسعة من الدورات التعليمية",
+    "join_community": "انضم للمجتمع",
+    "join_community_description": "تواصل مع الطلاب والمعلمين في مجتمعنا",
+    "track_progress": "تتبع تقدمك",
+    "track_progress_description": "راقب إنجازاتك وتطور مهاراتك",
+    "set_goals": "حدد أهدافك",
+    "set_goals_description": "ضع أهدافك التعليمية وحقق طموحاتك",
+    "start_learning": "ابدأ التعلم الآن",
+    "dashboard": "لوحة التحكم",
+    "possible_reasons": "الأسباب المحتملة:",
+    "link_expired": "انتهت صلاحية الرابط",
+    "link_expired_description": "الرابط صالح لمدة 24 ساعة فقط",
+    "invalid_link_title": "رابط غير صحيح",
+    "invalid_link_description": "قد يكون الرابط معطوب أو غير مكتمل",
+    "already_verified": "تم التحقق مسبقاً",
+    "already_verified_description": "قد يكون البريد الإلكتروني مُحقق مسبقاً",
+    "try_again": "إعادة المحاولة",
+    "back_to_home": "العودة للرئيسية",
+    "security_message": "نحن نهتم بأمان وخصوصية بياناتك",
+    "privacy_policy": "سياسة الخصوصية",
+    "terms_of_use": "شروط الاستخدام",
+    "contact_us": "تواصل معنا"
+  },
+  "exams_page": {
+    "title": "الامتحانات",
+    "subtitle": "تابع جميع امتحاناتك المجدولة والقادمة",
+    "download_schedule": "تحميل الجدول",
+    "exam_schedule": "جدول الامتحانات",
+    "total_exams": "إجمالي الامتحانات",
+    "upcoming_exams": "امتحانات قادمة",
+    "completed_exams": "امتحانات منتهية",
+    "search_placeholder": "ابحث في الامتحانات...",
+    "filter_all": "جميع الامتحانات",
+    "filter_upcoming": "القادمة",
+    "filter_completed": "المنتهية",
+    "exam_table_title": "جدول الامتحانات",
+    "table_status": "الحالة",
+    "table_exam": "الامتحان",
+    "table_subject": "المادة",
+    "table_class": "الصف",
+    "table_date": "التاريخ",
+    "table_time": "الوقت",
+    "table_actions": "الإجراءات",
+    "no_search_results": "لا توجد نتائج للبحث",
+    "no_exams": "لا توجد امتحانات",
+    "view_button": "عرض",
+    "status_completed": "انتهى",
+    "status_urgent": "عاجل",
+    "status_soon": "قريب",
+    "status_upcoming": "قادم",
+    "status_scheduled": "مجدول"
+  },
+  "files_page": {
+    "title": "ملفاتي",
+    "subtitle": "إدارة ومشاركة الملفات",
+    "upload_file": "تحميل ملف",
+    "search_placeholder": "بحث في الملفات...",
+    "grid_view": "شبكة",
+    "list_view": "قائمة",
+    "no_files_found": "لم يتم العثور على ملفات",
+    "no_files_yet": "لا توجد ملفات بعد",
+    "try_different_search": "جرب بحث آخر",
+    "start_uploading": "ابدأ بتحميل ملفاتك الأولى",
+    "sample_math_project": "مشروع الرياضيات",
+    "sample_arabic_note": "مذكرة اللغة العربية",
+    "sample_science_presentation": "عرض تقديمي للعلوم",
+    "sample_history_note": "مذكرة التاريخ",
+    "sample_geography_note": "مذكرة الجغرافيا",
+    "sample_chemistry_note": "مذكرة الكيمياء"
+  },
+  "tasks_table": {
+    "title_header": "العنوان",
+    "description_header": "الوصف",
+    "due_date_header": "تاريخ الاكمال",
+    "priority_header": "الأهمية",
+    "no_tasks": "لا توجد مهام",
+    "priority_low": "منخفضة",
+    "priority_medium": "متوسطة",
+    "priority_high": "عالية",
+    "priority_urgent": "عاجلة"
+  },
+  "notifications_page": {
+    "title": "الإشعارات",
+    "subtitle": "تابع جميع الإشعارات والتحديثات الخاصة بك",
+    "tab_all": "الكل",
+    "tab_unread": "غير مقروءة",
+    "tab_read": "مقروءة",
+    "mark_all_read": "تحديد الكل كمقروء",
+    "clear_all": "مسح الكل",
+    "settings": "إعدادات الإشعارات",
+    "total_notifications": "إجمالي الإشعارات",
+    "unread": "غير مقروءة",
+    "read": "مقروءة",
+    "from": "من",
+    "close": "إغلاق",
+    "time_just_now": "منذ قليل",
+    "time_hours_ago": "منذ {{hours}} ساعة",
+    "time_days_ago": "منذ {{days}} أيام",
+    "no_notifications": "لا توجد إشعارات",
+    "no_unread_notifications": "لا توجد إشعارات غير مقروءة",
+    "no_read_notifications": "لا توجد إشعارات مقروءة",
+    "empty_message": "ستظهر هنا الإشعارات الجديدة عند وصولها"
+  },
+  "todo_page": {
+    "title": "المهام",
+    "subtitle": "نظم وتابع مهامك اليومية",
+    "new_task": "مهمة جديدة",
+    "total_tasks": "إجمالي المهام",
+    "in_progress": "قيد التنفيذ",
+    "completed": "مكتملة",
+    "search_placeholder": "ابحث في المهام...",
+    "filter_all": "جميع المهام",
+    "filter_pending": "قيد التنفيذ",
+    "filter_completed": "مكتملة",
+    "start_adding_task": "ابدأ بإضافة مهمة",
+    "urgent_tasks": "مهام عاجلة",
+    "all_tasks": "جميع المهام"
+  },
+  "todo_banner": {
+    "title": "نظم وقت دراستك مع نظام المهام المتكامل",
+    "description": "مع نظام إدارة المهام يمكنك الآن جدولة دروسك بكل سهولة مع تفعيل التنبيهات لتحقيق أقصى استفادة من وقتك"
+  },
+  "todo_tabs": {
+    "today": "اليوم",
+    "repeat": "تكرار",
+    "tasks_label": "المهام",
+    "collections_label": "المجموعات",
+    "add_collection": "إضافة مجموعة",
+    "add_new_task": "إضافة مهمة جديدة",
+    "add_new_collection": "إضافة مجموعة جديدة"
+  },
+  "chat_sidebar": {
+    "messages": "الرسائل",
+    "search_contacts": "ابحث عن جهة اتصال",
+    "loading_contacts": "جاري تحميل جهات الاتصال..."
+  },
+  "task_widget": {
+    "title": "المهام والواجبات",
+    "loading": "جارٍ تحميل المهام...",
+    "no_tasks": "لا توجد مهام حالياً",
+    "untitled_task": "مهمة بدون عنوان",
+    "due_date": "تاريخ الاستحقاق"
+  },
+  "student_points": {
+    "title": "نقاط المساهمة",
+    "error_loading": "فشل في تحميل النقاط",
+    "retry": "إعادة المحاولة",
+    "total_points": "إجمالي النقاط",
+    "this_week": "هذا الأسبوع",
+    "this_month": "هذا الشهر",
+    "sources": "مصادر النقاط",
+    "exam_contributions": "مساهمات الامتحانات",
+    "article_contributions": "مساهمات المقالات",
+    "resource_contributions": "مساهمات الموارد",
+    "redeem_points": "استبدال النقاط"
+  },
+  "recent_activity": {
+    "title": "النشاط الأخير",
+    "error_loading": "فشل في تحميل النشاط الأخير",
+    "no_activity": "لا يوجد نشاط حديث",
+    "time_minutes_ago": "قبل {{count}} دقيقة",
+    "time_hours_ago": "قبل {{count}} ساعة",
+    "time_days_ago": "قبل {{count}} يوم",
+    "mock_lesson_watch": "شاهدت درس الجبر الأساسي",
+    "mock_exam_complete": "أكملت اختبار الرياضيات",
+    "mock_post_create": "نشرت سؤال في منتدى العلوم",
+    "mock_course_enroll": "انضممت إلى دورة الكيمياء العضوية"
+  },
+  "notification_widget": {
+    "title": "الإشعارات",
+    "show_more": "المزيد",
+    "show_less": "أقل", 
+    "no_notifications": "لا توجد إشعارات جديدة",
+    "time_just_now": "منذ قليل",
+    "time_hours_ago": "منذ {{count}} ساعة",
+    "time_days_ago": "منذ {{count}} أيام",
+    "mark_all_read": "تحديد الكل كمقروء",
+    "clear_all": "مسح الكل"
+  },
+  "not_found_error": {
+    "back_to_home": "العودة للصفحة الرئيسية"
+  },
+  "ui": {
+    "loading": "جاري التحميل..."
+  },
+  "upcoming_exams": {
+    "title": "الامتحانات القادمة",
+    "urgent": "عاجل",
+    "soon": "قريب", 
+    "upcoming": "قادم",
+    "scheduled": "مجدول",
+    "exam_count": "{{count}} امتحان",
+    "no_exams": "لا توجد امتحانات قادمة",
+    "no_exams_subtitle": "ستظهر هنا الامتحانات المجدولة",
+    "view_all": "عرض جميع الامتحانات"
+  },
+  "user_profile": {
+    "role_organization": "حساب مؤسسة",
+    "role_student": "طالب",
+    "role_contributor": "مساهم",
+    "role_undefined": "غير محدد",
+    "joined_on": "انضم في {{date}}",
+    "enrolled_courses": "{{count}} دورة مسجل",
+    "edit_profile": "تعديل الملف الشخصي",
+    "study_statistics": "إحصائيات الدراسة",
+    "consecutive_days": "أيام متتالية",
+    "study_hours": "ساعة دراسة",
+    "completed_courses": "دورة مكتملة",
+    "average_rating": "متوسط التقييم",
+    "outstanding_student": "طالب متميز",
+    "achievement_description": "حافظت على التعلم لمدة أسبوع!",
+    "quick_actions": "إجراءات سريعة",
+    "explore_courses": "استكشف الدورات",
+    "notifications": "الإشعارات",
+    "learning_resources": "المصادر التعليمية",
+    "premium_membership": "العضوية المميزة",
+    "active_until": "نشطة حتى {{date}}"
+  },
+  "learning_progress": {
+    "title": "تقدم التعلم",
+    "weekly_study_hours": "ساعات الدراسة الأسبوعية",
+    "completed_lessons_month": "دروس مكتملة هذا الشهر",
+    "hours": "ساعة",
+    "lessons": "درس",
+    "start_journey": "ابدأ رحلة التعلم اليوم!",
+    "keep_going": "استمر! أنت في طريقك الصحيح",
+    "excellent_progress": "ممتاز! حافظ على هذا التقدم",
+    "amazing_learner": "مذهل! أنت متعلم مثابر حقاً",
+    "consecutive_learning_days": "أيام متتالية من التعلم",
+    "longest_streak": "أطول فترة",
+    "days_count": "{{count}} يوم",
+    "today_achievement": "إنجاز اليوم",
+    "study_hours": "ساعة دراسة",
+    "completed_lessons": "دروس مكتملة",
+    "learning_goals": "أهداف التعلم",
+    "completed_percentage": "{{percentage}}% مكتمل",
+    "start_study_session": "ابدأ جلسة دراسة"
+  },
+  "page_loader": {
+    "loading": "جاري التحميل",
+    "please_wait": "الرجاء الانتظار بينما يتم تحميل الموارد"
+  },
+  "video_player": {
+    "lecture": "المحاضرة ({{order}}) {{title}}",
+    "next_to_watch": "التالي لمشاهدته",
+    "duration_minutes": "{{duration}} دقيقة"
+  },
+  "last_watched_course": {
+    "no_courses": "لا توجد دورات",
+    "start_learning_journey": "ابدأ رحلتك التعليمية بالتسجيل في دورة جديدة",
+    "explore_courses": "استكشف الدورات",
+    "completed": "مكتمل",
+    "in_progress": "قيد المتابعة",
+    "progress": "التقدم",
+    "percent_completed": "{{percentage}}% مكتمل",
+    "lessons_progress": "{{completed}} من {{total}} دروس",
+    "review_course": "مراجعة الدورة",
+    "continue_learning": "استمر بالتعلم"
+  },
+  "not_implemented": {
+    "page_title": "صفحة",
+    "note": "ملاحظة",
+    "page_incomplete": "هذه الصفحة غير مكتملة بعد"
+  },
+  "dashboard_index": {
+    "welcome_user": "مرحباً، {{name}}",
+    "continue_learning_message": "استمر بالتعلم لتحقيق أقصى استفادة من وقتك. في حال احتجت إلى أي",
+    "support": "مساعدة",
+    "always_here": "لا تنسَ أننا هنا في كل وقت",
+    "enrolled_courses": "{{count}} دورة مسجل",
+    "active_today": "نشط اليوم",
+    "continue_learning": "متابعة التعلم",
+    "top_priority": "الأولوية الأولى",
+    "start_journey": "ابدأ رحلتك التعليمية",
+    "no_courses_yet": "لم تسجل في أي دورة بعد. استكشف مجموعتنا الواسعة من الدورات",
+    "explore_courses": "استكشف الدورات",
+    "urgent_tasks_exams": "المهام والامتحانات العاجلة",
+    "performance_progress": "الأداء والتقدم",
+    "resources_recommendations": "المصادر والتوصيات"
+  },
+  "timetable_page": {
+    "title": "جدول الدروس",
+    "no_timetable": "لا يوجد جدول دروس",
+    "timetable_will_show": "سيتم عرض جدولك الدراسي هنا عند توفره",
+    "reload": "إعادة التحميل",
+    "saturday": "السبت",
+    "sunday": "الأحد",
+    "monday": "الاثنين",
+    "tuesday": "الثلاثاء",
+    "wednesday": "الأربعاء",
+    "thursday": "الخميس",
+    "friday": "الجمعة",
+    "exam": "اختبار",
+    "homework": "واجب",
+    "project": "مشروع",
+    "today": "اليوم",
+    "no_classes": "لا توجد حصص"
+  },
+  "classroom_page": {
+    "error": "خطأ",
+    "invalid_course_id": "معرف الدورة غير صحيح، يجب أن يكون معرف الدورة رقماً",
+    "loading_course": "جاري تحميل الدورة التدريبية"
+  },
+  "student_course_page": {
+    "my_courses": "دوراتي",
+    "subtitle": "تابع تقدمك في جميع الدورات المسجل بها",
+    "browse_courses": "تصفح الدورات",
+    "loading_courses": "جاري تحميل الدورات الرجاء الانتظار...",
+    "total_courses": "إجمالي الدورات",
+    "in_progress": "قيد الدراسة",
+    "completed": "مكتملة",
+    "search_placeholder": "ابحث في دوراتك...",
+    "sort_recent": "الأحدث",
+    "sort_progress": "التقدم",
+    "sort_name": "الاسم",
+    "no_search_results": "لا توجد نتائج للبحث",
+    "try_different_search": "جرب مصطلحات بحث مختلفة",
+    "no_courses_enrolled": "لم تشترك في أي دورة حتى الآن",
+    "start_learning_journey": "ابدأ رحلة التعلم واستكشف مجموعتنا الواسعة من الدورات التعليمية المتخصصة",
+    "browse_available_courses": "تصفح الدورات المتاحة",
+    "view_all_courses": "عرض جميع الدورات"
+  },
+  "subscription_page": {
+    "upgrade_experience": "ارتقِ بتجربتك التعليمية",
+    "choose_plan": "اختر الخطة التي تناسب احتياجاتك وأهدافك التعليمية",
+    "success": "تم بنجاح!",
+    "subscription_activated": "تم تفعيل اشتراكك بنجاح. مرحباً بك!",
+    "ok": "حسنا",
+    "cancelled": "تم إلغاء العملية",
+    "payment_cancelled": "تم إلغاء عملية الدفع. يمكنك المحاولة مرة أخرى.",
+    "error_loading_plans": "حدث خطأ في تحميل خطط الاشتراك",
+    "error_loading_data": "حدث خطأ في تحميل البيانات",
+    "loading_data": "جاري تحميل البيانات...",
+    "preparing_payment": "جاري تجهيز عملية الدفع...",
+    "current_subscription": "الاشتراك الحالي",
+    "expires_on": "ينتهي في",
+    "status": "الحالة",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "days_remaining": "الأيام المتبقية",
+    "most_popular": "الأكثر شعبية",
+    "free": "مجانية",
+    "month": "شهر",
+    "months": "{{count}} أشهر",
+    "days": "يوم",
+    "will_replace_current": "سيتم استبدال اشتراكك الحالي ({{plan}})",
+    "processing": "جاري المعالجة...",
+    "current_plan": "الخطة الحالية",
+    "replace_with_free": "استبدال بخطة مجانية",
+    "replace_subscription": "استبدال الاشتراك",
+    "activate_plan": "تفعيل الخطة",
+    "select_plan": "اختيار الخطة",
+    "faq": "أسئلة شائعة",
+    "faq_cancel_question": "هل يمكنني إلغاء الاشتراك في أي وقت؟",
+    "faq_cancel_answer": "نعم، يمكنك إلغاء اشتراكك في أي وقت من لوحة التحكم. ستحتفظ بالوصول حتى نهاية فترة الاشتراك.",
+    "faq_trial_question": "هل توجد فترة تجريبية مجانية؟",
+    "faq_trial_answer": "نعم، جميع الخطط تأتي مع فترة تجريبية مجانية لمدة 7 أيام.",
+    "payment_error": "حدث خطأ في معالجة الدفع",
+    "error": "خطأ!",
+    "confirm_subscription": "تأكيد الاشتراك",
+    "activate_free_plan_confirm": "هل تريد تفعيل الخطة المجانية: {{plan}}؟",
+    "yes_activate": "نعم، فعّل",
+    "cancel": "إلغاء",
+    "warning_replace_subscription": "⚠️ تحذير - استبدال الاشتراك",
+    "warning_replace_paid_subscription": "⚠️ تحذير - استبدال الاشتراك المدفوع",
+    "important_warning": "تحذير مهم",
+    "current_active_plan": "لديك حاليا اشتراك نشط في خطة",
+    "new_plan_activation": "بتفعيل الخطة الجديدة",
+    "new_plan_name": "الخطة الجديدة",
+    "will_cancel_current": "سيتم إلغاء اشتراكك الحالي نهائياً واستبداله بالخطة الجديدة",
+    "no_refund": "لن يتم استرداد المبلغ المدفوع للخطة الحالية",
+    "remaining_days_current": "الأيام المتبقية في اشتراكك الحالي",
+    "yes_replace_subscription": "نعم، استبدل الاشتراك",
+    "yes_replace_and_pay": "نعم، استبدل الاشتراك والدفع",
+    "free_plan_activated": "تم تفعيل الخطة المجانية بنجاح!",
+    "plan": "الخطة",
+    "price": "السعر",
+    "redirect_to_payment": "سيتم توجيهك إلى صفحة الدفع الآمنة",
+    "continue_to_payment": "متابعة للدفع"
+  },
+  "completed_tasks": {
+    "title": "مكتمل"
+  },
+  "todo_form": {
+    "add_new_task": "اضافة مهمة جديدة",
+    "title_placeholder": "العنوان",
+    "description_placeholder": "الوصف",
+    "importance": "الأهمية",
+    "priority_low": "منخفض",
+    "priority_medium": "متوسط",
+    "priority_high": "عالي",
+    "priority_urgent": "عاجل"
+  },
+  "org_page": {
+    "educational_institution": "المؤسسة التعليمية",
+    "reports_statistics": "التقارير والإحصائيات الأكاديمية",
+    "comprehensive_report": "تقرير شامل",
+    "math": "الرياضيات",
+    "arabic": "اللغة العربية",
+    "science": "العلوم",
+    "history": "التاريخ",
+    "class_participation": "المشاركة في الصف",
+    "attendance": "الحضور",
+    "teamwork": "العمل الجماعي",
+    "achievements": "الإنجازات",
+    "academic_grades": "الدرجات الأكاديمية",
+    "download": "تنزيل",
+    "performance_analysis": "تحليل الأداء",
+    "above_average": "فوق المتوسط",
+    "average": "متوسط",
+    "needs_improvement": "يحتاج تحسين",
+    "recommendations": "التوصيات",
+    "focus_on_science": "زيادة التركيز على العلوم",
+    "review_math": "مراجعة مواد الرياضيات",
+    "participate_more": "المشاركة أكثر في الأنشطة"
+  },
+  "chat_card": {
+    "start_conversation": "ابدأ المحادثة"
+  },
+  "post_card": {
+    "login_required_title": "سجل الدخول اولا",
+    "login_required_text": "يجب تسجيل الدخول أولاً للإعجاب بالمنشور.",
+    "cancel": "الغاء",
+    "login_button": "تسجيل الدخول",
+    "time_just_now": "منذ قليل",
+    "time_hours_ago": "منذ {{count}} ساعة",
+    "time_days_ago": "منذ {{count}} يوم",
+    "external_link": "رابط خارجي",
+    "unknown_user": "مستخدم غير معروف",
+    "pinned": "مثبت",
+    "edited": "تم التعديل",
+    "view_all_comments": "عرض جميع التعليقات ({{count}})"
+  },
+  "contact_page": {
+    "title": "تواصل معنا في نقرا",
+    "subtitle": "هل لديك سؤال، اقتراح أو ترغب بالتعاون؟ نحن هنا لدعمك ومساعدتك في كل ما تحتاجه.",
+    "form_title": "أرسل رسالة مباشرة",
+    "all_fields_required": "جميع الحقول مطلوبة.",
+    "success_message": "تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.",
+    "name_placeholder": "الاسم الكامل",
+    "email_placeholder": "البريد الإلكتروني",
+    "message_placeholder": "اكتب رسالتك هنا...",
+    "sending": "جاري الإرسال...",
+    "send_message": "إرسال الرسالة",
+    "cards": {
+      "technical_support": {
+        "title": "الدعم الفني",
+        "description": "لأي مشاكل تقنية أو استفسارات حسابية، فريقنا هنا لمساعدتك بسرعة."
+      },
+      "partnerships": {
+        "title": "شراكات وتعاون",
+        "description": "تعاون معنا أو ممثل جهة تعليمية؟ تواصل معنا مباشرة."
+      },
+      "graduation_projects": {
+        "title": "مشاريع التخرج",
+        "description": "للحصول على الدعم في مشروع التخرج أو تطوير فكرتك، نحن معك خطوة بخطوة."
+      }
+    }
+  },
+  "report_issue": {
+    "title": "أبلغ عن مشكلة",
+    "subtitle": "نحن نقدر ملاحظاتك ونعمل باستمرار على تحسين تجربتك. يرجى وصف المشكلة التي واجهتها.",
+    "success": {
+      "title": "شكراً لتواصلك!",
+      "message": "تم استلام تقريرك وسنتابع معك قريباً. نحن نقدر ملاحظاتك ونعمل على تحسين تجربتك.",
+      "new_report": "إرسال تقرير جديد"
+    },
+    "form": {
+      "name_label": "الاسم الكامل",
+      "name_placeholder": "أدخل اسمك الكامل",
+      "email_label": "البريد الإلكتروني",
+      "email_placeholder": "أدخل بريدك الإلكتروني",
+      "issue_label": "وصف المشكلة",
+      "issue_placeholder": "وصف المشكلة بالتفصيل...",
+      "submit_button": "إرسال التقرير"
+    }
+  },
+  "support_page": {
+    "title": "الدعم الفني في نقرا",
+    "subtitle": "فريقنا جاهز لمساعدتك في أي استفسار تقني أو مشكلة تواجهها على المنصة.",
+    "all_fields_required": "جميع الحقول مطلوبة",
+    "request_error": "حصل خطأ اثناء ارسال الطلب",
+    "request_error_generic": "حصل خطأ اثناء ارسال الطلب الرجاء المحاولة في وقت لاحق.",
+    "success": {
+      "title": "تم ارسال طلبك بنجاح",
+      "message": "مرحبا {{name}} لقد تم ارسال طلبك بنجاح وسيقوم فريق الدعم بالتواصل معك خلال 48 ساعة , شكرا لتواصلك معنا.",
+      "back_home": "العودة للصفحة الرئيسية"
+    },
+    "form": {
+      "title": "أرسل طلب دعم",
+      "description": "اخبرنا بما تحتاج وسنعاود التواصل معك في أسرع وقت.",
+      "name_placeholder": "الاسم الكامل",
+      "email_placeholder": "البريد الإلكتروني",
+      "message_placeholder": "وصف المشكلة أو الطلب",
+      "sending": "جاري الإرسال...",
+      "submit": "إرسال الطلب"
+    },
+    "topics": {
+      "technical": {
+        "title": "المشاكل التقنية",
+        "description": "لأي مشكلة تقنية في حسابك أو النظام، نحن هنا لتقديم الدعم السريع."
+      },
+      "education": {
+        "title": "التعليم والتدريب",
+        "description": "استفسارات عن الدورات، المشاريع، أو الموارد التعليمية."
+      },
+      "partnerships": {
+        "title": "الشراكات والتعاون",
+        "description": "استفسارات حول التعاون مع الجامعة أو الشركات التعليمية."
+      }
+    },
+    "cta": {
+      "title": "هل تحتاج لمزيد من المساعدة؟",
+      "description": "تواصل معنا مباشرة عبر البريد الإلكتروني أو الهاتف.",
+      "button": "اتصل بالدعم الآن"
+    }
+  },
+  "user_preferences": {
+    "header": {
+      "title": "إعداد التفضيلات",
+      "step_counter": "الخطوة {{current}} من {{total}}"
+    },
+    "navigation": {
+      "previous": "السابق",
+      "next": "التالي",
+      "finish": "إنهاء الإعداد",
+      "saving": "جاري الحفظ..."
+    },
+    "success": {
+      "title": "🎉 تم حفظ تفضيلاتك بنجاح!",
+      "message": "سنبذل قصارى جهدنا لتقديم أفضل المصادر والدورات والمواد التعليمية وتوصيات المجتمع المخصصة لك بناءً على أهدافك وتفضيلاتك الدراسية. استمتع بتجربة تعلم مخصصة تماماً لاحتياجاتك!",
+      "start_journey": "ابدأ الرحلة"
+    },
+    "step1": {
+      "title": "ما هي المواد التي تريد تحسينها؟",
+      "description": "اختر المواد التي تركز عليها (يمكنك اختيار أكثر من مادة)",
+      "selected_count": "تم اختيار {{count}} مادة"
+    },
+    "step2": {
+      "title": "كيف تفضل التعلم؟",
+      "description": "اختر نوع المحتوى الذي تفضله"
+    },
+    "step3": {
+      "title": "متى تفضل الدراسة؟",
+      "description": "اختر الوقت المناسب لك للتعلم",
+      "content_preferences": "تفضيلات المحتوى",
+      "video_duration_label": "مدة الفيديو المفضلة (بالدقائق)",
+      "video_duration_min": "5 دقائق",
+      "video_duration_current": "{{duration}} دقيقة",
+      "video_duration_max": "60 دقيقة",
+      "reading_duration_label": "مدة القراءة المفضلة (بالدقائق)",
+      "reading_duration_min": "5 دقائق",
+      "reading_duration_current": "{{duration}} دقيقة",
+      "reading_duration_max": "45 دقيقة"
+    },
+    "step4": {
+      "title": "ما هو هدفك من التعلم؟",
+      "description": "اكتب هدفك ليساعدنا في تخصيص المحتوى لك",
+      "goal_label": "هدفي من التعلم *",
+      "difficulty_label": "مستوى الصعوبة المفضل",
+      "weekly_hours_label": "هدف ساعات الدراسة الأسبوعية: {{hours}} ساعة",
+      "hours_one": "ساعة واحدة",
+      "hours_25": "25 ساعة",
+      "hours_50": "50 ساعة",
+      "social_preferences": "التفضيلات الاجتماعية",
+      "interested_in_communities": "أهتم بالانضمام للمجتمعات الدراسية",
+      "interested_in_study_groups": "أرغب في المشاركة في مجموعات الدراسة"
+    },
+    "study_types": {
+      "reading": {
+        "label": "القراءة",
+        "description": "أفضل المحتوى المكتوب والكتب"
+      },
+      "watching": {
+        "label": "مشاهدة الفيديو",
+        "description": "التعلم من خلال الفيديوهات التعليمية"
+      },
+      "listening": {
+        "label": "الاستماع",
+        "description": "المحتوى الصوتي والبودكاست"
+      },
+      "interactive": {
+        "label": "التفاعلي",
+        "description": "التمارين والأنشطة التفاعلية"
+      },
+      "practice": {
+        "label": "الممارسة",
+        "description": "حل التمارين والاختبارات"
+      },
+      "mixed": {
+        "label": "متنوع",
+        "description": "خليط من جميع الأنواع"
+      }
+    },
+    "study_times": {
+      "morning": {
+        "label": "الصباح",
+        "time": "6 ص - 12 م"
+      },
+      "afternoon": {
+        "label": "بعد الظهر",
+        "time": "12 م - 6 م"
+      },
+      "evening": {
+        "label": "المساء",
+        "time": "6 م - 10 م"
+      },
+      "night": {
+        "label": "الليل",
+        "time": "10 م - 2 ص"
+      },
+      "flexible": {
+        "label": "مرن",
+        "time": "أي وقت"
+      }
+    },
+    "study_goals": {
+      "improve_grades": {
+        "label": "تحسين الدرجات الأكاديمية",
+        "description": "رفع المعدل والدرجات في المواد الدراسية"
+      },
+      "exam_preparation": {
+        "label": "الاستعداد للامتحانات",
+        "description": "التحضير للامتحانات النهائية أو المعيارية"
+      },
+      "skill_development": {
+        "label": "تطوير مهارات جديدة",
+        "description": "اكتساب مهارات ومعرفة جديدة"
+      },
+      "career_advancement": {
+        "label": "التقدم المهني",
+        "description": "تطوير المسار المهني والوظيفي"
+      },
+      "personal_interest": {
+        "label": "اهتمام شخصي",
+        "description": "التعلم كهواية أو اهتمام شخصي"
+      },
+      "certification": {
+        "label": "الحصول على شهادات",
+        "description": "الحصول على شهادات معتمدة"
+      },
+      "catch_up": {
+        "label": "اللحاق بالمنهج",
+        "description": "تعويض ما فات من المنهج الدراسي"
+      },
+      "advance_learning": {
+        "label": "التعلم المتقدم",
+        "description": "التعمق أكثر في المواد المفضلة"
+      },
+      "competition_prep": {
+        "label": "التحضير للمسابقات",
+        "description": "الاستعداد للمسابقات الأكاديمية"
+      },
+      "general_knowledge": {
+        "label": "توسيع المعرفة العامة",
+        "description": "زيادة الثقافة والمعرفة العامة"
+      }
+    },
+    "difficulty_levels": {
+      "beginner": {
+        "label": "مبتدئ",
+        "description": "أبدأ من الأساسيات"
+      },
+      "intermediate": {
+        "label": "متوسط",
+        "description": "لدي معرفة أساسية"
+      },
+      "advanced": {
+        "label": "متقدم",
+        "description": "أريد محتوى متقدم"
+      },
+      "mixed": {
+        "label": "متنوع",
+        "description": "حسب الموضوع"
+      }
+    }
+  },
+  "recent_activity": {
+    "title": "النشاط الأخير"
+  },
+  "featured_subjects": {
+    "loading": "جاري تحميل المواد",
+    "title": "تصفح الدورات لكل مادة", 
+    "subtitle": "اختر المادة التي تريد تعلمها وابدأ رحلتك التعليمية",
+    "view_all": "عرض جميع الدورات",
+    "default_description": "استكشف دورات متقدمة في هذه المادة"
+  },
+  "auth": {
+    "verifyingAccount": "جاري التحقق من الحساب",
+    "checkYourEmail": "الرجاء التحقق من بريدك الإلكتروني",
+    "verificationEmailSent": "لقد قمنا بإرسال رابط التحقق من الحساب على بريدك الإلكتروني {{email}} الرجاء التحقق منه لتفعيل الحساب",
+    "loginToAccount": "سجل الدخول إلى حسابك",
+    "createNewAccount": "إنشاء حساب جديد",
+    "login": "تسجيل الدخول"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "about": "من نحن",
+    "courses": "الدورات", 
+    "subscriptionPlans": "خطط الاشتراك",
+    "platformFeatures": "مميزات المنصة",
+    "resources": "الموارد",
+    "contact": "اتصل بنا",
+    "backToHome": "العودة للصفحة الرئيسية"
+  }
 }

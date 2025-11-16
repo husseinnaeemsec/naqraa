@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { Calendar, Clock, AlertTriangle, BookOpen, ExternalLink } from "lucide-react";
 import type { Exam } from "../../types";
@@ -10,6 +11,7 @@ import Button from "./ui/Button";
 import useApiErrorHandler from "../hooks/use-api-error-handler";
 
 export default function UpcomingExams() {
+  const { t } = useTranslation();
   useApiErrorHandler();
   const [exams, setExams] = useState<Exam[]>([]);
   const [loading, setLoading] = useState(true);
@@ -34,10 +36,10 @@ export default function UpcomingExams() {
     const exam = new Date(examDate);
     const diffInDays = Math.ceil((exam.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
     
-    if (diffInDays <= 1) return { level: 'urgent', color: 'red', text: 'عاجل' };
-    if (diffInDays <= 3) return { level: 'soon', color: 'orange', text: 'قريب' };
-    if (diffInDays <= 7) return { level: 'upcoming', color: 'yellow', text: 'قادم' };
-    return { level: 'normal', color: 'blue', text: 'مجدول' };
+    if (diffInDays <= 1) return { level: 'urgent', color: 'red', text: t('upcoming_exams.urgent') };
+    if (diffInDays <= 3) return { level: 'soon', color: 'orange', text: t('upcoming_exams.soon') };
+    if (diffInDays <= 7) return { level: 'upcoming', color: 'yellow', text: t('upcoming_exams.upcoming') };
+    return { level: 'normal', color: 'blue', text: t('upcoming_exams.scheduled') };
   };
 
   const getUrgencyStyles = (color: string) => {
@@ -74,10 +76,10 @@ export default function UpcomingExams() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Calendar className="size-5 text-emerald-600" />
-            <h3 className="text-lg font-bold text-gray-900 dark:text-emerald-50">الامتحانات القادمة</h3>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-emerald-50">{t('upcoming_exams.title')}</h3>
             {exams.length > 0 && (
               <span className="bg-emerald-100 text-emerald-700 text-xs px-2 py-1 rounded-full font-medium dark:bg-emerald-900/30 dark:text-emerald-300">
-                {exams.length} امتحان
+                {t('upcoming_exams.exam_count', { count: exams.length })}
               </span>
             )}
           </div>
@@ -94,8 +96,8 @@ export default function UpcomingExams() {
               transition={{ duration: 0.3 }}
             >
               <Calendar className="size-12 text-gray-400 mx-auto mb-3" />
-              <p className="text-gray-500 dark:text-emerald-400 font-medium">لا توجد امتحانات قادمة</p>
-              <p className="text-gray-400 dark:text-emerald-500 text-sm mt-1">ستظهر هنا الامتحانات المجدولة</p>
+              <p className="text-gray-500 dark:text-emerald-400 font-medium">{t('upcoming_exams.no_exams')}</p>
+              <p className="text-gray-400 dark:text-emerald-500 text-sm mt-1">{t('upcoming_exams.no_exams_subtitle')}</p>
             </motion.div>
           </div>
         ) : (
@@ -168,7 +170,7 @@ export default function UpcomingExams() {
               className="w-full"
               icon={<ExternalLink className="size-4" />}
             >
-              عرض جميع الامتحانات
+              {t('upcoming_exams.view_all')}
             </Button>
           </div>
         )}

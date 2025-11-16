@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { EnrollmentQuiz, QuizQuestion } from "../../types";
 import MCQuestion from "./MCQuestion";
 import TFQuestion from "./TFQuestion";
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export default function QuestionSlider({ quiz, onFinish }: Props) {
+  const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number[] | number>>({});
   const [finished, setFinished] = useState(false);
@@ -33,7 +35,7 @@ export default function QuestionSlider({ quiz, onFinish }: Props) {
   if (questions.length === 0)
     return (
       <p className="text-center text-slate-500">
-        لا توجد أسئلة في هذا الاختبار.
+        {t('quiz_question.no_questions')}
       </p>
     );
 
@@ -47,7 +49,7 @@ export default function QuestionSlider({ quiz, onFinish }: Props) {
     <div className="w-full text-center space-y-4">
       <div className="flex justify-between items-center text-sm text-slate-600">
         <span>
-          سؤال {currentIndex + 1} من {questions.length}
+          {t('quiz_question.question_counter', { current: currentIndex + 1, total: questions.length })}
         </span>
         <span className="font-medium text-emerald-700">{quiz.title}</span>
       </div>
@@ -104,7 +106,7 @@ export default function QuestionSlider({ quiz, onFinish }: Props) {
                 : "bg-slate-200 text-slate-500 cursor-not-allowed"
             }`}
           >
-            {isLast ? "إنهاء" : "التالي"}
+            {isLast ? t('quiz_question.finish') : t('quiz_question.next')}
           </button>
         </div>
       )}
@@ -112,13 +114,13 @@ export default function QuestionSlider({ quiz, onFinish }: Props) {
       {finished && Object.keys(answers).length === questions.length && (
         <div className="mt-6 bg-emerald-100 border border-emerald-200 rounded-xl p-4">
           <p className="text-emerald-700 font-medium">
-            لقد أجبت على جميع الأسئلة
+            {t('quiz_question.all_answered')}
           </p>
           <button
             onClick={() => onFinish && onFinish(answers)}
             className="mt-3 px-4 py-2 rounded-md bg-emerald-600 text-white"
           >
-            إرسال الإجابات
+            {t('quiz_question.submit_answers')}
           </button>
         </div>
       )}

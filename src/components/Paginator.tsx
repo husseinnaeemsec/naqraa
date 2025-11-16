@@ -1,9 +1,12 @@
+import { useTranslation } from "react-i18next";
+
 interface Props {
     currentPage:number;
     totalPages:number;
     onPageChange:( pageNumber:number )=> void;
 }
 export default function Pagination({ currentPage, totalPages, onPageChange } : Props ) {
+  const { t } = useTranslation();
 
   const pages = [];
   for (let i = 1; i <= totalPages; i++) {
@@ -17,7 +20,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange } : P
         onClick={() => onPageChange(currentPage - 1)}
         className="px-3 py-1 border bg-white rounded disabled:opacity-50"
       >
-        السابق
+        {t('pagination.previous')}
       </button>
 
       {pages.map((page) => (
@@ -37,7 +40,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange } : P
         onClick={() => onPageChange(currentPage + 1)}
         className="px-3 py-1 border bg-white rounded disabled:opacity-50"
       >
-        التالي
+        {t('pagination.next')}
       </button>
     </div>
   );

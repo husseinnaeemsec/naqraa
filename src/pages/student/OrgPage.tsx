@@ -1,22 +1,25 @@
 import { motion } from "framer-motion";
 import { Building, TrendingUp, Users, Award, FileBarChart, Download, Calendar, Target } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import Card from "../../components/ui/Card";
 import Button from "../../components/ui/Button";
 
 // Organization Page Component
 const OrgPage = () => {
+    const { t } = useTranslation();
+    
     const stats = [
-        { subject: "الرياضيات", grade: 85, color: "bg-emerald-500" },
-        { subject: "اللغة العربية", grade: 92, color: "bg-blue-500" },
-        { subject: "العلوم", grade: 78, color: "bg-purple-500" },
-        { subject: "التاريخ", grade: 88, color: "bg-orange-500" },
+        { subject: t('org_page.math'), grade: 85, color: "bg-emerald-500" },
+        { subject: t('org_page.arabic'), grade: 92, color: "bg-blue-500" },
+        { subject: t('org_page.science'), grade: 78, color: "bg-purple-500" },
+        { subject: t('org_page.history'), grade: 88, color: "bg-orange-500" },
     ];
 
     const metrics = [
-        { label: "المشاركة في الصف", value: "95%", icon: Users, color: "text-emerald-600" },
-        { label: "الحضور", value: "98%", icon: Calendar, color: "text-blue-600" },
-        { label: "العمل الجماعي", value: "89%", icon: Target, color: "text-purple-600" },
-        { label: "الإنجازات", value: "12", icon: Award, color: "text-orange-600" },
+        { label: t('org_page.class_participation'), value: "95%", icon: Users, color: "text-emerald-600" },
+        { label: t('org_page.attendance'), value: "98%", icon: Calendar, color: "text-blue-600" },
+        { label: t('org_page.teamwork'), value: "89%", icon: Target, color: "text-purple-600" },
+        { label: t('org_page.achievements'), value: "12", icon: Award, color: "text-orange-600" },
     ];
 
     return (
@@ -31,13 +34,13 @@ const OrgPage = () => {
                     <div className="flex items-center gap-3">
                         <Building className="w-8 h-8 text-emerald-600" />
                         <div>
-                            <h1 className="text-3xl font-bold text-gray-900 dark:text-emerald-50">المؤسسة التعليمية</h1>
-                            <p className="text-gray-600 dark:text-emerald-200/70">التقارير والإحصائيات الأكاديمية</p>
+                            <h1 className="text-3xl font-bold text-gray-900 dark:text-emerald-50">{t('org_page.educational_institution')}</h1>
+                            <p className="text-gray-600 dark:text-emerald-200/70">{t('org_page.reports_statistics')}</p>
                         </div>
                     </div>
                     <Button className="bg-emerald-500 hover:bg-emerald-600 text-white flex items-center gap-2">
                         <FileBarChart className="w-4 h-4" />
-                        تقرير شامل
+                        {t('org_page.comprehensive_report')}
                     </Button>
                 </div>
             </motion.div>
@@ -90,11 +93,11 @@ const OrgPage = () => {
                         <div className="flex items-center justify-between mb-6">
                             <h3 className="text-xl font-bold text-gray-900 dark:text-emerald-50 flex items-center gap-2">
                                 <TrendingUp className="w-5 h-5 text-emerald-600" />
-                                الدرجات الأكاديمية
+                                {t('org_page.academic_grades')}
                             </h3>
                             <Button variant="secondary" size="sm">
                                 <Download className="w-4 h-4 mr-2" />
-                                تنزيل
+                                {t('org_page.download')}
                             </Button>
                         </div>
                         <div className="space-y-4">
@@ -137,28 +140,28 @@ const OrgPage = () => {
                     <Card className="p-6">
                         <h3 className="text-xl font-bold text-gray-900 dark:text-emerald-50 mb-6 flex items-center gap-2">
                             <Award className="w-5 h-5 text-emerald-600" />
-                            تحليل الأداء
+                            {t('org_page.performance_analysis')}
                         </h3>
                         <div className="space-y-6">
                             <div className="space-y-3">
                                 <div className="flex items-center justify-between p-4 bg-emerald-50/50 dark:bg-emerald-900/20 rounded-lg">
                                     <div className="flex items-center gap-3">
                                         <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>
-                                        <span className="font-medium text-gray-900 dark:text-emerald-50">فوق المتوسط</span>
+                                        <span className="font-medium text-gray-900 dark:text-emerald-50">{t('org_page.above_average')}</span>
                                     </div>
                                     <span className="text-emerald-600 dark:text-emerald-400 font-bold">75%</span>
                                 </div>
                                 <div className="flex items-center justify-between p-4 bg-blue-50/50 dark:bg-blue-900/20 rounded-lg">
                                     <div className="flex items-center gap-3">
                                         <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                                        <span className="font-medium text-gray-900 dark:text-emerald-50">متوسط</span>
+                                        <span className="font-medium text-gray-900 dark:text-emerald-50">{t('org_page.average')}</span>
                                     </div>
                                     <span className="text-blue-600 dark:text-blue-400 font-bold">20%</span>
                                 </div>
                                 <div className="flex items-center justify-between p-4 bg-orange-50/50 dark:bg-orange-900/20 rounded-lg">
                                     <div className="flex items-center gap-3">
                                         <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-                                        <span className="font-medium text-gray-900 dark:text-emerald-50">يحتاج تحسين</span>
+                                        <span className="font-medium text-gray-900 dark:text-emerald-50">{t('org_page.needs_improvement')}</span>
                                     </div>
                                     <span className="text-orange-600 dark:text-orange-400 font-bold">5%</span>
                                 </div>
@@ -166,20 +169,20 @@ const OrgPage = () => {
                             
                             <div className="pt-4 border-t border-emerald-100 dark:border-emerald-800">
                                 <p className="text-sm text-gray-600 dark:text-emerald-200/70 mb-4">
-                                    التوصيات:
+                                    {t('org_page.recommendations')}:
                                 </p>
                                 <ul className="space-y-2 text-sm">
                                     <li className="flex items-center gap-2 text-gray-700 dark:text-emerald-200">
                                         <div className="w-1 h-1 bg-emerald-500 rounded-full"></div>
-                                        زيادة التركيز على العلوم
+                                        {t('org_page.focus_on_science')}
                                     </li>
                                     <li className="flex items-center gap-2 text-gray-700 dark:text-emerald-200">
                                         <div className="w-1 h-1 bg-emerald-500 rounded-full"></div>
-                                        مراجعة مواد الرياضيات
+                                        {t('org_page.review_math')}
                                     </li>
                                     <li className="flex items-center gap-2 text-gray-700 dark:text-emerald-200">
                                         <div className="w-1 h-1 bg-emerald-500 rounded-full"></div>
-                                        المشاركة أكثر في الأنشطة
+                                        {t('org_page.participate_more')}
                                     </li>
                                 </ul>
                             </div>

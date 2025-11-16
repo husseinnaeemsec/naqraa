@@ -95,6 +95,11 @@ export const endpoints = {
         list: '/subscriptions/plans/',  // Alias for backward compatibility
         current: '/subscriptions/status/',  // Use status endpoint for current subscription
         history: '/subscriptions/history/'
+    },
+    resources:{
+        list:'/resources/',
+        detail:(resource_id:number) => `/resources/${resource_id}/`,
+        search:'/resources/search/'
     }
 }
 

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { Bell, BookOpen, Calendar, Clock, User, X } from "lucide-react";
 import { useState } from "react";
 import Card from "./ui/Card";
@@ -55,6 +56,7 @@ const mockNotifications: Notification[] = [
 ];
 
 export default function NotificationWidget() {
+  const { t } = useTranslation();
   const [notifications, setNotifications] = useState<Notification[]>(mockNotifications);
   const [showAll, setShowAll] = useState(false);
 
@@ -96,11 +98,11 @@ export default function NotificationWidget() {
     const notificationTime = new Date(timestamp);
     const diffInHours = Math.floor((now.getTime() - notificationTime.getTime()) / (1000 * 60 * 60));
     
-    if (diffInHours < 1) return 'منذ قليل';
-    if (diffInHours < 24) return `منذ ${diffInHours} ساعة`;
+    if (diffInHours < 1) return t('notification_widget.time_just_now');
+    if (diffInHours < 24) return t('notification_widget.time_hours_ago', { count: diffInHours });
     
     const diffInDays = Math.floor(diffInHours / 24);
-    if (diffInDays < 7) return `منذ ${diffInDays} أيام`;
+    if (diffInDays < 7) return t('notification_widget.time_days_ago', { count: diffInDays });
     
     return notificationTime.toLocaleDateString('ar-SA');
   };
@@ -122,7 +124,7 @@ export default function NotificationWidget() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Bell className="size-5 text-emerald-600" />
-            <h4 className="font-bold text-gray-900 dark:text-emerald-50">الإشعارات</h4>
+            <h4 className="font-bold text-gray-900 dark:text-emerald-50">{t('notification_widget.title')}</h4>
             {unreadCount > 0 && (
               <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full">
                 {unreadCount}
@@ -135,7 +137,7 @@ export default function NotificationWidget() {
             onClick={() => setShowAll(!showAll)}
             className="text-emerald-600 hover:text-emerald-700"
           >
-            {showAll ? 'أقل' : 'المزيد'}
+            {showAll ? t('notification_widget.show_less') : t('notification_widget.show_more')}
           </Button>
         </div>
       </div>
@@ -145,7 +147,7 @@ export default function NotificationWidget() {
         {displayedNotifications.length === 0 ? (
           <div className="p-6 text-center text-gray-500 dark:text-emerald-400">
             <Bell className="size-8 mx-auto mb-2 opacity-50" />
-            <p>لا توجد إشعارات جديدة</p>
+            <p>{t('notification_widget.no_notifications')}</p>
           </div>
         ) : (
           <div className="divide-y divide-gray-100 dark:divide-emerald-800">
@@ -223,7 +225,7 @@ export default function NotificationWidget() {
               onClick={() => setNotifications(prev => prev.map(n => ({ ...n, read: true })))}
               className="text-emerald-600 hover:text-emerald-700"
             >
-              تحديد الكل كمقروء
+              {t('notification_widget.mark_all_read')}
             </Button>
             <Button
               variant="ghost"
@@ -231,7 +233,7 @@ export default function NotificationWidget() {
               onClick={() => setNotifications([])}
               className="text-red-600 hover:text-red-700"
             >
-              مسح الكل
+              {t('notification_widget.clear_all')}
             </Button>
           </div>
         </div>

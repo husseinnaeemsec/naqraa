@@ -14,10 +14,12 @@ import { useAppSelector } from "../../store/store";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Sparkles, BookOpen, Clock } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 
 
 const IndexPage = () => {
+    const { t } = useTranslation();
     const { user } = useAppSelector((state) => state.auth)
 
     return (
@@ -42,30 +44,30 @@ const IndexPage = () => {
                             <Sparkles className="size-8 text-emerald-500" />
                         </motion.div>
                         <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-700 to-emerald-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-emerald-300">
-                            مرحباً، <span className="text-gray-900 dark:text-emerald-50">{user?.first_name}</span>
+                            {t('dashboard_index.welcome_user', { name: user?.first_name || '' })}
                         </h1>
                     </div>
                     
                     <p className="text-gray-700 dark:text-emerald-100/80 leading-relaxed max-w-2xl">
-                        استمر بالتعلم لتحقيق أقصى استفادة من وقتك. في حال احتجت إلى أي{' '}
+                        {t('dashboard_index.continue_learning_message')}{' '}
                         <Link 
                             to={'/support'} 
                             className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 underline underline-offset-2 decoration-2 transition-colors"
                         > 
-                            مساعدة
+                            {t('dashboard_index.support')}
                         </Link>
-                        {' '}لا تنسَ أننا هنا في كل وقت
+                        {' '}{t('dashboard_index.always_here')}
                     </p>
 
                     {/* Quick Stats */}
                     <div className="flex items-center gap-6 pt-2">
                         <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-emerald-200">
                             <BookOpen className="size-4 text-emerald-600" />
-                            <span>{user?.enrolled_courses?.length || 0} دورة مسجل</span>
+                            <span>{t('dashboard_index.enrolled_courses', { count: user?.enrolled_courses?.length || 0 })}</span>
                         </div>
                         <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-emerald-200">
                             <Clock className="size-4 text-emerald-600" />
-                            <span>نشط اليوم</span>
+                            <span>{t('dashboard_index.active_today')}</span>
                         </div>
                     </div>
                 </div>
@@ -83,8 +85,8 @@ const IndexPage = () => {
                     >
                         <div className="flex items-center gap-3 mb-4">
                             <div className="w-1 h-6 bg-gradient-to-b from-emerald-600 to-emerald-700 rounded-full"></div>
-                            <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">متابعة التعلم</h2>
-                            <span className="bg-emerald-100 text-emerald-700 text-xs px-2 py-1 rounded-full font-medium dark:bg-emerald-900/30 dark:text-emerald-300">الأولوية الأولى</span>
+                            <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('dashboard_index.continue_learning')}</h2>
+                            <span className="bg-emerald-100 text-emerald-700 text-xs px-2 py-1 rounded-full font-medium dark:bg-emerald-900/30 dark:text-emerald-300">{t('dashboard_index.top_priority')}</span>
                         </div>
                         
                         {user?.progress?.last_watched_enrollment ? (
@@ -92,11 +94,11 @@ const IndexPage = () => {
                         ) : (
                             <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-900 dark:to-emerald-950 p-8 rounded-xl border border-emerald-200 dark:border-emerald-800 text-center">
                                 <BookOpen className="size-12 text-emerald-600 mx-auto mb-4" />
-                                <h3 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200 mb-2">ابدأ رحلتك التعليمية</h3>
-                                <p className="text-emerald-700 dark:text-emerald-300 mb-4">لم تسجل في أي دورة بعد. استكشف مجموعتنا الواسعة من الدورات</p>
+                                <h3 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200 mb-2">{t('dashboard_index.start_journey')}</h3>
+                                <p className="text-emerald-700 dark:text-emerald-300 mb-4">{t('dashboard_index.no_courses_yet')}</p>
                                 <Link to="/courses" className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
                                     <BookOpen className="size-4" />
-                                    استكشف الدورات
+                                    {t('dashboard_index.explore_courses')}
                                 </Link>
                             </div>
                         )}
@@ -111,7 +113,7 @@ const IndexPage = () => {
                     >
                         <div className="flex items-center gap-3 mb-4">
                             <div className="w-1 h-6 bg-gradient-to-b from-emerald-500 to-emerald-600 rounded-full"></div>
-                            <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">المهام والامتحانات العاجلة</h2>
+                            <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('dashboard_index.urgent_tasks_exams')}</h2>
                         </div>
                         
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -141,7 +143,7 @@ const IndexPage = () => {
                     >
                         <div className="flex items-center gap-3 mb-4">
                             <div className="w-1 h-6 bg-gradient-to-b from-emerald-400 to-emerald-500 rounded-full"></div>
-                            <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">الأداء والتقدم</h2>
+                            <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('dashboard_index.performance_progress')}</h2>
                         </div>
                         
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -161,7 +163,7 @@ const IndexPage = () => {
                     >
                         <div className="flex items-center gap-3 mb-4">
                             <div className="w-1 h-6 bg-gradient-to-b from-emerald-300 to-emerald-400 rounded-full"></div>
-                            <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">المصادر والتوصيات</h2>
+                            <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('dashboard_index.resources_recommendations')}</h2>
                         </div>
                         
                         <div className="space-y-6">

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { HomeWork, HomeWorkResponse } from "../../types";
 import api from "../api/client";
 import { endpoints } from "../api/routes";
 
 export default function TasksWidget() {
+  const { t } = useTranslation();
   const [tasks, setTasks] = useState<HomeWork[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,7 +27,7 @@ export default function TasksWidget() {
   if (loading) {
     return (
       <div className="w-full h-full flex items-center justify-center">
-        <p className="text-slate-500">جارٍ تحميل المهام...</p>
+        <p className="text-slate-500">{t('task_widget.loading')}</p>
       </div>
     );
   }
@@ -33,13 +35,13 @@ export default function TasksWidget() {
   return (
     <div className="w-full bg-white h-full dark:bg-emerald-950 p-4 dashboard-box rounded-xl">
       <h1 className="text-xl font-bold mb-3 dark:text-emerald-50">
-        المهام والواجبات
+        {t('task_widget.title')}
       </h1>
 
       <div className="flex gap-4 overflow-x-auto scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-slate-200 pb-2">
         {tasks.length === 0 ? (
           <p className="text-slate-500 dark:text-slate-300">
-            لا توجد مهام حالياً 
+            {t('task_widget.no_tasks')}
           </p>
         ) : (
           tasks.map((task) => (
@@ -48,13 +50,13 @@ export default function TasksWidget() {
               className="min-w-[220px] flex-shrink-0 bg-slate-50 dark:bg-emerald-900 dashboard-box rounded-xl p-4 shadow-sm hover:shadow-md transition-all"
             >
               <h2 className="font-bold text-lg dark:text-emerald-50 text-slate-800">
-                {task.title || "مهمة بدون عنوان"}
+                {task.title || t('task_widget.untitled_task')}
               </h2>
               <p className="mt-1 text-slate-600 dark:text-emerald-100 text-sm">
                  {task.subject_name} - {task.class_room_name}
               </p>
               <p className="mt-2 text-slate-600 dark:text-emerald-100 text-sm">
-                 تاريخ الاستحقاق:{" "}
+                 {t('task_widget.due_date')}: {" "}
                 {new Date(task.date).toLocaleDateString("ar-EG")}
               </p>
             </div>

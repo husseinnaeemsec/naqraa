@@ -223,5 +223,940 @@
       "alt": "research",
       "cta": "Start now"
     }
-  ]
+  ],
+  "boards": {
+    "title": "Planning Boards",
+    "subtitle": "Organize and track your tasks effectively",
+    "new_board": "New Board",
+    "tasks": "tasks",
+    "open": "Open",
+    "view": "View",
+    "edit": "Edit",
+    "create_new_board": "Create New Board",
+    "start_organizing_tasks": "Start organizing your new tasks",
+    "sample_board": "Sample Workspace",
+    "daily_tasks": {
+      "name": "Daily Task Board",
+      "description": "Organize and track daily tasks",
+      "updated": "2 hours ago"
+    },
+    "research_project": {
+      "name": "Research Project",
+      "description": "Track scientific research project progress",
+      "updated": "Yesterday"
+    },
+    "study_plan": {
+      "name": "Study Plan",
+      "description": "Schedule and organize lessons and reviews",
+      "updated": "3 days ago"
+    },
+    "kanban": {
+      "todo": "To Do List",
+      "in_progress": "In Progress",
+      "done": "Completed",
+      "tasks": {
+        "math_review": "Math Review",
+        "assigned_to_mohammad": "Mohammad",
+        "write_report": "Write Report",
+        "due_tomorrow": "Tomorrow",
+        "solve_exercises": "Solve Exercises",
+        "assigned_to_fatima": "Fatima",
+        "read_chapter_one": "Read Chapter One",
+        "completed_two_days_ago": "2 days ago"
+      }
+    }
+  },
+  "recommended_quizzes": {
+    "title": "Recommended Quizzes",
+    "error_loading": "Failed to load recommended quizzes",
+    "retry": "Retry",
+    "minutes": "min",
+    "questions": "questions",
+    "no_quizzes": "No recommended quizzes available at the moment",
+    "view_all": "View All Quizzes",
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
+    "sample_quiz_1": {
+      "title": "Algebra Basics",
+      "description": "Comprehensive test in algebra basics and equations",
+      "subject": "Mathematics",
+      "reason": "Based on your current level"
+    },
+    "sample_quiz_2": {
+      "title": "Arabic Grammar Rules",
+      "description": "Test in grammar and morphology rules",
+      "subject": "Arabic Language",
+      "reason": "To improve your performance"
+    }
+  },
+  "useful_resources": {
+    "title": "Useful Resources",
+    "subtitle": "Educational resources to help develop your skills",
+    "view_all": "View All",
+    "no_resources": "No resources available at the moment",
+    "browse_all": "Browse All Resources",
+    "loading": "Loading...",
+    "error": "Error loading resources",
+    "retry": "Retry",
+    "resource_types": {
+      "PDF": "PDF File",
+      "VIDEO": "Video",
+      "LINK": "Link",
+      "IMAGE": "Image",
+      "AUDIO": "Audio File",
+      "DOCUMENT": "Document"
+    },
+    "sample_resources": {
+      "advanced_algorithms": "Advanced Algorithms",
+      "machine_learning_guide": "Machine Learning Guide",
+      "web_security_basics": "Web Security Basics",
+      "database_design": "Database Design",
+      "mobile_development": "Mobile Development"
+    }
+  },
+  "course_card": {
+    "course_badge": "Course",
+    "view_details": "View Details"
+  },
+  "study_chart": {
+    "title": "Weekly Study Hours",
+    "hours_label": "Study Hours",
+    "days": {
+      "saturday": "Saturday",
+      "sunday": "Sunday",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday"
+    }
+  },
+  "dashboard_navbar": {
+    "notification": "Notification",
+    "courses": "Courses",
+    "notifications": "Notifications",
+    "close": "Close"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "quiz_notes": {
+    "title": "Important Notes Before Starting the Quiz",
+    "stable_internet": "Make sure your internet connection is stable",
+    "when_clicking": "When clicking on",
+    "start_quiz": "Start Quiz",
+    "no_leaving": "Leaving or changing the page during the quiz is prohibited",
+    "no_going_back": "You cannot go back to previous questions after moving to the next question",
+    "answer_carefully": "Be careful with your answers",
+    "time_tracking": "The time you take to complete the quiz will be recorded",
+    "no_rush": "Don't rush your answers as the time taken is not important",
+    "leaving_fails": "If you leave the page or minimize the tab, you will be considered failed",
+    "no_cheating": "Don't try to cheat or switch tabs",
+    "understood": "Understood"
+  },
+  "chat": {
+    "error": "Error",
+    "invalid_chat_id": "Invalid chat identifier",
+    "not_found": "Chat not found",
+    "connection_failed": "Failed to connect to server",
+    "connection_lost": "Connection to server lost",
+    "loading_failed": "Failed to load chat",
+    "please_wait": "Please wait ...",
+    "loading_chat": "Loading chat",
+    "retry": "Retry"
+  },
+  "settings": {
+    "notifications": {
+      "title": "Notifications",
+      "updated_notifications": "Notification settings saved successfully",
+      "save_error": "Failed to save notification settings",
+      "email_notifications": "Email Notifications",
+      "push_notifications": "Push Notifications",
+      "study_reminders": "Study Reminders",
+      "newsletter": "Newsletter",
+      "repeat_reminders": "Reminder Frequency",
+      "repeat_reminders_options": {
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "monthly": "Monthly"
+      }
+    }
+  },
+  "verification": {
+    "verifying": "Verifying your account...",
+    "success_message": "Your account has been activated successfully",
+    "success_title": "Account Activated Successfully 🎉",
+    "redirecting": "You will be redirected to login in two seconds...",
+    "invalid_link": "Invalid or expired verification link",
+    "error_occurred": "An error occurred during verification, please try again later",
+    "failed_title": "Account Verification Failed",
+    "resend_link": "Send New Verification Link"
+  },
+  "discussion": {
+    "title": "Discussion",
+    "edited": "edited",
+    "reply": "Reply",
+    "reply_placeholder": "Write your reply here...",
+    "send": "Send",
+    "cancel": "Cancel",
+    "loading": "Loading discussions",
+    "no_discussions": "No discussions for this lecture"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "courses": "Courses",
+    "timetable": "Timetable",
+    "todo": "Todo",
+    "notifications": "Notifications",
+    "organization": "Organization",
+    "subscription": "Subscription",
+    "quizzes": "Quizzes",
+    "chat": "Chat",
+    "community": "Community",
+    "files": "Files",
+    "settings": "Settings",
+    "logout_confirm_title": "Are you sure?",
+    "logout_confirm_text": "You will be logged out of your account",
+    "logout_confirm_yes": "Yes, Log Out",
+    "logout_confirm_cancel": "Cancel",
+    "logout_success": "Logged out successfully",
+    "slogan": "Education is a free right for everyone"
+  },
+  "quiz_question": {
+    "no_questions": "No questions in this quiz",
+    "question_counter": "Question {{current}} of {{total}}",
+    "finish": "Finish",
+    "next": "Next",
+    "all_answered": "You have answered all questions",
+    "submit_answers": "Submit Answers"
+  },
+  "email_verification": {
+    "invalid_link": "Invalid or missing verification link",
+    "success_message": "Your email has been successfully verified! Welcome to Naqraa",
+    "verification_failed": "Failed to verify email",
+    "connection_error": "Connection error occurred. Please try again",
+    "verifying": "Verifying...",
+    "please_wait": "Please wait while we verify your email",
+    "verification_successful": "Verification Successful!",
+    "verification_failed_title": "Verification Failed",
+    "welcome_message": "Welcome to Naqraa educational community",
+    "verification_failed_subtitle": "Sorry, we couldn't verify your email",
+    "email_label": "Email",
+    "whats_next": "What's next?",
+    "explore_courses": "Explore Courses",
+    "explore_courses_description": "Browse our extensive library of educational courses",
+    "join_community": "Join Community",
+    "join_community_description": "Connect with students and teachers in our community",
+    "track_progress": "Track Progress",
+    "track_progress_description": "Monitor your achievements and skill development",
+    "set_goals": "Set Goals",
+    "set_goals_description": "Set your educational goals and achieve your ambitions",
+    "start_learning": "Start Learning Now",
+    "dashboard": "Dashboard",
+    "possible_reasons": "Possible Reasons:",
+    "link_expired": "Link Expired",
+    "link_expired_description": "The link is valid for 24 hours only",
+    "invalid_link_title": "Invalid Link",
+    "invalid_link_description": "The link may be broken or incomplete",
+    "already_verified": "Already Verified",
+    "already_verified_description": "The email may have been verified previously",
+    "try_again": "Try Again",
+    "back_to_home": "Back to Home",
+    "security_message": "We care about the security and privacy of your data",
+    "privacy_policy": "Privacy Policy",
+    "terms_of_use": "Terms of Use",
+    "contact_us": "Contact Us"
+  },
+  "exams_page": {
+    "title": "Exams",
+    "subtitle": "Track all your scheduled and upcoming exams",
+    "download_schedule": "Download Schedule",
+    "exam_schedule": "Exam Schedule",
+    "total_exams": "Total Exams",
+    "upcoming_exams": "Upcoming Exams",
+    "completed_exams": "Completed Exams",
+    "search_placeholder": "Search in exams...",
+    "filter_all": "All Exams",
+    "filter_upcoming": "Upcoming",
+    "filter_completed": "Completed",
+    "exam_table_title": "Exams Schedule",
+    "table_status": "Status",
+    "table_exam": "Exam",
+    "table_subject": "Subject",
+    "table_class": "Class",
+    "table_date": "Date",
+    "table_time": "Time",
+    "table_actions": "Actions",
+    "no_search_results": "No search results found",
+    "no_exams": "No exams found",
+    "view_button": "View",
+    "status_completed": "Completed",
+    "status_urgent": "Urgent",
+    "status_soon": "Soon",
+    "status_upcoming": "Upcoming",
+    "status_scheduled": "Scheduled"
+  },
+  "files_page": {
+    "title": "My Files",
+    "subtitle": "Manage and share files",
+    "upload_file": "Upload File",
+    "search_placeholder": "Search files...",
+    "grid_view": "Grid",
+    "list_view": "List",
+    "no_files_found": "No files found",
+    "no_files_yet": "No files yet",
+    "try_different_search": "Try a different search",
+    "start_uploading": "Start by uploading your first files",
+    "sample_math_project": "Math Project",
+    "sample_arabic_note": "Arabic Language Note",
+    "sample_science_presentation": "Science Presentation",
+    "sample_history_note": "History Note",
+    "sample_geography_note": "Geography Note",
+    "sample_chemistry_note": "Chemistry Note"
+  },
+  "tasks_table": {
+    "title_header": "Title",
+    "description_header": "Description",
+    "due_date_header": "Due Date",
+    "priority_header": "Priority",
+    "no_tasks": "No tasks found",
+    "priority_low": "Low",
+    "priority_medium": "Medium",
+    "priority_high": "High",
+    "priority_urgent": "Urgent"
+  },
+  "notifications_page": {
+    "title": "Notifications",
+    "subtitle": "Track all your notifications and updates",
+    "tab_all": "All",
+    "tab_unread": "Unread",
+    "tab_read": "Read",
+    "mark_all_read": "Mark All as Read",
+    "clear_all": "Clear All",
+    "settings": "Notification Settings",
+    "total_notifications": "Total Notifications",
+    "unread": "Unread",
+    "read": "Read",
+    "from": "from",
+    "close": "Close",
+    "time_just_now": "Just now",
+    "time_hours_ago": "{{hours}} hours ago",
+    "time_days_ago": "{{days}} days ago",
+    "no_notifications": "No notifications",
+    "no_unread_notifications": "No unread notifications",
+    "no_read_notifications": "No read notifications",
+    "empty_message": "New notifications will appear here when they arrive"
+  },
+  "todo_page": {
+    "title": "Tasks",
+    "subtitle": "Organize and track your daily tasks",
+    "new_task": "New Task",
+    "total_tasks": "Total Tasks",
+    "in_progress": "In Progress",
+    "completed": "Completed",
+    "search_placeholder": "Search in tasks...",
+    "filter_all": "All Tasks",
+    "filter_pending": "In Progress",
+    "filter_completed": "Completed",
+    "start_adding_task": "Start by adding a task",
+    "urgent_tasks": "Urgent Tasks",
+    "all_tasks": "All Tasks"
+  },
+  "todo_banner": {
+    "title": "Organize your study time with the integrated task system",
+    "description": "With the task management system, you can now schedule your lessons easily with notifications activated to make the most of your time"
+  },
+  "todo_tabs": {
+    "today": "Today",
+    "repeat": "Repeat",
+    "tasks_label": "Tasks",
+    "collections_label": "Collections",
+    "add_collection": "Add Collection",
+    "add_new_task": "Add New Task",
+    "add_new_collection": "Add New Collection"
+  },
+  "chat_sidebar": {
+    "messages": "Messages",
+    "search_contacts": "Search for a contact",
+    "loading_contacts": "Loading contacts..."
+  },
+  "task_widget": {
+    "title": "Tasks & Assignments",
+    "loading": "Loading tasks...",
+    "no_tasks": "No tasks available",
+    "untitled_task": "Untitled task",
+    "due_date": "Due date"
+  },
+  "student_points": {
+    "title": "Contribution Points",
+    "error_loading": "Failed to load points",
+    "retry": "Retry",
+    "total_points": "Total Points",
+    "this_week": "This Week",
+    "this_month": "This Month",
+    "sources": "Points Sources",
+    "exam_contributions": "Exam Contributions",
+    "article_contributions": "Article Contributions",
+    "resource_contributions": "Resource Contributions",
+    "redeem_points": "Redeem Points"
+  },
+  "recent_activity": {
+    "title": "Recent Activity",
+    "error_loading": "Failed to load recent activity",
+    "no_activity": "No recent activity",
+    "time_minutes_ago": "{{count}} minutes ago",
+    "time_hours_ago": "{{count}} hours ago",
+    "time_days_ago": "{{count}} days ago",
+    "mock_lesson_watch": "Watched Basic Algebra lesson",
+    "mock_exam_complete": "Completed Mathematics exam",
+    "mock_post_create": "Posted a question in Science forum",
+    "mock_course_enroll": "Enrolled in Organic Chemistry course"
+  },
+  "notification_widget": {
+    "title": "Notifications",
+    "show_more": "More",
+    "show_less": "Less", 
+    "no_notifications": "No new notifications",
+    "time_just_now": "Just now",
+    "time_hours_ago": "{{count}} hours ago",
+    "time_days_ago": "{{count}} days ago",
+    "mark_all_read": "Mark all as read",
+    "clear_all": "Clear all"
+  },
+  "not_found_error": {
+    "back_to_home": "Back to Home"
+  },
+  "ui": {
+    "loading": "Loading..."
+  },
+  "upcoming_exams": {
+    "title": "Upcoming Exams",
+    "urgent": "Urgent",
+    "soon": "Soon", 
+    "upcoming": "Upcoming",
+    "scheduled": "Scheduled",
+    "exam_count": "{{count}} exam",
+    "exam_count_plural": "{{count}} exams",
+    "no_exams": "No upcoming exams",
+    "no_exams_subtitle": "Scheduled exams will appear here",
+    "view_all": "View All Exams"
+  },
+  "user_profile": {
+    "role_organization": "Organization Account",
+    "role_student": "Student",
+    "role_contributor": "Contributor",
+    "role_undefined": "Undefined",
+    "joined_on": "Joined on {{date}}",
+    "enrolled_courses": "{{count}} course enrolled",
+    "enrolled_courses_plural": "{{count}} courses enrolled",
+    "edit_profile": "Edit Profile",
+    "study_statistics": "Study Statistics",
+    "consecutive_days": "consecutive days",
+    "study_hours": "study hours",
+    "completed_courses": "completed courses",
+    "average_rating": "average rating",
+    "outstanding_student": "Outstanding Student",
+    "achievement_description": "You've maintained learning for a week!",
+    "quick_actions": "Quick Actions",
+    "explore_courses": "Explore Courses",
+    "notifications": "Notifications",
+    "learning_resources": "Learning Resources",
+    "premium_membership": "Premium Membership",
+    "active_until": "Active until {{date}}"
+  },
+  "learning_progress": {
+    "title": "Learning Progress",
+    "weekly_study_hours": "Weekly Study Hours",
+    "completed_lessons_month": "Completed Lessons This Month",
+    "hours": "hours",
+    "lessons": "lessons",
+    "start_journey": "Start your learning journey today!",
+    "keep_going": "Keep going! You're on the right track",
+    "excellent_progress": "Excellent! Maintain this progress",
+    "amazing_learner": "Amazing! You're a truly dedicated learner",
+    "consecutive_learning_days": "consecutive days of learning",
+    "longest_streak": "Longest streak",
+    "days_count": "{{count}} day",
+    "days_count_plural": "{{count}} days",
+    "today_achievement": "Today's Achievement",
+    "study_hours": "study hours",
+    "completed_lessons": "completed lessons",
+    "learning_goals": "Learning Goals",
+    "completed_percentage": "{{percentage}}% complete",
+    "start_study_session": "Start Study Session"
+  },
+  "page_loader": {
+    "loading": "Loading",
+    "please_wait": "Please wait while resources are loading"
+  },
+  "video_player": {
+    "lecture": "Lecture ({{order}}) {{title}}",
+    "next_to_watch": "Next to Watch",
+    "duration_minutes": "{{duration}} minutes"
+  },
+  "last_watched_course": {
+    "no_courses": "No Courses",
+    "start_learning_journey": "Start your learning journey by enrolling in a new course",
+    "explore_courses": "Explore Courses",
+    "completed": "Completed",
+    "in_progress": "In Progress",
+    "progress": "Progress",
+    "percent_completed": "{{percentage}}% completed",
+    "lessons_progress": "{{completed}} of {{total}} lessons",
+    "review_course": "Review Course",
+    "continue_learning": "Continue Learning"
+  },
+  "not_implemented": {
+    "page_title": "Page",
+    "note": "Note",
+    "page_incomplete": "This page is not complete yet"
+  },
+  "dashboard_index": {
+    "welcome_user": "Welcome, {{name}}",
+    "continue_learning_message": "Continue learning to make the most of your time. If you need any",
+    "support": "support",
+    "always_here": "don't forget we're here anytime",
+    "enrolled_courses": "{{count}} enrolled courses",
+    "active_today": "active today",
+    "continue_learning": "Continue Learning",
+    "top_priority": "Top Priority",
+    "start_journey": "Start Your Learning Journey",
+    "no_courses_yet": "You haven't enrolled in any course yet. Explore our wide range of courses",
+    "explore_courses": "Explore Courses",
+    "urgent_tasks_exams": "Urgent Tasks & Exams",
+    "performance_progress": "Performance & Progress",
+    "resources_recommendations": "Resources & Recommendations"
+  },
+  "timetable_page": {
+    "title": "Timetable",
+    "no_timetable": "No timetable available",
+    "timetable_will_show": "Your class schedule will appear here when available",
+    "reload": "Reload",
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "exam": "Exam",
+    "homework": "Homework",
+    "project": "Project",
+    "today": "Today",
+    "no_classes": "No classes"
+  },
+  "classroom_page": {
+    "error": "Error",
+    "invalid_course_id": "Invalid course ID, the course ID must be a number",
+    "loading_course": "Loading training course"
+  },
+  "student_course_page": {
+    "my_courses": "My Courses",
+    "subtitle": "Track your progress in all enrolled courses",
+    "browse_courses": "Browse Courses",
+    "loading_courses": "Loading courses, please wait...",
+    "total_courses": "Total Courses",
+    "in_progress": "In Progress",
+    "completed": "Completed",
+    "search_placeholder": "Search in your courses...",
+    "sort_recent": "Recent",
+    "sort_progress": "Progress",
+    "sort_name": "Name",
+    "no_search_results": "No search results found",
+    "try_different_search": "Try different search terms",
+    "no_courses_enrolled": "You haven't enrolled in any course yet",
+    "start_learning_journey": "Start your learning journey and explore our wide range of specialized educational courses",
+    "browse_available_courses": "Browse Available Courses",
+    "view_all_courses": "View All Courses"
+  },
+  "subscription_page": {
+    "upgrade_experience": "Upgrade Your Learning Experience",
+    "choose_plan": "Choose the plan that suits your needs and educational goals",
+    "success": "Success!",
+    "subscription_activated": "Your subscription has been activated successfully. Welcome!",
+    "ok": "OK",
+    "cancelled": "Operation Cancelled",
+    "payment_cancelled": "Payment was cancelled. You can try again.",
+    "error_loading_plans": "Error loading subscription plans",
+    "error_loading_data": "Error loading data",
+    "loading_data": "Loading data...",
+    "preparing_payment": "Preparing payment process...",
+    "current_subscription": "Current Subscription",
+    "expires_on": "Expires on",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "days_remaining": "Days Remaining",
+    "most_popular": "Most Popular",
+    "free": "Free",
+    "month": "month",
+    "months": "{{count}} months",
+    "days": "days",
+    "will_replace_current": "Will replace your current subscription ({{plan}})",
+    "processing": "Processing...",
+    "current_plan": "Current Plan",
+    "replace_with_free": "Replace with Free Plan",
+    "replace_subscription": "Replace Subscription",
+    "activate_plan": "Activate Plan",
+    "select_plan": "Select Plan",
+    "faq": "Frequently Asked Questions",
+    "faq_cancel_question": "Can I cancel my subscription at any time?",
+    "faq_cancel_answer": "Yes, you can cancel your subscription at any time from the dashboard. You'll retain access until the end of your subscription period.",
+    "faq_trial_question": "Is there a free trial period?",
+    "faq_trial_answer": "Yes, all plans come with a free 7-day trial period.",
+    "payment_error": "Payment processing error",
+    "error": "Error!",
+    "confirm_subscription": "Confirm Subscription",
+    "activate_free_plan_confirm": "Do you want to activate the free plan: {{plan}}?",
+    "yes_activate": "Yes, Activate",
+    "cancel": "Cancel",
+    "warning_replace_subscription": "⚠️ Warning - Replace Subscription",
+    "warning_replace_paid_subscription": "⚠️ Warning - Replace Paid Subscription",
+    "important_warning": "Important Warning",
+    "current_active_plan": "You currently have an active subscription to plan",
+    "new_plan_activation": "By activating the new plan",
+    "new_plan_name": "New plan",
+    "will_cancel_current": "Your current subscription will be permanently cancelled and replaced with the new plan",
+    "no_refund": "No refund will be provided for the current plan amount",
+    "remaining_days_current": "Remaining days in your current subscription",
+    "yes_replace_subscription": "Yes, Replace Subscription",
+    "yes_replace_and_pay": "Yes, Replace Subscription and Pay",
+    "free_plan_activated": "Free plan activated successfully!",
+    "plan": "Plan",
+    "price": "Price",
+    "redirect_to_payment": "You will be redirected to the secure payment page",
+    "continue_to_payment": "Continue to Payment"
+  },
+  "completed_tasks": {
+    "title": "Completed"
+  },
+  "todo_form": {
+    "add_new_task": "Add New Task",
+    "title_placeholder": "Title",
+    "description_placeholder": "Description",
+    "importance": "Importance",
+    "priority_low": "Low",
+    "priority_medium": "Medium",
+    "priority_high": "High",
+    "priority_urgent": "Urgent"
+  },
+  "org_page": {
+    "educational_institution": "Educational Institution",
+    "reports_statistics": "Academic Reports & Statistics",
+    "comprehensive_report": "Comprehensive Report",
+    "math": "Mathematics",
+    "arabic": "Arabic Language",
+    "science": "Science",
+    "history": "History",
+    "class_participation": "Class Participation",
+    "attendance": "Attendance",
+    "teamwork": "Teamwork",
+    "achievements": "Achievements",
+    "academic_grades": "Academic Grades",
+    "download": "Download",
+    "performance_analysis": "Performance Analysis",
+    "above_average": "Above Average",
+    "average": "Average",
+    "needs_improvement": "Needs Improvement",
+    "recommendations": "Recommendations",
+    "focus_on_science": "Increase focus on Science",
+    "review_math": "Review Mathematics materials",
+    "participate_more": "Participate more in activities"
+  },
+  "chat_card": {
+    "start_conversation": "Start conversation"
+  },
+  "post_card": {
+    "login_required_title": "Login Required",
+    "login_required_text": "You must log in first to like this post.",
+    "cancel": "Cancel",
+    "login_button": "Login",
+    "time_just_now": "Just now",
+    "time_hours_ago": "{{count}} hour ago",
+    "time_hours_ago_plural": "{{count}} hours ago",
+    "time_days_ago": "{{count}} day ago", 
+    "time_days_ago_plural": "{{count}} days ago",
+    "external_link": "External Link",
+    "unknown_user": "Unknown User",
+    "pinned": "Pinned",
+    "edited": "Edited",
+    "view_all_comments": "View all comments ({{count}})"
+  },
+  "contact_page": {
+    "title": "Contact Us at Naqraa",
+    "subtitle": "Do you have a question, suggestion, or want to collaborate? We're here to support and help you with everything you need.",
+    "form_title": "Send Direct Message",
+    "all_fields_required": "All fields are required.",
+    "success_message": "Your message has been sent successfully! We will contact you soon.",
+    "name_placeholder": "Full Name",
+    "email_placeholder": "Email Address",
+    "message_placeholder": "Write your message here...",
+    "sending": "Sending...",
+    "send_message": "Send Message",
+    "cards": {
+      "technical_support": {
+        "title": "Technical Support",
+        "description": "For any technical issues or account inquiries, our team is here to help you quickly."
+      },
+      "partnerships": {
+        "title": "Partnerships & Collaboration",
+        "description": "Want to collaborate with us or represent an educational institution? Contact us directly."
+      },
+      "graduation_projects": {
+        "title": "Graduation Projects",
+        "description": "To get support for your graduation project or develop your idea, we're with you step by step."
+      }
+    }
+  },
+  "report_issue": {
+    "title": "Report an Issue",
+    "subtitle": "We value your feedback and are constantly working to improve your experience. Please describe the issue you encountered.",
+    "success": {
+      "title": "Thank you for contacting us!",
+      "message": "Your report has been received and we will follow up with you soon. We appreciate your feedback and are working to improve your experience.",
+      "new_report": "Send New Report"
+    },
+    "form": {
+      "name_label": "Full Name",
+      "name_placeholder": "Enter your full name",
+      "email_label": "Email Address",
+      "email_placeholder": "Enter your email address",
+      "issue_label": "Issue Description",
+      "issue_placeholder": "Describe the issue in detail...",
+      "submit_button": "Send Report"
+    }
+  },
+  "support_page": {
+    "title": "Technical Support at Naqraa",
+    "subtitle": "Our team is ready to help you with any technical inquiries or issues you face on the platform.",
+    "all_fields_required": "All fields are required",
+    "request_error": "An error occurred while sending the request",
+    "request_error_generic": "An error occurred while sending the request. Please try again later.",
+    "success": {
+      "title": "Your request has been sent successfully",
+      "message": "Hello {{name}}, your request has been sent successfully and the support team will contact you within 48 hours. Thank you for contacting us.",
+      "back_home": "Back to Home Page"
+    },
+    "form": {
+      "title": "Send Support Request",
+      "description": "Tell us what you need and we will get back to you as soon as possible.",
+      "name_placeholder": "Full Name",
+      "email_placeholder": "Email Address",
+      "message_placeholder": "Describe the issue or request",
+      "sending": "Sending...",
+      "submit": "Send Request"
+    },
+    "topics": {
+      "technical": {
+        "title": "Technical Issues",
+        "description": "For any technical issue in your account or the system, we are here to provide quick support."
+      },
+      "education": {
+        "title": "Education & Training",
+        "description": "Inquiries about courses, projects, or educational resources."
+      },
+      "partnerships": {
+        "title": "Partnerships & Collaboration",
+        "description": "Inquiries about collaborating with universities or educational companies."
+      }
+    },
+    "cta": {
+      "title": "Need more help?",
+      "description": "Contact us directly via email or phone.",
+      "button": "Contact Support Now"
+    }
+  },
+  "user_preferences": {
+    "header": {
+      "title": "Setup Preferences",
+      "step_counter": "Step {{current}} of {{total}}"
+    },
+    "navigation": {
+      "previous": "Previous",
+      "next": "Next",
+      "finish": "Complete Setup",
+      "saving": "Saving..."
+    },
+    "success": {
+      "title": "🎉 Preferences saved successfully!",
+      "message": "We will do our best to provide the best resources, courses, educational materials, and community recommendations tailored to you based on your goals and study preferences. Enjoy a completely personalized learning experience!",
+      "start_journey": "Start Journey"
+    },
+    "step1": {
+      "title": "Which subjects do you want to improve?",
+      "description": "Select the subjects you want to focus on (you can choose more than one)",
+      "selected_count": "{{count}} subject selected",
+      "selected_count_plural": "{{count}} subjects selected"
+    },
+    "step2": {
+      "title": "How do you prefer to learn?",
+      "description": "Choose the type of content you prefer"
+    },
+    "step3": {
+      "title": "When do you prefer to study?",
+      "description": "Choose the time that suits you for learning",
+      "content_preferences": "Content Preferences",
+      "video_duration_label": "Preferred video duration (minutes)",
+      "video_duration_min": "5 minutes",
+      "video_duration_current": "{{duration}} minutes",
+      "video_duration_max": "60 minutes",
+      "reading_duration_label": "Preferred reading duration (minutes)",
+      "reading_duration_min": "5 minutes",
+      "reading_duration_current": "{{duration}} minutes",
+      "reading_duration_max": "45 minutes"
+    },
+    "step4": {
+      "title": "What is your learning goal?",
+      "description": "Tell us your goal to help us customize content for you",
+      "goal_label": "My learning goal *",
+      "difficulty_label": "Preferred difficulty level",
+      "weekly_hours_label": "Weekly study hours goal: {{hours}} hours",
+      "hours_one": "One hour",
+      "hours_25": "25 hours",
+      "hours_50": "50 hours",
+      "social_preferences": "Social Preferences",
+      "interested_in_communities": "I'm interested in joining study communities",
+      "interested_in_study_groups": "I want to participate in study groups"
+    },
+    "study_types": {
+      "reading": {
+        "label": "Reading",
+        "description": "Prefer written content and books"
+      },
+      "watching": {
+        "label": "Video Watching",
+        "description": "Learning through educational videos"
+      },
+      "listening": {
+        "label": "Listening",
+        "description": "Audio content and podcasts"
+      },
+      "interactive": {
+        "label": "Interactive",
+        "description": "Exercises and interactive activities"
+      },
+      "practice": {
+        "label": "Practice",
+        "description": "Solving exercises and tests"
+      },
+      "mixed": {
+        "label": "Mixed",
+        "description": "Mix of all types"
+      }
+    },
+    "study_times": {
+      "morning": {
+        "label": "Morning",
+        "time": "6 AM - 12 PM"
+      },
+      "afternoon": {
+        "label": "Afternoon",
+        "time": "12 PM - 6 PM"
+      },
+      "evening": {
+        "label": "Evening",
+        "time": "6 PM - 10 PM"
+      },
+      "night": {
+        "label": "Night",
+        "time": "10 PM - 2 AM"
+      },
+      "flexible": {
+        "label": "Flexible",
+        "time": "Anytime"
+      }
+    },
+    "study_goals": {
+      "improve_grades": {
+        "label": "Improve Academic Grades",
+        "description": "Raise GPA and grades in subjects"
+      },
+      "exam_preparation": {
+        "label": "Exam Preparation",
+        "description": "Prepare for final or standardized exams"
+      },
+      "skill_development": {
+        "label": "Develop New Skills",
+        "description": "Acquire new skills and knowledge"
+      },
+      "career_advancement": {
+        "label": "Career Advancement",
+        "description": "Develop career and professional path"
+      },
+      "personal_interest": {
+        "label": "Personal Interest",
+        "description": "Learning as a hobby or personal interest"
+      },
+      "certification": {
+        "label": "Get Certifications",
+        "description": "Obtain accredited certificates"
+      },
+      "catch_up": {
+        "label": "Catch Up with Curriculum",
+        "description": "Make up for missed curriculum"
+      },
+      "advance_learning": {
+        "label": "Advanced Learning",
+        "description": "Deepen knowledge in preferred subjects"
+      },
+      "competition_prep": {
+        "label": "Competition Preparation",
+        "description": "Prepare for academic competitions"
+      },
+      "general_knowledge": {
+        "label": "Expand General Knowledge",
+        "description": "Increase culture and general knowledge"
+      }
+    },
+    "difficulty_levels": {
+      "beginner": {
+        "label": "Beginner",
+        "description": "Start from basics"
+      },
+      "intermediate": {
+        "label": "Intermediate",
+        "description": "I have basic knowledge"
+      },
+      "advanced": {
+        "label": "Advanced",
+        "description": "I want advanced content"
+      },
+      "mixed": {
+        "label": "Mixed",
+        "description": "Depends on topic"
+      }
+    }
+  },
+  "recent_activity": {
+    "title": "Recent Activity"
+  },
+  "featured_subjects": {
+    "loading": "Loading subjects",
+    "title": "Browse Courses by Subject",
+    "subtitle": "Choose the subject you want to learn and start your educational journey",
+    "view_all": "View All Courses",
+    "default_description": "Explore advanced courses in this subject"
+  },
+  "auth": {
+    "verifyingAccount": "Verifying account",
+    "checkYourEmail": "Please check your email",
+    "verificationEmailSent": "We have sent an account verification link to your email {{email}}. Please check it to activate your account",
+    "loginToAccount": "Login to your account",
+    "createNewAccount": "Create new account",
+    "login": "Login"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About Us",
+    "courses": "Courses",
+    "subscriptionPlans": "Subscription Plans", 
+    "platformFeatures": "Platform Features",
+    "resources": "Resources",
+    "contact": "Contact Us",
+    "backToHome": "Back to Home"
+  }
 }

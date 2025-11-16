@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Calendar, Clock, BookOpen, AlertTriangle, Filter, Search, Eye, Download } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 import type { Exam } from "../../../types";
 import api from "../../api/client";
 import { endpoints } from "../../api/routes";
@@ -11,6 +12,7 @@ import useApiErrorHandler from "../../hooks/use-api-error-handler";
 
 // Exams Page Component
 const ExamsPage = () => {
+    const { t } = useTranslation();
     useApiErrorHandler();
     const [exams, setExams] = useState<Exam[]>([]);
     const [loading, setLoading] = useState(true);
@@ -37,11 +39,11 @@ const ExamsPage = () => {
         const exam = new Date(examDate);
         const diffInDays = Math.ceil((exam.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
         
-        if (diffInDays < 0) return { status: 'completed', color: 'gray', text: 'انتهى', icon: '✅' };
-        if (diffInDays <= 1) return { status: 'urgent', color: 'red', text: 'عاجل', icon: '🔴' };
-        if (diffInDays <= 3) return { status: 'soon', color: 'orange', text: 'قريب', icon: '🟠' };
-        if (diffInDays <= 7) return { status: 'upcoming', color: 'yellow', text: 'قادم', icon: '🟡' };
-        return { status: 'scheduled', color: 'blue', text: 'مجدول', icon: '🔵' };
+        if (diffInDays < 0) return { status: 'completed', color: 'gray', text: t('exams_page.status_completed'), icon: '✅' };
+        if (diffInDays <= 1) return { status: 'urgent', color: 'red', text: t('exams_page.status_urgent'), icon: '🔴' };
+        if (diffInDays <= 3) return { status: 'soon', color: 'orange', text: t('exams_page.status_soon'), icon: '🟠' };
+        if (diffInDays <= 7) return { status: 'upcoming', color: 'yellow', text: t('exams_page.status_upcoming'), icon: '🟡' };
+        return { status: 'scheduled', color: 'blue', text: t('exams_page.status_scheduled'), icon: '🔵' };
     };
 
     const filteredExams = exams.filter(exam => {
@@ -83,19 +85,19 @@ const ExamsPage = () => {
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
                         <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-700 to-emerald-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-emerald-300">
-                            الامتحانات
+                            {t('exams_page.title')}
                         </h1>
                         <p className="text-gray-600 dark:text-emerald-200 mt-1">
-                            تابع جميع امتحاناتك المجدولة والقادمة
+                            {t('exams_page.subtitle')}
                         </p>
                     </div>
                     
                     <div className="flex items-center gap-3">
                         <Button variant="outline" size="sm" icon={<Download className="size-4" />}>
-                            تحميل الجدول
+                            {t('exams_page.download_schedule')}
                         </Button>
                         <Button variant="primary" size="sm" icon={<Calendar className="size-4" />}>
-                            جدول الامتحانات
+                            {t('exams_page.exam_schedule')}
                         </Button>
                     </div>
                 </div>
@@ -116,7 +118,7 @@ const ExamsPage = () => {
                             </div>
                             <div>
                                 <div className="text-2xl font-bold text-emerald-700 dark:text-emerald-300">{exams.length}</div>
-                                <div className="text-sm text-emerald-600 dark:text-emerald-400">إجمالي الامتحانات</div>
+                                <div className="text-sm text-emerald-600 dark:text-emerald-400">{t('exams_page.total_exams')}</div>
                             </div>
                         </div>
                     </Card>
@@ -128,7 +130,7 @@ const ExamsPage = () => {
                             </div>
                             <div>
                                 <div className="text-2xl font-bold text-emerald-800 dark:text-emerald-200">{upcomingExams.length}</div>
-                                <div className="text-sm text-emerald-700 dark:text-emerald-300">امتحانات قادمة</div>
+                                <div className="text-sm text-emerald-700 dark:text-emerald-300">{t('exams_page.upcoming_exams')}</div>
                             </div>
                         </div>
                     </Card>
@@ -140,7 +142,7 @@ const ExamsPage = () => {
                             </div>
                             <div>
                                 <div className="text-2xl font-bold text-emerald-900 dark:text-emerald-100">{completedExams.length}</div>
-                                <div className="text-sm text-emerald-800 dark:text-emerald-200">امتحانات منتهية</div>
+                                <div className="text-sm text-emerald-800 dark:text-emerald-200">{t('exams_page.completed_exams')}</div>
                             </div>
                         </div>
                     </Card>
@@ -158,7 +160,7 @@ const ExamsPage = () => {
                             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 size-4" />
                             <input
                                 type="text"
-                                placeholder="ابحث في الامتحانات..."
+                                placeholder={t('exams_page.search_placeholder')}
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-emerald-700 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-emerald-950 text-gray-900 dark:text-emerald-50"
@@ -173,9 +175,9 @@ const ExamsPage = () => {
                             onChange={(e) => setFilter(e.target.value as any)}
                             className="px-3 py-2 border border-gray-300 dark:border-emerald-700 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-emerald-950 text-gray-900 dark:text-emerald-50"
                         >
-                            <option value="all">جميع الامتحانات</option>
-                            <option value="upcoming">القادمة</option>
-                            <option value="completed">المنتهية</option>
+                            <option value="all">{t('exams_page.filter_all')}</option>
+                            <option value="upcoming">{t('exams_page.filter_upcoming')}</option>
+                            <option value="completed">{t('exams_page.filter_completed')}</option>
                         </select>
                     </div>
                 </motion.div>
@@ -189,7 +191,7 @@ const ExamsPage = () => {
                     <Card variant="dashboard" className="overflow-hidden">
                         <div className="p-4 bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20 border-b border-emerald-200 dark:border-emerald-800">
                             <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">
-                                جدول الامتحانات ({filteredExams.length})
+                                {t('exams_page.exam_table_title')} ({filteredExams.length})
                             </h2>
                         </div>
                         
@@ -197,13 +199,13 @@ const ExamsPage = () => {
                             <table className="w-full">
                                 <thead className="bg-gray-50 dark:bg-emerald-900/30">
                                     <tr>
-                                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-emerald-300 uppercase tracking-wider">الحالة</th>
-                                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-emerald-300 uppercase tracking-wider">الامتحان</th>
-                                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-emerald-300 uppercase tracking-wider">المادة</th>
-                                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-emerald-300 uppercase tracking-wider">الصف</th>
-                                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-emerald-300 uppercase tracking-wider">التاريخ</th>
-                                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-emerald-300 uppercase tracking-wider">الوقت</th>
-                                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-emerald-300 uppercase tracking-wider">الإجراءات</th>
+                                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-emerald-300 uppercase tracking-wider">{t('exams_page.table_status')}</th>
+                                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-emerald-300 uppercase tracking-wider">{t('exams_page.table_exam')}</th>
+                                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-emerald-300 uppercase tracking-wider">{t('exams_page.table_subject')}</th>
+                                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-emerald-300 uppercase tracking-wider">{t('exams_page.table_class')}</th>
+                                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-emerald-300 uppercase tracking-wider">{t('exams_page.table_date')}</th>
+                                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-emerald-300 uppercase tracking-wider">{t('exams_page.table_time')}</th>
+                                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-emerald-300 uppercase tracking-wider">{t('exams_page.table_actions')}</th>
                                     </tr>
                                 </thead>
                                 <tbody className="bg-white dark:bg-emerald-950 divide-y divide-gray-200 dark:divide-emerald-800">
@@ -213,7 +215,7 @@ const ExamsPage = () => {
                                                 <div className="flex flex-col items-center justify-center">
                                                     <BookOpen className="size-12 text-gray-400 mb-3" />
                                                     <p className="text-gray-500 dark:text-emerald-400 font-medium">
-                                                        {searchTerm ? 'لا توجد نتائج للبحث' : 'لا توجد امتحانات'}
+                                                        {searchTerm ? t('exams_page.no_search_results') : t('exams_page.no_exams')}
                                                     </p>
                                                 </div>
                                             </td>
@@ -275,7 +277,7 @@ const ExamsPage = () => {
                                                             size="sm"
                                                             icon={<Eye className="size-4" />}
                                                         >
-                                                            عرض
+                                                            {t('exams_page.view_button')}
                                                         </Button>
                                                     </td>
                                                 </motion.tr>

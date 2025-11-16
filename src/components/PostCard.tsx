@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { HeroHeartIcon, HeroChatBubbleLeftIcon, HeroEyeIcon, HeroLinkIcon } from './Icons';
 import api from '../api/client';
@@ -14,6 +15,7 @@ interface PostCardProps {
 }
 
 export default function PostCard({ post, community, onInteraction }: PostCardProps) {
+  const { t } = useTranslation();
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(post.likes_count || 0);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,10 +47,10 @@ export default function PostCard({ post, community, onInteraction }: PostCardPro
   const handleLike = async () => {
     if(!isAuthenticated){
         InfoAlert({
-            title: "سجل الدخول اولا",
-            text: "يجب تسجيل الدخول أولاً للإعجاب بالمنشور.",
-            cancelText:'الغاء',
-            confirmText:'تسجيل الدخول',
+            title: t('post_card.login_required_title'),
+            text: t('post_card.login_required_text'),
+            cancelText: t('post_card.cancel'),
+            confirmText: t('post_card.login_button'),
             onConfirm: () => {
                 window.location.href = '/login?next=' + window.location.pathname;
             }
@@ -94,12 +96,12 @@ export default function PostCard({ post, community, onInteraction }: PostCardPro
     const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
     
     if (diffInHours < 1) {
-      return 'منذ قليل';
+      return t('post_card.time_just_now');
     } else if (diffInHours < 24) {
-      return `منذ ${diffInHours} ساعة`;
+      return t('post_card.time_hours_ago', { count: diffInHours });
     } else {
       const diffInDays = Math.floor(diffInHours / 24);
-      return `منذ ${diffInDays} يوم`;
+      return t('post_card.time_days_ago', { count: diffInDays });
     }
   };
 
@@ -136,7 +138,7 @@ export default function PostCard({ post, community, onInteraction }: PostCardPro
             <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 bg-blue-50 dark:bg-blue-900/20">
               <div className="flex items-center gap-2 mb-2">
                 <HeroLinkIcon className="size-5 text-blue-500" />
-                <span className="text-sm font-medium text-blue-600 dark:text-blue-400">رابط خارجي</span>
+                <span className="text-sm font-medium text-blue-600 dark:text-blue-400">{t('post_card.external_link')}</span>
               </div>
               <a 
                 href={post.link_url} 
@@ -205,7 +207,7 @@ export default function PostCard({ post, community, onInteraction }: PostCardPro
               <h4 className="font-semibold text-gray-900 dark:text-white">
                 {post.user?.first_name && post.user?.last_name 
                   ? `${post.user.first_name} ${post.user.last_name}`
-                  : post.user?.username || 'مستخدم غير معروف'
+                  : post.user?.username || t('post_card.unknown_user')
                 }
               </h4>
               {getPostTypeIcon()}
@@ -218,7 +220,7 @@ export default function PostCard({ post, community, onInteraction }: PostCardPro
         
         {post.is_pinned && (
           <div className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 px-2 py-1 rounded-full text-xs font-medium">
-            مثبت
+            {t('post_card.pinned')}
           </div>
         )}
       </div>
@@ -285,7 +287,7 @@ export default function PostCard({ post, community, onInteraction }: PostCardPro
         
         {post.edited !== post.created_at && (
           <span className="text-xs text-gray-400 dark:text-gray-500">
-            تم التعديل
+            {t('post_card.edited')}
           </span>
         )}
       </div>
@@ -302,7 +304,7 @@ export default function PostCard({ post, community, onInteraction }: PostCardPro
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="font-medium text-gray-900 dark:text-white text-sm">
-                      {comment.user?.username || 'مستخدم غير معروف'}
+                      {comment.user?.username || t('post_card.unknown_user')}
                     </span>
                     <span className="text-xs text-gray-500 dark:text-gray-400">
                       {formatDate(comment.created_at)}
@@ -318,7 +320,7 @@ export default function PostCard({ post, community, onInteraction }: PostCardPro
             
             {(post.comments_count || 0) > 3 && (
               <button className="text-sm text-emerald-600 dark:text-emerald-400 hover:underline font-medium">
-                عرض جميع التعليقات ({post.comments_count || 0})
+                {t('post_card.view_all_comments', { count: post.comments_count || 0 })}
               </button>
             )}
           </div>

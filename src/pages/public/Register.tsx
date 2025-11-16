@@ -4,6 +4,7 @@ import {
   type FormEvent,
 } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import api from "../../api/client";
 import { endpoints } from "../../api/routes";
 import { useAppSelector } from "../../store/store";
@@ -21,12 +22,12 @@ interface ErrorProps {
   [key: string]: string[] | string | undefined;
 }
 
-const slides = [
-  { id: 1, img: learning, title: "دراستك أكثر متعة وفعالية", subtitle: "مع نقرأ توفر لك أحدث الطرق والأدوات التي تجعل دراستك أسهل وأسرع." },
-  { id: 2, img: elearn, title: "دورات مجانية", subtitle: "استفد من مجموعة واسعة من الدورات المجانية المنظمة بعناية." },
-  { id: 3, img: community, title: "المجتمع الطلابي", subtitle: "انضم إلى مجتمع يشارك الموارد والخبرات بين الطلاب." },
-  { id: 4, img: maths, title: "أدوات الرياضيات", subtitle: "استخدم أدوات تفاعلية تساعدك على حل مسائل الرياضيات بسرعة." },
-  { id: 5, img: laptop, title: "الملازم واوراق البحث", subtitle: "استفد من آلاف الملازم واوراق البحث المجانية او انشئ ملازمك الخاصة." },
+const getSlides = (t: any) => [
+  { id: 1, img: learning, title: t('register.slide1_title'), subtitle: t('register.slide1_subtitle') },
+  { id: 2, img: elearn, title: t('register.slide2_title'), subtitle: t('register.slide2_subtitle') },
+  { id: 3, img: community, title: t('register.slide3_title'), subtitle: t('register.slide3_subtitle') },
+  { id: 4, img: maths, title: t('register.slide4_title'), subtitle: t('register.slide4_subtitle') },
+  { id: 5, img: laptop, title: t('register.slide5_title'), subtitle: t('register.slide5_subtitle') },
 ];
 
 const ErrorDisplay = ({ errors }: { errors: ErrorProps }) => (
@@ -88,9 +89,11 @@ const isValidRedirectUrl = (url: string): boolean => {
 };
 
 export default function RegisterPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { isAuthenticated } = useAppSelector((s) => s.auth);
   const [searchParams] = useSearchParams();
+  const slides = getSlides(t);
 
   const [loading, setLoading] = useState(false);
   const [created, setCreated] = useState(false);
@@ -132,14 +135,14 @@ export default function RegisterPage() {
     e.preventDefault();
     setErrors({});
 
-    // 🔹 تحقق محلي
+    // Local validation
     const localErrors: ErrorProps = {};
-    if (!termsAccepted) localErrors["terms_accepted"] = ["يجب الموافقة على الشروط والأحكام"];
-    if (!firstName) localErrors["first_name"] = ["الرجاء ملأ الاسم الأول"];
-    if (!lastName) localErrors["last_name"] = ["الرجاء ملأ الاسم الأخير"];
-    if (!email) localErrors["email"] = ["الرجاء إدخال البريد الإلكتروني"];
-    if (!gender) localErrors["gender"] = ["الرجاء اختيار الجنس"];
-    if (password !== passwordConfirm) localErrors["password_confirm"] = ["كلمة المرور غير متطابقة"];
+    if (!termsAccepted) localErrors["terms_accepted"] = [t('register.terms_required')];
+    if (!firstName) localErrors["first_name"] = [t('register.first_name_required')];
+    if (!lastName) localErrors["last_name"] = [t('register.last_name_required')];
+    if (!email) localErrors["email"] = [t('register.email_required')];
+    if (!gender) localErrors["gender"] = [t('register.gender_required')];
+    if (password !== passwordConfirm) localErrors["password_confirm"] = [t('register.password_mismatch')];
 
     if (Object.keys(localErrors).length > 0) {
       setErrors(localErrors);
@@ -168,7 +171,7 @@ export default function RegisterPage() {
       if (err.response?.data) {
         setErrors(err.response.data); // أخطاء السيرفر
       } else {
-        setErrors({ non_field_errors: ["حصل خطأ أثناء إنشاء الحساب، الرجاء المحاولة لاحقًا."] });
+        setErrors({ non_field_errors: [t('register.creation_error')] });
       }
     } finally {
       setLoading(false);
@@ -205,10 +208,10 @@ export default function RegisterPage() {
             <img src={getLogo()} className="size-48" />
           </Link>
           <h1 className="text-4xl text-center mb-2 text-emerald-700 dark:text-emerald-200">
-            انشاء حساب جديد
+            {t('register.create_account')}
           </h1>
           <p className="text-center mb-4 text-gray-600 dark:text-gray-300">
-            انشئ حساب جديد على منصة نقرأ
+            {t('register.create_account_subtitle')}
           </p>
 
           <form className="w-full max-w-lg flex flex-col gap-3" onSubmit={handleFormSubmit}>
@@ -216,7 +219,7 @@ export default function RegisterPage() {
 
             <div className="grid lg:grid-cols-2 gap-3">
               <div className="space-y-1">
-                <label htmlFor="first_name">الاسم الاول *</label>
+                <label htmlFor="first_name">{t('register.first_name')} *</label>
                 <input
                   value={firstName}
                   required
@@ -229,7 +232,7 @@ export default function RegisterPage() {
               </div>
 
               <div className="space-y-1">
-                <label htmlFor="last_name"> اسم الاب *</label>
+                <label htmlFor="last_name">{t('register.last_name')} *</label>
                 <input
                   value={lastName}
                   required
@@ -242,9 +245,9 @@ export default function RegisterPage() {
               </div>
 
               <div className="space-y-1 lg:col-span-2">
-                <label htmlFor="email">البريد الالكتروني *</label>
+                <label htmlFor="email">{t('register.email')} *</label>
                 <input
-                  placeholder="مثال: example@gmail.com"
+                  placeholder={t('register.email_placeholder')}
                   value={email}
                   required
                   aria-invalid={hasError("email") ? "true" : "false"}
@@ -256,7 +259,7 @@ export default function RegisterPage() {
               </div>
 
               <div className="space-y-1 lg:col-span-2">
-                <label htmlFor="gender">الجنس *</label>
+                <label htmlFor="gender">{t('register.gender')} *</label>
                 <select
                   value={gender}
                   required
@@ -265,14 +268,14 @@ export default function RegisterPage() {
                   id="gender"
                   className="p-2 border w-full rounded-md"
                 >
-                  <option value="">اختر الجنس</option>
-                  <option value="male">ذكر</option>
-                  <option value="female">أنثى</option>
+                  <option value="">{t('register.select_gender')}</option>
+                  <option value="male">{t('register.male')}</option>
+                  <option value="female">{t('register.female')}</option>
                 </select>
               </div>
 
               <div className="space-y-1">
-                <label htmlFor="password">كلمة المرور *</label>
+                <label htmlFor="password">{t('register.password')} *</label>
                 <input
                   type="password"
                   aria-invalid={hasError("password") ? "true" : "false"}
@@ -285,7 +288,7 @@ export default function RegisterPage() {
               </div>
 
               <div className="space-y-1">
-                <label htmlFor="password_confirm">تأكيد كلمة المرور *</label>
+                <label htmlFor="password_confirm">{t('register.confirm_password')} *</label>
                 <input
                   type="password"
                   aria-invalid={hasError("password_confirm") ? "true" : "false"}
@@ -309,7 +312,7 @@ export default function RegisterPage() {
                   className={`${hasError("terms_accepted") ? "text-rose-500" : ""}`}
                   htmlFor="terms_accepted"
                 >
-                  الموافقة على <Link className="underline" to={"/terms"}>الشروط والاحكام</Link>
+                  {t('register.agree_to')} <Link className="underline" to={"/terms"}>{t('register.terms_conditions')}</Link>
                 </label>
               </div>
             </div>
@@ -319,13 +322,13 @@ export default function RegisterPage() {
               disabled={loading}
               className="bg-emerald-500 text-white p-2 rounded hover:bg-emerald-600 disabled:bg-gray-400 dark:disabled:bg-gray-700 transition-colors"
             >
-              {loading ? "جارٍ انشاء الحساب..." : "انشاء الحساب"}
+              {loading ? t('register.creating_account') : t('register.create_account_button')}
             </button>
 
             <p className="text-sm text-slate-500">
-              لديك حساب بالفعل؟{" "}
+              {t('register.have_account')}{" "}
               <Link className="underline" to="/login">
-                سجل الدخول لحسابك
+                {t('register.login_link')}
               </Link>
             </p>
           </form>

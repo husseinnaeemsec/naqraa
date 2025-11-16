@@ -1,7 +1,9 @@
 import { useState, type FormEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 
 export default function ReportIssuePage() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({ name: '', email: '', issue: '' });
   const [submitted, setSubmitted] = useState(false);
 
@@ -31,10 +33,10 @@ export default function ReportIssuePage() {
           className="text-center mb-16"
         >
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 mb-6">
-            <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">أبلغ عن مشكلة</span>
+            <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">{t('report_issue.title')}</span>
           </h1>
           <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto">
-            نحن نقدر ملاحظاتك ونعمل باستمرار على تحسين تجربتك. يرجى وصف المشكلة التي واجهتها.
+            {t('report_issue.subtitle')}
           </p>
         </motion.div>
 
@@ -51,9 +53,9 @@ export default function ReportIssuePage() {
               className="text-center py-12"
             >
               <div className="text-6xl mb-6">✅</div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">شكراً لتواصلك!</h2>
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">{t('report_issue.success.title')}</h2>
               <p className="text-slate-600 text-lg mb-8 max-w-md mx-auto">
-                تم استلام تقريرك وسنتابع معك قريباً. نحن نقدر ملاحظاتك ونعمل على تحسين تجربتك.
+                {t('report_issue.success.message')}
               </p>
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -61,7 +63,7 @@ export default function ReportIssuePage() {
                 onClick={() => setSubmitted(false)}
                 className="px-8 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-bold hover:from-emerald-700 hover:to-teal-700 transition-all duration-200"
               >
-                إرسال تقرير جديد
+                {t('report_issue.success.new_report')}
               </motion.button>
             </motion.div>
           ) : (
@@ -73,7 +75,7 @@ export default function ReportIssuePage() {
               className="space-y-8"
             >
               <div>
-                <label className="block text-slate-700 font-semibold mb-3 text-lg">الاسم الكامل</label>
+                <label className="block text-slate-700 font-semibold mb-3 text-lg">{t('report_issue.form.name_label')}</label>
                 <input
                   type="text"
                   name="name"
@@ -81,12 +83,12 @@ export default function ReportIssuePage() {
                   onChange={handleChange}
                   required
                   className="w-full border border-slate-300 rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent text-slate-900 placeholder-slate-500"
-                  placeholder="أدخل اسمك الكامل"
+                  placeholder={t('report_issue.form.name_placeholder')}
                 />
               </div>
 
               <div>
-                <label className="block text-slate-700 font-semibold mb-3 text-lg">البريد الإلكتروني</label>
+                <label className="block text-slate-700 font-semibold mb-3 text-lg">{t('report_issue.form.email_label')}</label>
                 <input
                   type="email"
                   name="email"
@@ -94,12 +96,12 @@ export default function ReportIssuePage() {
                   onChange={handleChange}
                   required
                   className="w-full border border-slate-300 rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent text-slate-900 placeholder-slate-500"
-                  placeholder="أدخل بريدك الإلكتروني"
+                  placeholder={t('report_issue.form.email_placeholder')}
                 />
               </div>
 
               <div>
-                <label className="block text-slate-700 font-semibold mb-3 text-lg">وصف المشكلة</label>
+                <label className="block text-slate-700 font-semibold mb-3 text-lg">{t('report_issue.form.issue_label')}</label>
                 <textarea
                   name="issue"
                   value={formData.issue}
@@ -107,7 +109,7 @@ export default function ReportIssuePage() {
                   required
                   rows={6}
                   className="w-full border border-slate-300 rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent text-slate-900 placeholder-slate-500 resize-none"
-                  placeholder="وصف المشكلة بالتفصيل..."
+                  placeholder={t('report_issue.form.issue_placeholder')}
                 ></textarea>
               </div>
 
@@ -123,7 +125,7 @@ export default function ReportIssuePage() {
                   type="submit"
                   className="px-12 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-bold text-lg hover:from-emerald-700 hover:to-teal-700 transition-all duration-200 shadow-lg"
                 >
-                  إرسال التقرير
+                  {t('report_issue.form.submit_button')}
                 </motion.button>
               </motion.div>
             </motion.form>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAppSelector } from "./store/store";
 import PageLoader from "./components/PageLoader";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const ProtectedRoute: React.FC<Props> = ({ children }) => {
+  const { t } = useTranslation();
   const { isAuthenticated, loadingUser, user } = useAppSelector(
     (state) => state.auth
   );
@@ -32,7 +34,7 @@ const ProtectedRoute: React.FC<Props> = ({ children }) => {
   }, [isAuthenticated,loadingUser, navigate]);
 
   if (loadingUser) {
-    return <PageLoader title="جاري التحقق من الحساب" />;
+    return <PageLoader title={t('auth.verifyingAccount')} />;
   }
 
   if (!renderContent) {

@@ -3,6 +3,7 @@ import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
 import { Brain, Clock, Trophy, ArrowRight, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import api from '../api/client';
 
 interface RecommendedQuiz {
@@ -22,6 +23,7 @@ interface RecommendedQuizzesResponse {
 }
 
 export default function RecommendedQuizzesWidget() {
+  const { t } = useTranslation();
   const [quizzes, setQuizzes] = useState<RecommendedQuiz[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -39,30 +41,30 @@ export default function RecommendedQuizzesWidget() {
     } catch (err: any) {
       console.error('Error fetching recommended quizzes:', err);
       if (err.response?.status !== 401) {
-        setError('فشل في تحميل الاختبارات المقترحة');
+        setError(t('recommended_quizzes.error_loading'));
         // Set fallback data
         setQuizzes([
           {
             id: 1,
-            title: 'أساسيات الجبر',
-            description: 'اختبار شامل في أساسيات الجبر والمعادلات',
+            title: t('recommended_quizzes.sample_quiz_1.title'),
+            description: t('recommended_quizzes.sample_quiz_1.description'),
             difficulty: 'medium',
             estimated_time: 15,
             questions_count: 10,
-            subject: 'الرياضيات',
+            subject: t('recommended_quizzes.sample_quiz_1.subject'),
             completion_rate: 85,
-            recommended_reason: 'بناءً على مستواك الحالي'
+            recommended_reason: t('recommended_quizzes.sample_quiz_1.reason')
           },
           {
             id: 2,
-            title: 'قواعد اللغة العربية',
-            description: 'اختبار في قواعد النحو والصرف',
+            title: t('recommended_quizzes.sample_quiz_2.title'),
+            description: t('recommended_quizzes.sample_quiz_2.description'),
             difficulty: 'easy',
             estimated_time: 12,
             questions_count: 8,
-            subject: 'اللغة العربية',
+            subject: t('recommended_quizzes.sample_quiz_2.subject'),
             completion_rate: 92,
-            recommended_reason: 'لتحسين أدائك'
+            recommended_reason: t('recommended_quizzes.sample_quiz_2.reason')
           }
         ]);
       }
@@ -82,10 +84,10 @@ export default function RecommendedQuizzesWidget() {
 
   const getDifficultyText = (difficulty: string) => {
     switch (difficulty) {
-      case 'easy': return 'سهل';
-      case 'medium': return 'متوسط';
-      case 'hard': return 'صعب';
-      default: return 'متوسط';
+      case 'easy': return t('recommended_quizzes.difficulty.easy');
+      case 'medium': return t('recommended_quizzes.difficulty.medium');
+      case 'hard': return t('recommended_quizzes.difficulty.hard');
+      default: return t('recommended_quizzes.difficulty.medium');
     }
   };
 
@@ -120,7 +122,7 @@ export default function RecommendedQuizzesWidget() {
               onClick={fetchRecommendedQuizzes}
               className="text-xs text-emerald-600 hover:text-emerald-700 underline"
             >
-              إعادة المحاولة
+              {t('recommended_quizzes.retry')}
             </button>
           </div>
         </CardContent>
@@ -138,7 +140,7 @@ export default function RecommendedQuizzesWidget() {
           >
             <Brain className="size-5 text-emerald-500" />
           </motion.div>
-          الاختبارات المقترحة
+          {t('recommended_quizzes.title')}
         </CardTitle>
       </CardHeader>
 
@@ -171,12 +173,12 @@ export default function RecommendedQuizzesWidget() {
                   </span>
                   <div className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
                     <Clock className="size-3" />
-                    <span>{quiz.estimated_time} د</span>
+                    <span>{quiz.estimated_time} {t('recommended_quizzes.minutes')}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-1 text-emerald-700 dark:text-emerald-300">
                   <Target className="size-3" />
-                  <span>{quiz.questions_count} سؤال</span>
+                  <span>{quiz.questions_count} {t('recommended_quizzes.questions')}</span>
                 </div>
               </div>
               
@@ -190,7 +192,7 @@ export default function RecommendedQuizzesWidget() {
         {quizzes.length === 0 && !loading && (
           <div className="text-center py-6 text-gray-500 dark:text-emerald-400">
             <Brain className="size-8 mx-auto mb-2 opacity-50" />
-            <p className="text-sm">لا توجد اختبارات مقترحة حالياً</p>
+            <p className="text-sm">{t('recommended_quizzes.no_quizzes')}</p>
           </div>
         )}
         
@@ -201,7 +203,7 @@ export default function RecommendedQuizzesWidget() {
               className="w-full bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium py-2 px-3 rounded-lg transition-colors flex items-center justify-center gap-2"
             >
               <Trophy className="size-4" />
-              عرض جميع الاختبارات
+              {t('recommended_quizzes.view_all')}
             </Link>
           </div>
         )}
