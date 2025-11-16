@@ -33,6 +33,16 @@ npm install
 npm run dev
 ```
 
+## Project Documentation
+
+- [UNCOMPLETED_TASKS.md](./UNCOMPLETED_TASKS.md) - Comprehensive list of uncompleted tasks, future enhancements, and technical debt
+- [REFACTORING_SUMMARY.md](./REFACTORING_SUMMARY.md) - Summary of completed refactoring work and code improvements
+- [UNUSED_ASSETS.md](./UNUSED_ASSETS.md) - Details about asset cleanup and optimization
+
+## Related Repositories
+
+- **Backend**: Check [naqraa-backend](https://github.com/husseinnaeemsec/naqraa-backend) for the backend API implementation
+
 ## Screenshots
 ![Screenshot](./screenshots/screenshot1.png)
 ![Screenshot](./screenshots/screenshot2.png)

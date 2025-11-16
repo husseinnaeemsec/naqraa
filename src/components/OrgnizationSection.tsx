@@ -28,7 +28,26 @@ export default function OrganizationSection() {
                 setOrgList(res.data)
             })
             .catch((e) => {
-                console.log(e)
+                // Handle DRF response errors
+                if (e.response?.data) {
+                    const errorData = e.response.data;
+                    // DRF can return: error:string, detail:string, {field_name:string[]} or non_field_errors:string[]
+                    if (errorData.error) {
+                        setError(errorData.error);
+                    } else if (errorData.detail) {
+                        setError(errorData.detail);
+                    } else if (errorData.non_field_errors) {
+                        setError(Array.isArray(errorData.non_field_errors) ? errorData.non_field_errors.join(', ') : errorData.non_field_errors);
+                    } else {
+                        // Handle field-specific errors
+                        const fieldErrors = Object.values(errorData).flat();
+                        if (fieldErrors.length > 0) {
+                            setError(fieldErrors.join(', '));
+                        }
+                    }
+                } else {
+                    setError("فشل البحث عن المؤسسات");
+                }
             })
 
     }, [orgSearch]);

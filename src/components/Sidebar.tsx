@@ -83,15 +83,30 @@ export default function Sidebar() {
         api.post(endpoints.user.logout)
           .then((_res) => {
             dispatch(logoutUser());
+            Alert.fire({
+              title: "تم تسجيل الخروج",
+              icon: "success",
+              confirmButtonColor: "#059669",
+            });
           })
           .catch((e) => {
-            console.log(e)
+            // Show logout failure message to user
+            let errorMessage = "فشل تسجيل الخروج من الخادم";
+            if (e.response?.data) {
+              const errorData = e.response.data;
+              if (errorData.error) {
+                errorMessage = errorData.error;
+              } else if (errorData.detail) {
+                errorMessage = errorData.detail;
+              }
+            }
+            Alert.fire({
+              title: "خطأ",
+              text: errorMessage,
+              icon: "error",
+              confirmButtonColor: "#059669",
+            });
           })
-        Alert.fire({
-          title: "تم تسجيل الخروج",
-          icon: "success",
-          confirmButtonColor: "#059669",
-        });
       }
     });
   };

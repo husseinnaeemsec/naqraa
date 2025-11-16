@@ -70,7 +70,6 @@ export default function ChatMessages({
     const handleMessage = (e: MessageEvent) => {
       const data: ChatMessageProps = JSON.parse(e.data);
       if (!data) return;
-      console.log(data)
       if(data.type === 'initial_data' || data.type === 'active_users_update') {
         dispatch(setActiveUsers(data.active_users || []))
         return;

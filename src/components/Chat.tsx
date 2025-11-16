@@ -46,7 +46,6 @@ export default function Chat() {
 
         socket.onopen = () => {
           if (!isMounted) return;
-          console.log("✅ Connected to chat:", chatIdNum);
           socketRef.current = socket;
           setLoading(false);
         };
@@ -61,7 +60,6 @@ export default function Chat() {
         };
 
         socket.onclose = () => {
-          console.log("❌ Chat socket closed");
           socketRef.current = null;
           if (isMounted) {
             setError("تم قطع الاتصال بالخادم");
