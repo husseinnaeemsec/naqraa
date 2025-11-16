@@ -103,6 +103,7 @@ export default function RegisterPage() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
+  const [language, setLanguage] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [termsAccepted, setTermsAccepted] = useState(false);
@@ -142,6 +143,7 @@ export default function RegisterPage() {
     if (!lastName) localErrors["last_name"] = [t('register.last_name_required')];
     if (!email) localErrors["email"] = [t('register.email_required')];
     if (!gender) localErrors["gender"] = [t('register.gender_required')];
+    if (!language) localErrors["lang"] = [t('register.language_required')];
     if (password !== passwordConfirm) localErrors["password_confirm"] = [t('register.password_mismatch')];
 
     if (Object.keys(localErrors).length > 0) {
@@ -158,6 +160,7 @@ export default function RegisterPage() {
           last_name: lastName,
           email,
           gender,
+          lang: language,
           password,
           password_confirm: passwordConfirm,
           terms_accepted: termsAccepted,
@@ -258,7 +261,7 @@ export default function RegisterPage() {
                 />
               </div>
 
-              <div className="space-y-1 lg:col-span-2">
+              <div className="space-y-1">
                 <label htmlFor="gender">{t('register.gender')} *</label>
                 <select
                   value={gender}
@@ -271,6 +274,23 @@ export default function RegisterPage() {
                   <option value="">{t('register.select_gender')}</option>
                   <option value="male">{t('register.male')}</option>
                   <option value="female">{t('register.female')}</option>
+                </select>
+              </div>
+
+              <div className="space-y-1">
+                <label htmlFor="language">{t('register.preferred_language')} *</label>
+                <select
+                  value={language}
+                  required
+                  aria-invalid={hasError("lang") ? "true" : "false"}
+                  onChange={(e) => setLanguage(e.target.value)}
+                  id="language"
+                  className="p-2 border w-full rounded-md"
+                >
+                  <option value="">{t('register.select_language')}</option>
+                  <option value="ar">{t('register.arabic')}</option>
+                  <option value="en">{t('register.english')}</option>
+                  <option value="ku">{t('register.kurdish')}</option>
                 </select>
               </div>
 
