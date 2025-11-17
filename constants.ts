@@ -59,7 +59,7 @@ export const grades:Grade[] = [
 
 ]
 
-interface Subject extends Grade{}
+
 export const subjects = [
     {
         display:'الرياضيات',
