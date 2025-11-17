@@ -18,8 +18,8 @@ import {
   Crown,
   Zap
 } from "lucide-react";
-import Card from "./ui/Card";
-import Button from "./ui/Button";
+import { Card } from './ui/card';
+import { Button } from './ui/button';
 
 export default function UserProfileWidget() {
   const { t } = useTranslation();

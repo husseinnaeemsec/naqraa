@@ -1187,6 +1187,10 @@
     "backToHome": "العودة للصفحة الرئيسية"
   },
   "register": {
+    "governorate":"المحافظة",
+    "governorate_required": "المحافظة مطلوبة",
+    "select_governorate": "اختر المحافظة",
+    "server_error":"حصل خطأ في الخادم",
     "create_account": "إنشاء حساب جديد",
     "create_account_subtitle": "انضم إلى منصة نقرأ وابدأ رحلتك التعليمية",
     "create_account_button": "إنشاء حساب",

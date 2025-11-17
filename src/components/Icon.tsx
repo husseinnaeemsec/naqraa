@@ -14,22 +14,24 @@ import menu from '../assets/menu.svg';
 import elearn from '../assets/e-learning.svg';
 
 
-export enum IconImg {
-    File = "file",
-    Board = "board",
-    Building = "building",
-    Chat = "chat",
-    Videos = "video-stack",
-    Exam = "exam",
-    Community = "community",
-    Gear = "gear",
-    Support = "support",
-    Notifications = "notifications",
-    Expand = 'expand',
-    Dashboard = 'dashboard',
-    Menu  = 'menu',
-    Elearn = 'elearn'
-}
+export const IconImg = {
+    File: "file",
+    Board: "board",
+    Building: "building",
+    Chat: "chat",
+    Videos: "video-stack",
+    Exam: "exam",
+    Community: "community",
+    Gear: "gear",
+    Support: "support",
+    Notifications: "notifications",
+    Expand: 'expand',
+    Dashboard: 'dashboard',
+    Menu: 'menu',
+    Elearn: 'elearn'
+} as const;
+
+export type IconImg = typeof IconImg[keyof typeof IconImg];
 
 interface IconProps {
     icon: IconImg;

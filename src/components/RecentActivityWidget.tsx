@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import api from '../api/client';
-import Card from './ui/Card';
+import { Card } from './ui/card';
 import { Activity, Book, MessageSquare, FileText, CheckCircle, Clock } from 'lucide-react';
 import useApiErrorHandler from '../hooks/use-api-error-handler';
 
@@ -114,7 +114,7 @@ export default function RecentActivityWidget() {
 
   if (loading) {
     return (
-      <Card variant="dashboard" className="w-full p-6">
+      <Card className="w-full p-6">
         <div className="flex items-center gap-3 mb-4">
           <Activity className="size-6 text-emerald-600" />
           <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('recent_activity.title')}</h2>
@@ -136,7 +136,7 @@ export default function RecentActivityWidget() {
 
   if (error && activities.length === 0) {
     return (
-      <Card variant="dashboard" className="w-full p-6">
+      <Card className="w-full p-6">
         <div className="flex items-center gap-3 mb-4">
           <Activity className="size-6 text-emerald-600" />
           <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('recent_activity.title')}</h2>
@@ -150,7 +150,7 @@ export default function RecentActivityWidget() {
 
   if (!activities.length) {
     return (
-      <Card variant="dashboard" className="w-full p-6">
+      <Card className="w-full p-6">
         <div className="flex items-center gap-3 mb-4">
           <Activity className="size-6 text-emerald-600" />
           <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('recent_activity.title')}</h2>
@@ -164,7 +164,7 @@ export default function RecentActivityWidget() {
   }
 
   return (
-    <Card variant="dashboard" className="w-full p-6">
+    <Card className="w-full">
       <div className="flex items-center gap-3 mb-6">
         <Activity className="size-6 text-emerald-600" />
         <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('recent_activity.title')}</h2>

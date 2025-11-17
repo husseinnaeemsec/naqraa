@@ -17,6 +17,7 @@ import maths from "../../assets/maths-bg.svg";
 import elearn from "../../assets/elearn.svg";
 import community from "../../assets/online-discussion.svg";
 import laptop from "../../assets/science.svg";
+import { governorates } from '../../../constants';
 
 interface ErrorProps {
   [key: string]: string[] | string | undefined;
@@ -66,20 +67,20 @@ const isValidRedirectUrl = (url: string): boolean => {
       '/board',
       '/classroom'
     ];
-    
+
     // Parse the URL
     const parsedUrl = new URL(url, window.location.origin);
-    
+
     // Only allow same-origin URLs
     if (parsedUrl.origin !== window.location.origin) {
       return false;
     }
-    
+
     const pathname = parsedUrl.pathname;
-    
+
     // Check if the path starts with any allowed path
-    return allowedPaths.some(allowedPath => 
-      pathname === allowedPath || 
+    return allowedPaths.some(allowedPath =>
+      pathname === allowedPath ||
       pathname.startsWith(allowedPath + '/') ||
       pathname.startsWith('/dashboard')
     );
@@ -89,7 +90,7 @@ const isValidRedirectUrl = (url: string): boolean => {
 };
 
 export default function RegisterPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const { isAuthenticated } = useAppSelector((s) => s.auth);
   const [searchParams] = useSearchParams();
@@ -99,16 +100,24 @@ export default function RegisterPage() {
   const [created, setCreated] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [gender, setGender] = useState("");
-  const [language, setLanguage] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [firstName, setFirstName] = useState("Hussein");
+  const [lastName, setLastName] = useState("Naeem");
+  const [email, setEmail] = useState("ehusseinnaim@gmail.com");
+  const [gender, setGender] = useState("male");
+  const [language, setLanguage] = useState<'ar' | 'en' | 'ku'>(i18n.language as 'ar' | 'en' | 'ku' || "ku");
+  const [password, setPassword] = useState("2252Test");
+  const [passwordConfirm, setPasswordConfirm] = useState("2252Test");
+  const [governorate, setGovernorate] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
 
   const [errors, setErrors] = useState<ErrorProps>({});
+
+  useEffect(() => {
+    i18n.on("languageChanged", (lang) => setLanguage(lang as 'ar' | 'en' | 'ku'));
+    return () => {
+      i18n.off("languageChanged", (lang) => setLanguage(lang));
+    }
+  }, [i18n.language])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -120,7 +129,7 @@ export default function RegisterPage() {
   useEffect(() => {
     if (isAuthenticated) {
       const nextUrl = searchParams.get('next');
-      
+
       // Validate and redirect to next URL if safe, otherwise default to dashboard
       if (nextUrl && isValidRedirectUrl(nextUrl)) {
         navigate(nextUrl, { replace: true });
@@ -145,6 +154,7 @@ export default function RegisterPage() {
     if (!gender) localErrors["gender"] = [t('register.gender_required')];
     if (!language) localErrors["lang"] = [t('register.language_required')];
     if (password !== passwordConfirm) localErrors["password_confirm"] = [t('register.password_mismatch')];
+    if (!governorate) localErrors["governorate"] = [t('register.governorate_required')];
 
     if (Object.keys(localErrors).length > 0) {
       setErrors(localErrors);
@@ -164,6 +174,7 @@ export default function RegisterPage() {
           password,
           password_confirm: passwordConfirm,
           terms_accepted: termsAccepted,
+          governorate:governorate,
         },
         { withCredentials: false }
       );
@@ -171,6 +182,10 @@ export default function RegisterPage() {
       setCreated(true);
       localStorage.setItem("register_email", email);
     } catch (err: any) {
+      if(err.status === 500 ){
+        setErrors({ non_field_errors: [t('register.server_error')] });
+        return;
+      }
       if (err.response?.data) {
         setErrors(err.response.data); // أخطاء السيرفر
       } else {
@@ -181,20 +196,26 @@ export default function RegisterPage() {
     }
   };
 
+  const getGovernorateName = (code: 'ar'|'ku'|'en',governorate:{ name_ar:string, name_ku:string, name_en:string }) => {
+    if(!['ar','en','ku'].includes(code)) return;
+
+    return governorate[`name_${code}`];
+
+  }
+
   if (loading) return <PageLoader />;
   if (created) return <EmailSentComponent email={email} />;
 
   return (
-    <div className="bg-emerald-50 dark:bg-dark-emerald w-screen h-screen flex items-center justify-center">
-      <div className="container lg:gap-10 m-auto lg:h-[90dvh] p-5 grid lg:grid-cols-2 items-center justify-center">
+    <div className="bg-emerald-50 dark:bg-dark-emerald w-screen min-h-screen flex items-center justify-center">
+      <div className="container lg:gap-10 m-auto max-w-7xl mx-auto p-5 grid lg:grid-cols-2 items-center justify-center">
         {/* Left Slider */}
         <div className="relative h-full w-full rounded-2xl overflow-hidden flex flex-col items-center justify-center">
           {slides.map((slide, i) => (
             <div
               key={slide.id}
-              className={`absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center transition-opacity duration-700 ${
-                i === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
-              }`}
+              className={`absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center transition-opacity duration-700 ${i === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+                }`}
             >
               <img src={slide.img} alt={slide.title} className="h-[70%] object-cover mx-auto" />
               <div className="text-emerald-800 dark:text-emerald-50 text-center p-4 rounded max-w-xs">
@@ -206,9 +227,9 @@ export default function RegisterPage() {
         </div>
 
         {/* Right Form */}
-        <div className="h-full w-full flex flex-col items-center justify-center gap-5 bg-white dark:bg-emerald-950 rounded-2xl p-8 dashboard-box">
+        <div className="h-full w-full flex flex-col items-center justify-center gap-5 bg-white dark:bg-emerald-950 rounded-2xl p-5 dashboard-box">
           <Link to="/" className="text-7xl font-bold font-handjet flex items-center justify-center">
-            <img src={getLogo()} className="size-48" />
+            <img src={getLogo()} className="size-20" />
           </Link>
           <h1 className="text-4xl text-center mb-2 text-emerald-700 dark:text-emerald-200">
             {t('register.create_account')}
@@ -283,7 +304,7 @@ export default function RegisterPage() {
                   value={language}
                   required
                   aria-invalid={hasError("lang") ? "true" : "false"}
-                  onChange={(e) => setLanguage(e.target.value)}
+                  onChange={(e) => setLanguage(e.target.value as 'ar' | 'en' | 'ku')}
                   id="language"
                   className="p-2 border w-full rounded-md"
                 >
@@ -291,6 +312,24 @@ export default function RegisterPage() {
                   <option value="ar">{t('register.arabic')}</option>
                   <option value="en">{t('register.english')}</option>
                   <option value="ku">{t('register.kurdish')}</option>
+                </select>
+              </div>
+              <div className="space-y-1 lg:col-span-2">
+                <label htmlFor="governorates">{t('register.governorate')} *</label>
+                <select
+                  value={governorate}
+                  required
+                  aria-invalid={hasError("governorates") ? "true" : "false"}
+                  onChange={(e) => setGovernorate(e.target.value)}
+                  id="governorates"
+                  className="p-2 border w-full rounded-md"
+                >
+                  <option value="">{t('register.select_governorate')}</option>
+                  {governorates.map((gov) => (
+                    <option key={gov.code} value={gov.code}>
+                      {getGovernorateName(language, gov)}
+                    </option>
+                  ))}
                 </select>
               </div>
 

@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import api from '../api/client';
 import { endpoints } from '../api/routes';
-import Card from './ui/Card';
-import Button from './ui/Button';
+import { Card } from './ui/card';
+import { Button } from './ui/button';
 import { FileText, Video, Link as LinkIcon, Download, Eye, Lightbulb } from 'lucide-react';
 import useApiErrorHandler from '../hooks/use-api-error-handler';
 
@@ -155,7 +155,7 @@ export default function UsefulResourcesWidget() {
 
   if (loading) {
     return (
-      <Card variant="dashboard" className="w-full p-6">
+      <Card className="w-full p-6">
         <div className="flex items-center gap-3 mb-4">
           <Lightbulb className="size-6 text-emerald-600" />
           <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('resources.title')}</h2>
@@ -178,7 +178,7 @@ export default function UsefulResourcesWidget() {
 
   if (error && resources.length === 0) {
     return (
-      <Card variant="dashboard" className="w-full p-6">
+      <Card className="w-full p-6">
         <div className="flex items-center gap-3 mb-4">
           <Lightbulb className="size-6 text-emerald-600" />
           <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('useful_resources.title')}</h2>
@@ -199,7 +199,7 @@ export default function UsefulResourcesWidget() {
 
   if (!resources.length) {
     return (
-      <Card variant="dashboard" className="w-full p-6">
+      <Card className="w-full p-6">
         <div className="flex items-center gap-3 mb-4">
           <Lightbulb className="size-6 text-emerald-600" />
           <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('useful_resources.title')}</h2>
@@ -208,7 +208,7 @@ export default function UsefulResourcesWidget() {
           <Lightbulb className="size-12 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
           <p className="text-gray-500 dark:text-gray-400 mb-4">{t('useful_resources.no_resources')}</p>
           <Link to="/resources">
-            <Button variant="primary" size="sm">
+            <Button variant="outline" size="sm">
               {t('useful_resources.browse_all')}
             </Button>
           </Link>
@@ -218,7 +218,7 @@ export default function UsefulResourcesWidget() {
   }
 
   return (
-    <Card variant="dashboard" className="w-full p-6">
+    <Card className="w-full p-6">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
           <Lightbulb className="size-6 text-emerald-600" />
@@ -245,7 +245,6 @@ export default function UsefulResourcesWidget() {
               transition={{ delay: idx * 0.1 }}
             >
               <Card 
-                variant="default" 
                 className="h-full p-4 cursor-pointer bg-gradient-to-b from-white to-gray-50/30 dark:from-emerald-900/30 dark:to-emerald-950/50 border border-gray-200 dark:border-emerald-800"
                 hover={true}
                 onClick={() => handleResourceClick(resource)}

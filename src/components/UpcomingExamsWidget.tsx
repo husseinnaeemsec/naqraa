@@ -6,8 +6,8 @@ import type { Exam } from "../../types";
 import { timeBefore } from "../utils/functions";
 import api from "../api/client";
 import { endpoints } from "../api/routes";
-import Card from "./ui/Card";
-import Button from "./ui/Button";
+import { Card } from './ui/card';
+import { Button } from './ui/button';
 import useApiErrorHandler from "../hooks/use-api-error-handler";
 
 export default function UpcomingExams() {
@@ -57,7 +57,7 @@ export default function UpcomingExams() {
 
   if (loading) {
     return (
-      <Card variant="dashboard" className="animate-pulse">
+      <Card className="animate-pulse">
         <div className="p-6 space-y-4">
           <div className="h-6 bg-gray-200 dark:bg-emerald-800 rounded w-1/2"></div>
           <div className="space-y-3">
@@ -70,7 +70,7 @@ export default function UpcomingExams() {
   }
 
   return (
-    <Card variant="dashboard" className="overflow-hidden">
+    <Card className="overflow-hidden">
       {/* Header */}
       <div className="p-4 bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20 border-b border-emerald-200 dark:border-emerald-800">
         <div className="flex items-center justify-between">
@@ -168,8 +168,8 @@ export default function UpcomingExams() {
               variant="outline"
               size="sm"
               className="w-full"
-              icon={<ExternalLink className="size-4" />}
             >
+              <ExternalLink className="size-4" />
               {t('upcoming_exams.view_all')}
             </Button>
           </div>

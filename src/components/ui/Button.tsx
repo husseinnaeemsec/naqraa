@@ -2,13 +2,17 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps {
   children: React.ReactNode;
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   gradient?: boolean;
   loading?: boolean;
   icon?: React.ReactNode;
+  className?: string;
+  disabled?: boolean;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -21,6 +25,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     loading = false,
     icon,
     disabled,
+    onClick,
+    type,
     ...props 
   }, ref) => {
     const { t } = useTranslation();
@@ -49,7 +55,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || loading}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        {...props}
+        onClick={onClick}
+        type={type}
       >
         {loading ? (
           <>

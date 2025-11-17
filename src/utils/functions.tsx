@@ -1,4 +1,4 @@
-import type { Enrollment, EnrollmentSection, Profile, User } from "../../types"
+import type { AuthUser, Enrollment, EnrollmentSection, Profile, User } from "../../types"
 import { BASE_API_URL } from "../api/client";
 import i18n from '../i18n';
 
@@ -8,7 +8,7 @@ export function getUserProfile(): Profile | null {
   return data ? JSON.parse(data) : null;
 }
 
-export const setupUserPrefrences = (user: User | null) => {
+export const setupUserPrefrences = (user: AuthUser | null) => {
 
   const profile = user?.profile || getUserProfile();
 

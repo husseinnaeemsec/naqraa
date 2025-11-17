@@ -4,10 +4,21 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "vite --mode development",
+    "dev:staging": "vite --mode staging",
+    "build": "tsc -b tsconfig.build.json && vite build --mode production",
+    "build:dev": "tsc -b tsconfig.build.json && vite build --mode development",
+    "build:staging": "tsc -b tsconfig.build.json && vite build --mode staging",
+    "build:production": "vite build --mode production",
+    "preview": "vite preview",
+    "preview:staging": "vite preview --mode staging",
+    "preview:production": "vite preview --mode production",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "lint:fix": "eslint . --fix",
+    "type-check": "tsc --noEmit",
+    "analyze": "VITE_ENABLE_BUNDLE_ANALYZER=true vite build --mode production",
+    "clean": "rm -rf dist node_modules/.vite",
+    "env:validate": "node -e \"import('./src/config/env.ts').then(m => console.log('Environment configuration valid:', m.validateConfig()))\""
   },
   "dependencies": {
     "@flaticon/flaticon-uicons": "^3.3.1",

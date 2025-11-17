@@ -1153,6 +1153,10 @@
     "backToHome": "گەڕانەوە بۆ لاپەڕەی سەرەکی"
   },
   "register": {
+    "governorate":"پارێزگا",
+    "governorate_required": "پارێزگا پێویستە",
+    "select_governorate": "پارێزگا هەڵبژێرە",
+    "server_error": "هەڵەیەک لە سێرڤەر ڕوویدا، تکایە دووبارە هەوڵبدەوە",
     "create_account": "دروستکردنی هەژماری نوێ",
     "create_account_subtitle": "بەشداری پلاتفۆرمی نەقڕا بکە و گەشتی فێرکارییەکەت دەست پێبکە",
     "create_account_button": "دروستکردنی هەژمار",

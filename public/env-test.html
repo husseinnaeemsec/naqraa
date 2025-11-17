@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Environment Variables Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .env-var { margin: 10px 0; padding: 10px; background: #f8f9fa; border-left: 4px solid #007bff; }
+        .defined { border-left-color: #28a745; }
+        .undefined { border-left-color: #dc3545; }
+        .section { margin: 30px 0; }
+        h1 { color: #333; text-align: center; }
+        h2 { color: #555; border-bottom: 2px solid #007bff; padding-bottom: 10px; }
+        .status { padding: 5px 10px; border-radius: 4px; color: white; font-weight: bold; }
+        .success { background: #28a745; }
+        .error { background: #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Naqraa Frontend Environment Configuration</h1>
+        
+        <div class="section">
+            <h2>Core Configuration</h2>
+            <div id="core-config"></div>
+        </div>
+        
+        <div class="section">
+            <h2>Feature Flags</h2>
+            <div id="feature-flags"></div>
+        </div>
+        
+        <div class="section">
+            <h2>External Services</h2>
+            <div id="external-services"></div>
+        </div>
+        
+        <div class="section">
+            <h2>Configuration Status</h2>
+            <div id="status"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        // This will be replaced by Vite with actual environment variables
+        const env = import.meta.env;
+        
+        // Core configuration
+        const coreConfig = [
+            { key: 'VITE_NODE_ENV', label: 'Environment' },
+            { key: 'VITE_APP_NAME', label: 'App Name' },
+            { key: 'VITE_APP_VERSION', label: 'App Version' },
+            { key: 'VITE_API_URL', label: 'API URL' },
+        ];
+        
+        // Feature flags
+        const featureFlags = [
+            { key: 'VITE_ENABLE_CHAT', label: 'Chat Enabled' },
+            { key: 'VITE_ENABLE_NOTIFICATIONS', label: 'Notifications Enabled' },
+            { key: 'VITE_ENABLE_DARK_MODE', label: 'Dark Mode Enabled' },
+            { key: 'VITE_ENABLE_PWA', label: 'PWA Enabled' },
+            { key: 'VITE_ENABLE_ANALYTICS', label: 'Analytics Enabled' },
+        ];
+        
+        // External services
+        const externalServices = [
+            { key: 'VITE_GOOGLE_ANALYTICS_ID', label: 'Google Analytics' },
+            { key: 'VITE_SENTRY_DSN', label: 'Sentry DSN' },
+            { key: 'VITE_INTERCOM_APP_ID', label: 'Intercom App ID' },
+        ];
+        
+        function renderEnvVars(vars, containerId) {
+            const container = document.getElementById(containerId);
+            vars.forEach(({ key, label }) => {
+                const value = env[key];
+                const isDefined = value !== undefined && value !== '';
+                const div = document.createElement('div');
+                div.className = `env-var ${isDefined ? 'defined' : 'undefined'}`;
+                div.innerHTML = `
+                    <strong>${label}:</strong> 
+                    <code>${isDefined ? value : 'NOT SET'}</code>
+                    <span class="status ${isDefined ? 'success' : 'error'}">${isDefined ? '✓' : '✗'}</span>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        // Render all sections
+        renderEnvVars(coreConfig, 'core-config');
+        renderEnvVars(featureFlags, 'feature-flags');
+        renderEnvVars(externalServices, 'external-services');
+        
+        // Overall status
+        const requiredVars = ['VITE_NODE_ENV', 'VITE_API_URL'];
+        const missingRequired = requiredVars.filter(key => !env[key]);
+        const statusContainer = document.getElementById('status');
+        
+        if (missingRequired.length === 0) {
+            statusContainer.innerHTML = `
+                <div class="env-var defined">
+                    <span class="status success">✓ Configuration Valid</span>
+                    <p>All required environment variables are properly configured.</p>
+                </div>
+            `;
+        } else {
+            statusContainer.innerHTML = `
+                <div class="env-var undefined">
+                    <span class="status error">✗ Configuration Invalid</span>
+                    <p>Missing required variables: ${missingRequired.join(', ')}</p>
+                </div>
+            `;
+        }
+        
+        // Log to console for debugging
+        console.log('🔍 Environment Variables:', env);
+        console.log('🚩 Feature Flags:', {
+            chat: env.VITE_ENABLE_CHAT === 'true',
+            notifications: env.VITE_ENABLE_NOTIFICATIONS === 'true',
+            darkMode: env.VITE_ENABLE_DARK_MODE === 'true',
+            pwa: env.VITE_ENABLE_PWA === 'true',
+            analytics: env.VITE_ENABLE_ANALYTICS === 'true',
+        });
+    </script>
+</body>
+</html>

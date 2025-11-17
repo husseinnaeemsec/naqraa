@@ -402,6 +402,17 @@ export interface AuthUser {
     week_study_time:StudyTimeWeek|null;
     subscription:Subscription|null;
     enrolled_courses:{ course:number,enrollment:number }[];
+    organization:number | null;
+}
+
+export interface PublicOrganizationProfile {
+    id:number;
+    name:string;
+    username:string;
+    bio?: string;
+    governorate?: string;
+    organization_type?: 'college' | 'school' | 'institute';
+    students?: number;
 }
 
 export interface InitialAuthState {

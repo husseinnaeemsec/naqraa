@@ -24,7 +24,8 @@ export const endpoints = {
             request:'/users/verify/request/',
         },
         organization:{
-            updateOrganization:''
+            updateOrganization:'',
+            list:'/organizations/',
         },
         enrollments:{
             list:'/enrollments/',

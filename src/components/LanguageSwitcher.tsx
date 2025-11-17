@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAppSelector } from '../store/store';
 import { HeroLanguageIcon, HeroChevronDownIcon } from './Icons';
 
 interface Language {
@@ -19,6 +20,7 @@ export default function LanguageSwitcher() {
   const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
 
@@ -28,6 +30,16 @@ export default function LanguageSwitcher() {
     if (selectedLang) {
       document.documentElement.dir = selectedLang.dir;
       document.documentElement.lang = langCode;
+      
+      // Only save to localStorage if user is not authenticated
+      // Authenticated users' language preference should be managed server-side
+      if (!isAuthenticated) {
+        try {
+          localStorage.setItem('language', langCode);
+        } catch (error) {
+          console.warn('Error saving language to localStorage:', error);
+        }
+      }
     }
     setIsOpen(false);
   };

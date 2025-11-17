@@ -1,6 +1,13 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import progressTrackerImg from '../../assets/progress.svg';
+import filesFolderImg from '../../assets/files-folder.svg';
+import chatImg from '../../assets/chat-img.svg';
+import quizImg from '../../assets/quiz.svg';
+import mobileNotificationImg from '../../assets/notifications.svg';
+import tasksImg from '../../assets/todo-app.svg';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -48,9 +55,16 @@ export default function NaqraaAppFeaturesPage() {
                     </p>
 
                     <div className="flex justify-center gap-4 mt-10">
-                        <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3 rounded-xl text-lg transition-all duration-200 transform hover:scale-105">
-                            تحميل التطبيق
-                        </button>
+                        <div className="relative">
+                            <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3 rounded-xl text-lg transition-all duration-200 transform hover:scale-105 cursor-not-allowed opacity-75">
+                                تحميل التطبيق
+                            </button>
+                            <div className="absolute -top-2 -right-2">
+                                <div className="bg-gradient-to-r from-amber-400 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg animate-pulse transform rotate-12">
+                                    قريباً
+                                </div>
+                            </div>
+                        </div>
                         <button className="border border-emerald-600 text-emerald-700 hover:bg-emerald-100 px-8 py-3 rounded-xl text-lg transition-all duration-200">
                             شاهد فيديو استعراض
                         </button>
@@ -69,7 +83,7 @@ export default function NaqraaAppFeaturesPage() {
                         "مزامنة فورية مع حساب الويب",
                     ]}
                     refList={sectionsRef}
-                    image="https://placehold.co/600x400/10b981/ffffff?text=Lectures+Tracker"
+                    image={progressTrackerImg}
                 />
 
                 <Feature
@@ -83,7 +97,7 @@ export default function NaqraaAppFeaturesPage() {
                         "التصفح بدون إنترنت",
                     ]}
                     refList={sectionsRef}
-                    image="https://placehold.co/600x400/3b82f6/ffffff?text=Files+Library"
+                    image={filesFolderImg}
                 />
 
                 <Feature
@@ -97,7 +111,7 @@ export default function NaqraaAppFeaturesPage() {
                         "تنبيهات فورية للرسائل الجديدة",
                     ]}
                     refList={sectionsRef}
-                    image="https://placehold.co/600x400/f59e0b/ffffff?text=Chat+System"
+                    image={chatImg}
                 />
 
                 <Feature
@@ -111,7 +125,7 @@ export default function NaqraaAppFeaturesPage() {
                         "ترتيب بين الطلاب",
                     ]}
                     refList={sectionsRef}
-                    image="https://placehold.co/600x400/8b5cf6/ffffff?text=Quizzes+Tests"
+                    image={quizImg}
                 />
 
                 <Feature
@@ -125,7 +139,7 @@ export default function NaqraaAppFeaturesPage() {
                         "عرض تقدم الفريق والمشاريع",
                     ]}
                     refList={sectionsRef}
-                    image="https://placehold.co/600x400/ef4444/ffffff?text=Tasks+Manager"
+                    image={tasksImg}
                 />
 
                 <Feature
@@ -138,7 +152,7 @@ export default function NaqraaAppFeaturesPage() {
                         "تحكم كامل في نوع الإشعارات",
                     ]}
                     refList={sectionsRef}
-                    image="https://placehold.co/600x400/14b8a6/ffffff?text=Notifications"
+                    image={mobileNotificationImg}
                 />
 
                 <CTA refList={sectionsRef} />
@@ -171,7 +185,7 @@ function Feature({ index, title, description, bullets, refList, image } : Featur
                 <img 
                     src={image} 
                     alt={title} 
-                    className="rounded-2xl shadow-lg w-full h-auto object-cover transform hover:scale-105 transition-transform duration-300"
+                    className="rounded-2xl   max-h-[500px] object-cover transform hover:scale-105 transition-transform duration-300"
                 />
             </div>
             <div className="md:w-1/2">
@@ -201,9 +215,16 @@ function CTA({ refList } : { refList:React.RefObject<(HTMLElement | null)[]> } )
                 حمّل تطبيق نقــرأ وابدأ رحلتك التعليمية الذكية — تجربة متكاملة تجمع كل ما تحتاجه في مكان واحد.
             </p>
 
-            <button className="px-10 py-4 bg-white text-emerald-700 font-semibold text-lg rounded-xl hover:bg-emerald-50 transition-all duration-200 transform hover:scale-105">
-                تحميل التطبيق الآن
-            </button>
+            <div className="relative inline-block">
+                <button className="px-10 py-4 bg-white text-emerald-700 font-semibold text-lg rounded-xl hover:bg-emerald-50 transition-all duration-200 transform hover:scale-105 cursor-not-allowed opacity-90">
+                    تحميل التطبيق الآن
+                </button>
+                <div className="absolute -top-3 -right-3">
+                    <div className="bg-gradient-to-r from-yellow-400 to-amber-500 text-white px-4 py-1 rounded-full text-sm font-bold shadow-xl animate-bounce transform -rotate-12">
+                        <span className="animate-pulse">قريباً 🚀</span>
+                    </div>
+                </div>
+            </div>
         </section>
     );
 }

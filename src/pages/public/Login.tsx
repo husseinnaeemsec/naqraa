@@ -27,6 +27,7 @@ const isValidRedirectUrl = (url: string): boolean => {
       '/exams',
       '/files',
       '/org',
+      '/organizations',
       '/timetable',
       '/subscription',
       '/board',

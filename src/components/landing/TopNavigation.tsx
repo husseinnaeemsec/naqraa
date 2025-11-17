@@ -24,7 +24,7 @@ export default function TopNavigation() {
 
   return (
     <>
-      <nav className="flex items-center justify-between h-16 lg:h-20 px-4 md:px-6 lg:px-12 bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-emerald-100 shadow-lg shadow-emerald-50">
+      <nav className="flex items-center justify-between h-16 lg:h-20 px-4 md:px-6 lg:px-12 bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-emerald-100 ">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 flex-shrink-0">
           <img src="/logo.svg" alt="Naqraa Logo" className="w-10 md:w-14 lg:w-16" />

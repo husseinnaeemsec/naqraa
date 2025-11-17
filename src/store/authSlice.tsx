@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { Enrollment, InitialAuthState, Notification, StudyTimeWeek, User } from '../../types';
+import type { AuthUser, Enrollment, InitialAuthState, Notification, StudyTimeWeek, User } from '../../types';
 
 // Get initial state from localStorage if available
 const initialState: InitialAuthState = {
@@ -32,12 +32,12 @@ const authSlice = createSlice({
     setAuthenticationState: (state, action: PayloadAction<boolean>) => {
       state.isAuthenticated = action.payload;
     },
-    setUser: (state, action: PayloadAction<User | null>) => {
+    setUser: (state, action: PayloadAction<AuthUser | null>) => {
       state.user = action.payload;
       state.week_study_time = action.payload?.week_study_time || null 
 
     },
-    updateUser: (state, action: PayloadAction<User>) => {
+    updateUser: (state, action: PayloadAction<AuthUser>) => {
       state.user = action.payload;
       state.week_study_time = action.payload?.week_study_time || null;
     },
@@ -51,6 +51,18 @@ const authSlice = createSlice({
       state.notifications = [];
       localStorage.removeItem("user_cache");
       state.loadingUser = false;
+      
+      // When user logs out, restore language from localStorage if available
+      // This allows unauthenticated users to maintain their language preference
+      try {
+        const savedLanguage = localStorage.getItem('language');
+        if (savedLanguage && ['ar', 'en', 'ku'].includes(savedLanguage)) {
+          // Note: The actual i18n language change will be handled by AuthProvider
+          // since we can't access i18n instance from Redux slice
+        }
+      } catch (error) {
+        console.warn('Error checking language in localStorage during logout:', error);
+      }
     },
 
     setUserEnrollments: (state, action: PayloadAction<Enrollment[]>) => {

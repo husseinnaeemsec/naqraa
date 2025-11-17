@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import api from '../api/client';
 import { endpoints } from '../api/routes';
-import Card from './ui/Card';
-import Button from './ui/Button';
+import { Card } from './ui/card';
+import { Button } from './ui/button';
 import { BookOpen, Clock, Users } from 'lucide-react';
 
 interface Course {
@@ -50,7 +50,7 @@ export default function RecommendedCoursesWidget() {
 
   if (loading) {
     return (
-      <Card variant="dashboard" className="w-full p-6">
+      <Card className="w-full p-6">
         <div className="flex items-center gap-3 mb-4">
           <BookOpen className="size-6 text-emerald-600" />
           <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">دورات موصى بها</h2>
@@ -72,7 +72,7 @@ export default function RecommendedCoursesWidget() {
 
   if (error) {
     return (
-      <Card variant="dashboard" className="w-full p-6">
+      <Card className="w-full p-6">
         <div className="flex items-center gap-3 mb-4">
           <BookOpen className="size-6 text-emerald-600" />
           <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">دورات موصى بها</h2>
@@ -93,7 +93,7 @@ export default function RecommendedCoursesWidget() {
 
   if (!courses.length) {
     return (
-      <Card variant="dashboard" className="w-full p-6">
+      <Card className="w-full p-6">
         <div className="flex items-center gap-3 mb-4">
           <BookOpen className="size-6 text-emerald-600" />
           <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">دورات موصى بها</h2>
@@ -102,7 +102,7 @@ export default function RecommendedCoursesWidget() {
           <BookOpen className="size-12 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
           <p className="text-gray-500 dark:text-gray-400 mb-4">لا توجد دورات موصى بها حالياً</p>
           <Link to="/courses">
-            <Button variant="primary" size="sm">
+            <Button variant="outline" size="sm">
               استكشف جميع الدورات
             </Button>
           </Link>
@@ -112,7 +112,7 @@ export default function RecommendedCoursesWidget() {
   }
 
   return (
-    <Card variant="dashboard" className="w-full p-6">
+    <Card className="w-full p-6">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <BookOpen className="size-6 text-emerald-600" />
@@ -133,7 +133,6 @@ export default function RecommendedCoursesWidget() {
             className="min-w-[240px] flex-shrink-0"
           >
             <Card 
-              variant="default" 
               className="h-full bg-gradient-to-b from-white to-emerald-50/30 dark:from-emerald-900 dark:to-emerald-950 border border-emerald-100 dark:border-emerald-800"
               hover={true}
             >
@@ -183,7 +182,6 @@ export default function RecommendedCoursesWidget() {
                 {/* Action Button */}
                 <Link to={`/courses/${course.slug}`}>
                   <Button 
-                    variant="primary" 
                     size="sm" 
                     className="w-full"
                     gradient={true}

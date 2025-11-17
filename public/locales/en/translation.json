@@ -17,6 +17,7 @@
   "change_profile_picture": "Change Profile Picture",
   "saving_changes": "Saving changes...",
   "account_info_saved": "Account information saved successfully.",
+  
   "settings": {
     "label": "Settings",
     "account_info": {
@@ -1160,6 +1161,11 @@
     "backToHome": "Back to Home"
   },
   "register": {
+    "governorate":"Governorate",
+    "governorate_required": "Governorate is required",
+    "select_governorate": "Select Governorate",
+    "server_error":"Server error occurred, please try again later",
+    
     "create_account": "Create New Account",
     "create_account_subtitle": "Join Naqraa Platform and start your learning journey",
     "create_account_button": "Create Account",

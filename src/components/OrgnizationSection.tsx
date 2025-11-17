@@ -23,7 +23,7 @@ export default function OrganizationSection() {
     useEffect(() => {
         if (orgSearch.length < 1) { setSelectedOrg(null); return };
 
-        api.get('/organizations/?search=' + orgSearch)
+        api.get('/organizations/?q=' + orgSearch)
             .then((res) => {
                 setOrgList(res.data)
             })
@@ -42,7 +42,7 @@ export default function OrganizationSection() {
         try {
             const form = new FormData();
             form.append("organization_id", String(selectedOrg?.id));
-            await api.post("/organizations/join/", form, { headers: { 'Content-Type': "multipart/form-data" } });
+            await api.post("/organizations/join/", { org_id:selectedOrg?.id });
             setSuccess(true);
         } catch (err:any) {
             setError(err?.response?.data?.error || "فشل إرسال الطلب، حاول مرة أخرى");

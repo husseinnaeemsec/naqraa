@@ -1,6 +1,8 @@
 import axios from "axios";
+import { config } from '../config/env';
 
-export const BASE_API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+export const BASE_API_URL = config.apiUrl;
+
 
 // 🔹 دالة للحصول على الـ CSRF من الكوكيز
 export function getCookie(name: string) {
@@ -22,6 +24,7 @@ export function getCookie(name: string) {
 const api = axios.create({
   baseURL: BASE_API_URL,
   withCredentials: true,  // 🔹 يسمح بإرسال الكوكيز
+  timeout: config.apiTimeout,
   headers: {
     "Content-Type": "application/json",
   },
@@ -43,7 +46,7 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    if (error.response?.status === 401 && window.location.pathname.startsWith("/dashboard") ) {
       // Clear any stored auth data
       document.cookie = 'access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       document.cookie = 'refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';

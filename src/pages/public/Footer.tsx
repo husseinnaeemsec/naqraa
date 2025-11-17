@@ -103,9 +103,15 @@ export default function Footer() {
                             <div>
                                 <h6 className="mb-4 text-sm font-semibold uppercase text-emerald-700 dark:text-emerald-400">تطبيق نقرا</h6>
                                 <ul className="space-y-3">
-                                    <li className='flex items-center gap-2'>
-                                        <button disabled className="text-gray-500 line-through  dark:text-gray-400 dark:hover:text-emerald-400">تحميل التطبيق</button>
-                                        <span className="bg-amber-500 text-xs p-1 text-white rounded-md"> قريبا </span>
+                                    <li className='flex items-center gap-2 relative'>
+                                        <button disabled className="text-gray-500 line-through dark:text-gray-400">
+                                            تحميل التطبيق
+                                        </button>
+                                        <div className="relative">
+                                            <span className="bg-gradient-to-r from-amber-400 to-orange-500 text-xs px-2 py-1 text-white rounded-md font-medium shadow-lg animate-pulse transform -rotate-2">
+                                                قريباً 🚀
+                                            </span>
+                                        </div>
                                     </li>
                                     <li><Link to="/app-features" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">مميزات التطبيق</Link></li>
 
@@ -193,26 +199,39 @@ export default function Footer() {
                                 <hr className="border-emerald-100 dark:border-emerald-800" />
 
                                 <div>
-                                    <p className="mb-3 flex gap-1 text-sm font-medium text-gray-900 dark:text-white">
-                                        <span className="bg-amber-500 text-xs p-1 text-white rounded-md"> قريبا </span>
-                                         <strong className='text-emerald-600'> تطبيق نقرأ  </strong> على اجهزة الهاتف
+                                    <p className="mb-3 flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-white">
+                                        <strong className='text-emerald-600'> تطبيق نقرأ </strong> على اجهزة الهاتف
                                     </p>
                                     <div className="gap-4 space-y-4 sm:flex sm:space-y-0">
-                                        <button disabled className="inline-flex w-full items-center justify-center rounded-lg bg-slate-600 px-4 py-2.5 text-white  focus:ring-4 focus:ring-emerald-300 sm:w-auto">
-                                            <svg className="ml-3 h-7 w-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z" /></svg>
-                                            <div className="text-right">
-                                                <div className="mb-1 text-xs">حمّل على</div>
-                                                <div className="-mt-1 text-sm font-semibold">Google Play</div>
+                                        <div className="relative">
+                                            <button disabled className="inline-flex w-full items-center justify-center rounded-lg bg-slate-600 px-4 py-2.5 text-white opacity-60 cursor-not-allowed sm:w-auto">
+                                                <svg className="ml-3 h-7 w-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z" /></svg>
+                                                <div className="text-right">
+                                                    <div className="mb-1 text-xs">حمّل على</div>
+                                                    <div className="-mt-1 text-sm font-semibold">Google Play</div>
+                                                </div>
+                                            </button>
+                                            <div className="absolute -top-2 -right-2">
+                                                <span className="bg-gradient-to-r from-amber-400 to-orange-500 text-xs px-2 py-1 text-white rounded-full font-medium shadow-lg animate-pulse">
+                                                    قريباً
+                                                </span>
                                             </div>
-                                        </button>
+                                        </div>
 
-                                        <button disabled className="inline-flex w-full items-center justify-center rounded-lg bg-slate-600 px-4 py-2.5 text-white  focus:ring-4 focus:ring-emerald-300 sm:w-auto">
-                                            <img src={appleLogo} className="ml-3 h-9 w-9" alt="" />
-                                            <div className="text-right">
-                                                <div className="mb-1 text-xs">حمّل على</div>
-                                                <div className="-mt-1 text-sm font-semibold">App Store</div>
+                                        <div className="relative">
+                                            <button disabled className="inline-flex w-full items-center justify-center rounded-lg bg-slate-600 px-4 py-2.5 text-white opacity-60 cursor-not-allowed sm:w-auto">
+                                                <img src={appleLogo} className="ml-3 h-9 w-9" alt="" />
+                                                <div className="text-right">
+                                                    <div className="mb-1 text-xs">حمّل على</div>
+                                                    <div className="-mt-1 text-sm font-semibold">App Store</div>
+                                                </div>
+                                            </button>
+                                            <div className="absolute -top-2 -right-2">
+                                                <span className="bg-gradient-to-r from-amber-400 to-orange-500 text-xs px-2 py-1 text-white rounded-full font-medium shadow-lg animate-pulse">
+                                                    قريباً
+                                                </span>
                                             </div>
-                                        </button>
+                                        </div>
                                     </div>
                                 </div>
 

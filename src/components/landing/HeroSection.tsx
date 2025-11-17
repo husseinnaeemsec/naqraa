@@ -157,7 +157,7 @@ export default function HeroSection() {
 
                             {/* Main Hero Image */}
                             <motion.div 
-                                className="relative bg-white/50 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl border border-emerald-100"
+                                className="relative bg-white/50 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8"
                                 whileHover={{ scale: 1.02 }}
                                 transition={{ duration: 0.3 }}
                             >

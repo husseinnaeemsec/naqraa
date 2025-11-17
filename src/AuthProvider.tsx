@@ -19,11 +19,24 @@ interface Props {
 
 
 const AuthProvider: React.FC<Props> = ({ children }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const dispatch = useAppDispatch();
   const { loadingUser } = useAppSelector((state) => state.auth);
   const [error, setError] = useState<string | null>(null);
   const hasCheckedAuth = useRef(false);
+
+  // Helper function to set language attributes
+  const setLanguageAttributes = (lang: string) => {
+    const langConfig = {
+      'ar': { dir: 'rtl' },
+      'en': { dir: 'ltr' },
+      'ku': { dir: 'rtl' }
+    };
+    
+    const config = langConfig[lang as keyof typeof langConfig] || langConfig['ar'];
+    document.documentElement.dir = config.dir;
+    document.documentElement.lang = lang;
+  };
 
 
 
@@ -49,11 +62,38 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
           endpoints.user.profile,
           { withCredentials: true }
         );
-        dispatch(setUser(profileRes.data));
-        dispatch(setWeekStudyTime(profileRes.data.week_study_time));
+        
+        // Handle authenticated user's language preference
+        const user = profileRes.data;
+        if (user.profile?.lang && ['ar', 'en', 'ku'].includes(user.profile.lang)) {
+          // Set language from user profile
+          await i18n.changeLanguage(user.profile.lang);
+          setLanguageAttributes(user.profile.lang);
+          
+          // Clear localStorage language for authenticated users since it's managed server-side
+          try {
+            localStorage.removeItem('language');
+          } catch (error) {
+            console.warn('Error removing language from localStorage:', error);
+          }
+        }
+        
+        dispatch(setUser(user));
+        dispatch(setWeekStudyTime(user.week_study_time));
         dispatch(setAuthenticationState(true));
       })
       .catch((_err) => {
+        // When logout occurs, restore language from localStorage if available
+        try {
+          const savedLanguage = localStorage.getItem('language');
+          if (savedLanguage && ['ar', 'en', 'ku'].includes(savedLanguage)) {
+            i18n.changeLanguage(savedLanguage);
+            setLanguageAttributes(savedLanguage);
+          }
+        } catch (error) {
+          console.warn('Error restoring language from localStorage:', error);
+        }
+        
         dispatch(logoutUser())
         setError("Unauthorized");
       })
