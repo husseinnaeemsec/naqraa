@@ -2,12 +2,11 @@ import { useAppSelector } from "../../store/store";
 import { motion } from "framer-motion";
 import { Calendar, Clock, BookOpen, AlertCircle, RefreshCw } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import Card from "../../components/ui/Card";
+import Card from "../../components/ui/CustomCard";
 
 interface EventProps {
   label: string;
   color: string;
-  bgColor: string;
 }
 
 interface EventsProps {
@@ -152,7 +151,7 @@ export default function TimeTablePage() {
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: (index * 0.1) + (itemIndex * 0.05) }}
-                        className="group p-3 rounded-lg bg-emerald-50/50 dark:bg-emerald-900/20 hover:bg-emerald-100/70 dark:hover:bg-emerald-900/30 transition-all duration-200 border border-emerald-100 dark:border-emerald-800/50 hover:shadow-md"
+                        className={`group p-3 rounded-lg ${isToday ? 'bg-white' : 'bg-emerald-50/50 dark:bg-emerald-900/20 hover:bg-emerald-100/70 '}    dark:hover:bg-emerald-900/30 transition-all duration-200 border border-emerald-100 dark:border-emerald-800/50 hover:shadow-md`}
                       >
                         <div className="flex items-start justify-between mb-2">
                           <h3 className="font-semibold text-sm text-gray-900 dark:text-emerald-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-300">
@@ -171,11 +170,9 @@ export default function TimeTablePage() {
                             {item.events.map((ev: string) => (
                               <span
                                 key={ev}
-                                className={`text-xs px-2 py-1 rounded-full font-medium ${
-                                  eventBadges[ev].bgColor
-                                } ${eventBadges[ev].color}`}
+                                className={`text-xs px-2 py-1 rounded-full font-medium ${eventBadges[ev as keyof typeof eventBadges].color}`}
                               >
-                                {eventBadges[ev].label}
+                                {eventBadges[ev as keyof typeof eventBadges].label}
                               </span>
                             ))}
                           </div>

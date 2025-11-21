@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Users, Plus, Search, Filter, Hash, UserPlus, TrendingUp, MessageSquare, Star } from "lucide-react";
-import Card from "../../../components/ui/Card";
-import Button from "../../../components/ui/Button";
+import Card from "../../../components/ui/CustomCard";
+import Button from "../../../components/ui/CustomButton";
 
 // Community Page Component
 const CommunitiesPage = () => {

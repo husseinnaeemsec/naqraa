@@ -7,8 +7,8 @@ import { useAppDispatch, useAppSelector } from "../../store/store";
 import api from "../../api/client";
 import { endpoints } from "../../api/routes";
 import { setNotifications } from "../../store/authSlice";
-import Card from "../../components/ui/Card";
-import Button from "../../components/ui/Button";
+import Card from "../../components/ui/CustomCard";
+import Button from "../../components/ui/CustomButton";
 import useApiErrorHandler from "../../hooks/use-api-error-handler";
 
 export function NotificationItem({ notification, index }: { notification: Notification; index: number }) {
@@ -301,7 +301,7 @@ export default function NotificationsPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
                 >
-                    <Card variant="dashboard" className="p-4 bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-900/30 dark:to-emerald-800/30">
+                    <Card variant="dashboard" className="p-4 bg-white border border-slate-300">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-emerald-100 dark:bg-emerald-900/50 rounded-full">
                                 <Bell className="size-5 text-emerald-600" />
@@ -313,7 +313,7 @@ export default function NotificationsPage() {
                         </div>
                     </Card>
                     
-                    <Card variant="dashboard" className="p-4 bg-gradient-to-r from-emerald-100 to-emerald-200 dark:from-emerald-800/30 dark:to-emerald-700/30">
+                    <Card variant="dashboard" className="p-4 bg-white border border-slate-300">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-emerald-200 dark:bg-emerald-800/50 rounded-full">
                                 <Eye className="size-5 text-emerald-700" />
@@ -325,7 +325,7 @@ export default function NotificationsPage() {
                         </div>
                     </Card>
                     
-                    <Card variant="dashboard" className="p-4 bg-gradient-to-r from-emerald-200 to-emerald-300 dark:from-emerald-700/30 dark:to-emerald-600/30">
+                    <Card variant="dashboard" className="p-4 bg-white border border-slate-300">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-emerald-300 dark:bg-emerald-700/50 rounded-full">
                                 <Check className="size-5 text-emerald-800" />

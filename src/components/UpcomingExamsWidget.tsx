@@ -9,6 +9,7 @@ import { endpoints } from "../api/routes";
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 import useApiErrorHandler from "../hooks/use-api-error-handler";
+import { Link } from "react-router-dom";
 
 export default function UpcomingExams() {
   const { t } = useTranslation();
@@ -106,56 +107,56 @@ export default function UpcomingExams() {
               const urgency = getExamUrgency(exam.date);
               
               return (
-                <motion.div
-                  key={exam.id || index}
-                  className={`p-4 rounded-lg border-2 transition-all hover:shadow-md ${getUrgencyStyles(urgency.color)}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-2">
-                        <BookOpen className="size-4 flex-shrink-0" />
-                        <h4 className="font-bold text-lg truncate">{exam.subject_name}</h4>
-                        <span className={`text-xs px-2 py-1 rounded-full font-medium ${
-                          urgency.color === 'red' ? 'bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300' :
-                          urgency.color === 'orange' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/50 dark:text-orange-300' :
-                          urgency.color === 'yellow' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/50 dark:text-yellow-300' :
-                          'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300'
-                        }`}>
-                          {urgency.text}
-                        </span>
-                      </div>
-                      
-                      {exam.description && (
-                        <p className="text-sm mb-3 line-clamp-2">{exam.description}</p>
-                      )}
-                      
-                      <div className="flex items-center gap-4 text-sm">
-                        <div className="flex items-center gap-1">
-                          <Clock className="size-3" />
-                          <span className="font-medium">{timeBefore(exam.date)}</span>
+                <Link key={exam.id} className="my-2 block" to={`/dashboard/exams/${exam.id}`}>
+                  <motion.div
+                    className={`p-4 rounded-lg border-2 transition-all hover:shadow-md cursor-pointer ${getUrgencyStyles(urgency.color)}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-2">
+                          <BookOpen className="size-4 flex-shrink-0" />
+                          <h4 className="font-bold text-lg truncate">{exam.subject_name}</h4>
+                          <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                            urgency.color === 'red' ? 'bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300' :
+                            urgency.color === 'orange' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/50 dark:text-orange-300' :
+                            urgency.color === 'yellow' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/50 dark:text-yellow-300' :
+                            'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300'
+                          }`}>
+                            {urgency.text}
+                          </span>
                         </div>
                         
-                        <div className="flex items-center gap-1">
-                          <Calendar className="size-3" />
-                          <span>{new Date(exam.date).toLocaleDateString('ar-SA')}</span>
+                        {exam.description && (
+                          <p className="text-sm mb-3 line-clamp-2">{exam.description}</p>
+                        )}
+                        
+                        <div className="flex items-center gap-4 text-sm">
+                          <div className="flex items-center gap-1">
+                            <Clock className="size-3" />
+                            <span className="font-medium">{timeBefore(exam.date)}</span>
+                          </div>
+                          
+                          <div className="flex items-center gap-1">
+                            <Calendar className="size-3" />
+                            <span>{new Date(exam.date).toLocaleDateString('ar-SA')}</span>
+                          </div>
                         </div>
                       </div>
+                      
+                      {urgency.level === 'urgent' && (
+                        <motion.div
+                          animate={{ scale: [1, 1.1, 1] }}
+                          transition={{ duration: 1, repeat: Infinity }}
+                        >
+                          <AlertTriangle className="size-5 text-red-500" />
+                        </motion.div>
+                      )}
                     </div>
-                    
-                    {urgency.level === 'urgent' && (
-                      <motion.div
-                        animate={{ scale: [1, 1.1, 1] }}
-                        transition={{ duration: 1, repeat: Infinity }}
-                      >
-                        <AlertTriangle className="size-5 text-red-500" />
-                      </motion.div>
-                    )}
-                  </div>
-                </motion.div>
+                  </motion.div>
+                </Link>
               );
             })}
           </div>
@@ -169,8 +170,7 @@ export default function UpcomingExams() {
               size="sm"
               className="w-full"
             >
-              <ExternalLink className="size-4" />
-              {t('upcoming_exams.view_all')}
+              <Link to="/dashboard/exams?upcoming=true"> {t('upcoming_exams.view_all')} </Link>
             </Button>
           </div>
         )}

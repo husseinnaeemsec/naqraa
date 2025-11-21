@@ -16,11 +16,11 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     
     const variants = {
       default: "bg-white dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800",
-      dashboard: "bg-white dark:bg-emerald-950 border border-emerald-200/40 dark:border-emerald-800/40 shadow-sm",
-      landing: "bg-white/90 backdrop-blur-sm border border-emerald-100 shadow-lg hover:shadow-xl"
+      dashboard: "bg-white dark:bg-emerald-950 border border-emerald-200/40 dark:border-emerald-800/40 ",
+      landing: "bg-white/90 backdrop-blur-sm border border-emerald-100  "
     };
 
-    const hoverClasses = hover ? "hover:shadow-lg hover:-translate-y-1" : "";
+    const hoverClasses = hover ? " hover:-translate-y-1" : "";
     const gradientClasses = gradient ? "bg-gradient-to-br from-emerald-600 to-emerald-700 text-white border-0" : "";
     const clickableClasses = onClick ? "cursor-pointer" : "";
 

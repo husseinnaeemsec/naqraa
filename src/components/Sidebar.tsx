@@ -50,7 +50,8 @@ export default function Sidebar() {
     { link: "/dashboard/", icon: "fi fi-rr-home", label: t("sidebar.dashboard") },
     { link: "/dashboard/courses/", icon: "fi fi-rr-play-alt", label: t("sidebar.courses") },
     { link: "/dashboard/timetable/", icon: "fi fi-rr-calendar", label: t("sidebar.timetable") },
-    // { link: "/dashboard/todo/", icon: "fi fi-rr-memo-circle-check", label: t("sidebar.todo") },
+    { link: "/dashboard/attendance/", icon: "fi fi-rr-check-circle", label: t("sidebar.attendance") },
+    { link: "/dashboard/homework", icon: "fi fi-rr-memo-circle-check", label: t("sidebar.homework") },
     { link: "/dashboard/notifications/", messages: notifications.filter(n => n.read === false).length, icon: "fi fi-rr-bell", label: t("sidebar.notifications") },
     { link: "/dashboard/org/", icon: "fi fi-rr-building", label: t("sidebar.organization") },
     { link: "/dashboard/subscription/", icon: "fi fi-rr-credit-card", label: t("sidebar.subscription") },
@@ -60,6 +61,7 @@ export default function Sidebar() {
     { link: "/dashboard/communities/", icon: "fi fi-rr-users-class", label: t("sidebar.community") },
     { link: "/dashboard/files/", icon: "fi fi-rr-folder", label: t("sidebar.files") },
     { link: "/dashboard/settings/", icon: "fi fi-rr-user-gear", label: t("sidebar.settings") },
+    
   ];
 
   const handleLogout = () => {

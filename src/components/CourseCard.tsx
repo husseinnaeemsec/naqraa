@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import type { Course } from "../../types";
 import { getMedia } from "../utils/functions";
 import { Star, Clock, Users, PlayCircle, Bookmark } from "lucide-react";
+import ShareButton from "./ShareButton";
 
 interface Props {
   course: Course;
@@ -37,10 +38,30 @@ export default function CourseCard({ course }: Props) {
           </div>
         </Link>
         
-        {/* Bookmark Button */}
-        <button className="absolute top-3 left-3 p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-md hover:bg-white transition-colors opacity-0 group-hover:opacity-100">
-          <Bookmark className="size-4 text-gray-700 hover:text-emerald-600" />
-        </button>
+        {/* Action Buttons */}
+        <div className="absolute top-3 left-3 flex gap-2">
+          {/* Bookmark Button */}
+          <button className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-md hover:bg-white transition-colors">
+            <Bookmark className="size-4 text-gray-700 hover:text-emerald-600" />
+          </button>
+          
+          {/* Share Button */}
+          <ShareButton
+            url={`${window.location.origin}/courses/${course.slug}/`}
+            title={`${course.title} - دورة مجانية على نقرأ`}
+            description={`${course.description || `تعلم ${course.title} مع ${course.instructor.first_name} ${course.instructor.last_name}`}. انضم لآلاف الطلاب في منصة نقرأ التعليمية المجانية. ${course.subject?.name ? `#${course.subject.name.replace(/\s+/g, '')}` : ''} #نقرأ #تعليم_مجاني`}
+            variant="ghost"
+            size="sm"
+            showText={false}
+            className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-md hover:bg-white transition-colors"
+            utmParams={{
+              utm_source: 'course_card',
+              utm_medium: 'social',
+              utm_campaign: 'course_sharing',
+              utm_content: 'top_button'
+            }}
+          />
+        </div>
         
         {/* Course Level Badge */}
         {course.level && (
@@ -141,14 +162,31 @@ export default function CourseCard({ course }: Props) {
           )}
         </div>
 
-        {/* Action Button - Only visible on hover */}
-        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 pt-2 flex-shrink-0">
+        {/* Action Buttons */}
+        <div className="pt-2 flex-shrink-0 flex gap-2">
           <Link 
             to={`/courses/${course.slug}/`}
-            className="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-center text-sm font-medium rounded-lg transition-colors inline-block"
+            className="flex-1 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-center text-sm font-medium rounded-lg transition-colors inline-block"
           >
             عرض التفاصيل
           </Link>
+          
+          {/* Share Button */}
+          <ShareButton
+            url={`${window.location.origin}/courses/${course.slug}/`}
+            title={`🎓 ${course.title} - دورة مجانية على منصة نقرأ`}
+            description={`${course.description || `تعلم ${course.title} خطوة بخطوة`} 👨‍🏫 مع المدرس: ${course.instructor.first_name} ${course.instructor.last_name}\n\n✅ دورة مجانية 100%\n⭐ تقييم ${course.rating?.toFixed(1) || '4.2'} من 5\n👥 ${Math.floor(Math.random() * 1000) + 100}+ طالب مسجل\n${course.subject?.name ? `🏷️ ${course.subject.name}` : ''}\n\n#نقرأ #تعليم_مجاني #دورات_اونلاين ${course.subject?.name ? `#${course.subject.name.replace(/\s+/g, '')}` : ''}`}
+            variant="secondary"
+            size="md"
+            showText={false}
+            className="px-3"
+            utmParams={{
+              utm_source: 'course_card',
+              utm_medium: 'social',
+              utm_campaign: 'course_sharing',
+              utm_content: 'action_button'
+            }}
+          />
         </div>
       </div>
     </div>

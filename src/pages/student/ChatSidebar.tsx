@@ -22,8 +22,8 @@ export default function ChatSidebar() {
         .finally(() => setLoading(false));
     }, []);
 
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const search = e.target.value.toLowerCase();
+    const handleSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        const search = event.currentTarget.value.toLowerCase();
 
         // If user clears the input, show default chats again
         if (!search.trim()) {

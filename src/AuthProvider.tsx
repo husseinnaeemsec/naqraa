@@ -32,7 +32,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
       'en': { dir: 'ltr' },
       'ku': { dir: 'rtl' }
     };
-    
+
     const config = langConfig[lang as keyof typeof langConfig] || langConfig['ar'];
     document.documentElement.dir = config.dir;
     document.documentElement.lang = lang;
@@ -57,19 +57,19 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
           return;
         }
 
-        
+
         const profileRes = await api.get<UserStatusResponse>(
           endpoints.user.profile,
           { withCredentials: true }
         );
-        
+
         // Handle authenticated user's language preference
         const user = profileRes.data;
         if (user.profile?.lang && ['ar', 'en', 'ku'].includes(user.profile.lang)) {
           // Set language from user profile
           await i18n.changeLanguage(user.profile.lang);
           setLanguageAttributes(user.profile.lang);
-          
+
           // Clear localStorage language for authenticated users since it's managed server-side
           try {
             localStorage.removeItem('language');
@@ -77,12 +77,12 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
             console.warn('Error removing language from localStorage:', error);
           }
         }
-        
+
         dispatch(setUser(user));
         dispatch(setWeekStudyTime(user.week_study_time));
         dispatch(setAuthenticationState(true));
       })
-      .catch((_err) => {
+      .catch((err) => {
         // When logout occurs, restore language from localStorage if available
         try {
           const savedLanguage = localStorage.getItem('language');
@@ -93,9 +93,11 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         } catch (error) {
           console.warn('Error restoring language from localStorage:', error);
         }
-        
-        dispatch(logoutUser())
-        setError("Unauthorized");
+
+        if (err.status === 401) {
+          dispatch(logoutUser())
+          setError("Unauthorized");
+        }
       })
       .finally(() => {
         dispatch(setLoadingState(false));

@@ -3,13 +3,11 @@ import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../store/store";
 import { motion } from "framer-motion";
 import { 
-  User, 
   Mail, 
   Calendar, 
   BookOpen, 
   Trophy, 
   Clock, 
-  Settings, 
   Star, 
   Target,
   TrendingUp,
@@ -19,7 +17,7 @@ import {
   Zap
 } from "lucide-react";
 import { Card } from './ui/card';
-import { Button } from './ui/button';
+import Button  from './ui/CustomButton';
 
 export default function UserProfileWidget() {
   const { t } = useTranslation();
@@ -50,7 +48,7 @@ export default function UserProfileWidget() {
   return (
     <div className="space-y-6">
       {/* Main Profile Card */}
-      <Card variant="dashboard" className="overflow-hidden">
+      <Card  className="overflow-hidden">
         {/* Header with gradient background */}
         <div className="relative bg-gradient-to-br from-emerald-600 via-emerald-700 to-emerald-800 p-6 text-white">
           <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
@@ -104,7 +102,7 @@ export default function UserProfileWidget() {
           </div>
 
           <Link to="/dashboard/settings">
-            <Button variant="outline" size="sm" className="w-full" icon={<Settings className="size-4" />}>
+            <Button variant="outline" size="sm" className="w-full" >
               {t('user_profile.edit_profile')}
             </Button>
           </Link>
@@ -112,7 +110,7 @@ export default function UserProfileWidget() {
       </Card>
 
       {/* Study Statistics */}
-      <Card variant="dashboard" className="p-6">
+      <Card  className="p-6">
         <div className="flex items-center gap-3 mb-4">
           <TrendingUp className="size-5 text-emerald-600" />
           <h4 className="font-bold text-gray-900 dark:text-emerald-50">{t('user_profile.study_statistics')}</h4>
@@ -166,7 +164,7 @@ export default function UserProfileWidget() {
       </Card>
 
       {/* Achievement Badge */}
-      <Card variant="dashboard" className="p-4 bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20 border-emerald-200 dark:border-emerald-800">
+      <Card  className="p-4 bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20 border-emerald-200 dark:border-emerald-800">
         <div className="flex items-center gap-3">
           <div className="p-2 bg-emerald-100 dark:bg-emerald-900/50 rounded-full">
             <Crown className="size-5 text-emerald-600" />
@@ -179,7 +177,7 @@ export default function UserProfileWidget() {
       </Card>
 
       {/* Quick Actions */}
-      <Card variant="dashboard" className="p-4">
+      <Card  className="p-4">
         <h4 className="font-bold text-gray-900 dark:text-emerald-50 mb-4 flex items-center gap-2">
           <Target className="size-4 text-emerald-600" />
           {t('user_profile.quick_actions')}
@@ -205,7 +203,7 @@ export default function UserProfileWidget() {
 
       {/* Subscription Status (if applicable) */}
       {user?.subscription && (
-        <Card variant="dashboard" className="p-4 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 border-emerald-200 dark:border-emerald-800">
+        <Card  className="p-4 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 border-emerald-200 dark:border-emerald-800">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-emerald-100 dark:bg-emerald-900/50 rounded-full">
               <Crown className="size-5 text-emerald-600" />

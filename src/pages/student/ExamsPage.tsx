@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Calendar, Clock, BookOpen, AlertTriangle, Filter, Search, Eye, Download } from "lucide-react";
+import { Calendar, Clock, BookOpen, Filter, Search, Eye, Download } from "lucide-react";
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from "react-router-dom";
 import type { Exam } from "../../../types";
 import api from "../../api/client";
 import { endpoints } from "../../api/routes";
-import { formatTime, isExpired, timeBefore } from "../../utils/functions";
-import Card from "../../components/ui/Card";
-import Button from "../../components/ui/Button";
+import { formatTime, timeBefore } from "../../utils/functions";
+import Card from "../../components/ui/CustomCard";
+import Button from "../../components/ui/CustomButton";
 import useApiErrorHandler from "../../hooks/use-api-error-handler";
 
 // Exams Page Component
 const ExamsPage = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     useApiErrorHandler();
     const [exams, setExams] = useState<Exam[]>([]);
     const [loading, setLoading] = useState(true);
@@ -33,6 +35,13 @@ const ExamsPage = () => {
         
         fetchExams();
     }, []);
+
+    const getDayName = (date: string) => {
+        const examDate = new Date(date);
+        const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+        const dayKey = dayNames[examDate.getDay()];
+        return t(`days.${dayKey}`);
+    };
 
     const getExamStatus = (examDate: string) => {
         const now = new Date();
@@ -111,7 +120,7 @@ const ExamsPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
                 >
-                    <Card variant="dashboard" className="p-4 bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-900/30 dark:to-emerald-800/30">
+                    <Card variant="dashboard" className="p-4 bg-white border border-slate-300">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-emerald-100 dark:bg-emerald-900/50 rounded-full">
                                 <BookOpen className="size-5 text-emerald-600" />
@@ -123,7 +132,7 @@ const ExamsPage = () => {
                         </div>
                     </Card>
                     
-                    <Card variant="dashboard" className="p-4 bg-gradient-to-r from-emerald-100 to-emerald-200 dark:from-emerald-800/30 dark:to-emerald-700/30">
+                    <Card variant="dashboard" className="p-4 bg-white border border-slate-300">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-emerald-200 dark:bg-emerald-800/50 rounded-full">
                                 <Clock className="size-5 text-emerald-700" />
@@ -135,7 +144,7 @@ const ExamsPage = () => {
                         </div>
                     </Card>
                     
-                    <Card variant="dashboard" className="p-4 bg-gradient-to-r from-emerald-200 to-emerald-300 dark:from-emerald-700/30 dark:to-emerald-600/30">
+                    <Card variant="dashboard" className="p-4 bg-white border border-slate-300">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-emerald-300 dark:bg-emerald-700/50 rounded-full">
                                 <Calendar className="size-5 text-emerald-800" />
@@ -261,11 +270,14 @@ const ExamsPage = () => {
                                                         {exam.class_room_name}
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap">
-                                                        <div className="text-sm text-gray-900 dark:text-emerald-50">
-                                                            {timeBefore(exam.date)}
+                                                        <div className="text-sm font-medium text-gray-900 dark:text-emerald-50">
+                                                            {getDayName(exam.date)}
                                                         </div>
                                                         <div className="text-sm text-gray-500 dark:text-emerald-300">
                                                             {new Date(exam.date).toLocaleDateString('ar-SA')}
+                                                        </div>
+                                                        <div className="text-xs text-gray-500 dark:text-emerald-300">
+                                                            {timeBefore(exam.date)}
                                                         </div>
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-emerald-50">
@@ -276,6 +288,7 @@ const ExamsPage = () => {
                                                             variant="ghost"
                                                             size="sm"
                                                             icon={<Eye className="size-4" />}
+                                                            onClick={() => navigate(`/dashboard/exams/${exam.id}`)}
                                                         >
                                                             {t('exams_page.view_button')}
                                                         </Button>

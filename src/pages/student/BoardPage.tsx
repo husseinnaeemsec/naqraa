@@ -2,8 +2,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Plus, Trello, Edit3, MoreVertical, Calendar, User, Tag } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import Card from "../../components/ui/Card";
-import Button from "../../components/ui/Button";
+import Card from "../../components/ui/CustomCard";
+import Button from "../../components/ui/CustomButton";
 
 // Board Page Component
 const BoardPage = () => {

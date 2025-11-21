@@ -9,8 +9,8 @@ import { setUserEnrollments } from "../../store/authSlice";
 import PageLoader from "../../components/PageLoader";
 import { Link } from "react-router-dom";
 import StudentCourseCard from "../../components/StudentCourseCard";
-import Card from "../../components/ui/Card";
-import Button from "../../components/ui/Button";
+import Card from "../../components/ui/CustomCard";
+import Button from "../../components/ui/CustomButton";
 import useApiErrorHandler from "../../hooks/use-api-error-handler";
 
 // Courses Page Component
@@ -57,7 +57,7 @@ const StudentCoursesPage = () => {
                     return (b.progress || 0) - (a.progress || 0);
                 case 'recent':
                 default:
-                    return new Date(b.enrollment_date).getTime() - new Date(a.enrollment_date).getTime();
+                    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
             }
         });
 
@@ -105,7 +105,7 @@ const StudentCoursesPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
                 >
-                    <Card variant="dashboard" className="p-4 bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-900/30 dark:to-emerald-800/30">
+                    <Card variant="dashboard" className="p-4 bg-white border border-slate-300">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-emerald-100 dark:bg-emerald-900/50 rounded-full">
                                 <BookOpen className="size-5 text-emerald-600" />
@@ -117,7 +117,7 @@ const StudentCoursesPage = () => {
                         </div>
                     </Card>
                     
-                    <Card variant="dashboard" className="p-4 bg-gradient-to-r from-emerald-100 to-emerald-200 dark:from-emerald-800/30 dark:to-emerald-700/30">
+                    <Card variant="dashboard" className="p-4 bg-white border border-slate-300">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-emerald-200 dark:bg-emerald-800/50 rounded-full">
                                 <TrendingUp className="size-5 text-emerald-700" />
@@ -129,7 +129,7 @@ const StudentCoursesPage = () => {
                         </div>
                     </Card>
                     
-                    <Card variant="dashboard" className="p-4 bg-gradient-to-r from-emerald-200 to-emerald-300 dark:from-emerald-700/30 dark:to-emerald-600/30">
+                    <Card variant="dashboard" className="p-4 bg-white border border-slate-300">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-emerald-300 dark:bg-emerald-700/50 rounded-full">
                                 <BookOpen className="size-5 text-emerald-800" />

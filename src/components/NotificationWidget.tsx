@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Bell, BookOpen, Calendar, Clock, User, X } from "lucide-react";
 import { useState } from "react";
-import Card from "./ui/Card";
-import Button from "./ui/Button";
+import Card from "./ui/CustomCard"
+import Button from "./ui/CustomButton";
 
 interface Notification {
   id: string;

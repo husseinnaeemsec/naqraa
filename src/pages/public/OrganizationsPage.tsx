@@ -6,10 +6,11 @@ import { Search, MapPin, Filter, Building, ChevronLeft, ChevronRight } from 'luc
 import api from '../../api/client';
 import { endpoints } from '../../api/routes';
 import { governorates } from '../../../constants';
-import { useAppSelector } from '../../store/store';
-import { WarningAlert } from '../../components/alerts';
+import { useAppDispatch, useAppSelector } from '../../store/store';
+import { WarningAlert, SuccessAlert, ErrorAlert } from '../../components/alerts';
 import { simpleDebounce } from '../../utils/functions';
 import type { PublicOrganizationProfile } from '../../../types';
+import { setUser } from "../../store/authSlice";
 
 type OrganizationType = 'all' | 'college' | 'school' | 'institute';
 
@@ -18,10 +19,12 @@ export default function OrganizationsPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const { isAuthenticated} = useAppSelector((state) => state.auth);
   const [organizations, setOrganizations] = useState<PublicOrganizationProfile[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [joiningOrgId, setJoiningOrgId] = useState<number | null>(null);
+
   
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,6 +40,7 @@ export default function OrganizationsPage() {
 
   // Auth user 
   const user = useAppSelector((state) => state.auth.user);
+  const dispatch = useAppDispatch();
   
 
   // Fetch organizations from API with pagination and filters
@@ -218,11 +222,81 @@ export default function OrganizationsPage() {
           navigate(loginUrl);
         }
       });
+    } else if (user?.profile?.organization_request_sent) {
+      // Show info that request is already sent
+      WarningAlert({
+        title: 'طلب انضمام معلق',
+        text: 'لديك طلب انضمام معلق بالفعل. يرجى انتظار موافقة المؤسسة على طلبك الحالي.',
+        confirmText: 'موافق'
+      });
     } else {
-      // Handle authenticated user join logic here
-      // This could be an API call to join the organization
-      console.log('User wants to join:', org.name);
-      // TODO: Implement join organization API call
+      // Show confirmation dialog before sending join request
+      WarningAlert({
+        title: 'تأكيد طلب الانضمام',
+        text: `هل أنت متأكد من أنك تريد إرسال طلب انضمام إلى ${org.name}؟\n\nتنبيه مهم: بمجرد إرسال طلب الانضمام، لن تتمكن من إرسال طلبات انضمام أخرى لمؤسسات أخرى حتى يتم معالجة  طلبك الحالي.`,
+        confirmText: 'نعم، إرسال الطلب',
+        cancelText: 'إلغاء',
+        onConfirm: () => {
+          handleJoinRequest(org);
+        }
+      });
+    }
+  };
+
+  // Handle organization join request
+  const handleJoinRequest = async (org: PublicOrganizationProfile) => {
+    try {
+      setJoiningOrgId(org.id);
+      
+      const response = await api.post(endpoints.organization.join, {
+        org_id: org.id
+      });
+      
+      if (response.data?.success) {
+        SuccessAlert({
+          title: 'تم إرسال طلب الانضمام',
+          text: `تم إرسال طلب الانضمام إلى ${org.name} بنجاح. سيتم مراجعة طلبك من قبل إدارة المؤسسة.`,
+          confirmText: 'موافق'
+        });
+        // Update user profile to mark request as sent
+        if (user && user.profile) {
+          dispatch(setUser({
+            ...user,
+            profile: {
+              ...user.profile,
+              organization_request_sent: true
+            }
+          }));
+        }
+      } else {
+        throw new Error(response.data?.error || 'فشل في إرسال طلب الانضمام');
+      }
+    } catch (error: any) {
+      console.error('Error joining organization:', error);
+      
+      let errorMessage = 'حدث خطأ أثناء إرسال طلب الانضمام. يرجى المحاولة مرة أخرى.';
+      
+      if (error.response?.data?.error) {
+        errorMessage = error.response.data.error;
+      } else if (error.response?.status === 400) {
+        errorMessage = 'طلب غير صحيح. تأكد من صحة البيانات المرسلة.';
+      } else if (error.response?.status === 403) {
+        errorMessage = 'ليس لديك صلاحية للانضمام إلى هذه المؤسسة.';
+      } else if (error.response?.status === 409) {
+        errorMessage = 'لديك طلب انضمام مُعلق بالفعل أو أنك عضو في هذه المؤسسة.';
+      } else if (error.response?.status === 404) {
+        errorMessage = 'المؤسسة المطلوبة غير موجودة.';
+      } else if (error.response?.status >= 500) {
+        errorMessage = 'خطأ في الخادم. يرجى المحاولة لاحقاً.';
+      }
+      
+      ErrorAlert({
+        title: 'فشل في إرسال طلب الانضمام',
+        text: errorMessage,
+        confirmText: 'موافق'
+      });
+    } finally {
+      setJoiningOrgId(null);
     }
   };
 
@@ -436,12 +510,23 @@ export default function OrganizationsPage() {
               </div>
               <div className="flex items-center gap-4">
                 <button 
-                  disabled={user?.organization === org.id}
+                  disabled={user?.organization === org.id || joiningOrgId === org.id || user?.profile?.organization_request_sent}
                   onClick={() => handleJoinClick(org)}
                   title="يمكنك ارسال طلب انضمام اذا كانت هذه هي المؤسسة التي انت مسجل فيها" 
-                  className={`w-full py-3 disabled:bg-slate-500 ${ user?.organization !== org.id && 'bg-gradient-to-r from-emerald-600 to-teal-600' } text-white rounded-xl font-semibold hover:from-emerald-700 hover:to-teal-700 transition-all duration-200 transform hover:scale-105 shadow-md`}
+                  className={`w-full py-3 disabled:bg-slate-500 disabled:cursor-not-allowed ${ user?.organization !== org.id && joiningOrgId !== org.id && !user?.profile?.organization_request_sent && 'bg-gradient-to-r from-emerald-600 to-teal-600' } text-white rounded-xl font-semibold hover:from-emerald-700 hover:to-teal-700 transition-all duration-200 transform hover:scale-105 shadow-md flex items-center justify-center gap-2`}
                 >
-                  { user?.organization === org.id ? 'مؤسستك التعليمية' : 'الانضمام' }
+                  {joiningOrgId === org.id ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      جاري الإرسال...
+                    </>
+                  ) : user?.organization === org.id ? (
+                    'مؤسستك التعليمية'
+                  ) : user?.profile?.organization_request_sent ? (
+                    'تم إرسال الطلب'
+                  ) : (
+                    'الانضمام'
+                  )}
                 </button>
                 <button className="w-full py-3 border border-slate-300 text-slate-700 rounded-xl font-semibold hover:bg-slate-50 transition-all duration-200 transform hover:scale-105 shadow-md">
                   عرض التفاصيل

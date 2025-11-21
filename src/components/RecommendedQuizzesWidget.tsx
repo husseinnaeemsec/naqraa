@@ -4,7 +4,6 @@ import { Brain, Clock, Trophy, ArrowRight, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import api from '../api/client';
 
 interface RecommendedQuiz {
   id: number;
@@ -18,32 +17,20 @@ interface RecommendedQuiz {
   recommended_reason: string;
 }
 
-interface RecommendedQuizzesResponse {
-  results: RecommendedQuiz[];
-}
+
 
 export default function RecommendedQuizzesWidget() {
   const { t } = useTranslation();
   const [quizzes, setQuizzes] = useState<RecommendedQuiz[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, _setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchRecommendedQuizzes();
   }, []);
 
   const fetchRecommendedQuizzes = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await api.get<RecommendedQuizzesResponse>('/api/quizzes/recommended/?limit=3');
-      setQuizzes(response.data.results);
-    } catch (err: any) {
-      console.error('Error fetching recommended quizzes:', err);
-      if (err.response?.status !== 401) {
-        setError(t('recommended_quizzes.error_loading'));
-        // Set fallback data
-        setQuizzes([
+    setQuizzes([
           {
             id: 1,
             title: t('recommended_quizzes.sample_quiz_1.title'),
@@ -67,10 +54,7 @@ export default function RecommendedQuizzesWidget() {
             recommended_reason: t('recommended_quizzes.sample_quiz_2.reason')
           }
         ]);
-      }
-    } finally {
-      setLoading(false);
-    }
+        setLoading(false);
   };
 
   const getDifficultyColor = (difficulty: string) => {

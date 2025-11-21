@@ -7,6 +7,8 @@ import { type SubscriptionPlan } from "../../../types";
 import Spinner from "../../components/Spinner";
 import { useAppSelector } from "../../store/store";
 import { useNavigate } from "react-router-dom";
+import { WarningAlert } from "../../components/alerts";
+import { useTranslation } from "react-i18next";
 
 type UserType = 'user' | 'student' | 'organization';
 
@@ -62,6 +64,7 @@ export default function PlansPage() {
   const [error, setError] = useState<string | null>(null);
   const [roleError, setRoleError] = useState<string | null>(null);
   const { user, isAuthenticated } = useAppSelector((state) => state.auth);
+  const { t } = useTranslation();
   
   // Set default user type based on authenticated user's role, fallback to 'user'
   const getDefaultUserType = (): UserType => {
@@ -130,8 +133,16 @@ export default function PlansPage() {
     }
     
     if (!isAuthenticated) {
-      // Redirect to login if not authenticated
-      navigate('/login');
+      // Show SweetAlert for login requirement
+      WarningAlert({
+        title: t('subscription_page.login_required_title'),
+        text: t('subscription_page.login_required_message'),
+        confirmText: t('subscription_page.login_button'),
+        cancelText: t('subscription_page.cancel_button'),
+        onConfirm: () => {
+          navigate('/login?next=/plans');
+        }
+      });
       return;
     }
 

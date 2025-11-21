@@ -14,9 +14,9 @@ export const endpoints = {
         logout:'/users/logout/',
         profile:'/users/profile/',
         status:"/users/check/",
-        changePassword:'/users/password/change/',
+        changePassword:(uid:string, token:string)=>`/users/password/reset/${uid}/${token}/`,
         changeEmail:'/users/change-email/',
-        requestPasswordChange:'/users/password/request-password-change/',
+        requestPasswordChange:'/users/password/request-reset/',
         studySession:'/users/study-time/',
         sendVerificationEmail:"/users/send-verification-email/",
         verification:{
@@ -50,9 +50,11 @@ export const endpoints = {
     },
     organization:{
         exams:'/organizations/exams/',
+        getExam:(examId:number|string)=>`/organizations/exams/${examId}/`,
         upcoming_exams:'/organizations/exams/upcoming/',
         upcoming_homework:'/organizations/homework/upcoming/',
-        search:`/organizations/`
+        search:`/organizations/`,
+        join:'/organizations/join/',
     },
     notifications:{
         list:'/notifications/',

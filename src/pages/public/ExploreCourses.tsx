@@ -9,6 +9,7 @@ import { endpoints } from "../../api/routes";
 import CourseCard from "../../components/CourseCard";
 import { simpleDebounce } from "../../utils/functions";
 import Pagination from "../../components/Paginator";
+import ShareButton from "../../components/ShareButton";
 
 const PAGE_SIZE = 10; // constant for pagination size
 
@@ -315,7 +316,31 @@ export default function ExploreCourses() {
                 <option value="rating">الأعلى تقييماً</option>
                 <option value="title">الترتيب الأبجدي</option>
               </select>
+              
+              {/* Share Button */}
+              <ShareButton 
+                title="🎓 استكشف الدورات التعليمية - نقرأ"
+                description="اكتشف آلاف الدورات التعليمية المجانية في جميع المجالات 📚✨
 
+✅ دورات مجانية 100%
+👨‍🏫 مدرسين متخصصين
+🏆 شهادات معتمدة
+📱 تعلم في أي وقت ومكان
+🎯 مهارات عملية ومطلوبة
+
+انضم لآلاف الطلاب واكتسب مهارات جديدة اليوم!
+
+#نقرأ #تعليم_مجاني #دورات_اونلاين #مهارات #تطوير_ذاتي"
+                variant="secondary"
+                size="md"
+                utmParams={{
+                  utm_source: 'explore_courses',
+                  utm_medium: 'social',
+                  utm_campaign: 'courses_discovery',
+                  utm_content: 'filter_bar_share'
+                }}
+              />
+              
               {/* Mobile Filter Toggle */}
               <button
                 className="lg:hidden inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"

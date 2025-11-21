@@ -1,3 +1,22 @@
+export interface StudySession {
+    study_time_in_sec: number;
+    is_today: boolean;
+    date: string;
+    day_info: {
+        name: string;
+        number: number;
+    };
+}
+
+export interface StudyTimeWeek {
+    sunday: StudySession | null;
+    monday: StudySession | null;
+    tuesday: StudySession | null;
+    wednesday: StudySession | null;
+    thursday: StudySession | null;
+    friday: StudySession | null;
+    saturday: StudySession | null;
+}
 
 export type LectureTab = 'resources'|'content'|'quizzes'|'notes'|'discussion'
 
@@ -248,6 +267,7 @@ export interface Instructor{
 
 export interface EnrollmentCourse extends Course {
     sections: EnrollmentSection[];
+    instructor_name:string;
 }
 
 export interface Section {
@@ -328,7 +348,9 @@ export interface LectureTimeline {
     description: string | null;
 }
 
-export interface EnrollmentLecture extends Lecture {}
+export interface EnrollmentLecture extends Lecture {
+    quizzes: EnrollmentQuiz[];
+}
 
 
 export interface Enrollment {
@@ -342,6 +364,7 @@ export interface Enrollment {
     completed_quizzes:number[];
     completed:boolean;
     progress:number;
+    created_at:string;
 }
 
 export interface TimeTableItem {

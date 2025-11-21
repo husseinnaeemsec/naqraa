@@ -6,24 +6,40 @@ import api from "../api/client";
 import { endpoints } from "../api/routes";
 import { Play, BookOpen } from "lucide-react";
 
-interface EnrollmentProgress {
-  enrollment_id: number;
-  progress_percentage: number;
-  completed_lessons: number;
-  total_lessons: number;
-  last_accessed: string;
+interface EnrollmentData {
+  id: number;
+  course: {
+    id: number;
+    title: string;
+    description: string;
+    sections: any[];
+  };
+  completed_sections: number[];
+  completed_lectures: number[];
+  completed_quizzes: number[];
+  last_watched_section: number;
+  last_watched_lecture: {
+    id: number;
+    title: string;
+    description: string;
+  };
+  lecture_progresses: any[];
+  created_at: string;
+  progress: number;
+  completed: boolean;
 }
 
 export default function LastWatchedCourseWidget() {
   const { t } = useTranslation();
   const { user } = useAppSelector((state) => state.auth);
-  const [progressData, setProgressData] = useState<EnrollmentProgress | null>(null);
+  const [enrollmentData, setEnrollmentData] = useState<EnrollmentData | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [_error, setError] = useState<string | null>(null);
 
   const enrollment = user?.progress?.last_watched_enrollment;
 
   useEffect(() => {
+    
     if (enrollment?.id) {
       fetchEnrollmentProgress();
     }
@@ -34,36 +50,11 @@ export default function LastWatchedCourseWidget() {
     
     try {
       setLoading(true);
-      // Use the correct enrollment endpoint
       const response = await api.get(endpoints.user.enrollments.getEnrollment(enrollment.id));
-      
-      // Calculate progress from enrollment data
-      const enrollmentData = response.data;
-      const sections = enrollmentData?.course?.sections;
-      const totalSections = Array.isArray(sections) ? sections.length : 0;
-      const completedSections = Array.isArray(enrollmentData?.completed_sections) 
-        ? enrollmentData.completed_sections.length 
-        : 0;
-      const progressPercentage = totalSections > 0 ? (completedSections / totalSections) * 100 : 0;
-      
-      setProgressData({
-        enrollment_id: enrollment.id,
-        progress_percentage: progressPercentage,
-        completed_lessons: completedSections,
-        total_lessons: totalSections,
-        last_accessed: enrollmentData.last_accessed || new Date().toISOString()
-      });
+      setEnrollmentData(response.data);
     } catch (error) {
       console.error('Error fetching enrollment progress:', error);
       setError('Failed to load progress');
-      // Use fallback progress if API call fails
-      setProgressData({
-        enrollment_id: enrollment.id,
-        progress_percentage: 0,
-        completed_lessons: 0,
-        total_lessons: 1,
-        last_accessed: new Date().toISOString()
-      });
     } finally {
       setLoading(false);
     }
@@ -97,11 +88,13 @@ export default function LastWatchedCourseWidget() {
     );
   }
 
-  // Calculate progress percentage with safer defaults
-  const progressPercentage = Math.max(0, Math.min(100, progressData?.progress_percentage ?? 0));
-  const isCompleted = progressPercentage >= 100;
-  const completedLessons = progressData?.completed_lessons ?? 0;
-  const totalLessons = Math.max(1, progressData?.total_lessons ?? 1);
+  // Calculate progress from actual API data
+  const progressPercentage = Math.max(0, Math.min(100, enrollmentData?.progress ?? 0));
+  const isCompleted = enrollmentData?.completed ?? false;
+  const completedLectures = enrollmentData?.completed_lectures?.length ?? 0;
+  const completedSections = enrollmentData?.completed_sections?.length ?? 0;
+  const totalSections = enrollmentData?.course?.sections?.length ?? 1;
+  const completedQuizzes = enrollmentData?.completed_quizzes?.length ?? 0;
 
   return (
     <div className="h-full max-h-fit">
@@ -121,10 +114,10 @@ export default function LastWatchedCourseWidget() {
           {/* Title + Description */}
           <div className="space-y-2">
             <h1 className="font-bold text-xl lg:text-2xl text-white leading-tight">
-              {enrollment.title}
+              {enrollmentData?.course?.title || enrollment.title}
             </h1>
             <p className="text-sm text-emerald-100 leading-relaxed line-clamp-2 opacity-90">
-              {enrollment.description}
+              {enrollmentData?.course?.description || enrollment.description}
             </p>
           </div>
 
@@ -132,7 +125,7 @@ export default function LastWatchedCourseWidget() {
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs text-emerald-100">
               <span>{t('last_watched_course.progress')}</span>
-              <span>{t('last_watched_course.percent_completed', { percentage: Math.round(progressPercentage) })}</span>
+              <span>{Math.round(progressPercentage)}%</span>
             </div>
             
             <div className="w-full bg-white/20 h-2 rounded-full overflow-hidden backdrop-blur-sm">
@@ -142,9 +135,17 @@ export default function LastWatchedCourseWidget() {
               />
             </div>
             
-            <div className="text-xs text-emerald-100 opacity-75">
-              {t('last_watched_course.lessons_progress', { completed: completedLessons, total: totalLessons })}
+            <div className="grid grid-cols-3 gap-2 text-xs text-emerald-100 opacity-75">
+              <div>{completedLectures} {t('last_watched_course.lectures')}</div>
+              <div>{completedSections} {t('last_watched_course.sections')}</div>
+              <div>{completedQuizzes} {t('last_watched_course.quizzes')}</div>
             </div>
+            
+            {enrollmentData?.last_watched_lecture && (
+              <div className="text-xs text-emerald-100 opacity-75">
+                {t('last_watched_course.last_watched')}: {enrollmentData.last_watched_lecture.title}
+              </div>
+            )}
           </div>
 
           {/* Action Button */}

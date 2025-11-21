@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Calendar, Target, Zap, Trophy, Clock, BookOpen } from "lucide-react";
-import Card from "./ui/Card";
-import Button from "./ui/Button";
+import Card from "./ui/CustomCard";
+import Button from "./ui/CustomButton";
 
 interface LearningGoal {
   id: string;
@@ -19,11 +19,10 @@ export default function LearningProgressWidget() {
   const { t } = useTranslation();
   
   // Mock data - these would come from the backend
-  const currentStreak = 7;
-  const longestStreak = 15;
-  const todayStudyTime = 2.5;
-  const weeklyGoal = 20;
-  const completedLessonsToday = 3;
+  const currentStreak: number = 7;
+  const longestStreak: number = 15;
+  const todayStudyTime: number = 2.5;
+  const completedLessonsToday: number = 3;
 
   // Mock data - this would come from the backend
   const mockGoals: LearningGoal[] = [

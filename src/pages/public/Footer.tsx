@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import appleLogo from '../../assets/apple-logo.svg';
 
 export default function Footer() {
+    const { t } = useTranslation();
     const [email, setEmail] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [message, setMessage] = useState('');
@@ -12,7 +14,7 @@ export default function Footer() {
         e.preventDefault();
         
         if (!email.trim()) {
-            setMessage('يرجى إدخال بريد إلكتروني صالح');
+            setMessage(t('footer.newsletter_form.error_email_required'));
             setMessageType('error');
             return;
         }
@@ -40,15 +42,15 @@ export default function Footer() {
             const data = await response.json();
 
             if (response.ok) {
-                setMessage('تم الاشتراك بنجاح! تحقق من بريدك الإلكتروني');
+                setMessage(t('footer.newsletter_form.success_message'));
                 setMessageType('success');
                 setEmail('');
             } else {
-                setMessage(data.email?.[0] || data.message || 'حدث خطأ أثناء الاشتراك');
+                setMessage(data.email?.[0] || data.message || t('footer.newsletter_form.error_default'));
                 setMessageType('error');
             }
         } catch (error) {
-            setMessage('حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى');
+            setMessage(t('footer.newsletter_form.error_connection'));
             setMessageType('error');
         } finally {
             setIsSubmitting(false);
@@ -68,62 +70,62 @@ export default function Footer() {
                     <div className="items-start gap-6 md:gap-10 lg:flex 2xl:gap-24">
                         <div className="grid min-w-0 flex-1 grid-cols-2 gap-6 md:gap-8 xl:grid-cols-3 text-right">
                             <div>
-                                <h6 className="mb-4 text-sm font-semibold uppercase text-emerald-700 dark:text-emerald-400">عن نقرا</h6>
+                                <h6 className="mb-4 text-sm font-semibold uppercase text-emerald-700 dark:text-emerald-400">{t('footer.about_naqraa.title')}</h6>
                                 <ul className="space-y-3">
-                                    <li><Link to="/about" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">من نحن</Link></li>
-                                    <li><Link to="/terms" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400"> شروط الاستخدام </Link></li>
-                                    <li><Link to="/blog" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">المدونة</Link></li>
-                                    <li><Link to="/newsletter" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">النشرة البريدية </Link></li>
-                                    <li><Link to="/join-naqraa-team" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">انضم إلى الفريق</Link></li>
-                                    <li><Link to="/naqraa-for-organizations" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">نقرأ للمؤسسات التعليمية</Link></li>
+                                    <li><Link to="/about" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.about_naqraa.who_we_are')}</Link></li>
+                                    <li><Link to="/terms" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.about_naqraa.terms_of_use')}</Link></li>
+                                    <li><Link to="/blog" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.about_naqraa.blog')}</Link></li>
+                                    <li><Link to="/newsletter" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.about_naqraa.newsletter')}</Link></li>
+                                    <li><Link to="/join-naqraa-team" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.about_naqraa.join_team')}</Link></li>
+                                    <li><Link to="/naqraa-for-organizations" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.about_naqraa.naqraa_for_organizations')}</Link></li>
                                 </ul>
                             </div>
 
                             <div>
-                                <h6 className="mb-4 text-sm font-semibold uppercase text-emerald-700 dark:text-emerald-400">الدعم والمساعدة</h6>
+                                <h6 className="mb-4 text-sm font-semibold uppercase text-emerald-700 dark:text-emerald-400">{t('footer.support.title')}</h6>
                                 <ul className="space-y-3">
-                                    <li><Link to="support" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">مركز المساعدة</Link></li>
-                                    <li><Link to="/faq" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">الأسئلة الشائعة</Link></li>
-                                    <li><Link to="/contact" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">تواصل معنا</Link></li>
-                                    <li><Link to="/report-issue" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">الإبلاغ عن مشكلة</Link></li>
+                                    <li><Link to="support" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.support.help_center')}</Link></li>
+                                    <li><Link to="/faq" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.support.faq')}</Link></li>
+                                    <li><Link to="/contact" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.support.contact_us')}</Link></li>
+                                    <li><Link to="/report-issue" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.support.report_issue')}</Link></li>
                                 </ul>
                             </div>
 
                             <div>
-                                <h6 className="mb-4 text-sm font-semibold uppercase text-emerald-700 dark:text-emerald-400">الخدمات التعليمية</h6>
+                                <h6 className="mb-4 text-sm font-semibold uppercase text-emerald-700 dark:text-emerald-400">{t('footer.services.title')}</h6>
                                 <ul className="space-y-3">
-                                    <li><Link to="/courses/explore?is_free=on" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">الدورات المجانية</Link></li>
-                                    <li><Link to="/plans" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">خطط الاشتراك</Link></li>
-                                    <li><Link to="/resources" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">الأبحاث والمراجع</Link></li>
-                                    <li><Link to="/communities" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">المجتمعات الطلابية</Link></li>
-                                    <li><Link to="/organizations" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">المؤسسات التعليمية</Link></li>
+                                    <li><Link to="/courses/explore?is_free=on" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.services.free_courses')}</Link></li>
+                                    <li><Link to="/plans" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.services.subscription_plans')}</Link></li>
+                                    <li><Link to="/resources" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.services.research_references')}</Link></li>
+                                    <li><Link to="/communities" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.services.student_communities')}</Link></li>
+                                    <li><Link to="/organizations" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.services.educational_organizations')}</Link></li>
                                 </ul>
                             </div>
 
                             <div>
-                                <h6 className="mb-4 text-sm font-semibold uppercase text-emerald-700 dark:text-emerald-400">تطبيق نقرا</h6>
+                                <h6 className="mb-4 text-sm font-semibold uppercase text-emerald-700 dark:text-emerald-400">{t('footer.app.title')}</h6>
                                 <ul className="space-y-3">
                                     <li className='flex items-center gap-2 relative'>
                                         <button disabled className="text-gray-500 line-through dark:text-gray-400">
-                                            تحميل التطبيق
+                                            {t('footer.app.download_app')}
                                         </button>
                                         <div className="relative">
                                             <span className="bg-gradient-to-r from-amber-400 to-orange-500 text-xs px-2 py-1 text-white rounded-md font-medium shadow-lg animate-pulse transform -rotate-2">
-                                                قريباً 🚀
+                                                {t('footer.app.coming_soon')}
                                             </span>
                                         </div>
                                     </li>
-                                    <li><Link to="/app-features" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">مميزات التطبيق</Link></li>
+                                    <li><Link to="/app-features" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.app.app_features')}</Link></li>
 
                                 </ul>
                             </div>
 
                             <div>
-                                <h6 className="mb-4 text-sm font-semibold uppercase text-emerald-700 dark:text-emerald-400">الشركاء</h6>
+                                <h6 className="mb-4 text-sm font-semibold uppercase text-emerald-700 dark:text-emerald-400">{t('footer.partners.title')}</h6>
                                 <ul className="space-y-3">
-                                    <li><Link to="/partenrs?type=organizations" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">المدارس والجامعات</Link></li>
+                                    <li><Link to="/partenrs?type=organizations" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.partners.schools_universities')}</Link></li>
                                     
-                                    <li><Link to="/partenrs?type=teachers" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">المعلّمون</Link></li>
+                                    <li><Link to="/partenrs?type=teachers" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.partners.teachers')}</Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -139,14 +141,14 @@ export default function Footer() {
                                     <div className="items-end space-y-4 sm:flex sm:space-y-0">
                                         <div className="relative mr-3 w-full sm:w-96 lg:w-full">
                                             <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
-                                                اشترك ليصلك أحدث الدورات والمحتويات التعليمية
+                                                {t('footer.newsletter_form.title')}
                                             </label>
                                             <input
                                                 type="email"
                                                 id="email"
                                                 value={email}
                                                 onChange={(e) => setEmail(e.target.value)}
-                                                placeholder="أدخل بريدك الإلكتروني"
+                                                placeholder={t('footer.newsletter_form.email_placeholder')}
                                                 required
                                                 disabled={isSubmitting}
                                                 className="block w-full rounded-lg border border-emerald-200 bg-white p-3 text-sm text-gray-900 focus:border-emerald-600 focus:ring-emerald-600 dark:border-emerald-800 dark:bg-gray-800 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
@@ -164,10 +166,10 @@ export default function Footer() {
                                                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                                             <path className="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                                         </svg>
-                                                        جاري الإرسال...
+                                                        {t('footer.newsletter_form.submitting')}
                                                     </>
                                                 ) : (
-                                                    'اشتراك'
+                                                    t('footer.newsletter_form.subscribe_button')
                                                 )}
                                             </button>
                                         </div>
@@ -200,20 +202,20 @@ export default function Footer() {
 
                                 <div>
                                     <p className="mb-3 flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-white">
-                                        <strong className='text-emerald-600'> تطبيق نقرأ </strong> على اجهزة الهاتف
+                                        <strong className='text-emerald-600'>{t('footer.app.title')}</strong> {t('footer.app.on_mobile')}
                                     </p>
                                     <div className="gap-4 space-y-4 sm:flex sm:space-y-0">
                                         <div className="relative">
                                             <button disabled className="inline-flex w-full items-center justify-center rounded-lg bg-slate-600 px-4 py-2.5 text-white opacity-60 cursor-not-allowed sm:w-auto">
                                                 <svg className="ml-3 h-7 w-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z" /></svg>
                                                 <div className="text-right">
-                                                    <div className="mb-1 text-xs">حمّل على</div>
+                                                    <div className="mb-1 text-xs">{t('footer.app.download_on')}</div>
                                                     <div className="-mt-1 text-sm font-semibold">Google Play</div>
                                                 </div>
                                             </button>
                                             <div className="absolute -top-2 -right-2">
                                                 <span className="bg-gradient-to-r from-amber-400 to-orange-500 text-xs px-2 py-1 text-white rounded-full font-medium shadow-lg animate-pulse">
-                                                    قريباً
+                                                    {t('footer.app.coming_soon')}
                                                 </span>
                                             </div>
                                         </div>
@@ -222,13 +224,13 @@ export default function Footer() {
                                             <button disabled className="inline-flex w-full items-center justify-center rounded-lg bg-slate-600 px-4 py-2.5 text-white opacity-60 cursor-not-allowed sm:w-auto">
                                                 <img src={appleLogo} className="ml-3 h-9 w-9" alt="" />
                                                 <div className="text-right">
-                                                    <div className="mb-1 text-xs">حمّل على</div>
+                                                    <div className="mb-1 text-xs">{t('footer.app.download_on')}</div>
                                                     <div className="-mt-1 text-sm font-semibold">App Store</div>
                                                 </div>
                                             </button>
                                             <div className="absolute -top-2 -right-2">
                                                 <span className="bg-gradient-to-r from-amber-400 to-orange-500 text-xs px-2 py-1 text-white rounded-full font-medium shadow-lg animate-pulse">
-                                                    قريباً
+                                                    {t('footer.app.coming_soon')}
                                                 </span>
                                             </div>
                                         </div>
@@ -237,8 +239,8 @@ export default function Footer() {
 
                                 <hr className="border-emerald-100 dark:border-emerald-800" />
                                 <div className="flex items-center gap-3">
-                                    <Link to={'/login'} className='p-2 bg-emerald-500 rounded-md text-white'> سجل الدخول الى حسابك  </Link>
-                                    <Link to={'/register'} className='border p-2 rounded-md border-slate-300'> او انشئ حساب جديد  </Link>
+                                    <Link to={'/login'} className='p-2 bg-emerald-500 rounded-md text-white'>{t('footer.auth.login_to_account')}</Link>
+                                    <Link to={'/register'} className='border p-2 rounded-md border-slate-300'>{t('footer.auth.or_create_account')}</Link>
                                 </div>
                                 <hr className="border-emerald-100 dark:border-emerald-800" />
 
@@ -253,7 +255,7 @@ export default function Footer() {
                     </div>
 
                     <div className="mt-8 text-center text-sm text-gray-500 dark:text-gray-400">
-                        © 2025 نقرا. جميع الحقوق محفوظة.
+                        {t('footer.copyright')}
                     </div>
                 </div>
             </div>

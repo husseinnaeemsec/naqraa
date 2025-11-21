@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite';
 import path from "path"
+import fs from 'fs';
 
 // https://vite.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -18,8 +19,12 @@ export default defineConfig(({ command, mode }) => {
     server: {
       allowedHosts: ['naqraa', 'localhost', '127.0.0.1'],
       port: 3000,
-      host: true, // Allow external connections
+      host: '0.0.0.0', // Allow external connections
       strictPort: true,
+      https:{
+            key: fs.readFileSync('/home/hussein/ssl/naqraa.key'),
+            cert: fs.readFileSync('/home/hussein/ssl/naqraa.crt'),
+      }
     },
     preview: {
       port: 4173,

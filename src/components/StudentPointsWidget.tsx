@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
 import { Star, Trophy, TrendingUp, Gift } from 'lucide-react';
 import { motion } from 'framer-motion';
-import api from '../api/client';
 
 interface StudentPoints {
   total_points: number;
@@ -19,39 +18,16 @@ interface StudentPoints {
 
 export default function StudentPointsWidget() {
   const { t } = useTranslation();
-  const [points, setPoints] = useState<StudentPoints | null>(null);
+  const [points, _setPoints] = useState<StudentPoints | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, _setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchStudentPoints();
   }, []);
 
   const fetchStudentPoints = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await api.get<StudentPoints>('/users/points/');
-      setPoints(response.data);
-    } catch (err: any) {
-      console.error('Error fetching student points:', err);
-      // Set fallback data if API fails but not due to auth issues
-      if (err.response?.status !== 401) {
-        setError(t('student_points.error_loading'));
-        setPoints({
-          total_points: 0,
-          earned_this_week: 0,
-          earned_this_month: 0,
-          contribution_breakdown: {
-            exam_contributions: 0,
-            article_contributions: 0,
-            resource_contributions: 0
-          }
-        });
-      }
-    } finally {
-      setLoading(false);
-    }
+    setLoading(false)
   };
 
   if (loading) {

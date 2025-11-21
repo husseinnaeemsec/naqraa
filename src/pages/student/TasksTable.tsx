@@ -9,7 +9,7 @@ interface Props {
   completed?:boolean;
 }
 
-export default function TasksTable({ tasks, title ,completed, className , headerColor = 'emerald' }: Props) {
+export default function TasksTable({ tasks, title , className , headerColor = 'emerald' }: Props) {
   const { t } = useTranslation();
   const priorityColors: Record<Task["priority"], string> = {
     low: "bg-green-200 text-green-800",

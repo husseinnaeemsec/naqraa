@@ -6,6 +6,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import IndexPage from './pages/student/DashboardIndex.tsx'
 import StudentCoursesPage from './pages/student/StudentCoursePage.tsx'
 import ExamsPage from './pages/student/ExamsPage.tsx'
+import ViewExamPage from './pages/student/ViewExamPage.tsx'
+import AttendancePage from './pages/student/AttendancePage.tsx'
 import FilesPage from './pages/student/FilesPage.tsx'
 import OrgPage from './pages/student/OrgPage.tsx'
 import SettingsPage from './pages/student/SettingsPage.tsx'
@@ -54,6 +56,9 @@ import SubscriptionPage from './pages/student/SubscriptionPage.tsx';
 import PlansPage from './pages/public/PlansPage.tsx';
 import NewsletterDemo from './pages/NewsletterDemo.tsx';
 import TodoPage from './pages/student/TodoPage.tsx';
+import ResetPasswordPage from './pages/public/ResetPassword.tsx';
+import ChangePasswordPage from './pages/public/ChangePassword.tsx';
+import UpcomingHomeworkPage from './pages/UpcomingHomeworkPage.tsx';
 
 
 createRoot(document.getElementById('root')!).render(
@@ -66,7 +71,12 @@ createRoot(document.getElementById('root')!).render(
               <Route path='dashboard' element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} >
                 <Route index element={<IndexPage />} />
                 <Route path='courses' element={<StudentCoursesPage />} />
-                <Route path='exams' element={<ExamsPage />} />
+                <Route path='exams'>
+                  <Route index element={<ExamsPage />} />
+                  <Route path=':examId' element={<ViewExamPage />} />
+                </Route>
+                <Route path='attendance' element={<AttendancePage />} />
+                <Route path='homework' element={<UpcomingHomeworkPage />} />
                 <Route path='files' element={<FilesPage />} />
                 <Route path='org' element={<OrgPage />} />
                 <Route path='timetable' element={<TimeTablePage />} />
@@ -97,6 +107,10 @@ createRoot(document.getElementById('root')!).render(
                 </Route>
                   <Route path='login' element={<LoginPage />} />
                   <Route path='register' element={<RegisterPage />} />
+                  <Route path='reset-password'  >
+                    <Route index element={<ResetPasswordPage />} />
+                    <Route path=':uid/:token' element={<ChangePasswordPage />} />
+                  </Route>
                   <Route path='unauthorized' element={<UnauthorizedPage />} />
                   <Route path='communities/:communityId' element={<CommunityPage />} />
                   <Route path='newsletter' element={<NewsletterDemo />} />

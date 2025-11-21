@@ -134,7 +134,6 @@ export default function RecommendedCoursesWidget() {
           >
             <Card 
               className="h-full bg-gradient-to-b from-white to-emerald-50/30 dark:from-emerald-900 dark:to-emerald-950 border border-emerald-100 dark:border-emerald-800"
-              hover={true}
             >
               <div className="p-4 space-y-3">
                 {/* Course Image */}
@@ -184,7 +183,6 @@ export default function RecommendedCoursesWidget() {
                   <Button 
                     size="sm" 
                     className="w-full"
-                    gradient={true}
                   >
                     عرض التفاصيل
                   </Button>

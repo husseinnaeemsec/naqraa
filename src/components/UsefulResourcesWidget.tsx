@@ -2,10 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import api from '../api/client';
-import { endpoints } from '../api/routes';
 import { Card } from './ui/card';
-import { Button } from './ui/button';
+import Button  from './ui/CustomButton';
 import { FileText, Video, Link as LinkIcon, Download, Eye, Lightbulb } from 'lucide-react';
 import useApiErrorHandler from '../hooks/use-api-error-handler';
 
@@ -31,10 +29,10 @@ interface Resource {
   created_at: string;
 }
 
-interface ResourcesResponse {
-  results: Resource[];
-  count: number;
-}
+// interface ResourcesResponse {
+//   results: Resource[];
+//   count: number;
+// }
 
 const resourceIcons = {
   pdf: FileText,
@@ -69,21 +67,11 @@ export default function UsefulResourcesWidget() {
   useApiErrorHandler();
   const [resources, setResources] = useState<Resource[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, _setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchRecommendedResources = async () => {
-      try {
-        setLoading(true);
-        // Fetch recommended/featured resources (limit to 6 for widget)
-        const response = await api.get<ResourcesResponse>(endpoints.resources.list,{ params:{ featured: true, limit: 6 } });
-        setResources(response.data.results);
-      } catch (err: any) {
-        console.error('Error fetching recommended resources:', err);
-        
-        // Fallback to mock data if endpoint doesn't exist yet
-        if (err.response?.status === 404) {
-          setResources([
+      setResources([
             {
               id: 1,
               title: t('resources.sample_1.title'),
@@ -134,12 +122,7 @@ export default function UsefulResourcesWidget() {
               downloads_count: 94
             }
           ]);
-        } else {
-          setError(t('resources.error_loading'));
-        }
-      } finally {
-        setLoading(false);
-      }
+          setLoading(false);
     };
 
     fetchRecommendedResources();
@@ -246,7 +229,6 @@ export default function UsefulResourcesWidget() {
             >
               <Card 
                 className="h-full p-4 cursor-pointer bg-gradient-to-b from-white to-gray-50/30 dark:from-emerald-900/30 dark:to-emerald-950/50 border border-gray-200 dark:border-emerald-800"
-                hover={true}
                 onClick={() => handleResourceClick(resource)}
               >
                 <div className="space-y-3">

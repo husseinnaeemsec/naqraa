@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { Building, TrendingUp, Users, Award, FileBarChart, Download, Calendar, Target } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import Card from "../../components/ui/Card";
-import Button from "../../components/ui/Button";
+import Card from "../../components/ui/CustomCard";
+import Button from "../../components/ui/CustomButton";
 
 // Organization Page Component
 const OrgPage = () => {

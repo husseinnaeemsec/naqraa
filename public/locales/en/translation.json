@@ -1,4 +1,7 @@
 {
+  "hero_title": "Learning Made Easy with Naqraa",
+  "hero_text": "Because we believe that knowledge is the path to a better tomorrow, and every student has the right to learn for free. Every week we work on developing new resources, modern lessons, and tools that facilitate your academic journey and bring you closer to your goals step by step.",
+  "hero_button_text": "Browse Our Educational Courses",
   "login": "Login",
   "email": "Email",
   "password": "Password",
@@ -17,7 +20,44 @@
   "change_profile_picture": "Change Profile Picture",
   "saving_changes": "Saving changes...",
   "account_info_saved": "Account information saved successfully.",
+  "resources":{
+    "types":{
+      "document": "Document",
+      "video": "Video",
+      "pdf": "PDF",
+      "link": "Link"
+    }
+  },
+  "task_widget": {
+    "untitled_task": "Untitled Task",
+    "due_date": "Due Date",
+    "loading": "Loading tasks...",
+    "title": "Tasks & Assignments",
+    "no_tasks": "No tasks available"
+  },
   
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "courses": "Courses",
+    "timetable": "Timetable",
+    "attendance": "Attendance",
+    "homework": "Homework",
+    "notifications": "Notifications",
+    "organization": "Organization",
+    "subscription": "Subscription",
+    "quizzes": "Exams",
+    "chat": "Chat",
+    "community": "Community",
+    "files": "Files",
+    "settings": "Settings",
+    "todo": "Todo",
+    "logout_confirm_title": "Are you sure?",
+    "logout_confirm_text": "You will be logged out of your account",
+    "logout_confirm_yes": "Yes, Log Out",
+    "logout_confirm_cancel": "Cancel",
+    "logout_success": "Logged out successfully",
+    "slogan": "Education is a free right for everyone"
+  },
   "settings": {
     "label": "Settings",
     "account_info": {
@@ -103,6 +143,8 @@
       "send_join_request":"Send Join Request",
       "you_belong_to_org":"You belong to ",
       "sending":"Sending...",
+      "not_part_of_org":"You are not currently part of any organization",
+      "browse_organizations":"Browse Organizations",
       "errors":{
         "no_org_selected":"No organization selected",
         "request_failed":"Failed to send join request"
@@ -111,17 +153,7 @@
 
     }
   },
-  "sidebar": {
-    "dashboard": "Dashboard",
-    "courses": "Courses",
-    "settings": "Settings",
-    "notifications": "Notifications",
-    "organization": "Organization",
-    "quizzes": "Quizzes",
-    "chat": "Chat",
-    "community": "Community",
-    "files": "Files"
-  },
+
   "navbar": {
     "search_placeholder": "Search for courses and resources",
     "support": "Support",
@@ -139,6 +171,7 @@
     "recommended_resources": "Recommended Resources",
     "recommended_courses": "Recommended Courses",
     "recent_activities": "Recent Activities",
+    "work_in_progress": "This website is a work in progress. Some features may not be available yet.",
     "profile_card": {
       "name": "Name",
       "role": "Role",
@@ -225,6 +258,72 @@
       "cta": "Start now"
     }
   ],
+  "features_page": {
+    "cta_section": {
+      "title": "Start Your Educational Journey Now 🎓",
+      "description": "Naqraa platform is your gateway to specialized communities, advanced research tools, and a vast library of free resources. Don't just read, but connect, exchange, and participate in building knowledge.",
+      "start_free_button": "Start Free Today",
+      "learn_more_button": "Learn More"
+    },
+    "badges": {
+      "featured": "Featured",
+      "new": "New!"
+    }
+  },
+  "footer": {
+    "about_naqraa": {
+      "title": "About Naqraa",
+      "who_we_are": "Who We Are",
+      "terms_of_use": "Terms of Use",
+      "blog": "Blog",
+      "newsletter": "Newsletter",
+      "join_team": "Join the Team",
+      "naqraa_for_organizations": "Naqraa for Educational Organizations"
+    },
+    "support": {
+      "title": "Support & Help",
+      "help_center": "Help Center",
+      "faq": "FAQ",
+      "contact_us": "Contact Us",
+      "report_issue": "Report an Issue"
+    },
+    "services": {
+      "title": "Educational Services",
+      "free_courses": "Free Courses",
+      "subscription_plans": "Subscription Plans",
+      "research_references": "Research & References",
+      "student_communities": "Student Communities",
+      "educational_organizations": "Educational Organizations"
+    },
+    "app": {
+      "title": "Naqraa App",
+      "download_app": "Download App",
+      "app_features": "App Features",
+      "coming_soon": "Coming Soon 🚀",
+      "on_mobile": "on mobile devices",
+      "download_on": "Download on"
+    },
+    "partners": {
+      "title": "Partners",
+      "schools_universities": "Schools & Universities",
+      "teachers": "Teachers"
+    },
+    "newsletter_form": {
+      "title": "Subscribe to receive the latest courses and educational content",
+      "email_placeholder": "Enter your email",
+      "subscribe_button": "Subscribe",
+      "submitting": "Submitting...",
+      "success_message": "Successfully subscribed! Check your email",
+      "error_email_required": "Please enter a valid email address",
+      "error_connection": "Connection error. Please try again",
+      "error_default": "An error occurred during subscription"
+    },
+    "auth": {
+      "login_to_account": "Login to your account",
+      "or_create_account": "or create a new account"
+    },
+    "copyright": "© 2025 Naqraa. All rights reserved."
+  },
   "boards": {
     "title": "Planning Boards",
     "subtitle": "Organize and track your tasks effectively",
@@ -339,7 +438,17 @@
     "notification": "Notification",
     "courses": "Courses",
     "notifications": "Notifications",
-    "close": "Close"
+    "close": "Close",
+    "profile": "Profile",
+    "settings": "Settings",
+    "help": "Help",
+    "logout": "Log Out",
+    "dashboard": "Dashboard",
+    "resources": "Resources",
+    "exams": "Exams",
+    "community": "Community",
+    "menu": "Menu",
+    "no_notifications": "No notifications"
   },
   "pagination": {
     "previous": "Previous",
@@ -370,23 +479,7 @@
     "loading_chat": "Loading chat",
     "retry": "Retry"
   },
-  "settings": {
-    "notifications": {
-      "title": "Notifications",
-      "updated_notifications": "Notification settings saved successfully",
-      "save_error": "Failed to save notification settings",
-      "email_notifications": "Email Notifications",
-      "push_notifications": "Push Notifications",
-      "study_reminders": "Study Reminders",
-      "newsletter": "Newsletter",
-      "repeat_reminders": "Reminder Frequency",
-      "repeat_reminders_options": {
-        "daily": "Daily",
-        "weekly": "Weekly",
-        "monthly": "Monthly"
-      }
-    }
-  },
+
   "verification": {
     "verifying": "Verifying your account...",
     "success_message": "Your account has been activated successfully",
@@ -406,26 +499,6 @@
     "cancel": "Cancel",
     "loading": "Loading discussions",
     "no_discussions": "No discussions for this lecture"
-  },
-  "sidebar": {
-    "dashboard": "Dashboard",
-    "courses": "Courses",
-    "timetable": "Timetable",
-    "todo": "Todo",
-    "notifications": "Notifications",
-    "organization": "Organization",
-    "subscription": "Subscription",
-    "quizzes": "Quizzes",
-    "chat": "Chat",
-    "community": "Community",
-    "files": "Files",
-    "settings": "Settings",
-    "logout_confirm_title": "Are you sure?",
-    "logout_confirm_text": "You will be logged out of your account",
-    "logout_confirm_yes": "Yes, Log Out",
-    "logout_confirm_cancel": "Cancel",
-    "logout_success": "Logged out successfully",
-    "slogan": "Education is a free right for everyone"
   },
   "quiz_question": {
     "no_questions": "No questions in this quiz",
@@ -500,6 +573,74 @@
     "status_soon": "Soon",
     "status_upcoming": "Upcoming",
     "status_scheduled": "Scheduled"
+  },
+  "view_exam": {
+    "loading": "Loading exam details...",
+    "invalid_exam_id": "Invalid exam ID",
+    "fetch_error": "Error loading exam details",
+    "error_title": "Error Loading Exam",
+    "back_to_exams": "Back to Exams",
+    "status_completed": "Completed",
+    "status_urgent": "Urgent",
+    "status_soon": "Soon",
+    "status_upcoming": "Upcoming",
+    "status_scheduled": "Scheduled",
+    "subject": "Subject",
+    "classroom": "Classroom",
+    "exam_date": "Exam Date",
+    "exam_time": "Exam Time",
+    "no_subject": "Not Specified",
+    "no_classroom": "Not Specified",
+    "exam_details": "Exam Details",
+    "exam_title": "Exam Title",
+    "description": "Description",
+    "exam_status": "Exam Status",
+    "actions": "Actions",
+    "instructions": "Instructions",
+    "instruction_1": "Arrive 15 minutes before the exam starts",
+    "instruction_2": "Bring your ID card and required writing materials",
+    "instruction_3": "Mobile phones and electronic devices are not allowed",
+    "instruction_4": "Follow supervisor instructions and don't leave the room without permission",
+    "exam_completed": "Exam Completed",
+    "add_to_calendar": "Add to Calendar",
+    "download_details": "Download Details",
+    "share_exam_title": "Exam",
+    "share_exam_description": "Exam details:",
+    "organization_access_title": "Important Note",
+    "organization_access_description": "Only users from the same educational organization can view this exam details",
+    "recommended_resources": "Recommended Resources",
+    "recommended_articles": "Recommended Articles",
+    "recommended_courses": "Recommended Courses",
+    "sample_resource_1": "Comprehensive Curriculum Summary",
+    "sample_resource_1_desc": "Detailed summary covering all essential curriculum points",
+    "sample_resource_2": "Final Review Guide",
+    "sample_resource_2_desc": "Complete guide for pre-exam review",
+    "sample_resource_3": "Past Exams Collection",
+    "sample_resource_3_desc": "Collection of previous exams with solutions",
+    "sample_article_1": "Exam Preparation Tips",
+    "sample_article_1_desc": "Effective strategies for studying and preparation",
+    "sample_article_2": "Time Management During Exams",
+    "sample_article_2_desc": "How to optimally distribute your time",
+    "sample_article_3": "Managing Exam Anxiety",
+    "sample_article_3_desc": "Techniques to control stress and anxiety",
+    "sample_course_1": "Subject Fundamentals",
+    "sample_course_1_desc": "Comprehensive course covering subject basics",
+    "sample_course_2": "Intensive Review",
+    "sample_course_2_desc": "Intensive review program before exam",
+    "sample_course_3": "Advanced Problem Solving",
+    "sample_course_3_desc": "Training on solving difficult questions",
+    "course_duration_1": "12 hours",
+    "course_duration_2": "8 hours",
+    "course_duration_3": "6 hours"
+  },
+  "days": {
+    "sunday": "Sunday",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday"
   },
   "files_page": {
     "title": "My Files",
@@ -585,13 +726,6 @@
     "search_contacts": "Search for a contact",
     "loading_contacts": "Loading contacts..."
   },
-  "task_widget": {
-    "title": "Tasks & Assignments",
-    "loading": "Loading tasks...",
-    "no_tasks": "No tasks available",
-    "untitled_task": "Untitled task",
-    "due_date": "Due date"
-  },
   "student_points": {
     "title": "Contribution Points",
     "error_loading": "Failed to load points",
@@ -605,18 +739,7 @@
     "resource_contributions": "Resource Contributions",
     "redeem_points": "Redeem Points"
   },
-  "recent_activity": {
-    "title": "Recent Activity",
-    "error_loading": "Failed to load recent activity",
-    "no_activity": "No recent activity",
-    "time_minutes_ago": "{{count}} minutes ago",
-    "time_hours_ago": "{{count}} hours ago",
-    "time_days_ago": "{{count}} days ago",
-    "mock_lesson_watch": "Watched Basic Algebra lesson",
-    "mock_exam_complete": "Completed Mathematics exam",
-    "mock_post_create": "Posted a question in Science forum",
-    "mock_course_enroll": "Enrolled in Organic Chemistry course"
-  },
+
   "notification_widget": {
     "title": "Notifications",
     "show_more": "More",
@@ -632,7 +755,8 @@
     "back_to_home": "Back to Home"
   },
   "ui": {
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "cancel": "Cancel"
   },
   "upcoming_exams": {
     "title": "Upcoming Exams",
@@ -709,29 +833,59 @@
     "percent_completed": "{{percentage}}% completed",
     "lessons_progress": "{{completed}} of {{total}} lessons",
     "review_course": "Review Course",
-    "continue_learning": "Continue Learning"
+    "continue_learning": "Continue Learning",
+    "lectures": "Lectures",
+    "sections": "Sections",
+    "quizzes": "Quizzes",
+    "last_watched": "Last Watched"
+  },
+  "attendance": {
+    "page_title": "Attendance",
+    "page_description": "Track your attendance and manage day-off requests",
+    "request_day_off": "Request Day Off",
+    "total_days": "Total Days",
+    "present_days": "Present",
+    "absent_days": "Absent",
+    "late_days": "Late",
+    "attendance_rate": "Attendance Rate",
+    "attendance_records": "Attendance Records",
+    "day_off_requests": "Day Off Requests",
+    "date": "Date",
+    "status": "Status",
+    "time_in": "Time In",
+    "time_out": "Time Out",
+    "status_present": "Present",
+    "status_absent": "Absent",
+    "status_late": "Late",
+    "status_excused": "Excused",
+    "no_requests": "No day-off requests yet",
+    "request_status_pending": "Pending",
+    "request_status_approved": "Approved",
+    "request_status_rejected": "Rejected",
+    "days_count": "{{count}} day(s)",
+    "rejection_reason": "Rejection Reason",
+    "start_date": "Start Date",
+    "end_date": "End Date",
+    "reason": "Reason",
+    "reason_placeholder": "Please provide a detailed reason for your day-off request...",
+    "working_days_selected": "Working Days",
+    "submit_request": "Submit Request",
+    "request_info": "Your request will be reviewed by the administration. You will be notified once a decision is made.",
+    "error_start_date_required": "Start date is required",
+    "error_end_date_required": "End date is required",
+    "error_past_date": "Cannot select past dates",
+    "error_too_late_for_today": "Too late to request for today (must be at least 1 hour before work ends)",
+    "error_after_academic_year": "Date cannot be after academic year end",
+    "error_end_before_start": "End date must be after start date",
+    "error_reason_too_short": "Reason must be at least 10 characters",
+    "error_no_working_days": "Selected dates contain no working days"
   },
   "not_implemented": {
     "page_title": "Page",
     "note": "Note",
     "page_incomplete": "This page is not complete yet"
   },
-  "dashboard_index": {
-    "welcome_user": "Welcome, {{name}}",
-    "continue_learning_message": "Continue learning to make the most of your time. If you need any",
-    "support": "support",
-    "always_here": "don't forget we're here anytime",
-    "enrolled_courses": "{{count}} enrolled courses",
-    "active_today": "active today",
-    "continue_learning": "Continue Learning",
-    "top_priority": "Top Priority",
-    "start_journey": "Start Your Learning Journey",
-    "no_courses_yet": "You haven't enrolled in any course yet. Explore our wide range of courses",
-    "explore_courses": "Explore Courses",
-    "urgent_tasks_exams": "Urgent Tasks & Exams",
-    "performance_progress": "Performance & Progress",
-    "resources_recommendations": "Resources & Recommendations"
-  },
+
   "timetable_page": {
     "title": "Timetable",
     "no_timetable": "No timetable available",
@@ -750,10 +904,33 @@
     "today": "Today",
     "no_classes": "No classes"
   },
+  "upcoming_homework": {
+    "title": "Upcoming Homework",
+    "subtitle": "Stay on top of your assignments and never miss a deadline.",
+    "no_upcoming_homework": "No upcoming homework",
+    "all_caught_up": "You're all caught up!",
+    "view_all": "View All Homework",
+    "total_homework": "Total Homework",
+    "urgent_homework": "Urgent Homework",
+    "other_homework": "Other Homework",
+    "list_title": "Homework List"
+  },
   "classroom_page": {
     "error": "Error",
     "invalid_course_id": "Invalid course ID, the course ID must be a number",
     "loading_course": "Loading training course"
+  },
+  "student_course_card":{
+    "review": "Review",
+    "progress_level": "Progress Level",
+    "completed": "Completed",
+    "completed_course": "Completed Course",
+    "enrolled": "Enrolled",
+    "in_progress": "In Progress",
+    "not_started": "Not Started",
+    "lessons_progress": "{{progress}}% complete",
+    "ready_to_start": "Ready to start",
+    "continue_learning": "Continue Learning"
   },
   "student_course_page": {
     "my_courses": "My Courses",
@@ -830,7 +1007,11 @@
     "plan": "Plan",
     "price": "Price",
     "redirect_to_payment": "You will be redirected to the secure payment page",
-    "continue_to_payment": "Continue to Payment"
+    "continue_to_payment": "Continue to Payment",
+    "login_required_title": "Login Required",
+    "login_required_message": "You must log in first to subscribe to a plan. Would you like to go to the login page?",
+    "login_button": "Login",
+    "cancel_button": "Cancel"
   },
   "completed_tasks": {
     "title": "Completed"
@@ -874,6 +1055,8 @@
   "post_card": {
     "login_required_title": "Login Required",
     "login_required_text": "You must log in first to like this post.",
+    "subscription_login_required_title": "Login Required",
+    "subscription_login_required_text": "You must log in first to subscribe to a plan. Would you like to go to the login page?",
     "cancel": "Cancel",
     "login_button": "Login",
     "time_just_now": "Just now",
@@ -1133,7 +1316,8 @@
     }
   },
   "recent_activity": {
-    "title": "Recent Activity"
+    "title": "Recent Activity",
+    "no_activity": "No recent activity"
   },
   "featured_subjects": {
     "loading": "Loading subjects",

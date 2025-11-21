@@ -12,8 +12,8 @@ import TodoForm from './TodoForm';
 import InProgressTasks from './InProgressTasks';
 import CompletedTasks from './CompletedTasks';
 import TasksTable from './TasksTable';
-import Card from '../../components/ui/Card';
-import Button from '../../components/ui/Button';
+import Card from '../../components/ui/CustomCard';
+import Button from '../../components/ui/CustomButton';
 
 export default function TodoPage() {
     const { t } = useTranslation();
@@ -204,7 +204,7 @@ export default function TodoPage() {
                                         </h3>
                                     </div>
                                     <div className="p-6">
-                                        <TasksTable tasks={tasks} searchTerm={searchTerm} filterStatus={filterStatus} />
+                                        <TasksTable tasks={tasks}  title='' />
                                     </div>
                                 </Card>
                             </div>

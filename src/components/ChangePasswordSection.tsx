@@ -11,71 +11,34 @@ export default function ChangePasswordSection() {
   const { user } = useAppSelector((state) => state.auth);
 
   const steps = [
-    { selector: "#send-pin-btn", content: t("settings.change_password.tour.step1") },
-    { selector: "#pin-input", content: t("settings.change_password.tour.step2") },
-    { selector: "#new-password-input", content: t("settings.change_password.tour.step3") },
-    { selector: "#confirm-password-input", content: t("settings.change_password.tour.step4") },
-    { selector: "#save-password-btn", content: t("settings.change_password.tour.step5") }
+    { selector: "#send-reset-btn", content: t("settings.change_password.tour.step1") }
   ];
 
   const { setIsOpen } = useTour();
 
+  const [loading, setLoading] = useState(false);
   const [pwdSaved, setPwdSaved] = useState(false);
   const [pwdError, setPwdError] = useState<string | null>(null);
-  const [pwdLoading, setPwdLoading] = useState(false);
 
-  const [pinCode, setPinCode] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [pinSent, setPinSent] = useState(false);
 
-  const [showNew, setShowNew] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
 
-  const sendPin = async () => {
+  const sendResetEmail = async () => {
+    setLoading(true);
     setPwdError(null);
+    setPwdSaved(false);
     try {
       await api.post(endpoints.user.requestPasswordChange, { email: user?.email });
-      setPinSent(true);
+      setEmailSent(true);
+      setPwdSaved(true);
     } catch (err: any) {
       if (err.response) {
         setPwdError(err.response.data.error);
       } else {
         setPwdError(t("settings.change_password.errors.send_failed"));
       }
-    }
-  };
-
-  const savePassword = async () => {
-    setPwdSaved(false);
-    setPwdError(null);
-
-    if (!pinCode || !newPassword || !confirmPassword) {
-      setPwdError(t("settings.change_password.errors.missing_fields"));
-      return;
-    }
-    if (newPassword !== confirmPassword) {
-      setPwdError(t("settings.change_password.errors.passwords_mismatch"));
-      return;
-    }
-
-    setPwdLoading(true);
-    try {
-      await api.post(endpoints.user.changePassword, {
-        email: user?.email,
-        pin_code: pinCode,
-        new_password: newPassword,
-        confirm_password: confirmPassword
-      });
-      setPwdSaved(true);
-      setPinCode("");
-      setNewPassword("");
-      setConfirmPassword("");
-      setPinSent(false);
-    } catch (err: any) {
-      setPwdError(t("settings.change_password.errors.save_failed"));
     } finally {
-      setPwdLoading(false);
+      setLoading(false);
     }
   };
 
@@ -94,95 +57,64 @@ export default function ChangePasswordSection() {
         </div>
 
         <div className="space-y-4">
-          {pwdSaved && <Success>{t("settings.change_password.success")}</Success>}
+          {pwdSaved && (
+            <Success>
+              تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني ({user?.email}). يرجى التأكد من بريدك واتباع التعليمات.
+            </Success>
+          )}
           {pwdError && <ErrorNote>{pwdError}</ErrorNote>}
 
-          {/* Send PIN */}
+          {/* Current Email Display */}
+          <div>
+            <label className="block text-sm font-medium text-emerald-800 dark:text-emerald-100/70 mb-2">
+              البريد الإلكتروني المسجل
+            </label>
+            <div className="w-full px-4 py-2 bg-slate-50 dark:bg-emerald-900/20 border border-emerald-300 dark:border-emerald-800 rounded-lg text-slate-700 dark:text-emerald-100">
+              {user?.email}
+            </div>
+          </div>
+
+          {/* Send Reset Email Button */}
           <div>
             <button
-              id="send-pin-btn"
+              id="send-reset-btn"
               type="button"
-              onClick={sendPin}
-              disabled={pinSent}
-              className="p-2 px-4 bg-emerald-100 dark:bg-emerald-600 cursor-pointer dark:hover:bg-emerald-700 rounded dashboard-box disabled:opacity-50"
+              onClick={sendResetEmail}
+              disabled={loading}
+              className="p-3 px-5 bg-emerald-500 text-white hover:bg-emerald-600 disabled:bg-slate-400 disabled:cursor-not-allowed cursor-pointer rounded-lg transition-colors flex items-center gap-2"
             >
-              {pinSent ? t("settings.change_password.pin_sent") : t("settings.change_password.send_pin")}
+              {loading ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                  جارٍ الإرسال...
+                </>
+              ) : (
+                <>
+                  <i className="fi fi-rr-envelope text-sm"></i>
+                  إرسال رابط إعادة تعيين كلمة المرور
+                </>
+              )}
             </button>
-            <p className="mt-2 text-muted text-sm">{t("settings.change_password.send_pin_help")}</p>
+            <p className="mt-2 text-slate-600 dark:text-emerald-100/70 text-sm">
+              سيتم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني. اتبع التعليمات في البريد لإنشاء كلمة مرور جديدة.
+            </p>
           </div>
 
-          {/* PIN Code */}
-          <div>
-            <label className="block text-sm font-medium text-emerald-800 dark:text-emerald-100/70 mb-2">
-              {t("settings.change_password.pin_label")}
-            </label>
-            <input
-              id="pin-input"
-              type="text"
-              value={pinCode}
-              disabled={!pinSent}
-              onChange={(e) => setPinCode(e.target.value)}
-              className="w-full px-4 py-2 border border-emerald-300 dark:border-emerald-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-            />
-          </div>
-
-          {/* New password */}
-          <div>
-            <label className="block text-sm font-medium text-emerald-800 dark:text-emerald-100/70 mb-2">
-              {t("settings.change_password.new_password")}
-            </label>
-            <div className="relative">
-              <input
-                id="new-password-input"
-                type={showNew ? "text" : "password"}
-                value={newPassword}
-                disabled={!pinSent}
-                onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full px-4 py-2 border border-emerald-300 dark:border-emerald-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              />
-              <button
-                type="button"
-                onClick={() => setShowNew(!showNew)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500"
-              >
-                <i className="fi fi-rr-eye"></i>
-              </button>
+          {emailSent && (
+            <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-lg p-4">
+              <div className="flex items-start gap-3">
+                <i className="fi fi-rr-info text-emerald-600 text-lg mt-1"></i>
+                <div>
+                  <h4 className="font-medium text-emerald-800 dark:text-emerald-200 mb-1">
+                    تحقق من بريدك الإلكتروني
+                  </h4>
+                  <p className="text-sm text-emerald-700 dark:text-emerald-300">
+                    لم تستلم البريد؟ تحقق من مجلد الرسائل غير المرغوب فيها أو المهملات.
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-
-          {/* Confirm password */}
-          <div>
-            <label className="block text-sm font-medium text-emerald-800 dark:text-emerald-100/70 mb-2">
-              {t("settings.change_password.confirm_password")}
-            </label>
-            <div className="relative">
-              <input
-                id="confirm-password-input"
-                type={showConfirm ? "text" : "password"}
-                value={confirmPassword}
-                disabled={!pinSent}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-4 py-2 border border-emerald-300 dark:border-emerald-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              />
-              <button
-                type="button"
-                onClick={() => setShowConfirm(!showConfirm)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500"
-              >
-                <i className="fi fi-rr-eye"></i>
-              </button>
-            </div>
-          </div>
-
-          {/* Save button */}
-          <button
-            id="save-password-btn"
-            onClick={savePassword}
-            disabled={pwdLoading || !pinSent}
-            className="p-3 disabled:text-slate-500 disabled:cursor-not-allowed px-5 border text-emerald-500 dark:text-emerald-200 dark:hover:text-emerald-300 cursor-pointer rounded-md"
-          >
-            {pwdLoading ? t("settings.change_password.saving") : t("settings.change_password.save_button")}
-          </button>
+          )}
         </div>
       </div>
     </TourProvider>

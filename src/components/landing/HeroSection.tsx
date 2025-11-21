@@ -1,7 +1,7 @@
 import { t } from "i18next";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Play, Users, BookOpen, Award, ChevronRight } from "lucide-react";
+import { Play, Users, BookOpen, Award, ChevronLeft } from "lucide-react";
 
 export default function HeroSection() {
     // Animation variants
@@ -48,7 +48,7 @@ export default function HeroSection() {
                             variants={fadeInUp}
                         >
                             <Award className="size-4" />
-                            منصة التعلم الرائدة في العالم العربي
+                           اول منصة عراقية مخصصة تماما للطلاب
                         </motion.div>
 
                         {/* Main Title */}
@@ -105,14 +105,13 @@ export default function HeroSection() {
                                 </Link>
                             </motion.div>
                             
-                            <motion.button 
-                                whileHover={{ scale: 1.05 }} 
-                                whileTap={{ scale: 0.95 }}
-                                className="inline-flex items-center gap-2 text-emerald-700 hover:text-emerald-800 font-medium transition-colors"
+                            <Link 
+                                to={'/about'}
+                                className="inline-flex items-center justify-center gap-2 sm:gap-3 border hover:scale-110 border-emerald-700  hover:border-emerald-800  px-6 py-3 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg font-semibold transition-all duration-300  w-full sm:w-auto"
                             >
-                                شاهد العرض التوضيحي
-                                <ChevronRight className="size-4" />
-                            </motion.button>
+                                المزيد عن نقرأ
+                                <ChevronLeft className="size-4" />
+                            </Link>
                         </motion.div>
                     </motion.div>
 

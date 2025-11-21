@@ -1,6 +1,6 @@
 "use client";
 
-import { BarChart, Bar, XAxis, CartesianGrid } from "recharts";
+import { BarChart, Bar, XAxis, CartesianGrid, Cell } from "recharts";
 import { useTranslation } from "react-i18next";
 import {
   ChartContainer,
@@ -13,7 +13,8 @@ import {
   CardTitle,
   CardContent,
 } from "../components/ui/card";
-import type { StudyTimeWeek } from "../../types";
+
+
 
 export interface StudySession {
   study_time_in_sec: number;
@@ -25,34 +26,78 @@ export interface StudySession {
   };
 }
 
-
-
-interface Props {
-  weekData: StudyTimeWeek | null;
+export interface StudyTimeWeek {
+  sunday: StudySession | null;
+  monday: StudySession | null;
+  tuesday: StudySession | null;
+  wednesday: StudySession | null;
+  thursday: StudySession | null;
+  friday: StudySession | null;
+  saturday: StudySession | null;
 }
+
+export interface StudyTimeWeek {
+  sunday: StudySession | null;
+  monday: StudySession | null;
+  tuesday: StudySession | null;
+  wednesday: StudySession | null;
+  thursday: StudySession | null;
+  friday: StudySession | null;
+  saturday: StudySession | null;
+}
+
+
+interface StudyHoursChartWidgetProps {
+  weekData: StudyTimeWeek|null|undefined;
+}
+
+
+
 
 // Chart configuration will be created inside component to access t() function
 
-// 🧠 Helper to convert seconds → hours (1 decimal)
+// Helper to convert seconds → hours (1 decimal)
 function secondsToHours(seconds: number): number {
   return Math.round((seconds / 3600) * 10) / 10;
 }
 
-export default function StudyHoursChartShadcn({ weekData }: Props) {
+export default function StudyHoursChartWidget({ weekData }: StudyHoursChartWidgetProps) {
   const { t } = useTranslation();
-  
-  // Day order with translation keys
-  const weekDays: { key: keyof StudyTimeWeek; labelKey: string }[] = [
-    { key: "saturday", labelKey: "study_chart.days.saturday" },
-    { key: "sunday", labelKey: "study_chart.days.sunday" },
-    { key: "monday", labelKey: "study_chart.days.monday" },
-    { key: "tuesday", labelKey: "study_chart.days.tuesday" },
-    { key: "wednesday", labelKey: "study_chart.days.wednesday" },
-    { key: "thursday", labelKey: "study_chart.days.thursday" },
-    { key: "friday", labelKey: "study_chart.days.friday" },
+
+  // Day order and translation keys
+  const weekDayOrder = [
+    "sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+  ] as const;
+  const weekDayLabels = [
+    "study_chart.days.sunday",
+    "study_chart.days.monday",
+    "study_chart.days.tuesday",
+    "study_chart.days.wednesday",
+    "study_chart.days.thursday",
+    "study_chart.days.friday",
+    "study_chart.days.saturday",
   ];
-  
-  if(!weekData) return;
+
+  // Transform StudyTimeWeek object to array in correct order, fill nulls
+  const data: { day: string; hours: number; is_today?: boolean }[] = weekDayOrder.map((day, idx) => {
+    const session = weekData && weekData[day as keyof StudyTimeWeek] ? weekData[day as keyof StudyTimeWeek] : {
+      study_time_in_sec: 0,
+      is_today: false,
+      date: '',
+      day_info: { name: '', number: idx },
+    };
+    return {
+      day: t(weekDayLabels[idx]),
+      hours: session && session.study_time_in_sec ? secondsToHours(session.study_time_in_sec) : 0,
+      is_today: session ? session.is_today : false,
+    };
+  });
 
   // Chart configuration with translation
   const chartConfig = {
@@ -61,14 +106,6 @@ export default function StudyHoursChartShadcn({ weekData }: Props) {
       color: "hsl(var(--emerald-600))",
     },
   };
-
-  // Prepare chart data
-  const data = weekDays.map((d) => ({
-    day: t(d.labelKey),
-    hours: weekData[d.key]
-      ? secondsToHours(weekData[d.key]!.study_time_in_sec)
-      : 0,
-  }));
 
   return (
     <Card className="w-full bg-white dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800 shadow-sm">
@@ -91,11 +128,17 @@ export default function StudyHoursChartShadcn({ weekData }: Props) {
             />
             <ChartTooltip content={<ChartTooltipContent />} />
             <Bar 
-              dataKey="hours" 
-              fill="#10b981" 
+              dataKey="hours"
               radius={[3, 3, 0, 0]}
-              className="fill-emerald-500 hover:fill-emerald-600 transition-colors"
-            />
+              className="transition-colors"
+              fill="#10b981"
+              >
+              {
+                data.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.is_today ? "#065f46" : "#10b981"} />
+                ))
+              }
+            </Bar>
           </BarChart>
         </ChartContainer>
       </CardContent>

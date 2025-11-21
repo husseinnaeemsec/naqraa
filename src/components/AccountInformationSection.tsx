@@ -181,7 +181,7 @@ export default function AccountInformationSection() {
                     </label>
                     <select
                         className="w-full px-4 py-2 border border-emerald-300 dark:border-emerald-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                        onChange={(e) => setLang(e.currentTarget.value)}
+                        onChange={(e) => setLang(e.currentTarget.value as "ar" | "en" | "ku" )}
                         value={lang || ""}
                     >
                         <option value="ar">عربي</option>

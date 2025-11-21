@@ -5,6 +5,7 @@ import finalProjectImage from '../../assets/final-projects.svg';
 import api from '../../api/client';
 import { endpoints } from '../../api/routes';
 import { simpleDebounce } from '../../utils/functions';
+import ShareButton from '../../components/ShareButton';
 import type { Grade } from '../../../types';
 
 export default function ResourcesPage() {
@@ -14,7 +15,7 @@ export default function ResourcesPage() {
   const [resourceType, setResourceType] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
   const [filtersOpen, setFiltersOpen] = useState(false);
-  
+
   // API data
   const [grades, setGrades] = useState<Grade[]>([]);
   const [subjects, setSubjects] = useState<any[]>([]);
@@ -23,17 +24,17 @@ export default function ResourcesPage() {
   const [loadingResources, setLoadingResources] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [totalResources, setTotalResources] = useState(0);
-  
+
   // Search functionality
   const [gradeSearch, setGradeSearch] = useState('');
   const [subjectSearch, setSubjectSearch] = useState('');
-  
+
   // Filter grades and subjects based on search
-  const filteredGrades = grades.filter(g => 
+  const filteredGrades = grades.filter(g =>
     g.name.toLowerCase().includes(gradeSearch.toLowerCase())
   );
-  
-  const filteredSubjects = subjects.filter(s => 
+
+  const filteredSubjects = subjects.filter(s =>
     s.name.toLowerCase().includes(subjectSearch.toLowerCase())
   );
 
@@ -80,7 +81,49 @@ export default function ResourcesPage() {
   };
 
   // Popular subjects for quick filtering
-  const popularSubjects = subjects.slice(0, 6);
+  // const popularSubjects = subjects.slice(0, 6);
+
+  // URL parameter management
+  const updateURL = (params: any) => {
+    const searchParams = new URLSearchParams();
+
+    if (params.search && params.search.trim()) {
+      searchParams.set('search', params.search);
+    }
+    if (params.subject && params.subject !== 'all') {
+      searchParams.set('subject', params.subject);
+    }
+    if (params.grade && params.grade !== 'all') {
+      searchParams.set('grade', params.grade);
+    }
+    if (params.resourceType && params.resourceType !== 'all') {
+      searchParams.set('type', params.resourceType);
+    }
+    if (params.sortBy && params.sortBy !== 'newest') {
+      searchParams.set('sort', params.sortBy);
+    }
+
+    const newURL = `${window.location.pathname}${searchParams.toString() ? '?' + searchParams.toString() : ''}`;
+    window.history.replaceState({}, '', newURL);
+  };
+
+  const loadFromURL = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const searchParam = urlParams.get('search');
+    const subjectParam = urlParams.get('subject');
+    const gradeParam = urlParams.get('grade');
+    const typeParam = urlParams.get('type');
+    const sortParam = urlParams.get('sort');
+
+    if (searchParam) setSearch(searchParam);
+    if (subjectParam) setSubject(subjectParam);
+    if (gradeParam) setGrade(gradeParam);
+    if (typeParam) setResourceType(typeParam);
+    if (sortParam) setSortBy(sortParam);
+  };
+
+
 
   // Fetch filters and initial data
   useEffect(() => {
@@ -104,10 +147,12 @@ export default function ResourcesPage() {
     }
 
     fetchInitialData();
+    loadFromURL();
   }, []);
 
   // Fetch resources function
   const fetchResources = async (params: any) => {
+    console.log('Fetching resources with params:', params);
     setLoadingResources(true);
     setError(null);
     try {
@@ -170,17 +215,29 @@ export default function ResourcesPage() {
 
   // Handle filter changes
   useEffect(() => {
-    const params: any = {};
-    if (subject && subject !== 'all') params.subject = subject;
-    if (search) params.search = search;
-    if (grade && grade !== 'all') params.grade = grade;
-    if (resourceType && resourceType !== 'all') params.type = resourceType;
-    if (sortBy !== 'newest') params.sort = sortBy;
+    const params: any = {
+      search,
+      subject,
+      grade,
+      resourceType,
+      sortBy
+    };
+
+    // Update URL with current filters
+    updateURL(params);
+
+    // Prepare API params
+    const apiParams: any = {};
+    if (subject && subject !== 'all') apiParams.subject = subject;
+    if (search) apiParams.search = search;
+    if (grade && grade !== 'all') apiParams.grade = grade;
+    if (resourceType && resourceType !== 'all') apiParams.type = resourceType;
+    if (sortBy !== 'newest') apiParams.sort = sortBy;
 
     if (search.trim()) {
-      debouncedSearch(params);
+      debouncedSearch(apiParams);
     } else {
-      fetchResources(params);
+      fetchResources(apiParams);
     }
   }, [subject, grade, search, resourceType, sortBy, debouncedSearch]);
 
@@ -196,39 +253,39 @@ export default function ResourcesPage() {
   }
 
   return (
-    <motion.div 
+    <motion.div
       className="min-h-screen bg-gray-50"
       initial="initial"
       animate="animate"
       variants={staggerContainer}
     >
       {/* Hero Section */}
-      <motion.div 
+      <motion.div
         className="bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-700 text-white"
         variants={fadeInUp}
       >
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-16">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Text Content */}
-            <motion.div 
+            <motion.div
               className="space-y-6"
               variants={fadeInUp}
             >
-              <motion.h1 
+              <motion.h1
                 className="text-3xl md:text-4xl lg:text-5xl font-bold"
                 variants={fadeInUp}
               >
                 مكتبة المصادر التعليمية
               </motion.h1>
-              <motion.p 
+              <motion.p
                 className="text-emerald-100 text-lg md:text-xl max-w-3xl"
                 variants={fadeInUp}
               >
                 اكتشف آلاف المصادر التعليمية المجانية من ملخصات وملازم وكتب وأوراق بحث لجميع المواد والمراحل الدراسية
               </motion.p>
-              
+
               {/* Hero Search Bar */}
-              <motion.div 
+              <motion.div
                 className="max-w-2xl"
                 variants={fadeInUp}
               >
@@ -239,7 +296,7 @@ export default function ResourcesPage() {
                     value={search}
                     type="text"
                     placeholder="ابحث في المصادر التعليمية..."
-                    className="w-full pr-12 pl-4 py-4 text-lg rounded-xl border-0 shadow-lg focus:ring-4 focus:ring-white/30 focus:outline-none text-gray-900"
+                    className="w-full pr-12 pl-4 py-4 text-lg rounded-xl border-0 bg-white shadow-lg focus:ring-4 focus:ring-white/30 focus:outline-none text-gray-900"
                   />
                   {loadingResources && search && (
                     <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
@@ -251,7 +308,7 @@ export default function ResourcesPage() {
 
               {/* Popular Resource Types */}
               {resourceTypes.length > 0 && (
-                <motion.div 
+                <motion.div
                   className="flex flex-wrap gap-3 pt-4"
                   variants={fadeInUp}
                 >
@@ -273,7 +330,7 @@ export default function ResourcesPage() {
             </motion.div>
 
             {/* Hero Image */}
-            <motion.div 
+            <motion.div
               className="flex justify-center lg:justify-end"
               variants={fadeInUp}
             >
@@ -291,7 +348,7 @@ export default function ResourcesPage() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-8">
         {/* Filter Bar */}
-        <motion.div 
+        <motion.div
           className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-8"
           variants={fadeInUp}
         >
@@ -304,7 +361,7 @@ export default function ResourcesPage() {
                   {totalResources.toLocaleString()} مصدر متاح
                 </span>
               </div>
-              
+
               {/* Active Filters */}
               {getActiveFiltersCount() > 0 && (
                 <div className="flex items-center gap-2">
@@ -342,7 +399,7 @@ export default function ResourcesPage() {
                         </button>
                       </span>
                     )}
-                    <button 
+                    <button
                       onClick={clearAllFilters}
                       className="text-sm text-red-600 hover:text-red-800 font-medium"
                     >
@@ -367,6 +424,28 @@ export default function ResourcesPage() {
                 <option value="title">الترتيب الأبجدي</option>
               </select>
 
+              {/* Share Button */}
+              <ShareButton
+                title="📚 مكتبة المصادر التعليمية - نقرأ"
+                description="اكتشف آلاف المصادر التعليمية المجانية من ملخصات وملازم وكتب وأوراق بحث لجميع المواد والمراحل الدراسية 📖✨
+
+✅ مصادر مجانية 100%
+📚 ملخصات وملازم شاملة  
+🔬 أوراق بحث متخصصة
+👥 آلاف الطلاب يستفيدون يومياً
+🎯 جميع المواد والمراحل الدراسية
+
+#نقرأ #تعليم_مجاني #مصادر_تعليمية #ملخصات #ملازم #أوراق_بحث"
+                variant="secondary"
+                utmParams={{
+                  utm_source: 'resources_page',
+                  utm_medium: 'social',
+                  utm_campaign: 'resources_sharing',
+                  utm_content: 'header_share_button'
+                }}
+                size="md"
+              />
+
               {/* Mobile Filter Toggle */}
               <button
                 className="lg:hidden inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
@@ -385,6 +464,222 @@ export default function ResourcesPage() {
         </motion.div>
 
         <div className="grid lg:grid-cols-[280px_1fr] gap-8">
+
+          {/* Mobile Filter Drawer */}
+          <AnimatePresence>
+            {filtersOpen && (
+              <>
+                {/* Backdrop */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+                  onClick={() => setFiltersOpen(false)}
+                />
+
+                {/* Mobile Filter Panel */}
+                <motion.div
+                  initial={{ x: "100%" }}
+                  animate={{ x: 0 }}
+                  exit={{ x: "100%" }}
+                  transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                  className="fixed right-0 top-0 bottom-0 w-80 bg-white z-50 lg:hidden overflow-y-auto"
+                >
+                  <div className="p-6 space-y-6">
+                    {/* Header */}
+                    <div className="flex items-center justify-between border-b border-gray-200 pb-4">
+                      <div className="flex items-center gap-2">
+                        <Filter className="size-5 text-emerald-600" />
+                        <h2 className="text-lg font-semibold text-gray-900">تصفية المصادر</h2>
+                      </div>
+                      <button
+                        onClick={() => setFiltersOpen(false)}
+                        className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                      >
+                        <X className="size-5 text-gray-500" />
+                      </button>
+                    </div>
+
+                    {/* Mobile Filter Content */}
+                    <div className="space-y-6">
+                      {/* Resource Type Filter */}
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-3">
+                          <FileText className="inline size-4 mr-1" />
+                          نوع المصدر
+                        </label>
+                        <div className="space-y-2">
+                          <label className="flex items-center p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                            <input
+                              type="radio"
+                              name="mobileResourceType"
+                              value="all"
+                              checked={resourceType === 'all'}
+                              onChange={(e) => setResourceType(e.target.value)}
+                              className="text-emerald-600 focus:ring-emerald-500"
+                            />
+                            <span className="mr-3 text-sm text-gray-700">جميع المصادر</span>
+                          </label>
+                          {resourceTypes.map((type) => {
+                            const Icon = type.icon;
+                            return (
+                              <label key={type.id} className="flex items-center p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                                <input
+                                  type="radio"
+                                  name="mobileResourceType"
+                                  value={type.id}
+                                  checked={resourceType === type.id}
+                                  onChange={(e) => setResourceType(e.target.value)}
+                                  className="text-emerald-600 focus:ring-emerald-500"
+                                />
+                                <Icon className="size-4 mr-2 text-gray-500" />
+                                <span className="mr-1 text-sm text-gray-700">{type.name}</span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {/* Grade Filter */}
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-3">
+                          <GraduationCap className="inline size-4 mr-1" />
+                          المرحلة الدراسية
+                        </label>
+
+                        <div className="mb-3">
+                          <label className="flex items-center p-2 rounded-lg hover:bg-gray-50 cursor-pointer border border-gray-200">
+                            <input
+                              type="radio"
+                              name="mobileGrade"
+                              value="all"
+                              checked={grade === 'all'}
+                              onChange={(e) => setGrade(e.target.value)}
+                              className="text-emerald-600 focus:ring-emerald-500"
+                            />
+                            <span className="mr-3 text-sm font-medium text-gray-900">جميع المراحل</span>
+                          </label>
+                        </div>
+
+                        {grades.length > 5 && (
+                          <div className="mb-3">
+                            <div className="relative">
+                              <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 size-4 text-gray-400" />
+                              <input
+                                type="text"
+                                placeholder="البحث في المراحل..."
+                                value={gradeSearch}
+                                onChange={(e) => setGradeSearch(e.target.value)}
+                                className="w-full pr-10 pl-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                              />
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="space-y-1 max-h-48 overflow-y-auto border border-gray-200 rounded-lg p-2">
+                          {filteredGrades.length > 0 ? (
+                            filteredGrades.map((g) => (
+                              <label key={g.id} className="flex items-center p-2 rounded-md hover:bg-gray-50 cursor-pointer">
+                                <input
+                                  type="radio"
+                                  name="mobileGrade"
+                                  value={g.id}
+                                  checked={grade.toString() === g.id.toString()}
+                                  onChange={(e) => setGrade(e.target.value)}
+                                  className="text-emerald-600 focus:ring-emerald-500"
+                                />
+                                <span className="mr-3 text-sm text-gray-700">{g.name}</span>
+                              </label>
+                            ))
+                          ) : (
+                            <div className="text-center py-4 text-sm text-gray-500">
+                              لا توجد مراحل مطابقة للبحث
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Subject Filter */}
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-3">
+                          <BookOpen className="inline size-4 mr-1" />
+                          المادة الدراسية
+                        </label>
+
+                        <div className="mb-3">
+                          <label className="flex items-center p-2 rounded-lg hover:bg-gray-50 cursor-pointer border border-gray-200">
+                            <input
+                              type="radio"
+                              name="mobileSubject"
+                              value="all"
+                              checked={subject === 'all'}
+                              onChange={(e) => setSubject(e.target.value)}
+                              className="text-emerald-600 focus:ring-emerald-500"
+                            />
+                            <span className="mr-3 text-sm font-medium text-gray-900">جميع المواد</span>
+                          </label>
+                        </div>
+
+                        {subjects.length > 5 && (
+                          <div className="mb-3">
+                            <div className="relative">
+                              <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 size-4 text-gray-400" />
+                              <input
+                                type="text"
+                                placeholder="البحث في المواد..."
+                                value={subjectSearch}
+                                onChange={(e) => setSubjectSearch(e.target.value)}
+                                className="w-full pr-10 pl-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                              />
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="space-y-1 max-h-48 overflow-y-auto border border-gray-200 rounded-lg p-2">
+                          {filteredSubjects.length > 0 ? (
+                            filteredSubjects.map((subj) => (
+                              <label key={subj.id} className="flex items-center p-2 rounded-md hover:bg-gray-50 cursor-pointer">
+                                <input
+                                  type="radio"
+                                  name="mobileSubject"
+                                  value={subj.id}
+                                  checked={subject.toString() === subj.id.toString()}
+                                  onChange={(e) => setSubject(e.target.value)}
+                                  className="text-emerald-600 focus:ring-emerald-500"
+                                />
+                                <span className="mr-3 text-sm text-gray-700">{subj.name}</span>
+                              </label>
+                            ))
+                          ) : (
+                            <div className="text-center py-4 text-sm text-gray-500">
+                              لا توجد مواد مطابقة للبحث
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Clear Filters Button */}
+                      <div className="pt-4 border-t border-gray-200 space-y-3">
+                        <button
+                          onClick={clearAllFilters}
+                          className="w-full py-2 text-sm font-medium text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg transition-colors"
+                        >
+                          مسح جميع المرشحات
+                        </button>
+                        <button
+                          onClick={() => setFiltersOpen(false)}
+                          className="w-full py-2 text-sm font-medium bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors"
+                        >
+                          تطبيق المرشحات
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
 
           {/* Sidebar Filters */}
           <div className="space-y-4">
@@ -445,7 +740,7 @@ export default function ResourcesPage() {
                       <GraduationCap className="inline size-4 mr-1" />
                       المرحلة الدراسية
                     </label>
-                    
+
                     <div className="mb-3">
                       <label className="flex items-center p-2 rounded-lg hover:bg-gray-50 cursor-pointer border border-gray-200">
                         <input
@@ -504,7 +799,7 @@ export default function ResourcesPage() {
                       <BookOpen className="inline size-4 mr-1" />
                       المادة الدراسية
                     </label>
-                    
+
                     <div className="mb-3">
                       <label className="flex items-center p-2 rounded-lg hover:bg-gray-50 cursor-pointer border border-gray-200">
                         <input
@@ -559,7 +854,7 @@ export default function ResourcesPage() {
 
                   {/* Clear Filters Button */}
                   <div className="pt-4 border-t border-gray-200">
-                    <button 
+                    <button
                       onClick={clearAllFilters}
                       className="w-full py-2 text-sm font-medium text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg transition-colors"
                     >
@@ -590,7 +885,7 @@ export default function ResourcesPage() {
 
             {/* Results Header */}
             {!loadingResources && resources.length > 0 && (
-              <motion.div 
+              <motion.div
                 className="flex items-center justify-between bg-white rounded-xl p-4 shadow-sm border border-gray-200 mb-6"
                 variants={fadeInUp}
               >
@@ -649,7 +944,7 @@ export default function ResourcesPage() {
                   <p className="text-gray-500 mb-6 max-w-md mx-auto">
                     جرب تعديل معايير البحث أو المرشحات للعثور على مصادر مناسبة
                   </p>
-                  <button 
+                  <button
                     onClick={clearAllFilters}
                     className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium transition-colors"
                   >
@@ -668,7 +963,7 @@ export default function ResourcesPage() {
                   {resources.map((resource) => {
                     const ResourceIcon = resourceTypes.find(t => t.id === resource.type)?.icon || FileText;
                     return (
-                      <motion.div 
+                      <motion.div
                         key={resource.id}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -691,7 +986,7 @@ export default function ResourcesPage() {
                               </div>
                             </div>
                           </div>
-                          
+
                           {/* Resource Stats */}
                           <div className="flex items-center justify-between text-sm text-gray-500">
                             <div className="flex items-center gap-4">
@@ -719,7 +1014,7 @@ export default function ResourcesPage() {
                               بواسطة: <span className="font-medium text-gray-900">{resource.author}</span>
                             </div>
                           </div>
-                          
+
                           <div className="flex gap-2">
                             <button className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium transition-colors">
                               <Download className="size-4" />

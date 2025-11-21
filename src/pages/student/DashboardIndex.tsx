@@ -13,14 +13,19 @@ import LearningProgressWidget from "../../components/LearningProgressWidget";
 import { useAppSelector } from "../../store/store";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Sparkles, BookOpen, Clock } from "lucide-react";
+import { Sparkles, BookOpen, Clock, TriangleAlert } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 
 
 const IndexPage = () => {
     const { t } = useTranslation();
     const { user } = useAppSelector((state) => state.auth)
+
+    useEffect(()=>{
+        console.log(user?.week_study_time)
+    },[user?.week_study_time])
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950">
@@ -46,7 +51,11 @@ const IndexPage = () => {
                         <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-700 to-emerald-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-emerald-300">
                             {t('dashboard_index.welcome_user', { name: user?.first_name || '' })}
                         </h1>
+                        
+                        
                     </div>
+
+
                     
                     <p className="text-gray-700 dark:text-emerald-100/80 leading-relaxed max-w-2xl">
                         {t('dashboard_index.continue_learning_message')}{' '}
@@ -58,6 +67,13 @@ const IndexPage = () => {
                         </Link>
                         {' '}{t('dashboard_index.always_here')}
                     </p>
+                    <div>
+                        {/* Note: tell users that this website is a work in progress */}
+                        <p className="text-sm   flex items-center gap-2 p-3 bg-amber-50 rounded-md border border-amber-500 text-amber-800 italic">
+                            <TriangleAlert className="inline-block mr-1" />
+                            {t('dashboard_index.work_in_progress')}
+                        </p>
+                    </div>
 
                     {/* Quick Stats */}
                     <div className="flex items-center gap-6 pt-2">
@@ -147,9 +163,7 @@ const IndexPage = () => {
                         </div>
                         
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                            {user?.week_study_time && (
-                                <StudyHoursChart weekData={user?.week_study_time} />
-                            )}
+                            <StudyHoursChart weekData={user?.week_study_time} />
                             <StudentPointsWidget />
                         </div>
                     </motion.section>

@@ -6,7 +6,7 @@ import ChangePasswordSection from "../../components/ChangePasswordSection";
 import AccountInformationSection from "../../components/AccountInformationSection";
 import NotificationsSection from "../../components/NotificationsSection";
 import ChangeEmailSection from "../../components/ChangeEmailSection";
-import OrganizationSection from "../../components/OrgnizationSection";
+import OrganizationSection from "../../components/OrganizationSection";
 import { useTranslation } from "react-i18next";
 import useApiErrorHandler from "../../hooks/use-api-error-handler";
 

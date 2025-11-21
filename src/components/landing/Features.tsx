@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, CheckCircle } from "lucide-react";
 
@@ -35,10 +34,10 @@ const ArabicCtaSection = () => {
                 >
                     <div>
                         <h2 className="mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
-                            ابدأ رحلتك التعليمية الآن 🎓
+                            {t("features_page.cta_section.title")}
                         </h2>
                         <p className="mb-6 sm:mb-8 text-emerald-100 text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-                            منصة نقرأ هي بوابتك نحو مجتمعات متخصصة، وأدوات بحث متقدمة، ومكتبة ضخمة من الموارد المجانية. لا تكتفِ بالقراءة، بل تواصل، تبادل، وشارك في بناء المعرفة.
+                            {t("features_page.cta_section.description")}
                         </p>
                     </div>
                     
@@ -50,14 +49,14 @@ const ArabicCtaSection = () => {
                             className="inline-flex items-center justify-center gap-2 sm:gap-3 bg-white text-emerald-700 font-bold px-6 py-3 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl hover:bg-emerald-50 transition-all duration-300 shadow-lg hover:shadow-xl text-sm sm:text-base"
                         >
                             <CheckCircle className="size-4 sm:size-5" />
-                            ابدأ مجاناً اليوم
+                            {t("features_page.cta_section.start_free_button")}
                         </motion.a>
                         <motion.button 
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             className="inline-flex items-center justify-center gap-2 border-2 border-white text-white font-medium px-6 py-3 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl hover:bg-white hover:text-emerald-700 transition-all duration-300 text-sm sm:text-base"
                         >
-                            تعلم المزيد
+                            {t("features_page.cta_section.learn_more_button")}
                             <ChevronRight className="size-4" />
                         </motion.button>
                     </div>
@@ -174,7 +173,7 @@ export default function Features() {
                                 animate={{ rotate: [0, 5, 0, -5, 0] }}
                                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                             >
-                                جديد!
+                                {t("features_page.badges.new")}
                             </motion.div>
                         </div>
                     </motion.div>
@@ -191,7 +190,7 @@ export default function Features() {
                     >
                         <div className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-800 px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium">
                             <CheckCircle className="size-4" />
-                            ميزة مميزة
+                            {t("features_page.badges.featured")}
                         </div>
                         
                         <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 leading-tight">

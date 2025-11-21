@@ -110,7 +110,7 @@ export default function CourseContent() {
         </div>
         
         {/* Tabs */}
-        <div className="sticky top-[120px] bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 z-10">
+        <div className=" bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 z-10">
           <ClassroomTabs
             activeTab={activeTab}
             onChange={(tab) => setActiveTab(tab as LectureTab)}

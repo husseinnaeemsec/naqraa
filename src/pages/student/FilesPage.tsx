@@ -2,8 +2,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { FileText, Download, Eye, Search, Upload, Filter, MoreVertical, File, Image, Video } from "lucide-react";
 import { useTranslation } from 'react-i18next';
-import Card from "../../components/ui/Card";
-import Button from "../../components/ui/Button";
+import Card from "../../components/ui/CustomCard";
+import Button from "../../components/ui/CustomButton";
 
 const FilesPage = () => {
     const { t } = useTranslation();

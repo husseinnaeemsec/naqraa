@@ -6,8 +6,10 @@ import React, {
   useState,
   useCallback,
 } from "react";
-import api from "../api/client";
+
+import { useLocation } from "react-router-dom";
 import { endpoints } from "../api/routes";
+import api from "../api/client";
 
 interface TrackerContextType {
   seconds: number;
@@ -41,19 +43,48 @@ export const StudySessionTrackerProvider: React.FC<{ children: React.ReactNode }
 }) => {
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(true);
-  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  // Removed unused lastUpdated
+  const lastSentRef = useRef<Date | null>(null);
+  const location = useLocation();
+  // Removed unused useNavigate
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const syncIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const maxSeconds = getRemainingSecondsToday();
 
-  // 🟢 useCallback for stable references
+  // useCallback for stable references
   const start = useCallback(() => setIsActive(true), []);
   const stop = useCallback(() => setIsActive(false), []);
 
+  // Minimum interval between submits (ms)
+  const MIN_SUBMIT_INTERVAL = 30 * 1000; // 30 seconds
+
+  // Reliable submit using sendBeacon for unload/path change
+  const syncSubmit = useCallback(() => {
+    const now = new Date();
+    if (lastSentRef.current && now.getTime() - lastSentRef.current.getTime() < MIN_SUBMIT_INTERVAL) {
+      return;
+    }
+    if(seconds <= 0) return;
+    try {
+      const url = api.defaults.baseURL + endpoints.user.studySession;
+      const payload = JSON.stringify({ total_seconds: seconds });
+      const headers = { type: "application/json" };
+      navigator.sendBeacon(url, new Blob([payload], headers));
+      lastSentRef.current = now;
+    } catch (err) {
+      // Fallback: ignore
+    }
+  }, [seconds]);
+
   const submit = useCallback(async () => {
+    const now = new Date();
+    if (lastSentRef.current && now.getTime() - lastSentRef.current.getTime() < MIN_SUBMIT_INTERVAL) {
+      return;
+    }
+    if(seconds <= 0) return;
     try {
       await api.post(endpoints.user.studySession, { total_seconds: seconds });
-      setLastUpdated(new Date());
+      lastSentRef.current = now;
       // Study time submitted successfully
     } catch (err) {
       // Failed to submit study time
@@ -80,34 +111,62 @@ export const StudySessionTrackerProvider: React.FC<{ children: React.ReactNode }
     };
   }, [isActive, stop, submit, maxSeconds]);
 
-  // Pause/resume on tab visibility
+  // Pause/resume on tab visibility, and submit if hidden (with interval check)
   useEffect(() => {
-    const handleVisibilityChange = () => setIsActive(!document.hidden);
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
-  }, []);
-
-  // Auto-sync every 3 minutes
-  useEffect(() => {
-    const SYNC_INTERVAL_MS = 3 * 60 * 1000;
-    syncIntervalRef.current = setInterval(() => {
-      const now = new Date();
-      if (!lastUpdated || now.getTime() - lastUpdated.getTime() >= SYNC_INTERVAL_MS) {
+    const handleVisibilityChange = () => {
+      setIsActive(!document.hidden);
+      if (document.hidden) {
         submit();
       }
-    }, 10_000);
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, [submit]);
 
+  // Submit before route/path changes (react-router) using sendBeacon
+  const prevPathRef = useRef(location.pathname);
+  useEffect(() => {
+    if (location.pathname !== prevPathRef.current) {
+      syncSubmit();
+      prevPathRef.current = location.pathname;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname, syncSubmit]);
+
+  // Auto-sync every 30 seconds (or 1 minute if you want)
+  useEffect(() => {
+    const SYNC_INTERVAL_MS = 30 * 1000; // 30 seconds
+    syncIntervalRef.current = setInterval(() => {
+      submit();
+    }, SYNC_INTERVAL_MS);
     return () => {
       if (syncIntervalRef.current) clearInterval(syncIntervalRef.current);
     };
-  }, [lastUpdated, submit]);
+  }, [submit]);
 
-  // Submit on page unload
+  // Send on unmount (final chance) using sendBeacon
+  useEffect(()=>{
+    return ()=>{
+      syncSubmit();
+    }
+  },[syncSubmit])
+
+  // Submit on page unload (final chance) using sendBeacon
   useEffect(() => {
-    const handleBeforeUnload = () => submit();
+    const handleBeforeUnload = () => {
+      syncSubmit();
+    };
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
-  }, [submit]);
+  }, [syncSubmit]);
+
+
+  // Ensure syncSubmit is called before unmount (route change, provider unmount, etc)
+  useEffect(() => {
+    return () => {
+      syncSubmit();
+    };
+  }, [syncSubmit]);
 
   return (
     <TrackerContext.Provider value={{ seconds, isActive, start, stop, submit }}>
