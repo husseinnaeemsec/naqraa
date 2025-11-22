@@ -15,7 +15,6 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Sparkles, BookOpen, Clock, TriangleAlert } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
 
 
 
@@ -23,9 +22,6 @@ const IndexPage = () => {
     const { t } = useTranslation();
     const { user } = useAppSelector((state) => state.auth)
 
-    useEffect(()=>{
-        console.log(user?.week_study_time)
-    },[user?.week_study_time])
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950">

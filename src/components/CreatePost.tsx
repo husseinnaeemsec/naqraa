@@ -97,12 +97,11 @@ export default function CreatePost({ community, onPostCreated, onCancel }: Creat
 
 
       // Use fetch instead of axios for better FormData support
-      const response = await fetch(
-        `${api.defaults.baseURL}${endpoints.community.createPost(community.id)}`,
+      const response = await api.post(
+        endpoints.community.createPost(community.id),
+        formData,
         {
-          method: 'POST',
-          body: formData,
-          credentials: 'include', // Include cookies for authentication
+          withCredentials:true,
           headers: {
             // Get CSRF token for Django
             'X-CSRFToken': getCookie('csrftoken') || '',
@@ -110,13 +109,12 @@ export default function CreatePost({ community, onPostCreated, onCancel }: Creat
         }
       );
       
-      if (!response.ok) {
-        const errorData = await response.json();
+      if (!response.data) {
+        const errorData = await response.data.response;
         throw new Error(JSON.stringify(errorData));
       }
       
-      const responseData = await response.json();
-
+      const responseData = response.data;
       if (onPostCreated) {
         onPostCreated(responseData);
       }
@@ -163,13 +161,6 @@ export default function CreatePost({ community, onPostCreated, onCancel }: Creat
         setError('حدث خطأ في تحديد الملف، يرجى المحاولة مرة أخرى');
         return;
       }
-      
-      console.log('Valid image file selected:', {
-        name: file.name,
-        size: file.size,
-        type: file.type,
-        lastModified: file.lastModified
-      });
       
       setImage(file);
       setError(null);

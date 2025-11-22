@@ -6,40 +6,45 @@ import { endpoints } from "../api/routes";
 import { ErrorAlert } from "./alerts";
 import { useAppDispatch } from "../store/store";
 import { setCompletedLectures, setCompletedQuizzes, setCompletedSections } from "../store/enrollmentSlice";
+import type { QuizAnswerValue } from "./QuestionRenderer";
+
+// Proper type for quiz answers
+type QuizAnswers = Record<number, QuizAnswerValue>;
 
 interface Props {
     quiz: EnrollmentQuiz | null;
     onClose?: (quiz: EnrollmentQuiz) => void;
     onComplete?: (quiz: EnrollmentQuiz) => void;
 }
+
 export default function QuizBoard({ quiz, onClose, onComplete }: Props) {
-    const [start, setStart] = useState(false)
-    const dispath = useAppDispatch();
-    if (!quiz) return <></>
+    const [start, setStart] = useState(false);
+    const dispatch = useAppDispatch();
+    
+    if (!quiz) return null;
 
-    const submitAnswers = (answers: Record<number, number[]|number>) => {
-        if (answers) {
-            
-            // Process quiz answers
-            // return ;
-
-            api.post(endpoints.user.enrollments.completeQuiz(quiz.id), {
-                answers:answers
-            })
-                .then((res) => {
-                    const {completed_quizzes,completed_sections,completed_lectures} = res.data
-                    dispath(setCompletedLectures(completed_lectures));
-                    dispath(setCompletedQuizzes(completed_quizzes));
-                    dispath(setCompletedSections(completed_sections));
-                    onComplete && onComplete(quiz);
-                })
-                .catch((e) => {
-                    if (e.response) {
-                        ErrorAlert({ 'title': "خطأ", text: e.response.data.error })
-                    }
-                })
-        }
-    }
+    const submitAnswers = (answers: QuizAnswers) => {
+        if (!answers) return;
+        
+        api.post(endpoints.user.enrollments.completeQuiz(quiz.id), {
+            answers: answers
+        })
+        .then((res) => {
+            const { completed_quizzes, completed_sections, completed_lectures } = res.data;
+            dispatch(setCompletedLectures(completed_lectures));
+            dispatch(setCompletedQuizzes(completed_quizzes));
+            dispatch(setCompletedSections(completed_sections));
+            onComplete && onComplete(quiz);
+        })
+        .catch((e) => {
+            if (e.response) {
+                ErrorAlert({ 
+                    title: "خطأ", 
+                    text: e.response.data.error || "حدث خطأ أثناء إرسال الإجابات" 
+                });
+            }
+        });
+    };
 
     return (
         <div className="fixed flex items-center flex-col gap-2 justify-center inset-0  w-full h-full z-50 bg-white ">

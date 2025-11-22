@@ -304,11 +304,11 @@ interface QuizQuestionOption {
 
 export interface QuizQuestion {
     id: number;
-    question_type: 'MC' | "TF";
+    question_type: 'MC' | "TF" | 'LA' | 'SA' | 'OD' | 'MT' | 'LB' | 'TL'|'FB';
     order: number;
     mandatory: boolean;
     text: string;
-    choices: QuizQuestionOption[]
+    choices: QuizQuestionOption[] | string[] | string;
 }
 
 export interface Lecture {

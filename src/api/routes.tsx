@@ -1,4 +1,9 @@
 export const endpoints = {
+    newsletter:{
+        verify:'/newsletters/verify/',
+        subscribe:'/newsletters/subscribe/'
+
+    },
     community:{
         detail:(community_id:number) => `/community/${community_id}/`,
         posts:(community_id:number) => `/community/${community_id}/posts/`,
@@ -59,6 +64,11 @@ export const endpoints = {
     notifications:{
         list:'/notifications/',
         update:(notification_id:number) => `/notifications/update/${notification_id}/`,
+        subscription:{
+            verify:'/notifications/verify-subscription/',
+            subscribe:'/notifications/subscribe/'
+
+        }
         
     },
     productivity:{
@@ -108,5 +118,5 @@ export const endpoints = {
 
 
 export const ws_endpoints = {
-    chat:(chatId:number)=> `ws://localhost:8000/ws/chat/${chatId}/` 
+    chat:(chatId:number)=> `${import.meta.env.VITE_WS_HOST}/chat/${chatId}/` 
 }

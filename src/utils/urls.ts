@@ -18,10 +18,10 @@
  * @param {Array<string>} [opts.allowedProtocols=['http','https']] - Allowed URL protocols.
  * @returns {boolean}
  */
-export function isTrusted(link:string, trustedHosts = ['localhost'], opts:{ allowRelative?:boolean,base?:string;allowedProtocols?:string[] } = {}) {
+export function isTrusted(link:string, trustedHosts = import.meta.env.VITE_TRUSTED_HOST && import.meta.env.VITE_TRUSTED_HOST.split(",") || [], opts:{ allowRelative?:boolean,base?:string;allowedProtocols?:string[] } = {}) {
   const {
     allowRelative = true,
-    base = "http://localhost",
+    base = import.meta.env.BASE_URL,
     allowedProtocols = ["http", "https"],
   } = opts;
 
@@ -60,7 +60,7 @@ export function isTrusted(link:string, trustedHosts = ['localhost'], opts:{ allo
   if (hostname.endsWith(".")) hostname = hostname.slice(0, -1);
 
   // Helper to check a single trusted pattern against hostname
-  function matchPattern(pattern) {
+  function matchPattern(pattern:string) {
     if (pattern === "*") return true;
 
     // regex:... pattern

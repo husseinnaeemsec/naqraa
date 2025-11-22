@@ -192,12 +192,6 @@ const RequestDayOffModal = ({
   
   const minDate = canSubmitToday ? today : tomorrowStr;
 
-  useEffect(()=>{
-    console.log("Min Date ", minDate)
-    console.log("Max Date",maxDate)
-    console.log("Can Submit Today ", canSubmitToday)
-
-  })
 
   return (
     <AnimatePresence>

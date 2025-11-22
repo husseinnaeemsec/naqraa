@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import appleLogo from '../../assets/apple-logo.svg';
+import api from '../../api/client';
+import { endpoints } from '../../api/routes';
 
 export default function Footer() {
     const { t } = useTranslation();
@@ -12,7 +14,7 @@ export default function Footer() {
 
     const handleNewsletterSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         if (!email.trim()) {
             setMessage(t('footer.newsletter_form.error_email_required'));
             setMessageType('error');
@@ -24,37 +26,25 @@ export default function Footer() {
         setMessageType('');
 
         try {
-            const response = await fetch('http://localhost:8000/api/newsletters/subscribe/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: email.trim(),
-                    wants_course_updates: true,
-                    wants_new_content: true,
-                    wants_promotions: true,
-                    wants_announcements: true,
-                    source: 'footer'
-                }),
+            await api.post(endpoints.newsletter.subscribe,{
+                email: email.trim(),
+                wants_course_updates: true,
+                wants_new_content: true,
+                wants_promotions: true,
+                wants_announcements: true,
+                source: 'footer'
             });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                setMessage(t('footer.newsletter_form.success_message'));
-                setMessageType('success');
-                setEmail('');
-            } else {
-                setMessage(data.email?.[0] || data.message || t('footer.newsletter_form.error_default'));
-                setMessageType('error');
-            }
-        } catch (error) {
-            setMessage(t('footer.newsletter_form.error_connection'));
+            setMessage(t('footer.newsletter_form.success_message'));
+            setMessageType('success');
+            setEmail('');
+        } catch (error:any) {
+            console.log(error.response)
+            setMessage(error.response?.data?.email?.[0] || error.response?.data?.message || t('footer.newsletter_form.error_connection'));
+            
             setMessageType('error');
         } finally {
             setIsSubmitting(false);
-            
+
             // Clear message after 5 seconds
             setTimeout(() => {
                 setMessage('');
@@ -124,7 +114,7 @@ export default function Footer() {
                                 <h6 className="mb-4 text-sm font-semibold uppercase text-emerald-700 dark:text-emerald-400">{t('footer.partners.title')}</h6>
                                 <ul className="space-y-3">
                                     <li><Link to="/partenrs?type=organizations" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.partners.schools_universities')}</Link></li>
-                                    
+
                                     <li><Link to="/partenrs?type=teachers" className="text-gray-500 hover:text-emerald-700 dark:text-gray-400 dark:hover:text-emerald-400">{t('footer.partners.teachers')}</Link></li>
                                 </ul>
                             </div>
@@ -155,8 +145,8 @@ export default function Footer() {
                                             />
                                         </div>
                                         <div>
-                                            <button 
-                                                type="submit" 
+                                            <button
+                                                type="submit"
                                                 disabled={isSubmitting}
                                                 className="w-full rounded-lg bg-emerald-600 px-5 py-3 text-sm font-medium text-white hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 dark:focus:ring-emerald-800 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                                             >
@@ -174,22 +164,21 @@ export default function Footer() {
                                             </button>
                                         </div>
                                     </div>
-                                    
+
                                     {/* Success/Error Message */}
                                     {message && (
-                                        <div className={`mt-4 p-3 rounded-lg text-sm ${
-                                            messageType === 'success' 
-                                                ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' 
+                                        <div className={`mt-4 p-3 rounded-lg text-sm ${messageType === 'success'
+                                                ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
                                                 : 'bg-red-100 text-red-800 border border-red-200'
-                                        }`}>
+                                            }`}>
                                             <div className="flex items-center gap-2">
                                                 {messageType === 'success' ? (
                                                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
+                                                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                                                     </svg>
                                                 ) : (
                                                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd"/>
+                                                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                                                     </svg>
                                                 )}
                                                 {message}

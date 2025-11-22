@@ -2,8 +2,10 @@
 import { useEffect, useState } from "react";
 import { urlBase64ToUint8Array } from "../utils/urlBase64ToUint8Array";
 import { useAppSelector } from "../store/store";
+import { endpoints } from "../api/routes";
+import api from "../api/client";
 
-const PPK = import.meta.env.VITE_VAPID_PUBLIC_KEY || 'BKBqLHq78vADus1WZXiTDwXz-79jpRzjpINFHxLY4n93sJOLtIS17cv_Ge6xuPfcJTxZBsBscvnzpGzYKkdawbU';
+const PPK = import.meta.env.VITE_VAPID_PUBLIC_KEY;
 
 export default function useServerWorker() {
   const {isAuthenticated} = useAppSelector(state=>state.auth);
@@ -15,18 +17,11 @@ export default function useServerWorker() {
       const existingSubscription = await registration.pushManager.getSubscription();
       if (existingSubscription) {
         // Verify if subscription is still valid on server
-        const response = await fetch("http://localhost:8000/api/notifications/verify-subscription/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ endpoint: existingSubscription.endpoint }),
-          credentials: "include",
-        });
+        const response = await api.post(endpoints.notifications.subscription.verify,{endpoint:existingSubscription});
         
-        if (response.ok) {
-          const data = await response.json();
-          return data.isValid ? existingSubscription : null;
+        if (response.data) {
+          
+          return response.data ? existingSubscription : null;
         }
       }
       return null;
@@ -54,7 +49,6 @@ export default function useServerWorker() {
         // Check if subscription already exists
         const existingSubscription = await checkExistingSubscription(reg);
         if (existingSubscription) {
-          console.log('Using existing push subscription');
           setSubscriptionStatus('subscribed');
           return;
         }
@@ -72,16 +66,9 @@ export default function useServerWorker() {
         });
         
         // send subscription to server
-        const response = await fetch("http://localhost:8000/api/notifications/subscribe/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(subscription),
-          credentials: "include", // For Cookie-base authentication
-        });
+        const response = await api.post(endpoints.notifications.subscription.subscribe, {subscription});
 
-        if (response.ok) {
+        if (response.data) {
           console.log('Push subscription registered successfully');
           setSubscriptionStatus('subscribed');
         } else {
@@ -95,7 +82,7 @@ export default function useServerWorker() {
     }
 
     registerAndSubscribe();
-  }, [isAuthenticated, subscriptionStatus, checkExistingSubscription]);
+  }, [isAuthenticated, subscriptionStatus, checkExistingSubscription,endpoints]);
 
   return {
     subscriptionStatus,

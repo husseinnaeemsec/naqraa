@@ -1,26 +1,27 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { EnrollmentQuiz, QuizQuestion } from "../../types";
-import MCQuestion from "./MCQuestion";
-import TFQuestion from "./TFQuestion";
+import QuestionRenderer, { type QuizAnswerValue } from "./QuestionRenderer";
+
+// Define proper answer collection type
+type QuizAnswers = Record<number, QuizAnswerValue>;
 
 interface Props {
   quiz: EnrollmentQuiz;
-  onFinish?: (answers: Record<number, number[]|number>) => void;
+  onFinish?: (answers: QuizAnswers) => void;
 }
 
 export default function QuestionSlider({ quiz, onFinish }: Props) {
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, number[] | number>>({});
+  const [answers, setAnswers] = useState<QuizAnswers>({});
   const [finished, setFinished] = useState(false);
   const questions: QuizQuestion[] = quiz.questions || [];
 
   const currentQuestion = questions[currentIndex];
   const isLast = currentIndex === questions.length - 1;
 
-  // 🔹 handle multiple and single answer questions
-  const handleAnswer = (answer: number | number[]) => {
+  const handleAnswer = (answer: QuizAnswerValue) => {
     setAnswers((prev) => ({ ...prev, [currentQuestion.id]: answer }));
   };
 
@@ -39,11 +40,45 @@ export default function QuestionSlider({ quiz, onFinish }: Props) {
       </p>
     );
 
-  const canProceed =
-    currentQuestion.question_type === "TF"
-      ? answers[currentQuestion.id] !== undefined
-      : Array.isArray(answers[currentQuestion.id]) &&
-        (answers[currentQuestion.id] as number[]).length > 0;
+  const canProceed = (() => {
+    const answer = answers[currentQuestion.id];
+    if (!currentQuestion.mandatory) return true;
+    
+    switch (currentQuestion.question_type) {
+      case "TF":
+        return answer !== undefined && answer !== null;
+      
+      case "MC":
+      case "OD":
+      case "TL":
+        return Array.isArray(answer) && answer.length > 0;
+      
+      case "MT":
+        return typeof answer === 'object' && !Array.isArray(answer) && Object.keys(answer).length > 0;
+      
+      case "LB":
+        return typeof answer === 'object' && !Array.isArray(answer) && Object.keys(answer).length > 0;
+      
+      case "SA":
+      case "LA":
+      case "FB":
+        return typeof answer === "string" && answer.trim().length > 0;
+      
+      default:
+        return true;
+    }
+  })();
+
+  const renderQuestion = () => {
+    return (
+      <QuestionRenderer 
+        disabled={finished} 
+        onChange={handleAnswer} 
+        question={currentQuestion} 
+        value={answers[currentQuestion.id]} 
+      />
+    );
+  };
 
   return (
     <div className="w-full text-center space-y-4">
@@ -59,26 +94,7 @@ export default function QuestionSlider({ quiz, onFinish }: Props) {
           {currentQuestion.text}
         </h2>
 
-        {currentQuestion.question_type === "TF" ? (
-          <TFQuestion
-            question={currentQuestion}
-            selectedAnswer={[answers[currentQuestion.id] as number]}
-            disabled={finished}
-            onSelect={(id) => {
-              handleAnswer(id);
-              setTimeout(goNext, 300);
-            }}
-          />
-        ) : (
-          <MCQuestion
-            question={currentQuestion}
-            selectedAnswers={
-              (answers[currentQuestion.id] as number[]) || []
-            }
-            disabled={finished}
-            onSelect={(ids) => handleAnswer(ids)}
-          />
-        )}
+        {renderQuestion()}
       </div>
 
       <div className="flex justify-center items-center gap-2 mt-4">
@@ -94,7 +110,6 @@ export default function QuestionSlider({ quiz, onFinish }: Props) {
         ))}
       </div>
 
-      {/* 🔹 Next or Finish section */}
       {!finished && (
         <div className="mt-4">
           <button

@@ -26,7 +26,7 @@ export default function MCQuestion({
 
   return (
     <div className="flex flex-col gap-2">
-      {question.choices.map((choice) => {
+      {typeof question.choices === 'object'  &&  question.choices.map((choice:any) => {
         const isSelected = selectedAnswers.includes(choice.id);
         return (
           <label

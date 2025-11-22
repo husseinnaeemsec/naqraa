@@ -32,7 +32,7 @@ export default function TFQuestion({
 
   return (
     <div className="flex gap-4 justify-center">
-      {tfChoices.map((choice) => (
+      { typeof tfChoices === 'object' && tfChoices.map((choice:any ) => (
         <label
           key={choice.id}
           className={`px-4 py-2 rounded-lg border text-lg font-medium cursor-pointer transition-all ${

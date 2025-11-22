@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import type { EnrollmentQuiz } from "../../types"
 import { useAppSelector } from "../store/store";
 import { CheckCircle } from "lucide-react";
@@ -8,13 +7,10 @@ interface Props {
     onQuizStart?: (quiz: EnrollmentQuiz) => void;
     onQuizClose?: (quiz: EnrollmentQuiz) => void;
 }
-export default function QuizCard({ quiz, onQuizStart, onQuizClose }: Props) {
+export default function QuizCard({ quiz, onQuizStart }: Props) {
     const { completed_quizzes } = useAppSelector(state => state.enrollment);
     const isAnswered = completed_quizzes.findIndex(qid => qid === quiz.id) != -1;
 
-    useEffect(() => {
-        console.log(completed_quizzes, quiz.id)
-    }, [])
 
     return (
         <div className="flex flex-col gap-2 border p-2 rounded border-slate-300">

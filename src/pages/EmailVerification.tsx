@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { endpoints } from '../api/routes';
+import api from '../api/client';
 
 interface VerificationResult {
   success: boolean;
@@ -30,20 +32,11 @@ export default function EmailVerification() {
       }
 
       try {
-        const response = await fetch('http://localhost:8000/api/newsletters/verify/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            token: token,
-            email: email
-          }),
-        });
+        const response = await api.post(endpoints.newsletter.verify,{ email,token });
 
-        const data = await response.json();
+        const data = await response.data;
 
-        if (response.ok) {
+        if (response) {
           setResult({
             success: true,
             message: t('email_verification.success_message'),

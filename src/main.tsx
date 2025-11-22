@@ -11,7 +11,6 @@ import AttendancePage from './pages/student/AttendancePage.tsx'
 import FilesPage from './pages/student/FilesPage.tsx'
 import OrgPage from './pages/student/OrgPage.tsx'
 import SettingsPage from './pages/student/SettingsPage.tsx'
-import ChatPage from './pages/student/ChatPage.tsx'
 import CommunitiesPage from './pages/student/Communities/Communities.tsx'
 import ClassroomPage from './pages/student/ClassroomPage.tsx'
 import BoardPage from './pages/student/BoardPage.tsx'
@@ -28,7 +27,6 @@ import CommunityPage from './pages/student/Communities/CommunityPage.tsx';
 import NotificationsPage from './pages/student/NotificationsPage.tsx';
 import TimeTablePage from './pages/student/TimeTablePage.tsx';
 import LandingPage, { Home } from './pages/public/Index.tsx';
-import Chat from './components/Chat.tsx';
 import RegisterPage from './pages/public/Register.tsx';
 import ExploreCourses from './pages/public/ExploreCourses.tsx';
 import CourseDetailsPage from './pages/public/CourseDetailsPage.tsx';
@@ -55,7 +53,6 @@ import TermsPage from './pages/public/TermsPage.tsx';
 import SubscriptionPage from './pages/student/SubscriptionPage.tsx';
 import PlansPage from './pages/public/PlansPage.tsx';
 import NewsletterDemo from './pages/NewsletterDemo.tsx';
-import TodoPage from './pages/student/TodoPage.tsx';
 import ResetPasswordPage from './pages/public/ResetPassword.tsx';
 import ChangePasswordPage from './pages/public/ChangePassword.tsx';
 import UpcomingHomeworkPage from './pages/UpcomingHomeworkPage.tsx';
@@ -81,13 +78,8 @@ createRoot(document.getElementById('root')!).render(
                 <Route path='org' element={<OrgPage />} />
                 <Route path='timetable' element={<TimeTablePage />} />
                 <Route path='communities' element={<CommunitiesPage />} />
-                <Route path='todo' element={<TodoPage />} />
-                {/* <Route path='todo' element={<TodoPage />} /> */}
                 <Route path='subscription' element={<SubscriptionPage />} />
                 <Route path='settings' element={<SettingsPage />} />
-                <Route path='chat' element={<ChatPage />} >
-                  <Route path=':chatId' element={<Chat />} />
-                </Route>
                 <Route path='notifications' >
                   <Route index element={<NotificationsPage />} />
                 </Route>

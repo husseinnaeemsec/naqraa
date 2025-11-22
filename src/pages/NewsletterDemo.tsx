@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { endpoints } from '../api/routes';
+import api from '../api/client';
 
 interface NewsletterFormData {
   email: string;
@@ -35,21 +37,11 @@ export default function NewsletterDemo() {
     setMessageType('');
 
     try {
-      const response = await fetch('http://localhost:8000/api/newsletters/subscribe/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          email: formData.email.trim(),
-          source: 'demo_page'
-        }),
-      });
+      const response = await api.post(endpoints.newsletter.subscribe,{...formData, email: formData.email.trim(), source: 'demo_page' });
 
-      const data = await response.json();
+      const data =  response.data;
 
-      if (response.ok) {
+      if (response) {
         setMessage('Successfully subscribed! Please check your email for a welcome message.');
         setMessageType('success');
         setFormData(prev => ({ ...prev, email: '' }));

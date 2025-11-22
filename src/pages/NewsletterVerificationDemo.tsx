@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import api from '../api/client';
+import { endpoints } from '../api/routes';
 
 export default function NewsletterVerificationDemo() {
   const [email, setEmail] = useState('');
@@ -19,24 +21,18 @@ export default function NewsletterVerificationDemo() {
     setMessage('');
 
     try {
-      const response = await fetch('http://localhost:8000/api/newsletters/subscribe/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email.trim(),
-          wants_course_updates: true,
-          wants_new_content: true,
-          wants_promotions: true,
-          wants_announcements: true,
-          source: 'verification_demo'
-        }),
+      const response = await api.post(endpoints.newsletter.subscribe,{
+        email:email.trim(),
+        wants_course_updates: true,
+        wants_new_content: true,
+        wants_promotions: true,
+        wants_announcements: true,
+        source: 'verification_demo'
       });
 
-      const data = await response.json();
+      const data = response.data;
 
-      if (response.ok) {
+      if (response) {
         setStep('sent');
         setMessage(data.message || 'تم إرسال رابط التحقق بنجاح');
       } else {

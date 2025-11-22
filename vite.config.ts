@@ -1,12 +1,11 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite';
+import tailwindcss from '@tailwindcss/vite'
 import path from "path"
-import fs from 'fs';
 
 // https://vite.dev/config/
-export default defineConfig(({ command, mode }) => {
-  // Load env file based on `mode` in the current working directory.
+export default defineConfig(({ mode }) => {
+  // Load env file based on mode
   const env = loadEnv(mode, process.cwd(), '')
 
   return {
@@ -17,17 +16,14 @@ export default defineConfig(({ command, mode }) => {
       }
     },
     server: {
-      allowedHosts: ['naqraa', 'localhost', '127.0.0.1'],
-      port: 3000,
-      host: '0.0.0.0', // Allow external connections
+      allowedHosts: env.VITE_ALLOWED_HOSTS ? env.VITE_ALLOWED_HOSTS.split(',') : [],
+      port: Number(env.VITE_DEV_PORT) || 3000,
+      host: env.VITE_HOST || 'localhost', // Allow external connections
       strictPort: true,
-      https:{
-            key: fs.readFileSync('/home/hussein/ssl/naqraa.key'),
-            cert: fs.readFileSync('/home/hussein/ssl/naqraa.crt'),
-      }
+      // Remove HTTPS for local dev
     },
     preview: {
-      port: 4173,
+      port: Number(env.VITE_PREVIEW_PORT) || 4173,
       host: true,
     },
     build: {
