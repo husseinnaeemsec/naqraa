@@ -1,20 +1,24 @@
 import { useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import UnAuthoraizedError from '../../components/errors/UnAuthoraizedError';
 import { motion } from 'framer-motion';
 import { AlertTriangle, Home, RefreshCw } from 'lucide-react';
+import { useAppDispatch, useAppSelector } from '../../store/store';
+import { logoutUser } from '../../store/auth/authSlice';
 
 export default function UnauthorizedPage() {
   const [searchParams] = useSearchParams();
   const nextUrl = searchParams.get('next');
-  
+  const dispatch = useAppDispatch();
+  const {isAuthenticated} = useAppSelector(state=>state.auth);
   useEffect(() => {
+    if(isAuthenticated) return;
     // Clear any remaining auth data
-    document.cookie = 'access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    document.cookie = 'refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     localStorage.removeItem('user');
     sessionStorage.clear();
+    dispatch(logoutUser());
   }, []);
+
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white dark:from-emerald-950 dark:to-emerald-900 flex items-center justify-center p-4">

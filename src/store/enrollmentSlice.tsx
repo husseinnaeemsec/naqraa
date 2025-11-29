@@ -33,7 +33,7 @@ const enrollmentSlice = createSlice({
     setEnrollment: (state, action: PayloadAction<Enrollment>) => {
       state.enrollment = action.payload;
       const flatLectures: EnrollmentLecture[] = [];
-      state.sections = action.payload.course.sections;
+      state.sections = action.payload.course.sections.filter(s=>s.lectures.length >= 1);
 
       action.payload.course.sections.forEach((s) => {
         s.lectures.forEach((l) => flatLectures.push(l));
@@ -78,7 +78,6 @@ const enrollmentSlice = createSlice({
     setCurrentLecture: (state, action: PayloadAction<CurrentLecture | null>) => {
       state.currentLecture = action.payload;
     },
-
     setNextLecture: (state, action: PayloadAction<EnrollmentLecture | null>) => {
       state.nextLecture = action.payload;
     },
@@ -154,8 +153,7 @@ export const {
   setResources,
   setQuizzes,
   setCompleted,
-  setDiscussions
-
+  setDiscussions,
 } = enrollmentSlice.actions;
 
 export default enrollmentSlice.reducer;

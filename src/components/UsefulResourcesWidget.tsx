@@ -71,57 +71,7 @@ export default function UsefulResourcesWidget() {
 
   useEffect(() => {
     const fetchRecommendedResources = async () => {
-      setResources([
-            {
-              id: 1,
-              title: t('resources.sample_1.title'),
-              description: t('resources.sample_1.description'),
-              file_type: "pdf",
-              created_at: new Date().toISOString(),
-              downloads_count: 150
-            },
-            {
-              id: 2,
-              title: t('resources.sample_2.title'),
-              description: t('resources.sample_2.description'),
-              file_type: "video",
-              created_at: new Date().toISOString(),
-              downloads_count: 89
-            },
-            {
-              id: 3,
-              title: t('resources.sample_3.title'),
-              description: t('resources.sample_3.description'),
-              file_type: "document",
-              created_at: new Date().toISOString(),
-              downloads_count: 203
-            },
-            {
-              id: 4,
-              title: t('resources.sample_4.title'),
-              description: t('resources.sample_4.description'),
-              file_type: "pdf",
-              created_at: new Date().toISOString(),
-              downloads_count: 127
-            },
-            {
-              id: 5,
-              title: t('resources.sample_5.title'),
-              description: t('resources.sample_5.description'),
-              file_type: "link",
-              external_url: "https://example.com",
-              created_at: new Date().toISOString(),
-              downloads_count: 76
-            },
-            {
-              id: 6,
-              title: t('resources.sample_6.title'),
-              description: t('resources.sample_6.description'),
-              file_type: "video",
-              created_at: new Date().toISOString(),
-              downloads_count: 94
-            }
-          ]);
+      setResources([]);
           setLoading(false);
     };
 

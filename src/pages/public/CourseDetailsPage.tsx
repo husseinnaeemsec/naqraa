@@ -15,7 +15,7 @@ import { convertMinutes, getMedia } from "../../utils/functions";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import NotFoundError from "../../components/errors/NotFoundError";
 import { ErrorAlert, SuccessAlert } from "../../components/alerts";
-import { setUserEnrollments } from "../../store/authSlice";
+import { setUserEnrollments } from "../../store/auth/authSlice";
 
 interface CourseDetailsProps extends Course {
   enrollments_count: number;
@@ -137,7 +137,19 @@ export default function CourseDetailsPage() {
         cancelText: "متابعة التصفح",
         onConfirm: () => navigate(`/dashboard/classroom/${res.data.id}`),
       });
-    } catch {
+    } catch(e:any){
+      if(e.status === 401){
+        ErrorAlert({
+          title:"تسجيل الدخول مطلوب",
+          text:'سجل الدخول اولا ',
+          confirmText:"تسجيل الدخول",
+          cancelText:"الغاء",
+          onConfirm:()=>{
+            navigate("/login?next="+window.location.pathname)
+          }
+        })
+        return;
+      }
       ErrorAlert({
         title: "حدث خطأ أثناء التسجيل",
         text: "يرجى المحاولة لاحقًا.",
@@ -368,7 +380,7 @@ export default function CourseDetailsPage() {
             <div className="flex flex-col md:flex-row items-start gap-6">
               <div className="relative">
                 <img 
-                  src={getMedia(course?.instructor.profile_picture || "")} 
+                  src={getMedia(course?.instructor?.profile_picture || "")} 
                   alt="المدرس" 
                   className="w-24 h-24 rounded-2xl object-cover border-4 border-emerald-100 shadow-lg" 
                 />
@@ -379,7 +391,7 @@ export default function CourseDetailsPage() {
               <div className="flex-1 space-y-4">
                 <div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                    {course?.instructor.first_name} {course?.instructor.last_name}
+                    {course?.instructor?.first_name} {course?.instructor?.last_name}
                   </h3>
                   <div className="flex items-center gap-2 text-emerald-700 font-medium">
                     <User className="size-4" />
@@ -387,7 +399,7 @@ export default function CourseDetailsPage() {
                   </div>
                 </div>
                 <p className="text-gray-700 leading-relaxed">
-                  {course?.instructor.bio || "مدرس خبير في مجاله مع سنوات من الخبرة في التدريس والتطوير المهني."}
+                  {course?.instructor?.bio || "مدرس خبير في مجاله مع سنوات من الخبرة في التدريس والتطوير المهني."}
                 </p>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-emerald-50 rounded-xl p-4 text-center">
@@ -499,9 +511,12 @@ export default function CourseDetailsPage() {
                   {course?.title}
                 </h1>
                 
-                <p className="text-lg text-gray-700 leading-relaxed max-w-3xl">
-                  {course?.description}
-                </p>
+                <details className="p-2 border rounded-md bg-white ">
+                  <summary className="text-xl" > وصف الدورة  </summary>
+                  {course?.description && <p dangerouslySetInnerHTML={{__html:course?.description}}  className="max-h-[70dvh] overflow-y-auto pt-5 px-4 text-lg  rounded-md  text-gray-700 leading-relaxed max-w-3xl" />}
+                </details>
+                  
+              
               </div>
 
               {/* Course Stats */}
@@ -564,13 +579,13 @@ export default function CourseDetailsPage() {
               >
                 <div className="flex items-center gap-4">
                   <img 
-                    src={getMedia(course?.instructor.profile_picture || "")} 
+                    src={getMedia(course?.instructor?.profile_picture || "")} 
                     alt="المدرس" 
                     className="w-12 h-12 rounded-full object-cover border-2 border-emerald-200" 
                   />
                   <div>
                     <div className="font-semibold text-gray-900">
-                      {course?.instructor.first_name} {course?.instructor.last_name}
+                      {course?.instructor?.first_name} {course?.instructor?.last_name}
                     </div>
                     <div className="text-sm text-emerald-600 font-medium">المدرس</div>
                   </div>

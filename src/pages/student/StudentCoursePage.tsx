@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import api from "../../api/client";
 import { endpoints } from "../../api/routes";
-import { setUserEnrollments } from "../../store/authSlice";
+import { setUserEnrollments } from "../../store/auth/authSlice";
 import PageLoader from "../../components/PageLoader";
 import { Link } from "react-router-dom";
 import StudentCourseCard from "../../components/StudentCourseCard";
@@ -62,7 +62,7 @@ const StudentCoursesPage = () => {
         });
 
     const inProgressCourses = enrollments.filter(e => (e.progress || 0) > 0 && (e.progress || 0) < 100);
-    const completedCourses = enrollments.filter(e => (e.progress || 0) >= 100);
+    const completedCourses = enrollments.filter(e => e.completed === true );
 
     if (loading) {
         return <PageLoader message={t('student_course_page.loading_courses')} />

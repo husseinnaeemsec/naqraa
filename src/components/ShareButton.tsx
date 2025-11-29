@@ -151,7 +151,7 @@ export default function ShareButton({
   };
 
   return (
-    <div className="relative">
+    <div className="relative z-[1]">
       <button
         className={`inline-flex items-center gap-2 rounded-lg font-medium transition-colors ${variants[variant]} ${sizes[size]} ${className}`}
         onClick={() => setIsOpen(!isOpen)}

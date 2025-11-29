@@ -4,7 +4,7 @@ import { useAppDispatch } from '../../store/store';
 import { useState } from 'react';
 import api from '../../api/client';
 import { endpoints } from '../../api/routes';
-import { logoutUser } from '../../store/authSlice';
+import { logoutUser } from '../../store/auth/authSlice';
 
 export default function LogoutPage() {
     const [loading, setLoading] = useState(false);

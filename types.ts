@@ -302,6 +302,9 @@ interface QuizQuestionOption {
     text: string;
 }
 
+export interface MultipleChoiceQuestionChoice extends QuizQuestionOption {
+}
+
 export interface QuizQuestion {
     id: number;
     question_type: 'MC' | "TF" | 'LA' | 'SA' | 'OD' | 'MT' | 'LB' | 'TL'|'FB';
@@ -309,6 +312,10 @@ export interface QuizQuestion {
     mandatory: boolean;
     text: string;
     choices: QuizQuestionOption[] | string[] | string;
+}
+
+export interface MultipleChoiceQuestion extends QuizQuestion {
+    choices:MultipleChoiceQuestion[]|['all'];
 }
 
 export interface Lecture {
@@ -401,14 +408,18 @@ interface ClassRoom {
     timetable:TimeTable|null;
 }
 
-export interface UserProgress {
-    last_watched_enrollment:{
+export interface LastWatchedEnrollment {
         title:string;
         description:string;
         cover:string;
         id:number;
-    }|null;
 }
+
+export interface UserProgress {
+    last_watched_enrollment:LastWatchedEnrollment|null;
+}
+
+
 
 export interface AuthUser {
     id: number;
@@ -426,6 +437,19 @@ export interface AuthUser {
     subscription:Subscription|null;
     enrolled_courses:{ course:number,enrollment:number }[];
     organization:number | null;
+    streak_days:number;
+    study_time:number;
+    today_study_time:number;
+    completed_courses:number;
+    reputation:{
+        contribution: number;
+        achievement: number;
+        interaction: number;
+        this_month:number;
+        this_week:number;
+        today:number;
+        total:number;
+    }
 }
 
 export interface PublicOrganizationProfile {
@@ -539,6 +563,8 @@ export interface StudyTimeWeek {
   friday: StudySession | null;
   saturday: StudySession | null;
 }
+
+export type WeekDay = 'sunday'|'monday'|'tuesday'|'wednesday'|'thursday'|'friday'|'saturday'
 
 export interface User {
     id: number;

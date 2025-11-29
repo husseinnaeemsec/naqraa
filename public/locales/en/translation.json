@@ -45,7 +45,8 @@
     "notifications": "Notifications",
     "organization": "Organization",
     "subscription": "Subscription",
-    "quizzes": "Exams",
+    "quizzes": "Quizzes",
+    "exams":"Exams",
     "chat": "Chat",
     "community": "Community",
     "files": "Files",
@@ -930,7 +931,8 @@
     "not_started": "Not Started",
     "lessons_progress": "{{progress}}% complete",
     "ready_to_start": "Ready to start",
-    "continue_learning": "Continue Learning"
+    "continue_learning": "Continue Learning",
+    "start_learning":"ابدأ التعلم"
   },
   "student_course_page": {
     "my_courses": "My Courses",

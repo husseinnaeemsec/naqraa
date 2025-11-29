@@ -4,7 +4,7 @@ import { ErrorNote, SectionHeader, Success, Toggle } from "../pages/student/Sett
 import { endpoints } from "../api/routes";
 import api from "../api/client";
 import { useAppDispatch, useAppSelector } from "../store/store";
-import { setUser } from "../store/authSlice";
+import { setUser } from "../store/auth/authSlice";
 
 export default function NotificationsSection() {
     const { t } = useTranslation();

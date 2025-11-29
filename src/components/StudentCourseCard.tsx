@@ -94,10 +94,13 @@ export default function StudentCourseCard({ enrollment }: { enrollment: Enrollme
 
           <p
             className="text-sm dark:text-emerald-100/80 text-gray-600 mb-4 flex-grow line-clamp-3 leading-relaxed"
-            title={course.description}
-          >
-            {course.description}
-          </p>
+            title={course.title}
+            dangerouslySetInnerHTML={{
+              __html:course.description
+            }}
+
+          />
+          
         </div>
 
         {/* Course Stats */}

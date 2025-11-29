@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ErrorNote, SectionHeader, Success } from "../pages/student/SettingsPage";
 import api from "../api/client";
 import { endpoints } from "../api/routes";
-import { setUser } from "../store/authSlice";
+import { setUser } from "../store/auth/authSlice";
 import { useAppDispatch } from "../store/store";
 import { t } from "i18next";
 

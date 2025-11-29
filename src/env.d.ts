@@ -23,6 +23,8 @@ interface ImportMetaEnv {
   readonly VITE_ENABLE_PWA: string
   readonly VITE_ENABLE_ANALYTICS: string
 
+  // Exlcude from auth check 
+  readonly VITE_EXCLUDE_AUTH_CHECK:string[];
   // UI Configuration
   readonly VITE_DEFAULT_LANGUAGE: string
   readonly VITE_SUPPORTED_LANGUAGES: string

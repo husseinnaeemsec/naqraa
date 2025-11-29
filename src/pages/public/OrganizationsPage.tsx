@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../store/store';
 import { WarningAlert, SuccessAlert, ErrorAlert } from '../../components/alerts';
 import { simpleDebounce } from '../../utils/functions';
 import type { PublicOrganizationProfile } from '../../../types';
-import { setUser } from "../../store/authSlice";
+import { setUser } from "../../store/auth/authSlice";
 
 type OrganizationType = 'all' | 'college' | 'school' | 'institute';
 

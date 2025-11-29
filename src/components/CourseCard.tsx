@@ -49,7 +49,7 @@ export default function CourseCard({ course }: Props) {
           <ShareButton
             url={`${window.location.origin}/courses/${course.slug}/`}
             title={`${course.title} - دورة مجانية على نقرأ`}
-            description={`${course.description || `تعلم ${course.title} مع ${course.instructor.first_name} ${course.instructor.last_name}`}. انضم لآلاف الطلاب في منصة نقرأ التعليمية المجانية. ${course.subject?.name ? `#${course.subject.name.replace(/\s+/g, '')}` : ''} #نقرأ #تعليم_مجاني`}
+            description={`${course.description || `تعلم ${course.title} مع ${course?.instructor?.first_name} ${course?.instructor?.last_name}`}. انضم لآلاف الطلاب في منصة نقرأ التعليمية المجانية. ${course.subject?.name ? `#${course.subject.name.replace(/\s+/g, '')}` : ''} #نقرأ #تعليم_مجاني`}
             variant="ghost"
             size="sm"
             showText={false}
@@ -95,12 +95,12 @@ export default function CourseCard({ course }: Props) {
         <div className="flex items-center gap-2 flex-shrink-0">
           <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center flex-shrink-0">
             <span className="text-xs font-semibold text-white">
-              {course.instructor.first_name?.charAt(0)?.toUpperCase()}
+              {course?.instructor?.first_name?.charAt(0)?.toUpperCase()}
             </span>
           </div>
           <div className="min-w-0 flex-1">
             <p className="text-sm text-gray-700 font-medium truncate">
-              {course.instructor.first_name} {course.instructor.last_name}
+              {course?.instructor?.first_name} {course?.instructor?.last_name}
             </p>
             <p className="text-xs text-gray-500">مدرس</p>
           </div>
@@ -109,9 +109,7 @@ export default function CourseCard({ course }: Props) {
         {/* Short Description */}
         <div className="flex-grow">
           {course.description ? (
-            <p className="text-gray-600 text-sm leading-relaxed line-clamp-2 min-h-[2.5rem]">
-              {truncate(course.description, 100)}
-            </p>
+            <div dangerouslySetInnerHTML={{__html:truncate(course.description, 100)}} />
           ) : (
             <div className="min-h-[2.5rem]" />
           )}
@@ -175,7 +173,7 @@ export default function CourseCard({ course }: Props) {
           <ShareButton
             url={`${window.location.origin}/courses/${course.slug}/`}
             title={`🎓 ${course.title} - دورة مجانية على منصة نقرأ`}
-            description={`${course.description || `تعلم ${course.title} خطوة بخطوة`} 👨‍🏫 مع المدرس: ${course.instructor.first_name} ${course.instructor.last_name}\n\n✅ دورة مجانية 100%\n⭐ تقييم ${course.rating?.toFixed(1) || '4.2'} من 5\n👥 ${Math.floor(Math.random() * 1000) + 100}+ طالب مسجل\n${course.subject?.name ? `🏷️ ${course.subject.name}` : ''}\n\n#نقرأ #تعليم_مجاني #دورات_اونلاين ${course.subject?.name ? `#${course.subject.name.replace(/\s+/g, '')}` : ''}`}
+            description={`${course.description || `تعلم ${course.title} خطوة بخطوة`} 👨‍🏫 مع المدرس: ${course?.instructor?.first_name} ${course?.instructor?.last_name}\n\n✅ دورة مجانية 100%\n⭐ تقييم ${course.rating?.toFixed(1) || '4.2'} من 5\n👥 ${Math.floor(Math.random() * 1000) + 100}+ طالب مسجل\n${course.subject?.name ? `🏷️ ${course.subject.name}` : ''}\n\n#نقرأ #تعليم_مجاني #دورات_اونلاين ${course.subject?.name ? `#${course.subject.name.replace(/\s+/g, '')}` : ''}`}
             variant="secondary"
             size="md"
             showText={false}

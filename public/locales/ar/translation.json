@@ -489,6 +489,7 @@
     "organization": "المنظمة",
     "subscription": "الاشتراك",
     "quizzes": "الاختبارات",
+    "exams":"الامتحانات",
     "chat": "المحادثة",
     "community": "المجتمع",
     "files": "الملفات",
@@ -498,6 +499,7 @@
     "logout_confirm_yes": "نعم، تسجيل الخروج",
     "logout_confirm_cancel": "إلغاء",
     "logout_success": "تم تسجيل الخروج",
+    "logout_failed":"حدث خطأ اثناء تسجيل الخروج",
     "slogan": "التعليم حق مجاني لكل إنسان",
     "homework": "الواجبات",
     "attendance": "الحضور"
@@ -736,9 +738,9 @@
     "this_week": "هذا الأسبوع",
     "this_month": "هذا الشهر",
     "sources": "مصادر النقاط",
-    "exam_contributions": "مساهمات الامتحانات",
-    "article_contributions": "مساهمات المقالات",
-    "resource_contributions": "مساهمات الموارد",
+    "contribution": "المساهمات",
+    "interaction": "التفاعلات",
+    "achievement": "تحقيق الاهداف",
     "redeem_points": "استبدال النقاط"
   },
   "notification_widget": {
@@ -934,7 +936,8 @@
     "not_started": "لم تبدأ",
     "lessons_progress": "{{progress}}% مكتمل",
     "ready_to_start": "جاهز للبدء",
-    "continue_learning": "متابعة التعلم"
+    "continue_learning": "متابعة التعلم",
+    "start_learning":"ابدأ التعلم"
   },
   "student_course_page": {
     "my_courses": "دوراتي",
@@ -1318,7 +1321,12 @@
   },
   "recent_activity": {
     "title": "النشاط الأخير",
-    "no_activity": "لا توجد أنشطة حديثة"
+    "no_activity": "لا توجد أنشطة حديثة",
+    "time_minutes_ago":"قبل {{count}} دقائق",
+    "time_minutes_hours":"قبل {{count}} ساعات",
+    "time_minutes_days":"قبل {{count}} ايام",
+    "count":"{{count}} اجرئات"
+
   },
   "featured_subjects": {
     "loading": "جاري تحميل المواد",
@@ -1349,6 +1357,7 @@
     "governorate": "المحافظة",
     "governorate_required": "المحافظة مطلوبة",
     "select_governorate": "اختر المحافظة",
+    "note":"ملاحظة : يمكنك التحقق من ما اذا كانت بياناتك صالحة لانشاء حساب لكن لن يتم تسجيل اي حساب الا من دعوة رسمية من مؤسستك التعليمية",
     "server_error": "حصل خطأ في الخادم",
     "create_account": "إنشاء حساب جديد",
     "create_account_subtitle": "انضم إلى منصة نقرأ وابدأ رحلتك التعليمية",

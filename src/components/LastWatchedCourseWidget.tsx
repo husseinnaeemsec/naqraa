@@ -93,7 +93,6 @@ export default function LastWatchedCourseWidget() {
   const isCompleted = enrollmentData?.completed ?? false;
   const completedLectures = enrollmentData?.completed_lectures?.length ?? 0;
   const completedSections = enrollmentData?.completed_sections?.length ?? 0;
-  const totalSections = enrollmentData?.course?.sections?.length ?? 1;
   const completedQuizzes = enrollmentData?.completed_quizzes?.length ?? 0;
 
   return (
@@ -116,9 +115,7 @@ export default function LastWatchedCourseWidget() {
             <h1 className="font-bold text-xl lg:text-2xl text-white leading-tight">
               {enrollmentData?.course?.title || enrollment.title}
             </h1>
-            <p className="text-sm text-emerald-100 leading-relaxed line-clamp-2 opacity-90">
-              {enrollmentData?.course?.description || enrollment.description}
-            </p>
+            <p dangerouslySetInnerHTML={{__html:enrollmentData?.course?.description || enrollment.description}} className="text-sm text-emerald-100 leading-relaxed line-clamp-2 opacity-90" />
           </div>
 
           {/* Progress */}

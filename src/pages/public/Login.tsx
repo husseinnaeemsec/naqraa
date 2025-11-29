@@ -9,7 +9,7 @@ import laptop from '../../assets/science.svg';
 import { endpoints } from '../../api/routes';
 import { getLogo } from '../../utils/functions';
 import { useAppDispatch, useAppSelector } from '../../store/store';
-import { logoutUser, setAuthenticationState, setUser } from '../../store/authSlice';
+import { logoutUser, setAuthenticationState, setUser } from '../../store/auth/authSlice';
 import VerificationPage from '../../components/VerificationPage';
 
 // Utility function to validate safe redirect URLs
@@ -33,20 +33,20 @@ const isValidRedirectUrl = (url: string): boolean => {
       '/board',
       '/classroom'
     ];
-    
+
     // Parse the URL
     const parsedUrl = new URL(url, window.location.origin);
-    
+
     // Only allow same-origin URLs
     if (parsedUrl.origin !== window.location.origin) {
       return false;
     }
-    
+
     const pathname = parsedUrl.pathname;
-    
+
     // Check if the path starts with any allowed path
-    return allowedPaths.some(allowedPath => 
-      pathname === allowedPath || 
+    return allowedPaths.some(allowedPath =>
+      pathname === allowedPath ||
       pathname.startsWith(allowedPath + '/') ||
       pathname.startsWith('/dashboard')
     );
@@ -87,7 +87,7 @@ export default function LoginPage() {
   useEffect(() => {
     if (isAuthenticated) {
       const nextUrl = searchParams.get('next');
-      
+
       // Validate and redirect to next URL if safe, otherwise default to dashboard
       if (nextUrl && isValidRedirectUrl(nextUrl)) {
         navigate(nextUrl, { replace: true });
@@ -111,15 +111,13 @@ export default function LoginPage() {
     api.post(endpoints.user.login, { email, password })
       .then((res) => {
         dispatch(setUser(res.data))
-        dispatch(setAuthenticationState(true))
-        
-        // Handle redirect after successful login
-        const nextUrl = searchParams.get('next');
-        if (nextUrl && isValidRedirectUrl(nextUrl)) {
-          navigate(nextUrl, { replace: true });
-        } else {
-          navigate("/dashboard", { replace: true });
-        }
+        dispatch(setUser(res.data))
+        setTimeout(() => {
+          dispatch(setAuthenticationState(true))
+          const nextUrl = searchParams.get('next');
+          navigate(nextUrl && isValidRedirectUrl(nextUrl) ? nextUrl : "/dashboard", { replace: true });
+        }, 200);
+
       })
       .catch((e) => {
         if (e.response) {
@@ -148,7 +146,7 @@ export default function LoginPage() {
   return (
     <>
 
-      <div className="bg-emerald-50 dark:bg-dark-emerald w-screen h-screen flex items-center justify-center">
+      <div className="bg-emerald-50 dark:bg-dark-emerald w-screen min-h-screen flex items-center justify-center">
         <div className="container gap-10 m-auto h-[90dvh]  p-5 grid lg:grid-cols-2 items-center justify-center">
           {/* يسار: العارض */}
           <div className="relative h-full  w-full rounded-2xl overflow-hidden flex flex-col items-center justify-center  ">

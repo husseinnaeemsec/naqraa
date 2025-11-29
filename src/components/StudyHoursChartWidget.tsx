@@ -36,15 +36,6 @@ export interface StudyTimeWeek {
   saturday: StudySession | null;
 }
 
-export interface StudyTimeWeek {
-  sunday: StudySession | null;
-  monday: StudySession | null;
-  tuesday: StudySession | null;
-  wednesday: StudySession | null;
-  thursday: StudySession | null;
-  friday: StudySession | null;
-  saturday: StudySession | null;
-}
 
 
 interface StudyHoursChartWidgetProps {
@@ -109,14 +100,14 @@ export default function StudyHoursChartWidget({ weekData }: StudyHoursChartWidge
 
   return (
     <Card className="w-full bg-white dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800 shadow-sm">
-      <CardHeader className="pb-4">
+      <CardHeader className="pt-4">
         <CardTitle className="text-lg font-bold text-gray-900 dark:text-emerald-50 flex items-center gap-2">
           <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
           {t('study_chart.title')}
         </CardTitle>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="pb-4">
         <ChartContainer config={chartConfig} className="h-[180px] w-full">
           <BarChart data={data}>
             <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="#e5e7eb" />

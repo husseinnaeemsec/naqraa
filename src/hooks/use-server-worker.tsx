@@ -26,7 +26,6 @@ export default function useServerWorker() {
       }
       return null;
     } catch (error) {
-      console.error("Error checking existing subscription:", error);
       return null;
     }
   }, []);

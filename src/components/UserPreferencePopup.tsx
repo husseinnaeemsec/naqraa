@@ -5,7 +5,7 @@ import { X, CheckCircle, BookOpen, Clock, Target, Users, ArrowRight, ArrowLeft }
 import api from '../api/client';
 import { endpoints } from '../api/routes';
 import { useAppDispatch } from '../store/store';
-import { updateUser } from '../store/authSlice';
+import { updateUser } from '../store/auth/authSlice';
 import { Button } from './ui/button';
 import { SuccessAlert } from './alerts';
 

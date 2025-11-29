@@ -18,7 +18,6 @@ import LoginPage from './pages/public/Login.tsx'
 import UnauthorizedPage from './pages/public/UnauthorizedPage.tsx'
 import { Provider } from 'react-redux';
 import store from './store/store.tsx'
-import AuthProvider from './AuthProvider.tsx'
 import ProtectedRoute from './ProtectedRoute.tsx'
 import './i18n.js';
 import Dashboard from './Dashboard.tsx'
@@ -56,12 +55,12 @@ import NewsletterDemo from './pages/NewsletterDemo.tsx';
 import ResetPasswordPage from './pages/public/ResetPassword.tsx';
 import ChangePasswordPage from './pages/public/ChangePassword.tsx';
 import UpcomingHomeworkPage from './pages/UpcomingHomeworkPage.tsx';
+import QuizzesPage from './pages/student/QuizzesPage.tsx';
 
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store} >
-      <AuthProvider>
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<App />} >
@@ -71,6 +70,9 @@ createRoot(document.getElementById('root')!).render(
                 <Route path='exams'>
                   <Route index element={<ExamsPage />} />
                   <Route path=':examId' element={<ViewExamPage />} />
+                </Route>
+                <Route path='quizzes'>
+                  <Route index element={<QuizzesPage />} />
                 </Route>
                 <Route path='attendance' element={<AttendancePage />} />
                 <Route path='homework' element={<UpcomingHomeworkPage />} />
@@ -135,7 +137,6 @@ createRoot(document.getElementById('root')!).render(
             <Route path='*' element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
-      </AuthProvider>
     </Provider>
   </StrictMode>,
 )

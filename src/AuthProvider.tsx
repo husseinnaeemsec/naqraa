@@ -9,9 +9,11 @@ import {
   setLoadingState,
   setUser,
   setWeekStudyTime,
-} from "./store/authSlice";
+} from "./store/auth/authSlice";
 import PageLoader from "./components/PageLoader";
 import api from "./api/client";
+import { useLocation } from "react-router-dom";
+import config from "./config/env";
 
 interface Props {
   children: React.ReactNode;
@@ -24,6 +26,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   const { loadingUser } = useAppSelector((state) => state.auth);
   const [error, setError] = useState<string | null>(null);
   const hasCheckedAuth = useRef(false);
+  const location = useLocation();
 
   // Helper function to set language attributes
   const setLanguageAttributes = (lang: string) => {
@@ -41,18 +44,18 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 
 
   useEffect(() => {
+    if(config.excludeAuthCheck.includes(location.pathname)) return;
     if (hasCheckedAuth.current) return;
     hasCheckedAuth.current = true;
 
     dispatch(setLoadingState(true));
 
     api
-      .get(endpoints.user.status, { withCredentials: true })
+      .get(endpoints.user.status,{ params:{ source:location.pathname } })
       .then(async (res) => {
         const isAuthenticated = res.data.ok;
 
         if (!isAuthenticated) {
-
           dispatch(logoutUser())
           return;
         }

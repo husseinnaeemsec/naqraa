@@ -6,7 +6,7 @@ import type { Notification } from "../../../types";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import api from "../../api/client";
 import { endpoints } from "../../api/routes";
-import { setNotifications } from "../../store/authSlice";
+import { setNotifications } from "../../store/auth/authSlice";
 import Card from "../../components/ui/CustomCard";
 import Button from "../../components/ui/CustomButton";
 import useApiErrorHandler from "../../hooks/use-api-error-handler";
@@ -109,7 +109,7 @@ export function NotificationItem({ notification, index }: { notification: Notifi
                                 
                                 <div className="text-sm text-gray-500 dark:text-emerald-400 flex items-center gap-1">
                                     <Bell className="size-3" />
-                                    {formatTime(notification.created_at)}
+                                    {formatTime(notification.created_at || '')}
                                 </div>
                             </div>
                             
@@ -179,7 +179,7 @@ export function NotificationItem({ notification, index }: { notification: Notifi
                                 
                                 <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-emerald-400">
                                     <Bell className="size-4" />
-                                    <span>{formatTime(notification.created_at)}</span>
+                                    <span>{formatTime(notification.created_at || '')}</span>
                                     {notification.sneder && (
                                         <>
                                             <span>•</span>

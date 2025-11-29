@@ -3,19 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import api from '../api/client';
 import { Card } from './ui/card';
-import { Activity, Book, MessageSquare, FileText, CheckCircle, Clock } from 'lucide-react';
+import { Activity, Book, MessageSquare, FileText, CheckCircle, Clock ,X} from 'lucide-react';
 import useApiErrorHandler from '../hooks/use-api-error-handler';
 
 interface UserActivity {
   id: number;
-  type: 'lesson_watch' | 'exam_complete' | 'post_create' | 'assignment_submit' | 'course_enroll';
-  description: string;
-  timestamp: string;
-  related_object?: {
-    id: number;
-    title: string;
-    type: string;
-  };
+  message: string;
+  created_at: string;
+  type:'login'|'logout'|'change_password'|'change_email'|'took_exam';
+  status:'succeed'|'failed'|'denied'
 }
 
 interface ActivityResponse {
@@ -23,14 +19,7 @@ interface ActivityResponse {
   count: number;
 }
 
-const activityIcons = {
-  lesson_watch: Book,
-  exam_complete: CheckCircle,
-  post_create: MessageSquare,
-  assignment_submit: FileText,
-  course_enroll: Activity,
-  default: Clock
-};
+
 
 
 
@@ -74,36 +63,8 @@ export default function RecentActivityWidget() {
         console.error('Error fetching recent activity:', err);
         
         // Fallback to mock data if endpoint doesn't exist yet
-        if (err.response?.status === 404) {
-          setActivities([
-            {
-              id: 1,
-              type: 'lesson_watch',
-              description: t('recent_activity.mock_lesson_watch'),
-              timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-            },
-            {
-              id: 2,
-              type: 'exam_complete',
-              description: t('recent_activity.mock_exam_complete'),
-              timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(),
-            },
-            {
-              id: 3,
-              type: 'post_create',
-              description: t('recent_activity.mock_post_create'),
-              timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
-            },
-            {
-              id: 4,
-              type: 'course_enroll',
-              description: t('recent_activity.mock_course_enroll'),
-              timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-            },
-          ]);
-        } else {
           setError(t('recent_activity.error_loading'));
-        }
+
       } finally {
         setLoading(false);
       }
@@ -163,16 +124,51 @@ export default function RecentActivityWidget() {
     );
   }
 
+  const getTitle = (activity:UserActivity)=>{
+
+    switch (activity.type){
+      case 'change_email':
+        return 'تغيير البريد الألكتروني';
+      
+      case 'change_password':
+        return 'تغيير كلمة المرور';
+      
+      case 'login':
+        return 'تسجيل دخول جديد';
+      
+      case 'logout':
+        return 'تسجيل الخروج من الحساب'
+      
+      case 'took_exam':
+        return 'قمت بأداء امتحان جديد'
+      
+      default:
+        return 'اجراء غير معروف'
+    }
+
+  }
+
   return (
     <Card className="w-full">
-      <div className="flex items-center gap-3 mb-6">
-        <Activity className="size-6 text-emerald-600" />
-        <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">{t('recent_activity.title')}</h2>
+      <div className="p-4 bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20 border-b border-emerald-200 dark:border-emerald-800">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Activity className="size-5 text-emerald-600" />
+            <h3 className="text-lg font-bold text-gray-900 dark:text-emerald-50">{t('recent_activity.title')}</h3>
+            {activities.length > 0 && (
+              <span className="bg-emerald-100 text-emerald-700 text-xs px-2 py-1 rounded-full font-medium dark:bg-emerald-900/30 dark:text-emerald-300">
+                {t('recent_activity.count', { count: activities.length })}
+              </span>
+            )}
+          </div>
+        </div>
       </div>
+
 
       <div className="space-y-3 max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-emerald-300 scrollbar-track-gray-100">
         {activities.map((activity, idx) => {
-          const IconComponent = activityIcons[activity.type] || activityIcons.default;
+          const IconComponent = activity.status === 'succeed' ? CheckCircle : X;
+          const succeed = activity.status === 'succeed';
           
           return (
             <motion.div
@@ -182,16 +178,18 @@ export default function RecentActivityWidget() {
               transition={{ delay: idx * 0.1 }}
               className="flex items-start gap-3 p-3 bg-gray-50/50 dark:bg-emerald-900/30 rounded-lg hover:bg-gray-100/50 dark:hover:bg-emerald-900/50 transition-colors"
             >
-              <div className="flex-shrink-0 w-8 h-8 bg-emerald-100 dark:bg-emerald-800 rounded-full flex items-center justify-center">
-                <IconComponent className="size-4 text-emerald-600 dark:text-emerald-300" />
+              <div className={`flex-shrink-0 w-8 h-8 ${succeed ? 'bg-emerald-100 dark:bg-emerald-800' :'bg-rose-100 dark:bg-rose-800'} rounded-full flex items-center justify-center`}>
+                <IconComponent className={`size-4 ${ succeed ? 'text-emerald-600 dark:text-emerald-300' : 'text-rose-600 dark:text-rose-300' }`} />
               </div>
               
               <div className="flex-1 min-w-0">
                 <p className="text-sm text-gray-900 dark:text-emerald-50 font-medium leading-relaxed">
-                  {activity.description}
+                   {getTitle(activity)}
+                  <small className={` px-1 ${succeed ? 'text-emerald-500' : 'text-rose-500'}`} > ({ succeed ? 'نجح' : 'فشل' }) </small>
                 </p>
+                <p className="text-xs text-slate-500 mt-2"> {activity.message} </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                  {formatTimeAgo(activity.timestamp)}
+                  {formatTimeAgo(activity.created_at)}
                 </p>
               </div>
             </motion.div>

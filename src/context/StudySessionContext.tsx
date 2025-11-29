@@ -10,6 +10,9 @@ import React, {
 import { useLocation } from "react-router-dom";
 import { endpoints } from "../api/routes";
 import api from "../api/client";
+import type { StudySession } from "../../types";
+import { useAppDispatch, useAppSelector } from "../store/store";
+import { updateDayStudyTime } from "../store/auth/authSlice";
 
 interface TrackerContextType {
   seconds: number;
@@ -46,10 +49,13 @@ export const StudySessionTrackerProvider: React.FC<{ children: React.ReactNode }
   // Removed unused lastUpdated
   const lastSentRef = useRef<Date | null>(null);
   const location = useLocation();
+  const dispatch = useAppDispatch();
   // Removed unused useNavigate
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const syncIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const maxSeconds = getRemainingSecondsToday();
+
+  const {week_study_time} = useAppSelector(state=>state.auth);
 
   // useCallback for stable references
   const start = useCallback(() => setIsActive(true), []);
@@ -83,9 +89,11 @@ export const StudySessionTrackerProvider: React.FC<{ children: React.ReactNode }
     }
     if(seconds <= 0) return;
     try {
-      await api.post(endpoints.user.studySession, { total_seconds: seconds });
+      const req = await api.post(endpoints.user.studySession, { total_seconds: seconds });
       lastSentRef.current = now;
       // Study time submitted successfully
+      const session:StudySession = req.data;
+      dispatch(updateDayStudyTime(session));
     } catch (err) {
       // Failed to submit study time
     }

@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import { Calendar, Target, Zap, Trophy, Clock, BookOpen } from "lucide-react";
 import Card from "./ui/CustomCard";
 import Button from "./ui/CustomButton";
+import { useAppSelector } from "../store/store";
+import { Link } from "react-router-dom";
 
 interface LearningGoal {
   id: string;
@@ -17,12 +19,15 @@ interface LearningGoal {
 
 export default function LearningProgressWidget() {
   const { t } = useTranslation();
-  
+  const {user} = useAppSelector(state=>state.auth);
   // Mock data - these would come from the backend
-  const currentStreak: number = 7;
+  const currentStreak: number | undefined | null = user?.streak_days;
   const longestStreak: number = 15;
-  const todayStudyTime: number = 2.5;
-  const completedLessonsToday: number = 3;
+  const todayStudyTime: number = user?.today_study_time || 0;
+  const completedLessonsToday: number = user?.completed_courses || 0;
+
+
+
 
   // Mock data - this would come from the backend
   const mockGoals: LearningGoal[] = [
@@ -46,8 +51,8 @@ export default function LearningProgressWidget() {
 
   const streakMotivationMessage = () => {
     if (currentStreak === 0) return t('learning_progress.start_journey');
-    if (currentStreak < 7) return t('learning_progress.keep_going');
-    if (currentStreak < 30) return t('learning_progress.excellent_progress');
+    if (currentStreak && currentStreak < 7) return t('learning_progress.keep_going');
+    if (currentStreak && currentStreak < 30) return t('learning_progress.excellent_progress');
     return t('learning_progress.amazing_learner');
   };
 
@@ -185,7 +190,9 @@ export default function LearningProgressWidget() {
             className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800"
             icon={<Zap className="size-4" />}
           >
+            <Link to={'/dashboard/courses'}>
             {t('learning_progress.start_study_session')}
+            </Link>
           </Button>
         </motion.div>
       </div>

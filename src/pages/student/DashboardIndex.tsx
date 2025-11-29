@@ -20,21 +20,21 @@ import { useTranslation } from "react-i18next";
 
 const IndexPage = () => {
     const { t } = useTranslation();
-    const { user } = useAppSelector((state) => state.auth)
+    const { user,week_study_time } = useAppSelector((state) => state.auth)
 
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950">
+        <div className="min-h-screen overflow-x-hidden  bg-gradient-to-b from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950">
             {/* Enhanced Header */}
             <motion.div 
-                className="relative p-6 pb-8"
+                className="relative z-0 p-6 pb-8"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
             >
                 {/* Background Elements */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-200/20 rounded-full blur-3xl -translate-y-32 translate-x-32"></div>
-                <div className="absolute bottom-0 left-0 w-48 h-48 bg-emerald-300/10 rounded-full blur-2xl translate-y-16 -translate-x-16"></div>
+                <div className="absolute z-0 top-0 right-0 w-64 h-64 bg-emerald-200/20 rounded-full blur-3xl -translate-y-32 translate-x-32"></div>
+                <div className="absolute z-0 bottom-0 left-0 w-48 h-48 bg-emerald-300/10 rounded-full blur-2xl translate-y-16 -translate-x-16"></div>
                 
                 <div className="relative z-10 space-y-4">
                     <div className="flex items-center gap-3">
@@ -159,7 +159,7 @@ const IndexPage = () => {
                         </div>
                         
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                            <StudyHoursChart weekData={user?.week_study_time} />
+                            <StudyHoursChart weekData={week_study_time} />
                             <StudentPointsWidget />
                         </div>
                     </motion.section>

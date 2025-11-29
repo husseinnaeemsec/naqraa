@@ -4,34 +4,40 @@ import { useEffect, useState } from 'react';
 import { setupUserPrefrences } from './utils/functions';
 import api from './api/client';
 import { endpoints } from './api/routes';
-import { setNotifications } from './store/authSlice';
+import { setNotifications } from './store/auth/authSlice';
 import NotificationsPopUp from './components/NotificationsPopUp';
 import UserPreferencePopup from './components/UserPreferencePopup';
 import useServerWorker from './hooks/use-server-worker';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import { useGSAP } from '@gsap/react';
+import AuthProvider from './AuthProvider';
+
+
 
 gsap.registerPlugin(ScrollToPlugin);
+gsap.registerPlugin(useGSAP)
 
 const App = () => {
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
-  const {} = useServerWorker();
+  const { } = useServerWorker();
   const dispatch = useAppDispatch();
   const location = useLocation();
   const [showPreferencePopup, setShowPreferencePopup] = useState(false);
-  
+
+
   // Scroll to top on route change
-  useEffect(() => {
+  useGSAP(() => {
     gsap.to(window, {
       duration: 0.5,
       scrollTo: { y: 0, autoKill: true },
       ease: 'power2.out'
     });
   }, [location.pathname]);
-  
+
   useEffect(() => {
     if (isAuthenticated && user) {
-      api.get(endpoints.notifications.list).then( res => dispatch(setNotifications(res.data.results)))
+      api.get(endpoints.notifications.list).then(res => dispatch(setNotifications(res.data.results)))
 
       // Check if user needs to set up preferences
       if (!user.preference || !user.preference.completed_onboarding) {
@@ -47,15 +53,18 @@ const App = () => {
   }, [isAuthenticated, user]);
 
 
+
   return (
-    <div>
-    <NotificationsPopUp />
-    <UserPreferencePopup 
-      isOpen={showPreferencePopup} 
-      onClose={() => setShowPreferencePopup(false)}
-    />
-    <Outlet />
-    </div>
+    <AuthProvider>
+      <div>
+        <NotificationsPopUp />
+        <UserPreferencePopup
+          isOpen={showPreferencePopup}
+          onClose={() => setShowPreferencePopup(false)}
+        />
+        <Outlet />
+      </div>
+    </AuthProvider>
   );
 };
 

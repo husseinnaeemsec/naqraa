@@ -17,6 +17,8 @@ export default function EnrollmentNavigation() {
   );
   const dispatch = useAppDispatch();
 
+
+
   // Scroll active lecture into view
   useEffect(() => {
     if (!activeLecture || !scrollerRef.current) return;

@@ -32,14 +32,16 @@ export default function CourseContent() {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
 
-  if (!activeLecture || !enrollment) return <></>;
+  if (!activeLecture || !enrollment) return <> No {activeLecture} , No {"Enrollment"} </>;
 
   // Fetch current lecture details
   useEffect(() => {
     setLoading(true);
     api
       .get(endpoints.user.enrollments.getLecture(enrollment.id, activeLecture.id))
-      .then((res) => dispatch(setCurrentLecture(res.data)))
+      .then((res) => {
+        dispatch(setCurrentLecture(res.data))
+      })
       .catch((e) => {
         if (e.status === 404) setError("not_found");
         else if (e.status === 500) setError("network_error");
@@ -99,7 +101,6 @@ export default function CourseContent() {
       {/* Course Header - Sticky */}
       <div className="sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-6 z-10">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{enrollment.course.title}</h1>
-        <p className="text-slate-500 dark:text-slate-400">{enrollment.course.description}</p>
       </div>
       
       {/* Scrollable Content */}

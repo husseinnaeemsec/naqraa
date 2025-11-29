@@ -41,9 +41,9 @@ export default function UserProfileWidget() {
   const enrolledCoursesCount = user?.enrolled_courses?.length || 0;
 
   // Calculate study streak (mock data for now)
-  const studyStreak = 7; // This would come from backend
-  const totalStudyHours = 45; // This would come from backend
-  const completedCourses = 3; // This would come from backend
+  const studyStreak = user?.streak_days; // This would come from backend
+  const totalStudyHours = user?.study_time; // This would come from backend
+  const completedCourses = user?.completed_courses || 0; // This would come from backend
 
   return (
     <div className="space-y-6">

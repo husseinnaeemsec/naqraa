@@ -10,7 +10,6 @@ import { endpoints } from "../../api/routes";
 import { useAppSelector } from "../../store/store";
 import PageLoader from "../../components/PageLoader";
 import { getLogo } from "../../utils/functions";
-import EmailSentComponent from "../../components/EmailSentComponent";
 
 import learning from "../../assets/online-learning.svg";
 import maths from "../../assets/maths-bg.svg";
@@ -18,6 +17,8 @@ import elearn from "../../assets/elearn.svg";
 import community from "../../assets/online-discussion.svg";
 import laptop from "../../assets/science.svg";
 import { governorates } from '../../../constants';
+import AccountCreated from "../../components/AccountCreatedCompnent";
+import { TriangleAlert } from "lucide-react";
 
 interface ErrorProps {
   [key: string]: string[] | string | undefined;
@@ -100,13 +101,15 @@ export default function RegisterPage() {
   const [created, setCreated] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const [firstName, setFirstName] = useState("Hussein");
-  const [lastName, setLastName] = useState("Naeem");
-  const [email, setEmail] = useState("ehusseinnaim@gmail.com");
+  const [message,setMessage] = useState('');
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
   const [gender, setGender] = useState("male");
   const [language, setLanguage] = useState<'ar' | 'en' | 'ku'>(i18n.language as 'ar' | 'en' | 'ku' || "ku");
-  const [password, setPassword] = useState("2252Test");
-  const [passwordConfirm, setPasswordConfirm] = useState("2252Test");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [governorate, setGovernorate] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
 
@@ -163,7 +166,7 @@ export default function RegisterPage() {
 
     setLoading(true);
     try {
-      await api.post(
+      const request = await api.post(
         endpoints.user.register,
         {
           first_name: firstName,
@@ -180,6 +183,7 @@ export default function RegisterPage() {
       );
 
       setCreated(true);
+      setMessage(request.data.message);
       localStorage.setItem("register_email", email);
     } catch (err: any) {
       if(err.status === 500 ){
@@ -204,7 +208,7 @@ export default function RegisterPage() {
   }
 
   if (loading) return <PageLoader />;
-  if (created) return <EmailSentComponent email={email} />;
+  if (created) return <AccountCreated message={message} />;
 
   return (
     <div className="bg-emerald-50 dark:bg-dark-emerald w-screen min-h-screen flex items-center justify-center">
@@ -237,7 +241,10 @@ export default function RegisterPage() {
           <p className="text-center mb-4 text-gray-600 dark:text-gray-300">
             {t('register.create_account_subtitle')}
           </p>
-
+          <p className="p-2 bg-amber-50 border flex flex-col gap-3 text-amber-900 rounded-md border-amber-500">
+            <TriangleAlert className="size-6" />
+            {t('register.note')}
+          </p>
           <form className="w-full max-w-lg flex flex-col gap-3" onSubmit={handleFormSubmit}>
             {Object.keys(errors).length > 0 && <ErrorDisplay errors={errors} />}
 

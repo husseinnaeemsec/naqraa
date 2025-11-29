@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/store";
-import { logoutUser } from "../store/authSlice";
+import { logoutUser } from "../store/auth/authSlice";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { emeraldColors } from "../colors";
@@ -49,17 +49,18 @@ export default function Sidebar() {
   const links = [
     { link: "/dashboard/", icon: "fi fi-rr-home", label: t("sidebar.dashboard") },
     { link: "/dashboard/courses/", icon: "fi fi-rr-play-alt", label: t("sidebar.courses") },
+    { link: "/dashboard/exams/", icon: "fi fi-rr-quiz-alt", label: t("sidebar.exams") },
+    { link: "/dashboard/quizzes/", icon: "fi fi-rr-lightbulb-question", label: t("sidebar.quizzes") },
     { link: "/dashboard/timetable/", icon: "fi fi-rr-calendar", label: t("sidebar.timetable") },
     { link: "/dashboard/attendance/", icon: "fi fi-rr-check-circle", label: t("sidebar.attendance") },
     { link: "/dashboard/homework", icon: "fi fi-rr-memo-circle-check", label: t("sidebar.homework") },
     { link: "/dashboard/notifications/", messages: notifications.filter(n => n.read === false).length, icon: "fi fi-rr-bell", label: t("sidebar.notifications") },
     { link: "/dashboard/org/", icon: "fi fi-rr-building", label: t("sidebar.organization") },
     { link: "/dashboard/subscription/", icon: "fi fi-rr-credit-card", label: t("sidebar.subscription") },
-    { link: "/dashboard/exams/", icon: "fi fi-rr-quiz-alt", label: t("sidebar.quizzes") },
     { link: "/dashboard/communities/", icon: "fi fi-rr-users-class", label: t("sidebar.community") },
     { link: "/dashboard/files/", icon: "fi fi-rr-folder", label: t("sidebar.files") },
     { link: "/dashboard/settings/", icon: "fi fi-rr-user-gear", label: t("sidebar.settings") },
-    
+
   ];
 
   const handleLogout = () => {
@@ -83,15 +84,20 @@ export default function Sidebar() {
         api.post(endpoints.user.logout)
           .then((_res) => {
             dispatch(logoutUser());
+            Alert.fire({
+              title: t('sidebar.logout_success'),
+              icon: "success",
+              confirmButtonColor: "#059669",
+            });
           })
           .catch((e) => {
-            // Error getting enrollments
+            Alert.fire({
+              title: t('sidebar.logout_failed'),
+              icon: "error",
+              confirmButtonColor: "#059669",
+            });
           })
-        Alert.fire({
-          title: t('sidebar.logout_success'),
-          icon: "success",
-          confirmButtonColor: "#059669",
-        });
+
       }
     });
   };
@@ -107,7 +113,7 @@ export default function Sidebar() {
                 <p className="text-slate-600"> {t('sidebar.slogan')} </p>
               </div>
             </Link>
-            <button className="cursor-pointer lg:hidden block" onClick={()=>{ dispatch(toggleSidebar()) }}>
+            <button className="cursor-pointer lg:hidden block" onClick={() => { dispatch(toggleSidebar()) }}>
               <HeroXIcon className="size-6" />
             </button>
           </div>

@@ -116,7 +116,7 @@ function MobileNavMenu() {
     ];
     
     return (
-        <div className="relative">
+        <div className="relative ">
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-700 dark:text-emerald-100 hover:bg-emerald-50 dark:hover:bg-emerald-800/30 transition-all duration-200"
@@ -133,7 +133,7 @@ function MobileNavMenu() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -10, scale: 0.95 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-emerald-900 border border-emerald-200 dark:border-emerald-700 rounded-xl shadow-lg overflow-hidden z-50"
+                        className="absolute  right-0 top-full mt-2 w-64 bg-white dark:bg-emerald-900 border border-emerald-200 dark:border-emerald-700 rounded-xl shadow-lg overflow-hidden z-50"
                     >
                         <div className="p-2 space-y-1">
                             {navItems.map((item) => {

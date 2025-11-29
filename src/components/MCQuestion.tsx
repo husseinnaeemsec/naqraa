@@ -1,7 +1,7 @@
-import type { QuizQuestion } from "../../types";
+import type { MultipleChoiceQuestion } from "../../types";
 
 interface MCQuestionProps {
-  question: QuizQuestion;
+  question: MultipleChoiceQuestion;
   selectedAnswers?: number[]; // now supports multiple selected answers
   disabled?: boolean;
   onSelect: (choiceIds: number[]) => void; // returns all selected ids

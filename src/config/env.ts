@@ -87,6 +87,8 @@ export interface AppConfig {
     enableBundleAnalyzer: boolean
     enableCompression: boolean
   }
+
+  excludeAuthCheck:string[];
 }
 
 // Helper function to convert string to boolean
@@ -190,6 +192,9 @@ export const config: AppConfig = {
     enableBundleAnalyzer: toBool(import.meta.env.VITE_ENABLE_BUNDLE_ANALYZER),
     enableCompression: toBool(import.meta.env.VITE_ENABLE_COMPRESSION),
   },
+
+  // Don't check authentication for thesev paths
+  excludeAuthCheck:import.meta.env.VITE_EXCLUDE_AUTH_CHECK ? import.meta.env.VITE_EXCLUDE_AUTH_CHECK.split(",") : ['/login','/register']
 }
 
 // Export individual config sections for convenience

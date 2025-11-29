@@ -30,31 +30,8 @@ export default function RecommendedQuizzesWidget() {
   }, []);
 
   const fetchRecommendedQuizzes = async () => {
-    setQuizzes([
-          {
-            id: 1,
-            title: t('recommended_quizzes.sample_quiz_1.title'),
-            description: t('recommended_quizzes.sample_quiz_1.description'),
-            difficulty: 'medium',
-            estimated_time: 15,
-            questions_count: 10,
-            subject: t('recommended_quizzes.sample_quiz_1.subject'),
-            completion_rate: 85,
-            recommended_reason: t('recommended_quizzes.sample_quiz_1.reason')
-          },
-          {
-            id: 2,
-            title: t('recommended_quizzes.sample_quiz_2.title'),
-            description: t('recommended_quizzes.sample_quiz_2.description'),
-            difficulty: 'easy',
-            estimated_time: 12,
-            questions_count: 8,
-            subject: t('recommended_quizzes.sample_quiz_2.subject'),
-            completion_rate: 92,
-            recommended_reason: t('recommended_quizzes.sample_quiz_2.reason')
-          }
-        ]);
-        setLoading(false);
+    setQuizzes([]);
+    setLoading(false);
   };
 
   const getDifficultyColor = (difficulty: string) => {
@@ -116,7 +93,7 @@ export default function RecommendedQuizzesWidget() {
 
   return (
     <Card className="w-full bg-white dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800 shadow-sm">
-      <CardHeader className="pb-4">
+      <CardHeader className="py-4">
         <CardTitle className="text-lg font-bold text-gray-900 dark:text-emerald-50 flex items-center gap-2">
           <motion.div
             animate={{ scale: [1, 1.1, 1] }}

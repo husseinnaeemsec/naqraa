@@ -477,6 +477,7 @@
     "organization": "رێکخراو",
     "subscription": "بەشداریتی",
     "quizzes": "تاقیکردنەوەکان",
+    "exams":"الامتحانات",
     "chat": "گفتوگۆ",
     "community": "کۆمەڵگا",
     "files": "فایلەکان",
@@ -935,7 +936,8 @@
     "not_started": "دەست پێ نەکراوە",
     "lessons_progress": "{{progress}}% تەواو",
     "ready_to_start": "ئامادەی دەستپێکردن",
-    "continue_learning": "بەردەوام بە فێربوون"
+    "continue_learning": "بەردەوام بە فێربوون",
+    "start_learning":"ابدأ التعلم"
   },
   "student_course_page": {
     "my_courses": "کۆرسەکانم",

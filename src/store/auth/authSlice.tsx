@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { AuthUser, Enrollment, InitialAuthState, Notification, StudyTimeWeek, User } from '../../types';
+import type { AuthUser, Enrollment, InitialAuthState, Notification, StudySession, StudyTimeWeek, WeekDay } from '../../../types';
 
 // Get initial state from localStorage if available
 const initialState: InitialAuthState = {
@@ -7,7 +7,7 @@ const initialState: InitialAuthState = {
   isAuthenticated: false,
   // Setting this value to true allows Protected Routes to wait until the AuthProvider loades the user
   // And then set this back to false 
-  loadingUser: true,
+  loadingUser: false,
   authError: [],
   enrollments: [],
   ready_for_notifications: false,
@@ -28,6 +28,11 @@ const authSlice = createSlice({
     },
     setNotifications: (state, action: PayloadAction<Notification[]>) => {
       state.notifications = action.payload;
+    },
+    updateDayStudyTime:(state,action:PayloadAction<StudySession>)=>{
+      if(!state.week_study_time) return ;
+      const newState = {...state.week_study_time};
+      newState[action.payload.day_info.name as WeekDay ] = action.payload; 
     },
     setAuthenticationState: (state, action: PayloadAction<boolean>) => {
       state.isAuthenticated = action.payload;
@@ -74,5 +79,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setAuthenticationState, setWeekStudyTime, setNotifications, setNotificationsState, setUserEnrollments, appendEnrollment, setUser, updateUser, logoutUser, setLoadingState } = authSlice.actions;
+export const { setAuthenticationState,updateDayStudyTime, setWeekStudyTime, setNotifications, setNotificationsState, setUserEnrollments, appendEnrollment, setUser, updateUser, logoutUser, setLoadingState } = authSlice.actions;
 export default authSlice.reducer;

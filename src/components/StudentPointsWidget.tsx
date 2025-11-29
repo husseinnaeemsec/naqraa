@@ -1,74 +1,21 @@
-import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
-import { Star, Trophy, TrendingUp, Gift } from 'lucide-react';
+import { Star, TrendingUp, Gift } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useAppSelector } from '../store/store';
 
-interface StudentPoints {
-  total_points: number;
-  earned_this_week: number;
-  earned_this_month: number;
-  rank?: number;
-  contribution_breakdown: {
-    exam_contributions: number;
-    article_contributions: number;
-    resource_contributions: number;
-  };
-}
+
 
 export default function StudentPointsWidget() {
   const { t } = useTranslation();
-  const [points, _setPoints] = useState<StudentPoints | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, _setError] = useState<string | null>(null);
+  const {user} = useAppSelector(state=>state.auth)
 
-  useEffect(() => {
-    fetchStudentPoints();
-  }, []);
 
-  const fetchStudentPoints = async () => {
-    setLoading(false)
-  };
 
-  if (loading) {
-    return (
-      <Card className="w-full bg-white dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800 shadow-sm">
-        <CardContent className="p-6">
-          <div className="animate-pulse space-y-4">
-            <div className="h-4 bg-emerald-200 dark:bg-emerald-800 rounded w-1/2"></div>
-            <div className="h-8 bg-emerald-200 dark:bg-emerald-800 rounded w-1/3"></div>
-            <div className="space-y-2">
-              <div className="h-3 bg-emerald-200 dark:bg-emerald-800 rounded"></div>
-              <div className="h-3 bg-emerald-200 dark:bg-emerald-800 rounded w-2/3"></div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    );
-  }
-
-  if (error && !points) {
-    return (
-      <Card className="w-full bg-white dark:bg-emerald-950 border border-red-200 dark:border-red-800 shadow-sm">
-        <CardContent className="p-6 text-center">
-          <div className="text-red-500 dark:text-red-400 space-y-2">
-            <Trophy className="size-8 mx-auto opacity-50" />
-            <p className="text-sm">{error}</p>
-            <button
-              onClick={fetchStudentPoints}
-              className="text-xs text-emerald-600 hover:text-emerald-700 underline"
-            >
-              {t('student_points.retry')}
-            </button>
-          </div>
-        </CardContent>
-      </Card>
-    );
-  }
 
   return (
     <Card className="w-full bg-white dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800 shadow-sm">
-      <CardHeader className="pb-4">
+      <CardHeader className="pt-4">
         <CardTitle className="text-lg font-bold text-gray-900 dark:text-emerald-50 flex items-center gap-2">
           <motion.div
             animate={{ rotate: [0, 10, -10, 0] }}
@@ -80,7 +27,7 @@ export default function StudentPointsWidget() {
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 pb-4">
         {/* Total Points */}
         <div className="text-center space-y-2">
           <motion.div
@@ -89,7 +36,7 @@ export default function StudentPointsWidget() {
             animate={{ scale: 1 }}
             transition={{ duration: 0.5 }}
           >
-            {points?.total_points?.toLocaleString() || '0'}
+            {user?.reputation?.total?.toLocaleString() || '0'}
           </motion.div>
           <p className="text-sm text-emerald-700 dark:text-emerald-300">{t('student_points.total_points')}</p>
         </div>
@@ -102,7 +49,7 @@ export default function StudentPointsWidget() {
               {t('student_points.this_week')}
             </div>
             <div className="font-semibold text-emerald-800 dark:text-emerald-200">
-              +{points?.earned_this_week || 0}
+              +{user?.reputation.this_week || 0}
             </div>
           </div>
           
@@ -112,27 +59,27 @@ export default function StudentPointsWidget() {
               {t('student_points.this_month')}
             </div>
             <div className="font-semibold text-emerald-800 dark:text-emerald-200">
-              +{points?.earned_this_month || 0}
+              +{user?.reputation.this_month || 0}
             </div>
           </div>
         </div>
 
         {/* Contribution Breakdown */}
-        {points?.contribution_breakdown && (
+        {user?.reputation && (
           <div className="space-y-2">
             <p className="text-xs font-medium text-emerald-700 dark:text-emerald-300">{t('student_points.sources')}:</p>
             <div className="space-y-1 text-xs">
               <div className="flex justify-between text-emerald-600 dark:text-emerald-400">
-                <span>{t('student_points.exam_contributions')}</span>
-                <span>{points.contribution_breakdown.exam_contributions}</span>
+                <span>{t('student_points.contribution')}</span>
+                <span>{user.reputation.contribution}</span>
               </div>
               <div className="flex justify-between text-emerald-600 dark:text-emerald-400">
-                <span>{t('student_points.article_contributions')}</span>
-                <span>{points.contribution_breakdown.article_contributions}</span>
+                <span>{t('student_points.interaction')}</span>
+                <span>{user.reputation.interaction}</span>
               </div>
               <div className="flex justify-between text-emerald-600 dark:text-emerald-400">
-                <span>{t('student_points.resource_contributions')}</span>
-                <span>{points.contribution_breakdown.resource_contributions}</span>
+                <span>{t('student_points.achievement')}</span>
+                <span>{user.reputation.achievement}</span>
               </div>
             </div>
           </div>

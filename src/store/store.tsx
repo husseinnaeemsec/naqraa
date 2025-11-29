@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './authSlice';
+import authReducer from './auth/authSlice';
 import uiReducer from './uiSlice';
 import enrollmentReducer from './enrollmentSlice';
 import chatReducer from './chatSlice';
