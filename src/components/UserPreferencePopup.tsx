@@ -243,7 +243,7 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
                 {studyTypes.map((type) => (
                     <motion.button
                         key={type.value}
-                        onClick={() => setPreferences(prev => ({ ...prev, preferred_study_type: type.value }))}
+                        onClick={() => setPreferences(prev => ({ ...prev, preferred_study_type: type.value as any }))}
                         className={`p-4 rounded-lg border-2 transition-all text-right ${
                             preferences.preferred_study_type === type.value
                                 ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30'
@@ -293,7 +293,7 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
                 {studyTimes.map((time) => (
                     <motion.button
                         key={time.value}
-                        onClick={() => setPreferences(prev => ({ ...prev, preferred_study_time: time.value }))}
+                        onClick={() => setPreferences(prev => ({ ...prev, preferred_study_time: time.value as any }))}
                         className={`w-full p-4 rounded-lg border-2 transition-all text-right ${
                             preferences.preferred_study_time === time.value
                                 ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30'
@@ -400,7 +400,7 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
                         {studyGoals.map((goal) => (
                             <motion.button
                                 key={goal.value}
-                                onClick={() => setPreferences(prev => ({ ...prev, study_goal: goal.value }))}
+                                onClick={() => setPreferences(prev => ({ ...prev, study_goal: goal.value as any }))}
                                 className={`p-4 rounded-lg border-2 transition-all text-right ${
                                     preferences.study_goal === goal.value
                                         ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30'
@@ -442,7 +442,7 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
                         {difficultyLevels.map((level) => (
                             <motion.button
                                 key={level.value}
-                                onClick={() => setPreferences(prev => ({ ...prev, preferred_difficulty: level.value }))}
+                                onClick={() => setPreferences(prev => ({ ...prev, preferred_difficulty: level.value as any }))}
                                 className={`p-3 rounded-lg border-2 transition-all text-right ${
                                     preferences.preferred_difficulty === level.value
                                         ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30'

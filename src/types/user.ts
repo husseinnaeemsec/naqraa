@@ -2,6 +2,7 @@ import type { Governorate } from "./core";
 import type { Enrollment } from "./enrollments";
 import type { Student } from "./student";
 import type { Subscription } from "./subscription";
+import type { Notification } from "../../types";
 
 export interface UserPreference {
     language:'ar'|'en'|'ku';
@@ -11,6 +12,13 @@ export interface UserPreference {
 export interface UserProfile {
     bio:string|null;
     avatar:string|null;
+    email_notifications?:boolean;
+    push_notifications?:boolean;
+    study_reminders?:boolean;
+    newsletter_notifications?:boolean;
+    reminder_frequency?:string;
+    lang?:'ar'|'en'|'ku';
+    organization?:any;
 }
 
 export interface UpdateUserResponse{
@@ -36,7 +44,9 @@ export interface AuthUser {
     enrolled_courses?:{
         course:number;
         enrollment:number;
-    }[]
+    }[];
+    organization?:any;
+    organization_request_sent?:boolean;
 }
 
 export interface InitialAuthStateProps {
@@ -44,7 +54,7 @@ export interface InitialAuthStateProps {
     isAuthenticated:boolean;
     loadingUser:boolean;
     enrollments:Enrollment[];
-    notifications:[];
+    notifications:Notification[];
 
 }
 

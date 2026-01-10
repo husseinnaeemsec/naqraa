@@ -222,7 +222,7 @@ export default function OrganizationsPage() {
           navigate(loginUrl);
         }
       });
-    } else if (user?.profile?.organization_request_sent) {
+    } else if (user?.organization_request_sent) {
       // Show info that request is already sent
       WarningAlert({
         title: 'طلب انضمام معلق',
@@ -259,13 +259,10 @@ export default function OrganizationsPage() {
           confirmText: 'موافق'
         });
         // Update user profile to mark request as sent
-        if (user && user.profile) {
+        if (user) {
           dispatch(setUser({
             ...user,
-            profile: {
-              ...user.profile,
-              organization_request_sent: true
-            }
+            organization_request_sent: true
           }));
         }
       } else {
@@ -510,10 +507,10 @@ export default function OrganizationsPage() {
               </div>
               <div className="flex items-center gap-4">
                 <button 
-                  disabled={user?.organization === org.id || joiningOrgId === org.id || user?.profile?.organization_request_sent}
+                  disabled={user?.organization === org.id || joiningOrgId === org.id || user?.organization_request_sent}
                   onClick={() => handleJoinClick(org)}
                   title="يمكنك ارسال طلب انضمام اذا كانت هذه هي المؤسسة التي انت مسجل فيها" 
-                  className={`w-full py-3 disabled:bg-slate-500 disabled:cursor-not-allowed ${ user?.organization !== org.id && joiningOrgId !== org.id && !user?.profile?.organization_request_sent && 'bg-gradient-to-r from-emerald-600 to-teal-600' } text-white rounded-xl font-semibold hover:from-emerald-700 hover:to-teal-700 transition-all duration-200 transform hover:scale-105 shadow-md flex items-center justify-center gap-2`}
+                  className={`w-full py-3 disabled:bg-slate-500 disabled:cursor-not-allowed ${ user?.organization !== org.id && joiningOrgId !== org.id && !user?.organization_request_sent && 'bg-gradient-to-r from-emerald-600 to-teal-600' } text-white rounded-xl font-semibold hover:from-emerald-700 hover:to-teal-700 transition-all duration-200 transform hover:scale-105 shadow-md flex items-center justify-center gap-2`}
                 >
                   {joiningOrgId === org.id ? (
                     <>
@@ -522,7 +519,7 @@ export default function OrganizationsPage() {
                     </>
                   ) : user?.organization === org.id ? (
                     'مؤسستك التعليمية'
-                  ) : user?.profile?.organization_request_sent ? (
+                  ) : user?.organization_request_sent ? (
                     'تم إرسال الطلب'
                   ) : (
                     'الانضمام'

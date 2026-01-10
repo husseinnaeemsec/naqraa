@@ -73,8 +73,7 @@ export default function PlansPage() {
       switch (user.role) {
         case 'student':
           return 'student';
-        case 'organization':
-          return 'organization';
+        case 'teacher':
         case 'user':
         default:
           return 'user';

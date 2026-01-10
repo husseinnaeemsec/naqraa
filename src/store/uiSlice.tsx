@@ -131,7 +131,7 @@ const uiSlice = createSlice({
     // Automatically track all async thunks
     builder
       .addMatcher(
-        (action) => action.type.endsWith('/pending'),
+        (action): action is any => action.type.endsWith('/pending'),
         (state, action) => {
           const operationId = action.meta?.requestId || `${action.type}-${Date.now()}`;
           const operationName = action.type.replace('/pending', '');
@@ -145,7 +145,7 @@ const uiSlice = createSlice({
         }
       )
       .addMatcher(
-        (action) => action.type.endsWith('/fulfilled'),
+        (action): action is any => action.type.endsWith('/fulfilled'),
         (state, action) => {
           const operationId = action.meta?.requestId;
           if (operationId) {
@@ -157,7 +157,7 @@ const uiSlice = createSlice({
         }
       )
       .addMatcher(
-        (action) => action.type.endsWith('/rejected'),
+        (action): action is any => action.type.endsWith('/rejected'),
         (state, action) => {
           const operationId = action.meta?.requestId;
           if (operationId) {

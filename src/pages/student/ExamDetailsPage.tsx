@@ -5,7 +5,6 @@ import {
     Calendar, 
     Clock, 
     BookOpen, 
-    MapPin, 
     FileText, 
     AlertCircle,
     CheckCircle,
@@ -23,7 +22,7 @@ import { formatTime, timeBefore } from "../../utils/functions";
 import Card from "../../components/ui/CustomCard";
 import Button from "../../components/ui/CustomButton";
 import useApiErrorHandler from "../../hooks/use-api-error-handler";
-import <Spinner></Spinner> from "../../components/Spinner";
+import Spinner from "../../components/Spinner";
 
 export default function ExamDetailsPage() {
     const { t } = useTranslation();

@@ -194,7 +194,7 @@ export const config: AppConfig = {
   },
 
   // Don't check authentication for thesev paths
-  excludeAuthCheck:import.meta.env.VITE_EXCLUDE_AUTH_CHECK ? import.meta.env.VITE_EXCLUDE_AUTH_CHECK.split(",") : ['/login','/register']
+  excludeAuthCheck: import.meta.env.VITE_EXCLUDE_AUTH_CHECK || ['/login', '/register']
 }
 
 // Export individual config sections for convenience

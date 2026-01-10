@@ -80,10 +80,18 @@ const enrollmentSlice = createSlice({
             }
         },
         
+        setCompletedLectures: (state, action: PayloadAction<number[]>) => {
+            state.completed_lectures = action.payload;
+        },
+        
         addCompletedSection: (state, action: PayloadAction<number>) => {
             if (!state.completed_sections.includes(action.payload)) {
                 state.completed_sections.push(action.payload);
             }
+        },
+        
+        setCompletedSections: (state, action: PayloadAction<number[]>) => {
+            state.completed_sections = action.payload;
         },
         
         addCompletedQuiz: (state, action: PayloadAction<number>) => {
@@ -127,7 +135,9 @@ export const {
     setCurrentLecture,
     setDiscussions,
     addCompletedLecture,
+    setCompletedLectures,
     addCompletedSection,
+    setCompletedSections,
     addCompletedQuiz,
     updateProgress,
     setCompleted,
