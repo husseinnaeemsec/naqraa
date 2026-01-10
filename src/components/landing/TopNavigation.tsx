@@ -1,16 +1,39 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../store/store";
-import { ComputerIcon, Menu, X, Search } from "lucide-react";
+import { Menu, X, Search, TriangleAlert, Bell, User, Settings, LogOut, LayoutDashboard } from "lucide-react";
 import LanguageSwitcher from "../LanguageSwitcher";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { getMedia } from "../../utils/functions";
 
 export default function TopNavigation() {
   const { t } = useTranslation();
-  const { isAuthenticated } = useAppSelector(state => state.auth);
+  const { isAuthenticated, user } = useAppSelector(state => state.auth);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchVisible, setSearchVisible] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+
+  const profileMenuRef = useRef<HTMLDivElement>(null);
+  const notificationsMenuRef = useRef<HTMLDivElement>(null);
+
+  // Handle click outside to close menus
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target as Node)) {
+        setProfileMenuOpen(false);
+      }
+      if (notificationsMenuRef.current && !notificationsMenuRef.current.contains(event.target as Node)) {
+        setNotificationsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const navigationLinks = [
     { to: "/", label: t('navigation.home') },
@@ -24,6 +47,16 @@ export default function TopNavigation() {
 
   return (
     <>
+        <div>
+          {/* Note: tell users that this website is a work in progress */}
+          <p className="text-sm   flex items-center gap-2 p-3 bg-amber-50  border-b justify-center border-amber-500 text-amber-800 italic">
+            <TriangleAlert className="inline-block mr-1" />
+            {t('dashboard_index.work_in_progress',{
+              contact:<Link to={'mailto:husseinnaeemsec@gmail.com'}> تواصل مع حسين نعيم </Link>
+            })}
+            
+          </p>
+        </div>
       <nav className="flex items-center justify-between h-16 lg:h-20 px-4 md:px-6 lg:px-12 bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-emerald-100 ">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 flex-shrink-0">
@@ -76,18 +109,132 @@ export default function TopNavigation() {
               </div>
             </>
           ) : (
-            <Link
-              to="/dashboard/"
-              className="p-2 px-3 lg:px-4 flex items-center gap-2 rounded text-sm border border-slate-400 hover:border-emerald-500 hover:text-emerald-600 transition whitespace-nowrap"
-            >
-              <ComputerIcon className="size-4" />
-              لوحة التحكم
-            </Link>
+            <>
+              {/* Notifications */}
+              <div className="relative" ref={notificationsMenuRef}>
+                <button
+                  onClick={() => {
+                    setNotificationsOpen(!notificationsOpen);
+                    setProfileMenuOpen(false);
+                  }}
+                  className="p-2 rounded-xl hover:bg-emerald-50 transition-colors relative"
+                  aria-label="الإشعارات"
+                >
+                  <Bell className="size-5 text-slate-600" />
+                  {/* Notification badge */}
+                  <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                </button>
+
+                {/* Notifications Dropdown */}
+                <AnimatePresence>
+                  {notificationsOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="absolute left-0 mt-2 w-80 bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden z-50"
+                    >
+                      <div className="p-4 border-b border-slate-200">
+                        <h3 className="font-bold text-slate-900">{t('navigation.notifications')}</h3>
+                      </div>
+                      <div className="max-h-96 overflow-y-auto">
+                        {/* Sample notifications */}
+                        <Link
+                          to="/dashboard/notifications"
+                          className="block p-4 hover:bg-emerald-50 transition-colors border-b border-slate-100"
+                          onClick={() => setNotificationsOpen(false)}
+                        >
+                          <p className="text-sm font-medium text-slate-900">إشعار جديد</p>
+                          <p className="text-xs text-slate-500 mt-1">لديك مهمة جديدة يجب إكمالها</p>
+                        </Link>
+                        <Link
+                          to="/dashboard/notifications"
+                          className="block p-4 text-center text-sm text-emerald-600 hover:bg-emerald-50 transition-colors font-medium"
+                          onClick={() => setNotificationsOpen(false)}
+                        >
+                          عرض كل الإشعارات
+                        </Link>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Profile Menu */}
+              <div className="relative" ref={profileMenuRef}>
+                <button
+                  onClick={() => {
+                    setProfileMenuOpen(!profileMenuOpen);
+                    setNotificationsOpen(false);
+                  }}
+                  className="flex items-center gap-2 p-1 rounded-xl hover:bg-emerald-50 transition-colors"
+                  aria-label="الملف الشخصي"
+                >
+                  {user?.profile?.avatar ? (
+                    <img
+                      src={getMedia(user.profile.avatar)}
+                      alt={`${user.first_name} ${user.last_name || ''}`}
+                      className="w-8 h-8 rounded-full object-cover border-2 border-emerald-200"
+                    />
+                  ) : (
+                    <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center">
+                      <User className="size-5 text-emerald-600" />
+                    </div>
+                  )}
+                  <span className="hidden lg:block text-sm font-medium text-slate-700 max-w-[120px] truncate">
+                    {user?.first_name} {user?.last_name}
+                  </span>
+                </button>
+
+                {/* Profile Dropdown */}
+                <AnimatePresence>
+                  {profileMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden z-50"
+                    >
+                      <div className="p-4 border-b border-slate-200">
+                        <p className="font-bold text-slate-900 truncate">{user?.first_name} {user?.last_name}</p>
+                        <p className="text-xs text-slate-500 truncate">{user?.email}</p>
+                      </div>
+                      <div className="py-2">
+                        <Link
+                          to="/dashboard"
+                          className="flex items-center gap-3 px-4 py-2 hover:bg-emerald-50 text-slate-700 hover:text-emerald-600 transition-colors"
+                          onClick={() => setProfileMenuOpen(false)}
+                        >
+                          <LayoutDashboard className="size-4" />
+                          <span className="text-sm font-medium">لوحة التحكم</span>
+                        </Link>
+                        <Link
+                          to="/dashboard/settings"
+                          className="flex items-center gap-3 px-4 py-2 hover:bg-emerald-50 text-slate-700 hover:text-emerald-600 transition-colors"
+                          onClick={() => setProfileMenuOpen(false)}
+                        >
+                          <Settings className="size-4" />
+                          <span className="text-sm font-medium">الإعدادات</span>
+                        </Link>
+                        <Link
+                          to="/logout"
+                          className="flex items-center gap-3 px-4 py-2 hover:bg-red-50 text-slate-700 hover:text-red-600 transition-colors border-t border-slate-100"
+                          onClick={() => setProfileMenuOpen(false)}
+                        >
+                          <LogOut className="size-4" />
+                          <span className="text-sm font-medium">تسجيل الخروج</span>
+                        </Link>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </>
           )}
         </div>
 
         {/* Mobile Right Section */}
-        <div className="flex md:hidden items-center gap-3">
+        <div className="flex md:hidden items-center gap-2">
           {/* Mobile Search Toggle */}
           <button
             onClick={() => setSearchVisible(!searchVisible)}
@@ -108,13 +255,36 @@ export default function TopNavigation() {
           )}
 
           {isAuthenticated && (
-            <Link
-              to="/dashboard/"
-              className="p-1.5 rounded border border-slate-400 hover:border-emerald-500 transition"
-              aria-label="لوحة التحكم"
-            >
-              <ComputerIcon className="size-4" />
-            </Link>
+            <>
+              {/* Mobile Notifications */}
+              <button
+                onClick={() => setNotificationsOpen(!notificationsOpen)}
+                className="p-2 rounded-xl hover:bg-emerald-50 transition-colors relative"
+                aria-label="الإشعارات"
+              >
+                <Bell className="size-5 text-slate-600" />
+                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+              </button>
+
+              {/* Mobile Profile */}
+              <button
+                onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+                className="p-1 rounded-xl hover:bg-emerald-50 transition-colors"
+                aria-label="الملف الشخصي"
+              >
+                {user?.profile?.avatar ? (
+                  <img
+                    src={getMedia(user.profile.avatar)}
+                    alt={`${user.first_name} ${user.last_name || ''}`}
+                    className="w-7 h-7 rounded-full object-cover border-2 border-emerald-200"
+                  />
+                ) : (
+                  <div className="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center">
+                    <User className="size-4 text-emerald-600" />
+                  </div>
+                )}
+              </button>
+            </>
           )}
 
           {/* Mobile Menu Toggle */}
@@ -202,14 +372,30 @@ export default function TopNavigation() {
               )}
 
               {isAuthenticated && (
-                <div className="border-t border-slate-200 pt-4">
+                <div className="border-t border-slate-200 pt-4 space-y-2">
                   <Link
-                    to="/dashboard/"
+                    to="/dashboard"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-center gap-2 w-full p-3 rounded-lg border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition font-medium"
+                    className="flex items-center gap-2 w-full p-3 rounded-lg border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition font-medium"
                   >
-                    <ComputerIcon className="size-4" />
+                    <LayoutDashboard className="size-4" />
                     لوحة التحكم
+                  </Link>
+                  <Link
+                    to="/dashboard/settings"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-2 w-full p-3 rounded-lg border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition font-medium"
+                  >
+                    <Settings className="size-4" />
+                    الإعدادات
+                  </Link>
+                  <Link
+                    to="/logout"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-2 w-full p-3 rounded-lg border border-red-300 text-red-600 hover:bg-red-50 transition font-medium"
+                  >
+                    <LogOut className="size-4" />
+                    تسجيل الخروج
                   </Link>
                 </div>
               )}

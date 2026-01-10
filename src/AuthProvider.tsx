@@ -2,18 +2,17 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "./store/store";
 import { endpoints } from "./api/routes";
-import type { UserStatusResponse } from "../types";
 import {
   logoutUser,
   setAuthenticationState,
   setLoadingState,
   setUser,
-  setWeekStudyTime,
 } from "./store/auth/authSlice";
 import PageLoader from "./components/PageLoader";
 import api from "./api/client";
 import { useLocation } from "react-router-dom";
 import config from "./config/env";
+import type { AuthUser } from "./types/user";
 
 interface Props {
   children: React.ReactNode;
@@ -44,14 +43,17 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 
 
   useEffect(() => {
-    if(config.excludeAuthCheck.includes(location.pathname)) return;
+    if(config.excludeAuthCheck.includes(location.pathname)) {
+      dispatch(setLoadingState(false));
+      return;
+    }
     if (hasCheckedAuth.current) return;
     hasCheckedAuth.current = true;
 
     dispatch(setLoadingState(true));
 
     api
-      .get(endpoints.user.status,{ params:{ source:location.pathname } })
+      .get(endpoints.student.authentication.status,{ params:{ source:location.pathname } })
       .then(async (res) => {
         const isAuthenticated = res.data.ok;
 
@@ -61,17 +63,17 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         }
 
 
-        const profileRes = await api.get<UserStatusResponse>(
-          endpoints.user.profile,
+        const profileRes = await api.get<AuthUser>(
+          endpoints.student.me,
           { withCredentials: true }
         );
 
         // Handle authenticated user's language preference
         const user = profileRes.data;
-        if (user.profile?.lang && ['ar', 'en', 'ku'].includes(user.profile.lang)) {
+        if (user.preferences?.language && ['ar', 'en', 'ku'].includes(user.preferences.language)) {
           // Set language from user profile
-          await i18n.changeLanguage(user.profile.lang);
-          setLanguageAttributes(user.profile.lang);
+          await i18n.changeLanguage(user.preferences.language);
+          setLanguageAttributes(user.preferences.language);
 
           // Clear localStorage language for authenticated users since it's managed server-side
           try {
@@ -82,7 +84,6 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         }
 
         dispatch(setUser(user));
-        dispatch(setWeekStudyTime(user.week_study_time));
         dispatch(setAuthenticationState(true));
       })
       .catch((err) => {

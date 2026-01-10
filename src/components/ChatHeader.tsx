@@ -1,21 +1,12 @@
-import { useTranslation } from "react-i18next";
-import { ArrowLeft } from "lucide-react";
 import { useAppSelector } from "../store/store";
 import type { ChatProps } from "../../types";
 import { useEffect, useState } from "react";
 
-interface ChatHeaderProps {
-  name: string;
-  avatar: string|null|undefined;
-  online: boolean;
-  onBack?: () => void; // optional for mobile back button
-}
+
 
 export default function ChatHeader({  chat }: { chat:ChatProps}) {
-  const { i18n } = useTranslation();
   const {active_users} = useAppSelector(state=>state.chat);
   const [online,setOnline] = useState(false);
-  const isRTL = i18n.dir() === "rtl";
 
   useEffect(()=>{
     setOnline(active_users.includes(chat.user_id))

@@ -24,8 +24,8 @@ const ExamsPage = () => {
     useEffect(() => {
         const fetchExams = async () => {
             try {
-                const res = await api.get(endpoints.organization.exams);
-                setExams(res.data.results);
+                const res = await api.get(endpoints.student.exams);
+                setExams(res.data.results || res.data);
             } catch (error) {
                 console.error("Error fetching exams:", error);
             } finally {
@@ -288,7 +288,7 @@ const ExamsPage = () => {
                                                             variant="ghost"
                                                             size="sm"
                                                             icon={<Eye className="size-4" />}
-                                                            onClick={() => navigate(`/dashboard/exams/${exam.id}`)}
+                                                            onClick={() => navigate(`/student/exams/${exam.id}`)}
                                                         >
                                                             {t('exams_page.view_button')}
                                                         </Button>

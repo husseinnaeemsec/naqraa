@@ -8,6 +8,7 @@ import { useAppDispatch } from '../store/store';
 import { updateUser } from '../store/auth/authSlice';
 import { Button } from './ui/button';
 import { SuccessAlert } from './alerts';
+import type { StudentPreferences } from '../types/student';
 
 interface Subject {
     id: number;
@@ -15,8 +16,8 @@ interface Subject {
     description?: string;
 }
 
-interface UserPreferenceData {
-    subjects_to_improve_ids: number[];
+interface StudentPreferenceData {
+    subjects_to_improve: number[];
     preferred_study_type: string;
     preferred_study_time: string;
     preferred_difficulty: string;
@@ -44,8 +45,8 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
     const [subjects, setSubjects] = useState<Subject[]>([]);
     const [submitting, setSubmitting] = useState(false);
     
-    const [preferences, setPreferences] = useState<UserPreferenceData>({
-        subjects_to_improve_ids: [],
+    const [preferences, setPreferences] = useState<StudentPreferences>({
+        subjects_to_improve: [],
         preferred_study_type: 'mixed',
         preferred_study_time: 'flexible',
         preferred_difficulty: 'intermediate',
@@ -53,12 +54,15 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
         max_reading_time: 20,
         interested_in_communities: true,
         interested_in_study_groups: true,
-        study_goal: '',
+        study_goal: null,
         weekly_study_hours_goal: 10,
         receive_course_recommendations: true,
         receive_quiz_recommendations: true,
         receive_resource_recommendations: true,
         receive_community_recommendations: true,
+        completed_onboarding:false,
+        reminder_frequency:'daily',
+        study_reminders:true
     });
 
     const studyTypes = [
@@ -116,9 +120,9 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
     const handleSubjectToggle = (subjectId: number) => {
         setPreferences(prev => ({
             ...prev,
-            subjects_to_improve_ids: prev.subjects_to_improve_ids.includes(subjectId)
-                ? prev.subjects_to_improve_ids.filter(id => id !== subjectId)
-                : [...prev.subjects_to_improve_ids, subjectId]
+            subjects_to_improve: prev.subjects_to_improve.includes(subjectId)
+                ? prev.subjects_to_improve.filter(id => id !== subjectId)
+                : [...prev.subjects_to_improve, subjectId]
         }));
     };
 
@@ -126,13 +130,13 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
         setSubmitting(true);
         try {
             // Save preferences
-            await api.post(endpoints.user.preferences, preferences);
+            await api.post(endpoints.student.preferences, preferences);
             
             // Complete onboarding
-            await api.post(endpoints.user.completeOnboarding);
+            await api.post(endpoints.student.completeOnboarding);
             
             // Update user state to reflect completed onboarding
-            const userResponse = await api.get(endpoints.user.profile);
+            const userResponse = await api.get(endpoints.student.me);
             dispatch(updateUser(userResponse.data));
             
             // Show success message with personalized recommendations promise
@@ -153,10 +157,10 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
 
     const canProceed = () => {
         switch (currentStep) {
-            case 1: return preferences.subjects_to_improve_ids.length > 0;
+            case 1: return preferences.subjects_to_improve.length > 0;
             case 2: return true; // Study type is optional with default
             case 3: return true; // Study time is optional with default
-            case 4: return preferences.study_goal.length > 0;
+            case 4: return preferences.study_goal?.length && preferences.study_goal?.length  > 0;
             default: return true;
         }
     };
@@ -184,7 +188,7 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
                         key={subject.id}
                         onClick={() => handleSubjectToggle(subject.id)}
                         className={`p-4 rounded-lg border-2 transition-all text-right ${
-                            preferences.subjects_to_improve_ids.includes(subject.id)
+                            preferences.subjects_to_improve.includes(subject.id)
                                 ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30'
                                 : 'border-gray-200 dark:border-emerald-800 hover:border-emerald-300'
                         }`}
@@ -195,7 +199,7 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
                             <span className="font-medium text-gray-900 dark:text-emerald-50">
                                 {subject.name}
                             </span>
-                            {preferences.subjects_to_improve_ids.includes(subject.id) && (
+                            {preferences.subjects_to_improve.includes(subject.id) && (
                                 <CheckCircle className="w-5 h-5 text-emerald-500" />
                             )}
                         </div>
@@ -208,10 +212,10 @@ const UserPreferencePopup: React.FC<UserPreferencePopupProps> = ({ isOpen, onClo
                 ))}
             </div>
 
-            {preferences.subjects_to_improve_ids.length > 0 && (
+            {preferences.subjects_to_improve.length > 0 && (
                 <div className="text-center">
                     <p className="text-sm text-emerald-600 dark:text-emerald-400">
-                        {t('user_preferences.step1.selected_count', { count: preferences.subjects_to_improve_ids.length })}
+                        {t('user_preferences.step1.selected_count', { count: preferences.subjects_to_improve.length })}
                     </p>
                 </div>
             )}

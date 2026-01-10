@@ -1,4 +1,17 @@
 {
+  "common": {
+    "am": "AM",
+    "pm": "PM",
+    "pending": "pending",
+    "scheduled": "scheduled",
+    "close": "Close",
+    "due": "Due",
+    "priority": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    }
+  },
   "hero_title": "Learning Made Easy with Naqraa",
   "hero_text": "Because we believe that knowledge is the path to a better tomorrow, and every student has the right to learn for free. Every week we work on developing new resources, modern lessons, and tools that facilitate your academic journey and bring you closer to your goals step by step.",
   "hero_button_text": "Browse Our Educational Courses",
@@ -20,8 +33,8 @@
   "change_profile_picture": "Change Profile Picture",
   "saving_changes": "Saving changes...",
   "account_info_saved": "Account information saved successfully.",
-  "resources":{
-    "types":{
+  "resources": {
+    "types": {
       "document": "Document",
       "video": "Video",
       "pdf": "PDF",
@@ -35,10 +48,76 @@
     "title": "Tasks & Assignments",
     "no_tasks": "No tasks available"
   },
-  
+  "dashboard_index": {
+    "greeting": "Hello, {{name}}!",
+    "overview": "Keep learning to get the most out of your time. If you need help, we’re here anytime.",
+    "studying_hours": "Study Hours This Week",
+    "homework": "Homework",
+    "recommended_resources": "Recommended Resources",
+    "recommended_courses": "Recommended Courses",
+    "recent_activities": "Recent Activities",
+    "work_in_progress": "This website is a work in progress. Some features may not be available yet.",
+    "profile_card": {
+      "name": "Name",
+      "role": "Role",
+      "email": "Email",
+      "edit_profile": "Edit Profile"
+    },
+    "tasks_card": {
+      "title": "Tasks",
+      "view_all": "View All"
+    },
+    "notifications_card": {
+      "title": "Notifications",
+      "view_all": "View All"
+    },
+    "organization_notifications_card": {
+      "title": "Organization Notifications",
+      "view_all": "View All"
+    },
+    "calendar_card": {
+      "title": "Calendar",
+      "view_full_calendar": "View Full Calendar"
+    },
+    "student": "Student",
+    "study_streak": "Study Streak",
+    "today": "Today",
+    "todays_tasks": "Today's Tasks",
+    "pending_tasks": "{{count}} pending tasks",
+    "view_all": "View All",
+    "sample_task": "Complete Chapter 5 Assignment",
+    "mathematics": "Mathematics",
+    "due_in_hours": "Due in {{hours}} hours",
+    "upcoming": "Upcoming",
+    "next_days": "Next {{count}} days",
+    "add_as_task": "Add as Task",
+    "new_task_title": "Create New Task",
+    "quick_actions": "Quick Actions",
+    "view_timetable": "View Timetable",
+    "check_attendance": "Check Attendance",
+    "notifications": "Notifications",
+    "study_hours": "Study Hours",
+    "tasks_completed": "Tasks Completed",
+    "current_streak": "Current Streak",
+    "days_count": "{{count}} days",
+    "points_earned": "Points Earned",
+    "weekly_study_hours": "Weekly Study Hours",
+    "study_time_this_week": "Your study time this week",
+    "recent_activity": "Recent Activity",
+    "last_watched_course": "Last Watched Course",
+    "no_courses_yet": "No courses watched yet",
+    "explore_courses": "Explore Courses",
+    "continue": "Continue",
+    "progress": "Progress",
+    "lectures_completed": "lectures completed",
+    "welcome_user": "Welcome back, {{name}}!",
+    "tomorrow": "Tomorrow",
+    "failed_to_fetch_events": "Failed to fetch upcoming events"
+  },
   "sidebar": {
     "dashboard": "Dashboard",
     "courses": "Courses",
+    "my_courses": "My Courses",
     "timetable": "Timetable",
     "attendance": "Attendance",
     "homework": "Homework",
@@ -46,7 +125,6 @@
     "organization": "Organization",
     "subscription": "Subscription",
     "quizzes": "Quizzes",
-    "exams":"Exams",
     "chat": "Chat",
     "community": "Community",
     "files": "Files",
@@ -123,38 +201,35 @@
     "change_email": {
       "title": "Change Email",
       "new_email": "New Email",
-      "errors":{
+      "errors": {
         "new_email_required": "New email is required",
         "invalid_email": "Invalid email format",
         "update_failed": "Failed to update email"
       },
-      "success":{
+      "success": {
         "confirmation_email_sent": "A confirmation email has been sent to your new email address.",
         "email_updated": "Email updated successfully."
       }
     },
     "your_orgnization": "Your Organization",
-    "organization":{
-      "title":"Your Organization",
-      "search_for_org":"Search for your organization",
-      "no_org_found":"No organization found",
-      "join_org":"Join Organization",
-      "join_request_sent":"Join request sent please wait for approval",
-      "plural":"Organizations",
-      "send_join_request":"Send Join Request",
-      "you_belong_to_org":"You belong to ",
-      "sending":"Sending...",
-      "not_part_of_org":"You are not currently part of any organization",
-      "browse_organizations":"Browse Organizations",
-      "errors":{
-        "no_org_selected":"No organization selected",
-        "request_failed":"Failed to send join request"
-
+    "organization": {
+      "title": "Your Organization",
+      "search_for_org": "Search for your organization",
+      "no_org_found": "No organization found",
+      "join_org": "Join Organization",
+      "join_request_sent": "Join request sent please wait for approval",
+      "plural": "Organizations",
+      "send_join_request": "Send Join Request",
+      "you_belong_to_org": "You belong to ",
+      "sending": "Sending...",
+      "not_part_of_org": "You are not currently part of any organization",
+      "browse_organizations": "Browse Organizations",
+      "errors": {
+        "no_org_selected": "No organization selected",
+        "request_failed": "Failed to send join request"
       }
-
     }
   },
-
   "navbar": {
     "search_placeholder": "Search for courses and resources",
     "support": "Support",
@@ -163,46 +238,13 @@
     "resources": "Resources",
     "courses": "Courses"
   },
-  "dashboard_index": {
-    "greeting": "Hello, {{name}}!",
-    "overview": "Keep learning to get the most out of your time. If you need help, we’re here anytime.",
-    "studying_hours": "Study Hours This Week",
-    "upcoming_exams": "Upcoming Exams",
-    "homework": "Homework",
-    "recommended_resources": "Recommended Resources",
-    "recommended_courses": "Recommended Courses",
-    "recent_activities": "Recent Activities",
-    "work_in_progress": "This website is a work in progress. Some features may not be available yet.",
-    "profile_card": {
-      "name": "Name",
-      "role": "Role",
-      "email": "Email",
-      "edit_profile": "Edit Profile"
-    },
-    "tasks_card": {
-      "title": "Tasks",
-      "view_all": "View All"
-    },
-    "notifications_card": {
-      "title": "Notifications",
-      "view_all": "View All"
-    },
-    "organization_notifications_card": {
-      "title": "Organization Notifications",
-      "view_all": "View All"
-    },
-    "calendar_card": {
-      "title": "Calendar",
-      "view_full_calendar": "View Full Calendar"
-    }
-  },
   "dahsboard_courses": {
     "title": "Courses",
     "start_learning": "Start Learning",
     "continue_learning": "Continue Learning",
     "discover_more_courses": "Discover More Courses"
   },
-"naqraa_features": [
+  "naqraa_features": [
     {
       "title": "Educational communities in one place",
       "description": "Connect, share, and learn within specialized academic communities.",
@@ -446,7 +488,6 @@
     "logout": "Log Out",
     "dashboard": "Dashboard",
     "resources": "Resources",
-    "exams": "Exams",
     "community": "Community",
     "menu": "Menu",
     "no_notifications": "No notifications"
@@ -480,7 +521,6 @@
     "loading_chat": "Loading chat",
     "retry": "Retry"
   },
-
   "verification": {
     "verifying": "Verifying your account...",
     "success_message": "Your account has been activated successfully",
@@ -546,95 +586,7 @@
     "terms_of_use": "Terms of Use",
     "contact_us": "Contact Us"
   },
-  "exams_page": {
-    "title": "Exams",
-    "subtitle": "Track all your scheduled and upcoming exams",
-    "download_schedule": "Download Schedule",
-    "exam_schedule": "Exam Schedule",
-    "total_exams": "Total Exams",
-    "upcoming_exams": "Upcoming Exams",
-    "completed_exams": "Completed Exams",
-    "search_placeholder": "Search in exams...",
-    "filter_all": "All Exams",
-    "filter_upcoming": "Upcoming",
-    "filter_completed": "Completed",
-    "exam_table_title": "Exams Schedule",
-    "table_status": "Status",
-    "table_exam": "Exam",
-    "table_subject": "Subject",
-    "table_class": "Class",
-    "table_date": "Date",
-    "table_time": "Time",
-    "table_actions": "Actions",
-    "no_search_results": "No search results found",
-    "no_exams": "No exams found",
-    "view_button": "View",
-    "status_completed": "Completed",
-    "status_urgent": "Urgent",
-    "status_soon": "Soon",
-    "status_upcoming": "Upcoming",
-    "status_scheduled": "Scheduled"
-  },
   "view_exam": {
-    "loading": "Loading exam details...",
-    "invalid_exam_id": "Invalid exam ID",
-    "fetch_error": "Error loading exam details",
-    "error_title": "Error Loading Exam",
-    "back_to_exams": "Back to Exams",
-    "status_completed": "Completed",
-    "status_urgent": "Urgent",
-    "status_soon": "Soon",
-    "status_upcoming": "Upcoming",
-    "status_scheduled": "Scheduled",
-    "subject": "Subject",
-    "classroom": "Classroom",
-    "exam_date": "Exam Date",
-    "exam_time": "Exam Time",
-    "no_subject": "Not Specified",
-    "no_classroom": "Not Specified",
-    "exam_details": "Exam Details",
-    "exam_title": "Exam Title",
-    "description": "Description",
-    "exam_status": "Exam Status",
-    "actions": "Actions",
-    "instructions": "Instructions",
-    "instruction_1": "Arrive 15 minutes before the exam starts",
-    "instruction_2": "Bring your ID card and required writing materials",
-    "instruction_3": "Mobile phones and electronic devices are not allowed",
-    "instruction_4": "Follow supervisor instructions and don't leave the room without permission",
-    "exam_completed": "Exam Completed",
-    "add_to_calendar": "Add to Calendar",
-    "download_details": "Download Details",
-    "share_exam_title": "Exam",
-    "share_exam_description": "Exam details:",
-    "organization_access_title": "Important Note",
-    "organization_access_description": "Only users from the same educational organization can view this exam details",
-    "recommended_resources": "Recommended Resources",
-    "recommended_articles": "Recommended Articles",
-    "recommended_courses": "Recommended Courses",
-    "sample_resource_1": "Comprehensive Curriculum Summary",
-    "sample_resource_1_desc": "Detailed summary covering all essential curriculum points",
-    "sample_resource_2": "Final Review Guide",
-    "sample_resource_2_desc": "Complete guide for pre-exam review",
-    "sample_resource_3": "Past Exams Collection",
-    "sample_resource_3_desc": "Collection of previous exams with solutions",
-    "sample_article_1": "Exam Preparation Tips",
-    "sample_article_1_desc": "Effective strategies for studying and preparation",
-    "sample_article_2": "Time Management During Exams",
-    "sample_article_2_desc": "How to optimally distribute your time",
-    "sample_article_3": "Managing Exam Anxiety",
-    "sample_article_3_desc": "Techniques to control stress and anxiety",
-    "sample_course_1": "Subject Fundamentals",
-    "sample_course_1_desc": "Comprehensive course covering subject basics",
-    "sample_course_2": "Intensive Review",
-    "sample_course_2_desc": "Intensive review program before exam",
-    "sample_course_3": "Advanced Problem Solving",
-    "sample_course_3_desc": "Training on solving difficult questions",
-    "course_duration_1": "12 hours",
-    "course_duration_2": "8 hours",
-    "course_duration_3": "6 hours"
-  },
-  "days": {
     "sunday": "Sunday",
     "monday": "Monday",
     "tuesday": "Tuesday",
@@ -694,6 +646,79 @@
     "no_read_notifications": "No read notifications",
     "empty_message": "New notifications will appear here when they arrive"
   },
+  "exams_page": {
+    "title": "Exams",
+    "subtitle": "View and manage your upcoming exams",
+    "tab_all": "All",
+    "tab_upcoming": "Upcoming",
+    "tab_today": "Today",
+    "tab_past": "Past",
+    "filter": "Filter",
+    "total_exams": "Total Exams",
+    "upcoming": "Upcoming",
+    "today": "Today",
+    "completed": "Completed",
+    "search_placeholder": "Search by exam, subject, or classroom...",
+    "no_exams": "No exams found",
+    "no_search_results": "No exams match your search",
+    "empty_message": "New exams will appear here when scheduled",
+    "status_upcoming": "Upcoming",
+    "status_today": "Today",
+    "status_past": "Completed",
+    "status_completed": "Completed",
+    "status_urgent": "Urgent",
+    "status_soon": "Soon",
+    "status_scheduled": "Scheduled",
+    "view_details": "View Details",
+    "view_button": "View",
+    "download_schedule": "Download Schedule",
+    "exam_schedule": "Exam Schedule",
+    "upcoming_exams": "Upcoming Exams",
+    "completed_exams": "Completed Exams",
+    "filter_all": "All Exams",
+    "filter_upcoming": "Upcoming",
+    "filter_completed": "Completed",
+    "exam_table_title": "Your Exams",
+    "table_status": "Status",
+    "table_exam": "Exam",
+    "table_subject": "Subject",
+    "table_class": "Classroom",
+    "table_date": "Date",
+    "table_time": "Time",
+    "table_actions": "Actions"
+  },
+  "exam_details": {
+    "back": "Back to Exams",
+    "not_found": "Exam Not Found",
+    "not_found_message": "The exam you're looking for doesn't exist or has been removed.",
+    "back_to_exams": "Back to Exams",
+    "status_upcoming": "Upcoming",
+    "status_today": "Today",
+    "status_completed": "Completed",
+    "remind_me": "Remind Me",
+    "share": "Share",
+    "export": "Export",
+    "time_remaining": "Time Remaining Until Exam",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "date": "Date",
+    "time": "Time",
+    "subject": "Subject",
+    "classroom": "Classroom",
+    "details_title": "Exam Details",
+    "exam_title": "Exam Title",
+    "description": "Description",
+    "preparation_tips": "Preparation Tips",
+    "tip_1": "Review all course materials at least 3 days before the exam",
+    "tip_2": "Create a study plan and stick to it",
+    "tip_3": "Get enough sleep the night before the exam",
+    "quick_actions": "Quick Actions",
+    "download_materials": "Download Materials",
+    "add_to_calendar": "Add to Calendar",
+    "set_reminder": "Set Reminder",
+    "share_with_friends": "Share with Friends"
+  },
   "todo_page": {
     "title": "Tasks",
     "subtitle": "Organize and track your daily tasks",
@@ -707,7 +732,19 @@
     "filter_completed": "Completed",
     "start_adding_task": "Start by adding a task",
     "urgent_tasks": "Urgent Tasks",
-    "all_tasks": "All Tasks"
+    "all_tasks": "All Tasks",
+    "show_completed": "Show Completed",
+    "card_view": "Card View",
+    "table_view": "Table View",
+    "status": "Status",
+    "task": "Task",
+    "priority": "Priority",
+    "collection": "Collection",
+    "due_date": "Due Date",
+    "repeat": "Repeat",
+    "actions": "Actions",
+    "no_tasks_found": "No tasks found",
+    "create_first_task": "Create your first task to get started"
   },
   "todo_banner": {
     "title": "Organize your study time with the integrated task system",
@@ -735,16 +772,14 @@
     "this_week": "This Week",
     "this_month": "This Month",
     "sources": "Points Sources",
-    "exam_contributions": "Exam Contributions",
     "article_contributions": "Article Contributions",
     "resource_contributions": "Resource Contributions",
     "redeem_points": "Redeem Points"
   },
-
   "notification_widget": {
     "title": "Notifications",
     "show_more": "More",
-    "show_less": "Less", 
+    "show_less": "Less",
     "no_notifications": "No new notifications",
     "time_just_now": "Just now",
     "time_hours_ago": "{{count}} hours ago",
@@ -758,18 +793,6 @@
   "ui": {
     "loading": "Loading...",
     "cancel": "Cancel"
-  },
-  "upcoming_exams": {
-    "title": "Upcoming Exams",
-    "urgent": "Urgent",
-    "soon": "Soon", 
-    "upcoming": "Upcoming",
-    "scheduled": "Scheduled",
-    "exam_count": "{{count}} exam",
-    "exam_count_plural": "{{count}} exams",
-    "no_exams": "No upcoming exams",
-    "no_exams_subtitle": "Scheduled exams will appear here",
-    "view_all": "View All Exams"
   },
   "user_profile": {
     "role_organization": "Organization Account",
@@ -886,9 +909,10 @@
     "note": "Note",
     "page_incomplete": "This page is not complete yet"
   },
-
   "timetable_page": {
     "title": "Timetable",
+    "org_timetable": "Timetable provided by your organization",
+    "no_org_timetable": "Your organization does not provide any timetable at this time",
     "no_timetable": "No timetable available",
     "timetable_will_show": "Your class schedule will appear here when available",
     "reload": "Reload",
@@ -899,11 +923,44 @@
     "wednesday": "Wednesday",
     "thursday": "Thursday",
     "friday": "Friday",
-    "exam": "Exam",
+    "saturday_short": "Sat",
+    "sunday_short": "Sun",
+    "monday_short": "Mon",
+    "tuesday_short": "Tue",
+    "wednesday_short": "Wed",
+    "thursday_short": "Thu",
+    "friday_short": "Fri",
     "homework": "Homework",
     "project": "Project",
     "today": "Today",
-    "no_classes": "No classes"
+    "no_classes": "No classes",
+    "unnamed_timetable": "Unnamed Timetable",
+    "classroom": "Classroom",
+    "organization": "Organization",
+    "custom": "Custom",
+    "unknown": "Unknown",
+    "reminders_enabled": "Reminders Enabled",
+    "loading": "Loading Timetable...",
+    "previous_day": "Previous day",
+    "next_day": "Next day",
+    "swipe_hint": "Swipe or use arrows to navigate between days",
+    "enjoy_free_day": "Enjoy your free day!",
+    "total_classes": "Total Classes",
+    "weekly_hours": "Weekly Hours",
+    "active_days": "Active Days",
+    "week_view": "Week",
+    "day_view": "Day",
+    "previous": "Back",
+    "next": "Next",
+    "more": "more",
+    "classes_schedule": "Classes Schedule",
+    "tasks": "Tasks",
+    "exams": "Exams",
+    "time_details": "Time Details",
+    "start_time": "Start Time",
+    "end_time": "End Time",
+    "assigned_tasks": "Assigned Tasks",
+    "view_details": "View Details"
   },
   "upcoming_homework": {
     "title": "Upcoming Homework",
@@ -921,7 +978,7 @@
     "invalid_course_id": "Invalid course ID, the course ID must be a number",
     "loading_course": "Loading training course"
   },
-  "student_course_card":{
+  "student_course_card": {
     "review": "Review",
     "progress_level": "Progress Level",
     "completed": "Completed",
@@ -932,7 +989,27 @@
     "lessons_progress": "{{progress}}% complete",
     "ready_to_start": "Ready to start",
     "continue_learning": "Continue Learning",
-    "start_learning":"ابدأ التعلم"
+    "start_learning": "ابدأ التعلم"
+  },
+  "my_courses": {
+    "title": "My Courses",
+    "subtitle": "Continue your learning journey",
+    "total_courses": "Total Courses",
+    "in_progress": "In Progress",
+    "completed": "Completed",
+    "filter_all": "All",
+    "filter_in_progress": "In Progress",
+    "filter_completed": "Completed",
+    "no_courses": "No courses found",
+    "browse_courses": "Browse available courses and start learning",
+    "explore_courses": "Explore Courses",
+    "completed_badge": "Completed",
+    "progress": "Progress",
+    "lectures": "lectures",
+    "sections": "sections",
+    "continue_from": "Continue from:",
+    "review_course": "Review Course",
+    "continue_learning": "Continue Learning"
   },
   "student_course_page": {
     "my_courses": "My Courses",
@@ -1020,13 +1097,27 @@
   },
   "todo_form": {
     "add_new_task": "Add New Task",
+    "edit_task": "Edit Task",
+    "update_task": "Update Task",
     "title_placeholder": "Title",
     "description_placeholder": "Description",
     "importance": "Importance",
     "priority_low": "Low",
     "priority_medium": "Medium",
     "priority_high": "High",
-    "priority_urgent": "Urgent"
+    "priority_urgent": "Urgent",
+    "collection": "Collection",
+    "select_collection": "Select Collection",
+    "no_collection": "No Collection",
+    "repeat_type": "Repeat",
+    "repeat_none": "None",
+    "repeat_daily": "Daily",
+    "repeat_weekly": "Weekly",
+    "repeat_monthly": "Monthly",
+    "repeat_yearly": "Yearly",
+    "repeat_custom": "Custom",
+    "due_date": "Due Date",
+    "cancel": "Cancel"
   },
   "org_page": {
     "educational_institution": "Educational Institution",
@@ -1064,7 +1155,7 @@
     "time_just_now": "Just now",
     "time_hours_ago": "{{count}} hour ago",
     "time_hours_ago_plural": "{{count}} hours ago",
-    "time_days_ago": "{{count}} day ago", 
+    "time_days_ago": "{{count}} day ago",
     "time_days_ago_plural": "{{count}} days ago",
     "external_link": "External Link",
     "unknown_user": "Unknown User",
@@ -1261,10 +1352,6 @@
         "label": "Improve Academic Grades",
         "description": "Raise GPA and grades in subjects"
       },
-      "exam_preparation": {
-        "label": "Exam Preparation",
-        "description": "Prepare for final or standardized exams"
-      },
       "skill_development": {
         "label": "Develop New Skills",
         "description": "Acquire new skills and knowledge"
@@ -1340,18 +1427,17 @@
     "home": "Home",
     "about": "About Us",
     "courses": "Courses",
-    "subscriptionPlans": "Subscription Plans", 
+    "subscriptionPlans": "Subscription Plans",
     "platformFeatures": "Platform Features",
     "resources": "Resources",
     "contact": "Contact Us",
     "backToHome": "Back to Home"
   },
   "register": {
-    "governorate":"Governorate",
+    "governorate": "Governorate",
     "governorate_required": "Governorate is required",
     "select_governorate": "Select Governorate",
-    "server_error":"Server error occurred, please try again later",
-    
+    "server_error": "Server error occurred, please try again later",
     "create_account": "Create New Account",
     "create_account_subtitle": "Join Naqraa Platform and start your learning journey",
     "create_account_button": "Create Account",

@@ -126,19 +126,19 @@ export default function ContactPage() {
             title: t('contact_page.cards.technical_support.title'),
             desc: t('contact_page.cards.technical_support.description'),
             icon: <HeroWrenchScrewdriverIcon className="size-12 text-emerald-900" />,
-            email: "support@naqraa.com"
+            email: "support@naqraa.org"
           },
           {
             title: t('contact_page.cards.partnerships.title'),
             desc: t('contact_page.cards.partnerships.description'),
             icon: <HeroBuildingLibraryIcon className="size-12 text-emerald-900" />,
-            email: "partners@naqraa.com"
+            email: "partners@naqraa.org"
           },
           {
             title: t('contact_page.cards.graduation_projects.title'),
             desc: t('contact_page.cards.graduation_projects.description'),
             icon: <HeroCommandLineIcon className="size-12 text-emerald-900" />,
-            email: "fp@naqraa.com"
+            email: "fp@naqraa.org"
           }
         ].map((c, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }}

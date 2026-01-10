@@ -108,9 +108,8 @@ export default function LoginPage() {
       setLoading(false);
       return;
     }
-    api.post(endpoints.user.login, { email, password })
+    api.post(endpoints.student.authentication.login, { email, password })
       .then((res) => {
-        dispatch(setUser(res.data))
         dispatch(setUser(res.data))
         setTimeout(() => {
           dispatch(setAuthenticationState(true))

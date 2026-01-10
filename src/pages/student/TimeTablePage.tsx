@@ -1,42 +1,138 @@
-import { useAppSelector } from "../../store/store";
 import { motion } from "framer-motion";
-import { Calendar, Clock, BookOpen, AlertCircle, RefreshCw } from "lucide-react";
+import { Calendar, RefreshCw, Clock, BookOpen, CalendarDays } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import Card from "../../components/ui/CustomCard";
-
-interface EventProps {
-  label: string;
-  color: string;
-}
-
-interface EventsProps {
-  exam: EventProps;
-  homework: EventProps;
-  project: EventProps;
-}
+import { useState, useEffect } from "react";
+import type { TimeTable } from "../../types/academics";
+import api from "../../api/client";
+import { endpoints } from "../../api/routes";
+import PartialLoadError from "../../components/errors/PartialLoadError";
+import { detectErrorType, type ErrorType } from "../../utils/errorHandler";
+import TimelineView from "../../components/TimelineView";
 
 export default function TimeTablePage() {
   const { t } = useTranslation();
-  const timetable = useAppSelector(
-    (state) => state.auth.user?.class_room?.timetable
-  );
+  
+  // State management
+  const [timeTable, setTimeTable] = useState<TimeTable | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<ErrorType | null>(null);
 
-  if (!timetable) {
+  // Calculate today's day key (1=Sunday, 2=Monday, ..., 7=Saturday)
+  const todayIndex = new Date().getDay();
+  const todayKey = todayIndex + 1;
+  const [selectedDay, setSelectedDay] = useState<number>(todayKey);
+
+  // Handle day selection
+  const handleDaySelect = (day: number) => {
+    setSelectedDay(day);
+  };
+
+  // Fetch organization timetable on mount
+  const fetchTimeTable = async () => {
+    setIsLoading(true);
+    setError(null);
+    try{
+      const response = await api.get(endpoints.student.timetable.list);
+      setTimeTable(response.data);
+    } catch (err) {
+      console.error('Failed to fetch timetable:', err);
+      setError(detectErrorType(err));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTimeTable();
+  }, []);
+
+  // Calculate statistics
+  const totalClasses = timeTable?.entries.length || 0;
+  const uniqueDays = new Set(timeTable?.entries.map(e => e.day_number) || []).size;
+  
+  // Calculate total hours per week
+  const totalMinutes = timeTable?.entries.reduce((acc, entry) => {
+    const [startHour, startMin] = entry.from_time.split(':').map(Number);
+    const [endHour, endMin] = entry.to_time.split(':').map(Number);
+    const duration = (endHour * 60 + endMin) - (startHour * 60 + startMin);
+    return acc + duration;
+  }, 0) || 0;
+  const totalHours = Math.floor(totalMinutes / 60);
+  const remainingMinutes = totalMinutes % 60;
+
+  // Show error state
+  if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950 p-6">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 flex items-center justify-center">
+                <Calendar className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white">
+                {t('timetable_page.title')}
+              </h1>
+            </div>
+          </motion.div>
+          
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 md:p-8">
+            <PartialLoadError
+              errorType={error}
+              onRetry={fetchTimeTable}
+              maxRetries={3}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-6">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col items-center justify-center min-h-[60vh] space-y-6"
+          className="flex flex-col items-center justify-center min-h-[60vh] space-y-4"
         >
-          <div className="w-24 h-24 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center">
-            <Calendar className="w-12 h-12 text-emerald-500" />
+          <div className="w-16 h-16 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 flex items-center justify-center">
+            <div className="w-8 h-8 border-3 border-emerald-500 border-t-transparent rounded-full animate-spin" />
           </div>
-          <div className="text-center space-y-2">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-emerald-50">{t('timetable_page.no_timetable')}</h2>
-            <p className="text-gray-600 dark:text-emerald-200/70">{t('timetable_page.timetable_will_show')}</p>
+          <div className="text-center space-y-1">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-white">
+              {t('timetable_page.loading', 'Loading Timetable...')}
+            </h2>
           </div>
-          <button className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg transition-colors">
+        </motion.div>
+      </div>
+    );
+  }
+
+  if (!timeTable) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex flex-col items-center justify-center min-h-[60vh] space-y-5"
+        >
+          <div className="w-20 h-20 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+            <Calendar className="w-10 h-10 text-gray-400 dark:text-gray-500" />
+          </div>
+          <div className="text-center space-y-2 max-w-sm">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">{t('timetable_page.no_timetable')}</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('timetable_page.no_org_timetable')}</p>
+          </div>
+          <button 
+            onClick={fetchTimeTable}
+            className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white px-5 py-2.5 rounded-full text-sm font-medium transition-all shadow-sm hover:shadow"
+          >
             <RefreshCw className="w-4 h-4" />
             {t('timetable_page.reload')}
           </button>
@@ -45,146 +141,136 @@ export default function TimeTablePage() {
     );
   }
 
-  // Days of the week with translations
-  const daysOfWeek = [
-    { en: "Saturday", ar: t('timetable_page.saturday') },
-    { en: "Sunday", ar: t('timetable_page.sunday') },
-    { en: "Monday", ar: t('timetable_page.monday') },
-    { en: "Tuesday", ar: t('timetable_page.tuesday') },
-    { en: "Wednesday", ar: t('timetable_page.wednesday') },
-    { en: "Thursday", ar: t('timetable_page.thursday') },
-    { en: "Friday", ar: t('timetable_page.friday') },
-  ];
-
-  // figure out today’s day
-  const todayIndex = new Date().getDay(); // 0 = Sunday → 6 = Saturday
-  const todayName = daysOfWeek[todayIndex].en;
-
-  // Dummy events for illustration
-  const dummyEvents = ["exam", "homework", "project"];
-
-  // Group items by day
-  const itemsByDay: Record<string, any[]> = {};
-  daysOfWeek.forEach((day) => {
-    itemsByDay[day.en] = timetable.items
-      .filter((item) => item.day === day.en)
-      .map((item) => ({
-        ...item,
-        events: dummyEvents.filter(() => Math.random() > 0.7),
-      }));
-  });
-
-
-
-  const eventBadges : EventsProps = {
-    exam: { label: t('timetable_page.exam'), color: "bg-red-500" },
-    homework: { label: t('timetable_page.homework'), color: "bg-yellow-400" },
-    project: { label: t('timetable_page.project'), color: "bg-green-500" },
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950 p-6">
-      {/* Header */}
-      <motion.div 
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
-      >
-        <div className="flex items-center gap-3 mb-2">
-          <Calendar className="w-8 h-8 text-emerald-600" />
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-emerald-50">
-            {t('timetable_page.title')}
-          </h1>
-        </div>
-        <p className="text-gray-600 dark:text-emerald-200/70 text-lg">
-          {timetable.class_room_name}
-        </p>
-      </motion.div>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-6">
+      <div className="max-w-7xl mx-auto">
+        {/* Modern Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-6"
+        >
+          {/* Title Row */}
+          <div className="mb-8">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 flex items-center justify-center">
+                <CalendarDays className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white">
+                {t('timetable_page.title')}
+              </h1>
+            </div>
+            <p className="text-sm text-gray-500 dark:text-gray-400 ml-[52px]">
+              {t('timetable_page.org_timetable')}
+            </p>
+          </div>
 
-      {/* Timetable Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-4">
-        {daysOfWeek.map((day, index) => {
-          const isToday = day.en === todayName;
-          return (
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 mb-6">
             <motion.div
-              key={day.en}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className={`${day.en === 'Friday' ? 'lg:col-span-2 xl:col-span-1' : ''}`}
+              transition={{ delay: 0.1 }}
             >
-              <Card className={`h-full transition-all duration-300 ${
-                isToday
-                  ? "ring-2 ring-emerald-500 bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-900/30 dark:to-emerald-800/20"
-                  : "hover:shadow-lg"
-              }`}>
-                {/* Day Header */}
-                <div className={`p-4 border-b border-emerald-100 dark:border-emerald-800 ${
-                  isToday ? 'bg-emerald-500 text-white' : 'bg-gray-50 dark:bg-emerald-950'
-                }`}>
-                  <div className="flex items-center justify-center gap-2">
-                    {isToday && <Clock className="w-4 h-4" />}
-                    <h2 className={`text-lg font-bold text-center ${
-                      isToday ? 'text-white' : 'text-gray-900 dark:text-emerald-50'
-                    }`}>
-                      {day.ar}
-                    </h2>
+              <div className="bg-white dark:bg-gray-800 rounded-xl md:rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 md:p-5 hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
+                    <BookOpen className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                   </div>
-                  {isToday && (
-                    <p className="text-xs text-center text-emerald-100 mt-1">{t('timetable_page.today')}</p>
-                  )}
+                  <div className="min-w-0">
+                    <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 font-medium mb-0.5">
+                      {t('timetable_page.total_classes', 'Total Classes')}
+                    </p>
+                    <p className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white">
+                      {totalClasses}
+                    </p>
+                  </div>
                 </div>
-
-                {/* Classes */}
-                <div className="p-4 space-y-3">
-                  {itemsByDay[day.en].length === 0 ? (
-                    <div className="text-center py-8">
-                      <BookOpen className="w-8 h-8 text-gray-300 dark:text-emerald-700 mx-auto mb-2" />
-                      <p className="text-gray-400 dark:text-emerald-400 text-sm">
-                        {t('timetable_page.no_classes')}
-                      </p>
-                    </div>
-                  ) : (
-                    itemsByDay[day.en].map((item, itemIndex) => (
-                      <motion.div
-                        key={item.id}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: (index * 0.1) + (itemIndex * 0.05) }}
-                        className={`group p-3 rounded-lg ${isToday ? 'bg-white' : 'bg-emerald-50/50 dark:bg-emerald-900/20 hover:bg-emerald-100/70 '}    dark:hover:bg-emerald-900/30 transition-all duration-200 border border-emerald-100 dark:border-emerald-800/50 hover:shadow-md`}
-                      >
-                        <div className="flex items-start justify-between mb-2">
-                          <h3 className="font-semibold text-sm text-gray-900 dark:text-emerald-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-300">
-                            {item.subject_name}
-                          </h3>
-                        </div>
-                        
-                        <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-emerald-200/70 mb-2">
-                          <Clock className="w-3 h-3" />
-                          <span>{item.from_time} - {item.to_time}</span>
-                        </div>
-
-                        {/* Event badges */}
-                        {item.events.length > 0 && (
-                          <div className="flex gap-1 flex-wrap">
-                            {item.events.map((ev: string) => (
-                              <span
-                                key={ev}
-                                className={`text-xs px-2 py-1 rounded-full font-medium ${eventBadges[ev as keyof typeof eventBadges].color}`}
-                              >
-                                {eventBadges[ev as keyof typeof eventBadges].label}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                      </motion.div>
-                    ))
-                  )}
-                </div>
-              </Card>
+              </div>
             </motion.div>
-          );
-        })}
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <div className="bg-white dark:bg-gray-800 rounded-xl md:rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 md:p-5 hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-blue-500/10 dark:bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                    <Clock className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 font-medium mb-0.5">
+                      {t('timetable_page.weekly_hours', 'Weekly Hours')}
+                    </p>
+                    <p className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white">
+                      {totalHours}h {remainingMinutes > 0 ? `${remainingMinutes}m` : ''}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <div className="bg-white dark:bg-gray-800 rounded-xl md:rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 md:p-5 hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-purple-500/10 dark:bg-purple-500/20 flex items-center justify-center flex-shrink-0">
+                    <Calendar className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 font-medium mb-0.5">
+                      {t('timetable_page.active_days', 'Active Days')}
+                    </p>
+                    <p className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white">
+                      {uniqueDays}/7
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Timetable Info Bar */}
+          {(timeTable.description || timeTable.enable_reminders) && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="bg-emerald-50 dark:bg-emerald-900/10 border border-emerald-200 dark:border-emerald-800/50 rounded-xl md:rounded-2xl p-4"
+            >
+              <div className="flex flex-wrap items-center gap-3">
+                {timeTable.description && (
+                  <span className="text-sm text-gray-700 dark:text-gray-300">
+                    {timeTable.description}
+                  </span>
+                )}
+                {timeTable.enable_reminders && (
+                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-900/30 px-2.5 py-1 rounded-full">
+                    <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+                    {t('timetable_page.reminders_enabled')}
+                  </span>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </motion.div>
+
+        {/* Timeline View */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+        >
+          <TimelineView
+            entries={timeTable.entries}
+            selectedDay={selectedDay}
+            onDaySelect={handleDaySelect}
+          />
+        </motion.div>
       </div>
     </div>
   );

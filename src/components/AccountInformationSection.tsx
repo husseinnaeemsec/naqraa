@@ -2,39 +2,40 @@ import { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { endpoints } from "../api/routes";
 import api from "../api/client";
-import { setUser } from "../store/auth/authSlice";
+import { setUser, updateUserPreferences } from "../store/auth/authSlice";
 import { ErrorNote, SectionHeader, Success } from "../pages/student/SettingsPage";
 import { useTranslation } from "react-i18next";
+import type { UpdateUserResponse } from "../types/user";
 
 export default function AccountInformationSection() {
     const { user, loadingUser } = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
-  // ----- Profile / Basic Info (existing) -----
+    // ----- Profile / Basic Info (existing) -----
     const [first_name, setFirstName] = useState(user?.first_name);
     const [last_name, setLastName] = useState(user?.last_name);
     const [errors, setErrors] = useState<string[]>([]);
     const [updated, setUpdated] = useState<boolean>(false);
-    const [theme, setTheme] = useState(user?.profile?.theme);
-    const [lang, setLang] = useState(user?.profile?.lang);
+    const [theme, setTheme] = useState(user?.preferences?.theme);
+    const [lang, setLang] = useState(user?.preferences?.language);
     const [avatar, setAvatar] = useState<File | null>(null);
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const isDirty = ()=>{
+    const isDirty = () => {
         const userData = {
             first_name: user?.first_name,
             last_name: user?.last_name,
-            profile: {
-                lang: user?.profile?.lang,
-                theme: user?.profile?.theme,
+            preferences: {
+                language: user?.preferences?.language,
+                theme: user?.preferences?.theme,
             }
         }
         const data = {
             first_name,
             last_name,
-            profile: {
-                lang,
+            preferences: {
+                language: lang,
                 theme,
             }
         }
@@ -46,11 +47,11 @@ export default function AccountInformationSection() {
         setErrors([]);
         setUpdated(false);
 
-        if(!isDirty()){
+        if (!isDirty()) {
             return;
         }
 
-        if (!first_name || !last_name ) {
+        if (!first_name || !last_name) {
             setErrors(["الرجاء التحقق من جميع الحقول قبل ارسال المعلومات"]);
             return;
         }
@@ -59,21 +60,24 @@ export default function AccountInformationSection() {
         const formData = new FormData();
         formData.append("first_name", first_name || "");
         formData.append("last_name", last_name || "");
-        formData.append("profile.lang", lang || "");
-        formData.append("profile.theme", theme || "");
+        formData.append("preferences.language", lang || "");
+        // formData.append("preferences.theme", theme || "");
 
         if (avatar) {
-            // Your nested serializer expects: profile.avatar
+            // Your nested serializer expects: preferences.avatar
             formData.append("profile.avatar", avatar);
         }
 
         api
-            .post(endpoints.user.profile, formData, {
+            .post(endpoints.user.update, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             })
-            .then((res) => {
+            .then((res: UpdateUserResponse) => {
                 setUpdated(true);
-                dispatch(setUser(res.data));
+                if(res.data.preferences){
+                    dispatch(updateUserPreferences(res.data.preferences));
+                }
+
             })
             .catch((e) => {
                 setErrors(["فشل في حفظ البيانات"]);
@@ -99,7 +103,7 @@ export default function AccountInformationSection() {
                     <label className="block text-sm font-medium text-emerald-800 dark:text-emerald-100/70 mb-2">{t("profile_picture")}</label>
                     <div className="flex items-center gap-4">
                         <img
-                            src={avatar ? URL.createObjectURL(avatar) : (user?.profile?.profile_picture as string)}
+                            src={avatar ? URL.createObjectURL(avatar) : (user?.profile?.avatar as string)}
                             className="w-16 h-16 text-2xl font-bold bg-emerald-100 rounded-full object-cover"
                             alt={user?.first_name?.[0] || "U"}
                         />
@@ -118,7 +122,7 @@ export default function AccountInformationSection() {
                 {/* First name */}
                 <div>
                     <label className="block text-sm font-medium text-emerald-800 dark:text-emerald-100/70 mb-2">
-                    {t("settings.account_info.first_name")}
+                        {t("settings.account_info.first_name")}
                     </label>
                     <input
                         type="text"
@@ -131,7 +135,7 @@ export default function AccountInformationSection() {
                 {/* Last name */}
                 <div>
                     <label className="block text-sm font-medium text-emerald-800 dark:text-emerald-100/70 mb-2">
-                    {t("settings.account_info.last_name")}
+                        {t("settings.account_info.last_name")}
                     </label>
                     <input
                         type="text"
@@ -144,7 +148,7 @@ export default function AccountInformationSection() {
                 {/* Email (display only here; change in its own section) */}
                 <div>
                     <label className="block text-sm font-medium text-emerald-800 dark:text-emerald-100/70 mb-2">
-                    {t("settings.account_info.email")}
+                        {t("settings.account_info.email")}
                     </label>
                     <input
                         type="email"
@@ -152,17 +156,17 @@ export default function AccountInformationSection() {
                         disabled
                         className="w-full px-4 py-2 border border-emerald-300 dark:border-emerald-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     />
-                    <p className="text-xs text-emerald-700/70 dark:text-emerald-200/60 mt-1">لتغيير البريد الإلكتروني استخدم قسم <button  className="underline cursor-pointer font-bold"> "تغيير البريد" </button> أدناه.</p>
+                    <p className="text-xs text-emerald-700/70 dark:text-emerald-200/60 mt-1">لتغيير البريد الإلكتروني استخدم قسم <button className="underline cursor-pointer font-bold"> "تغيير البريد" </button> أدناه.</p>
                 </div>
 
                 {/* Theme */}
                 <div>
                     <label className="block text-sm font-medium text-emerald-800 dark:text-emerald-100/70 mb-2">
-                    {t("settings.account_info.theme")}
+                        {t("settings.account_info.theme")}
                     </label>
                     <select
                         className="w-full px-4 py-2 border border-emerald-300 dark:border-emerald-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                        onChange={(e) => setTheme(e.currentTarget.value)}
+                        onChange={(e) => setTheme(e.currentTarget.value as "dark" | "light")}
                         value={theme || ""}
                     >
                         <option value="dark">
@@ -177,11 +181,11 @@ export default function AccountInformationSection() {
                 {/* Language */}
                 <div>
                     <label className="block text-sm font-medium text-emerald-800 dark:text-emerald-100/70 mb-2">
-                    {t("settings.account_info.language.label")}
+                        {t("settings.account_info.language.label")}
                     </label>
                     <select
                         className="w-full px-4 py-2 border border-emerald-300 dark:border-emerald-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                        onChange={(e) => setLang(e.currentTarget.value as "ar" | "en" | "ku" )}
+                        onChange={(e) => setLang(e.currentTarget.value as "ar" | "en" | "ku")}
                         value={lang || ""}
                     >
                         <option value="ar">عربي</option>

@@ -25,7 +25,7 @@ export default function PageLoader({ title, message, img }: Props) {
         {/* 🔹 صورة اللودر مع حركة bounce */}
         <motion.img
           src={img || loader}
-          className="w-full max-w-40 lg:max-w-sm mx-auto"
+          className="w-full max-w-20 lg:max-w-sm mx-auto"
           animate={{ y: [0, -15, 0] }}
           transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
         />

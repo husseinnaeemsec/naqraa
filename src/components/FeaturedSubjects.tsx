@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { ArrowRight, ExternalLink } from 'lucide-react';
-import ResourceLoader from './resourceLoader';
+import PageLoader from './PageLoader';
 import type { Subject } from '../../types';
 import api from '../api/client';
 import { endpoints } from '../api/routes';
@@ -63,7 +63,7 @@ export default function FeaturedSubjects() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
-          <ResourceLoader title={t('featured_subjects.loading')} />
+          <PageLoader title={t('featured_subjects.loading')} />
         </motion.div>
       </div>
     );

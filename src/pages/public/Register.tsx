@@ -241,8 +241,8 @@ export default function RegisterPage() {
           <p className="text-center mb-4 text-gray-600 dark:text-gray-300">
             {t('register.create_account_subtitle')}
           </p>
-          <p className="p-2 bg-amber-50 border flex flex-col gap-3 text-amber-900 rounded-md border-amber-500">
-            <TriangleAlert className="size-6" />
+          <p className="p-2 bg-blue-50 border flex  gap-3  text-blue-900 rounded-md border-blue-500">
+            <TriangleAlert className="size-8 inline-flex" />
             {t('register.note')}
           </p>
           <form className="w-full max-w-lg flex flex-col gap-3" onSubmit={handleFormSubmit}>

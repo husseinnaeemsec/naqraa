@@ -56,7 +56,7 @@ export default function NotificationsSection() {
             formData.append("profile.newsletter_notifications", String(newsletter_notifications));
             formData.append("profile.reminder_frequency", reminderFrequency);
 
-            const res = await api.post(endpoints.user.profile, formData, {
+            const res = await api.post(endpoints.user.update, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 

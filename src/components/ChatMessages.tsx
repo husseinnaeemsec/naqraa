@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import type { ChatProps, ChatMessageProps } from "../../types";
 import ChatMessage from "./ChatMessage";
-import ResourceLoader from "./resourceLoader";
 import api from "../api/client";
 import { endpoints } from "../api/routes";
 import Spinner from "./Spinner";
@@ -9,6 +8,7 @@ import { Virtuoso } from "react-virtuoso";
 import { useAppDispatch } from "../store/store";
 import { setActiveUsers } from "../store/chatSlice";
 import { updateURLParams } from "../utils/urls";
+import PageLoader from "./PageLoader";
 
 
 export default function ChatMessages({
@@ -129,9 +129,8 @@ export default function ChatMessages({
   // ---------------------------
   if (loading)
     return (
-      <ResourceLoader
-        className="flex-1"
-        text="الرجاء الانتظار ..."
+      <PageLoader
+        message="الرجاء الانتظار ..."
         title="جاري تحميل المحادثات"
       />
     );

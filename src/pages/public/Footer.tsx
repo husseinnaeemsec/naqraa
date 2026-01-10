@@ -246,6 +246,9 @@ export default function Footer() {
                     <div className="mt-8 text-center text-sm text-gray-500 dark:text-gray-400">
                         {t('footer.copyright')}
                     </div>
+                    <div className="mt-2 text-center text-sm text-gray-500 dark:text-gray-400">
+                        {t('footer.developed_by')} <Link target='_blank' to={'https://husseinnaeem.framer.website'} className='underline'> {t("footer.developer_name")} </Link>
+                    </div>
                 </div>
             </div>
         </footer>

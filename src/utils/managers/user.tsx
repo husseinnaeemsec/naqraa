@@ -11,6 +11,6 @@ export class UserManager{
     }
 
     updateProfile(data:UpdateUserData){
-        return api.post(endpoints.user.profile,data)
+        return api.post(endpoints.user.update,data)
     }
 }

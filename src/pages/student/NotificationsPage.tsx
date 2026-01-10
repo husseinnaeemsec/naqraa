@@ -6,7 +6,6 @@ import type { Notification } from "../../../types";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import api from "../../api/client";
 import { endpoints } from "../../api/routes";
-import { setNotifications } from "../../store/auth/authSlice";
 import Card from "../../components/ui/CustomCard";
 import Button from "../../components/ui/CustomButton";
 import useApiErrorHandler from "../../hooks/use-api-error-handler";
@@ -20,7 +19,6 @@ export function NotificationItem({ notification, index }: { notification: Notifi
     const handleOpen = async () => {
         try {
             const res = await api.post(endpoints.notifications.update(notification.id));
-            dispatch(setNotifications([...notifications.filter(n => n.id !== notification.id), res.data]));
         } finally {
             setOpen(true);
         }
@@ -232,12 +230,10 @@ export default function NotificationsPage() {
     const markAllAsRead = async () => {
         // This would call an API to mark all notifications as read
         const updatedNotifications = notifications.map(n => ({ ...n, read: true }));
-        dispatch(setNotifications(updatedNotifications));
     };
 
     const clearAllNotifications = async () => {
         // This would call an API to clear all notifications
-        dispatch(setNotifications([]));
     };
 
     return (

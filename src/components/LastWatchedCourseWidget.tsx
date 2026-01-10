@@ -1,174 +1,121 @@
 import { Link } from "react-router-dom";
+import { PlayCircle, Clock, BookOpen } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useAppSelector } from "../store/store";
-import { useState, useEffect } from "react";
-import api from "../api/client";
-import { endpoints } from "../api/routes";
-import { Play, BookOpen } from "lucide-react";
+import Card from "./ui/CustomCard";
 
-interface EnrollmentData {
-  id: number;
-  course: {
-    id: number;
-    title: string;
-    description: string;
-    sections: any[];
-  };
-  completed_sections: number[];
-  completed_lectures: number[];
-  completed_quizzes: number[];
-  last_watched_section: number;
-  last_watched_lecture: {
-    id: number;
-    title: string;
-    description: string;
-  };
-  lecture_progresses: any[];
-  created_at: string;
-  progress: number;
-  completed: boolean;
+interface LastWatchedCourseWidgetProps {
+    course?: {
+        id: number;
+        title: string;
+        thumbnail?: string;
+        progress: number;
+        lastWatchedLecture?: string;
+        totalLectures: number;
+        completedLectures: number;
+    };
 }
 
-export default function LastWatchedCourseWidget() {
-  const { t } = useTranslation();
-  const { user } = useAppSelector((state) => state.auth);
-  const [enrollmentData, setEnrollmentData] = useState<EnrollmentData | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [_error, setError] = useState<string | null>(null);
+export default function LastWatchedCourseWidget({ course }: LastWatchedCourseWidgetProps) {
+    const { t } = useTranslation();
 
-  const enrollment = user?.progress?.last_watched_enrollment;
-
-  useEffect(() => {
-    
-    if (enrollment?.id) {
-      fetchEnrollmentProgress();
+    if (!course) {
+        return (
+            <Card className="p-6">
+                <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg">
+                        <PlayCircle className="size-5 text-emerald-600 dark:text-emerald-400" />
+                    </div>
+                    <h3 className="font-bold text-slate-900 dark:text-white">
+                        {t('dashboard_index.last_watched_course')}
+                    </h3>
+                </div>
+                <div className="text-center py-8">
+                    <BookOpen className="size-12 text-slate-300 dark:text-slate-700 mx-auto mb-3" />
+                    <p className="text-sm text-slate-500 dark:text-slate-400">
+                        {t('dashboard_index.no_courses_yet')}
+                    </p>
+                    <Link 
+                        to="/courses/explore" 
+                        className="inline-block mt-4 text-sm text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 font-medium"
+                    >
+                        {t('dashboard_index.explore_courses')}
+                    </Link>
+                </div>
+            </Card>
+        );
     }
-  }, [enrollment?.id]);
 
-  const fetchEnrollmentProgress = async () => {
-    if (!enrollment?.id) return;
-    
-    try {
-      setLoading(true);
-      const response = await api.get(endpoints.user.enrollments.getEnrollment(enrollment.id));
-      setEnrollmentData(response.data);
-    } catch (error) {
-      console.error('Error fetching enrollment progress:', error);
-      setError('Failed to load progress');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Show empty state if no enrollment
-  if (!enrollment) {
     return (
-      <div className="h-full max-h-fit">
-        <div className="relative overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 w-full p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-          <div className="relative z-10 space-y-4 text-center">
-            <BookOpen className="size-12 text-gray-400 mx-auto" />
-            <div className="space-y-2">
-              <h3 className="font-bold text-lg text-gray-600 dark:text-gray-300">
-                {t('last_watched_course.no_courses')}
-              </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {t('last_watched_course.start_learning_journey')}
-              </p>
+        <Card className="p-6 group hover:shadow-lg transition-shadow">
+            <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                    <div className="p-2 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg">
+                        <PlayCircle className="size-5 text-emerald-600 dark:text-emerald-400" />
+                    </div>
+                    <h3 className="font-bold text-slate-900 dark:text-white">
+                        {t('dashboard_index.last_watched_course')}
+                    </h3>
+                </div>
+                <Link 
+                    to={`/dashboard/courses/${course.id}`}
+                    className="text-sm text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 font-medium"
+                >
+                    {t('dashboard_index.continue')}
+                </Link>
             </div>
-            <Link
-              to="/courses"
-              className="inline-flex items-center gap-2 bg-emerald-600 text-white px-5 py-2.5 rounded-lg font-semibold text-sm hover:bg-emerald-700 transition-all duration-200"
-            >
-              <BookOpen className="size-4" />
-              {t('last_watched_course.explore_courses')}
+
+            <Link to={`/dashboard/courses/${course.id}`} className="block">
+                {/* Course Thumbnail */}
+                {course.thumbnail ? (
+                    <div className="relative aspect-video rounded-lg overflow-hidden mb-4">
+                        <img 
+                            src={course.thumbnail} 
+                            alt={course.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <PlayCircle className="size-16 text-white" />
+                        </div>
+                    </div>
+                ) : (
+                    <div className="aspect-video rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mb-4">
+                        <BookOpen className="size-16 text-white/80" />
+                    </div>
+                )}
+
+                {/* Course Info */}
+                <h4 className="font-semibold text-slate-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors line-clamp-2">
+                    {course.title}
+                </h4>
+
+                {course.lastWatchedLecture && (
+                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-3 flex items-center gap-2">
+                        <Clock className="size-4" />
+                        {course.lastWatchedLecture}
+                    </p>
+                )}
+
+                {/* Progress Bar */}
+                <div className="space-y-2">
+                    <div className="flex items-center justify-between text-xs">
+                        <span className="text-slate-600 dark:text-slate-400">
+                            {t('dashboard_index.progress')}
+                        </span>
+                        <span className="font-medium text-emerald-600 dark:text-emerald-400">
+                            {course.progress}%
+                        </span>
+                    </div>
+                    <div className="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div 
+                            className="h-full bg-gradient-to-r from-emerald-500 to-emerald-600 transition-all duration-300"
+                            style={{ width: `${course.progress}%` }}
+                        />
+                    </div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                        {course.completedLectures} / {course.totalLectures} {t('dashboard_index.lectures_completed')}
+                    </p>
+                </div>
             </Link>
-          </div>
-        </div>
-      </div>
+        </Card>
     );
-  }
-
-  // Calculate progress from actual API data
-  const progressPercentage = Math.max(0, Math.min(100, enrollmentData?.progress ?? 0));
-  const isCompleted = enrollmentData?.completed ?? false;
-  const completedLectures = enrollmentData?.completed_lectures?.length ?? 0;
-  const completedSections = enrollmentData?.completed_sections?.length ?? 0;
-  const completedQuizzes = enrollmentData?.completed_quizzes?.length ?? 0;
-
-  return (
-    <div className="h-full max-h-fit">
-      <div className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-emerald-700 to-emerald-800 dark:from-emerald-800 dark:via-emerald-900 dark:to-emerald-950 w-full p-6 rounded-xl shadow-lg">
-        {/* Background Pattern */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
-        <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-12 -translate-x-12"></div>
-        
-        {/* Content */}
-        <div className="relative z-10 space-y-4">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium">
-            <Play className="size-3" />
-            {isCompleted ? t('last_watched_course.completed') : t('last_watched_course.in_progress')}
-          </div>
-
-          {/* Title + Description */}
-          <div className="space-y-2">
-            <h1 className="font-bold text-xl lg:text-2xl text-white leading-tight">
-              {enrollmentData?.course?.title || enrollment.title}
-            </h1>
-            <p dangerouslySetInnerHTML={{__html:enrollmentData?.course?.description || enrollment.description}} className="text-sm text-emerald-100 leading-relaxed line-clamp-2 opacity-90" />
-          </div>
-
-          {/* Progress */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between text-xs text-emerald-100">
-              <span>{t('last_watched_course.progress')}</span>
-              <span>{Math.round(progressPercentage)}%</span>
-            </div>
-            
-            <div className="w-full bg-white/20 h-2 rounded-full overflow-hidden backdrop-blur-sm">
-              <div
-                className="h-full bg-white rounded-full transition-all duration-700 ease-out"
-                style={{ width: `${Math.min(progressPercentage, 100)}%` }}
-              />
-            </div>
-            
-            <div className="grid grid-cols-3 gap-2 text-xs text-emerald-100 opacity-75">
-              <div>{completedLectures} {t('last_watched_course.lectures')}</div>
-              <div>{completedSections} {t('last_watched_course.sections')}</div>
-              <div>{completedQuizzes} {t('last_watched_course.quizzes')}</div>
-            </div>
-            
-            {enrollmentData?.last_watched_lecture && (
-              <div className="text-xs text-emerald-100 opacity-75">
-                {t('last_watched_course.last_watched')}: {enrollmentData.last_watched_lecture.title}
-              </div>
-            )}
-          </div>
-
-          {/* Action Button */}
-          <Link
-            to={`/dashboard/classroom/${enrollment.id}`}
-            className="inline-flex items-center gap-2 bg-white text-emerald-700 px-5 py-2.5 rounded-lg font-semibold text-sm hover:bg-emerald-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-          >
-            {loading ? (
-              <>
-                <div className="animate-spin h-4 w-4 border-2 border-emerald-600 border-t-transparent rounded-full"></div>
-                {t('ui.loading')}
-              </>
-            ) : isCompleted ? (
-              <>
-                <BookOpen className="size-4" />
-                {t('last_watched_course.review_course')}
-              </>
-            ) : (
-              <>
-                <Play className="size-4" />
-                {t('last_watched_course.continue_learning')}
-              </>
-            )}
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
 }

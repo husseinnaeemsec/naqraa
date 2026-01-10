@@ -1,20 +1,20 @@
-// pages/ClassroomPage.tsx
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link, useParams } from "react-router-dom";
-import type { AuthUser, CurrentLecture, Enrollment, EnrollmentLecture, EnrollmentSection, LastWatchedEnrollment } from "../../../types";
+import useApiErrorHandler from "../../hooks/use-api-error-handler";
 import { useAppDispatch, useAppSelector } from "../../store/store";
+import type { CurrentLecture, EnrollmentLecture, EnrollmentSection } from "../../../types";
 import api from "../../api/client";
 import { endpoints } from "../../api/routes";
-import ResourceLoader from "../../components/resourceLoader";
+import { setActiveLecture, setEnrollment } from "../../store/enrollmentSlice.tsx";
+import type { AuthUser } from "../../types/user";
+import { setUser } from "../../store/auth/authSlice";
+import PageLoader from "../../components/PageLoader";
 import NotFoundError from "../../components/errors/NotFoundError";
 import NetworkError from "../../components/errors/NetworkError";
-import { setActiveLecture, setEnrollment } from "../../store/enrollmentSlice";
-import EnrollmentNavigation from "../../components/enrollment/EnrollmentNavigation";
-import CourseContent from "../../components/enrollment/CourseContent";
 import { StudySessionTrackerProvider } from "../../context/StudySessionContext";
-import useApiErrorHandler from "../../hooks/use-api-error-handler";
-import { useTranslation } from "react-i18next";
-import { setUser } from "../../store/auth/authSlice";
+import CourseContent from "../../components/classroom/old_backup/CourseContent";
+import EnrollmentNavigation from "../../components/classroom/old_backup/EnrollmentNavigation";
 
 export default function ClassroomPage() {
   const { t } = useTranslation();
@@ -54,7 +54,12 @@ export default function ClassroomPage() {
         const first_lecture: EnrollmentLecture | null = getFirstLecture(res.data.course.sections);
         const last_watched_lecture: EnrollmentLecture | null = res.data.last_watched_lecture || first_lecture
         dispatch(setActiveLecture(last_watched_lecture));
-        dispatch(setUser({...user as AuthUser , progress : { last_watched_enrollment : { ...res.data.course,id:res.data.id } } }))
+        if (user?.student) {
+          dispatch(setUser({...user as AuthUser , student:{
+            ...user.student,
+            progress : { last_watched_enrollment : { ...res.data.course,id:res.data.id } }
+          } }))
+        }
   })
       .catch((e) => {
         if (e.status === 404) {
@@ -73,7 +78,7 @@ export default function ClassroomPage() {
   }, [enrollment])
 
   if (loading) {
-    return <ResourceLoader className="h-dynamic" title={t('classroom_page.loading_course')} />
+    return <PageLoader title={t('classroom_page.loading_course')} />
   }
 
   if (error) {

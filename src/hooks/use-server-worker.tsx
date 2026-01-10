@@ -19,7 +19,7 @@ export default function useServerWorker() {
       if (existingSubscription) {
         const response = await api.post(
           endpoints.notifications.subscription.verify,
-          { endpoint: existingSubscription }
+          existingSubscription
         );
 
         return response.data ? existingSubscription : null;

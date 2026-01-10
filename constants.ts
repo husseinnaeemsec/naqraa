@@ -1,3 +1,14 @@
+
+export const TIMEZONE = "Asia/Baghdad";
+
+export class NaqraaArabicDate extends Date {
+  constructor(){
+    super();
+    // TODO : this class should map to Asia/Baghdad timezone
+    
+  }
+}
+
 export const DAYS = [
     "sunday",
     "monday",

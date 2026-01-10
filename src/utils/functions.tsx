@@ -1,29 +1,26 @@
-import type { AuthUser, Enrollment, EnrollmentSection, Profile, User } from "../../types"
+import { t } from "i18next";
+import type {  Enrollment, EnrollmentSection,  } from "../../types"
 import { BASE_API_URL } from "../api/client";
 import i18n from '../i18n';
+import type { AuthUser } from "../types/user";
 
-// Get user profile from localStorage
-export function getUserProfile(): Profile | null {
-  const data = localStorage.getItem("profile");
-  return data ? JSON.parse(data) : null;
-}
 
-export const setupUserPrefrences = (user: AuthUser | null) => {
 
-  const profile = user?.profile || getUserProfile();
+export const setupUserPrefrences = (user: AuthUser ) => {
 
-  if (profile) {
+  const userPreferences = user?.preferences;
+
+  if (userPreferences) {
     // Change language
-    if (i18n.language !== profile.lang) {
-      i18n.changeLanguage(profile.lang);
+    if (i18n.language !== userPreferences.language) {
+      i18n.changeLanguage(userPreferences.language);
     }
 
     // Set direction (RTL for ar/ku)
-    document.body.dir = profile.lang === "ar" || profile.lang === "ku" ? "rtl" : "ltr";
-    
+    document.body.dir = userPreferences.language === "ar" || userPreferences.language === "ku" ? "rtl" : "ltr";
 
     // Theme setup using html.classList
-    if (profile.theme === "dark") {
+    if (userPreferences.theme === "dark") {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
@@ -333,3 +330,14 @@ export function extractErrors(err: any): string[]{
 
   return errorList.length ? errorList : ["حدث خطأ غير متوقع."];
 };
+
+
+export  function getNewTaskInitialDataQuery( initial_title:string| null = null , initial_priority:string | null = null , initial_open_drawer:'true'|'false' | null = null ){
+        const title = initial_title ?? t("dashboard_index.new_task_title");
+        const dueDate = new Date().toISOString().split('T')[0];
+        const priority = initial_priority ?? 'low';
+        const openDrawer = initial_open_drawer ?? 'true';
+        const urlQuery = new URLSearchParams({ title, dueDate, priority, openDrawer }).toString();
+
+        return `/dashboard/todo?${urlQuery}`
+    }

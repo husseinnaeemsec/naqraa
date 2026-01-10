@@ -17,12 +17,11 @@ export const endpoints = {
         login:'/users/login/',
         register:"/users/register/",
         logout:'/users/logout/',
-        profile:'/users/profile/',
+        update:'/users/update/',
         status:"/users/check/",
         changePassword:(uid:string, token:string)=>`/users/password/reset/${uid}/${token}/`,
         changeEmail:'/users/change-email/',
         requestPasswordChange:'/users/password/request-reset/',
-        studySession:'/users/study-time/',
         sendVerificationEmail:"/users/send-verification-email/",
         verification:{
             verify:(uid:string,token:string) => `/users/verify/${uid}/${token}/`,
@@ -30,7 +29,7 @@ export const endpoints = {
         },
         organization:{
             updateOrganization:'',
-            list:'/organizations/',
+            list:'/organization/',
         },
         enrollments:{
             list:'/enrollments/',
@@ -42,10 +41,26 @@ export const endpoints = {
             completeLecture:(enrollmentId:number,lectureId:number) => `/enrollments/complete-lecture/${enrollmentId}/${lectureId}/`,
             completeQuiz:(quiz_id:number)=> `/enrollments/complete-quiz/${quiz_id}/`,
             enroll:( course_id:number )=> `/enrollments/enroll/${course_id}/`,
-            status:(course_id:number)=>`/enrollments/status/${course_id}/`
+            status:(course_id:number)=>`/enrollments/status/${course_id}/`,
         },
         preferences: '/users/preferences/',
         completeOnboarding: '/users/preferences/complete-onboarding/'
+    },
+    student:{
+        me:'/student/me',
+        preferences:'/student/me/preferences/',
+        completeOnboarding:'/student/me/preferences/complete-onboarding/',
+        upcomingEvents:'/student/events/upcoming/',
+        authentication:{
+            login:'/student/auth/login/',
+            logout:'/student/auth/logout/',
+            status:'/student/auth/status/',
+        },
+        timetable:{
+            list:'/student/timetable/'
+        },
+        exams:'/student/exams',
+        exam:(examId:number|string)=>`/student/exams/${examId}`
     },
     courses:{
         list:'/courses/',
@@ -54,12 +69,23 @@ export const endpoints = {
 
     },
     organization:{
-        exams:'/organizations/exams/',
-        getExam:(examId:number|string)=>`/organizations/exams/${examId}/`,
-        upcoming_exams:'/organizations/exams/upcoming/',
-        upcoming_homework:'/organizations/homework/upcoming/',
-        search:`/organizations/`,
-        join:'/organizations/join/',
+        exams:'/organization/exams/',
+        getExam:(examId:number|string)=>`/organization/exams/${examId}/`,
+        upcoming_exams:'/organization/exams/upcoming/',
+        upcoming_homework:'/organization/homework/upcoming/',
+        search:`/organization/`,
+        join:'/organization/join/',
+    },
+    assessments:{
+        homework:{
+            list:'/assessments/homework/',
+            upcoming:'/assessments/homework/upcoming/',
+        },
+        quiz:{
+            list:'/assessments/quiz/',
+            upcoming:'/assessments/quiz/upcoming/',
+            ended:'/assessments/quiz/ended/'
+        }
     },
     notifications:{
         list:'/notifications/',
@@ -73,10 +99,15 @@ export const endpoints = {
     },
     productivity:{
         tasks:{
-            list:'/productivity/tasks/',
+            list:'/productivity/tasks/', // Returns only tasks with no collection
+            create:'/productivity/tasks/create/',
+            update:(taskId:number) => `/productivity/tasks/${taskId}/update/`,
+            delete:(taskId:number) => `/productivity/tasks/${taskId}/delete/`,
+            toggle:(taskId:number) => `/productivity/tasks/${taskId}/toggle/`,
+            today:'/productivity/tasks/today/'
         },
         collections:{
-            list:'/productivity/tasks/collections/'
+            list:'/productivity/tasks/collections/' // Returns collections with their tasks
         }
     },
     chat:{
@@ -98,21 +129,25 @@ export const endpoints = {
 
     },
     subscriptions:{
-        plans: '/subscriptions/plans/',
-        createPaymentIntent:'/subscriptions/create-payment-intent/',
-        createSubscription: '/subscriptions/create-subscription/',
-        createCheckout: '/subscriptions/create-checkout-session/',
-        status: '/subscriptions/status/',
-        cancel:'/subscriptions/cancel/',
-        webhook: '/subscriptions/webhook/',
-        list: '/subscriptions/plans/',  // Alias for backward compatibility
-        current: '/subscriptions/status/',  // Use status endpoint for current subscription
-        history: '/subscriptions/history/'
+        plans: '/subscription/plans/',
+        createPaymentIntent:'/subscription/create-payment-intent/',
+        createSubscription: '/subscription/create-subscription/',
+        createCheckout: '/subscription/create-checkout-session/',
+        status: '/subscription/status/',
+        cancel:'/subscription/cancel/',
+        webhook: '/subscription/webhook/',
+        list: '/subscription/plans/',  // Alias for backward compatibility
+        current: '/subscription/status/',  // Use status endpoint for current subscription
+        history: '/subscription/history/'
     },
     resources:{
         list:'/resources/',
         detail:(resource_id:number) => `/resources/${resource_id}/`,
         search:'/resources/search/'
+    },
+
+    core:{
+        events:'/events/'
     }
 }
 

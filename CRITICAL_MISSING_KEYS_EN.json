@@ -1,0 +1,262 @@
+{
+  "account_verified": {
+    "title": "Account Verified Successfully",
+    "description": "Your account has been verified. You can now log in.",
+    "login_now": "Login Now",
+    "back_home": "Back to Home"
+  },
+  "errors": {
+    "network": {
+      "title": "Network Error",
+      "message": "Unable to connect to the server. Please check your internet connection."
+    },
+    "server": {
+      "title": "Server Error",
+      "message": "The server encountered an error. Please try again later."
+    },
+    "timeout": {
+      "title": "Request Timeout",
+      "message": "The request took too long. Please try again."
+    },
+    "not_found": {
+      "title": "Not Found",
+      "message": "The requested resource was not found."
+    },
+    "rate_limit": {
+      "title": "Too Many Requests",
+      "message": "Please wait a moment before trying again."
+    },
+    "unknown": {
+      "title": "Unknown Error",
+      "message": "An unexpected error occurred."
+    },
+    "retry_button": "Retry",
+    "retry_count": "Retry {{count}}",
+    "retrying": "Retrying...",
+    "contact_support": "Contact Support",
+    "max_retries": "Maximum retries reached"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "certificates_question": "Can I get certificates for completed courses?",
+    "certificates_answer": "Yes, you will receive certificates upon completing courses successfully.",
+    "free_resources_question": "Are all resources free?",
+    "free_resources_answer": "Yes, we provide free educational resources for all students.",
+    "graduation_projects_question": "Can you help with graduation projects?",
+    "graduation_projects_answer": "Yes, we offer support and guidance for graduation projects.",
+    "technical_support_question": "How can I get technical support?",
+    "technical_support_answer": "You can contact our support team through the contact page.",
+    "share_research_question": "Can I share my research on the platform?",
+    "share_research_answer": "Yes, you can share your research and educational content.",
+    "not_found_answer": "Didn't find what you're looking for? Contact us.",
+    "contact_us": "Contact Us"
+  },
+  "view_exam": {
+    "exam_details": "Exam Details",
+    "exam_title": "Exam Title",
+    "exam_date": "Exam Date",
+    "exam_time": "Exam Time",
+    "exam_status": "Exam Status",
+    "classroom": "Classroom",
+    "description": "Description",
+    "actions": "Actions",
+    "add_to_calendar": "Add to Calendar",
+    "download_details": "Download Details",
+    "back_to_exams": "Back to Exams",
+    "exam_completed": "Exam Completed",
+    "error_title": "Error Loading Exam",
+    "fetch_error": "Failed to load exam details",
+    "instruction_1": "Make sure you have all required materials",
+    "instruction_2": "Arrive 15 minutes before the exam starts",
+    "instruction_3": "Follow all exam rules and regulations",
+    "instructions": "Instructions",
+    "location": "Location",
+    "materials_needed": "Materials Needed",
+    "notes": "Notes",
+    "notify_me": "Notify Me",
+    "preparation_tips": "Preparation Tips",
+    "quick_actions": "Quick Actions",
+    "related_courses": "Related Courses",
+    "remind_me": "Remind Me",
+    "room_number": "Room Number",
+    "scheduled": "Scheduled",
+    "share": "Share",
+    "share_with_friends": "Share with Friends",
+    "soon": "Soon",
+    "status_completed": "Completed",
+    "status_scheduled": "Scheduled",
+    "status_today": "Today",
+    "status_upcoming": "Upcoming",
+    "subject": "Subject",
+    "teacher": "Teacher",
+    "time_remaining": "Time Remaining",
+    "tips": "Tips",
+    "upcoming": "Upcoming",
+    "urgent": "Urgent",
+    "course_duration_1": "1 hour",
+    "course_duration_2": "2 hours",
+    "course_duration_3": "3 hours",
+    "date": "Date",
+    "duration": "Duration",
+    "exam_type": "Exam Type",
+    "loading": "Loading exam details...",
+    "points": "Points",
+    "set_reminder": "Set Reminder",
+    "study_guide": "Study Guide",
+    "time": "Time",
+    "total_marks": "Total Marks"
+  },
+  "naqraa_features": [
+    {
+      "title": "Educational communities in one place",
+      "description": "Connect, share, and learn within specialized academic communities.",
+      "details": [
+        "Join groups related to your university or field of study.",
+        "Share files and references effortlessly.",
+        "Benefit from organized discussions and scheduled conversations."
+      ],
+      "alt": "community",
+      "cta": "Explore communities"
+    },
+    {
+      "title": "Chat and share ideas easily",
+      "description": "A full messaging system supporting individual and group communication in a safe educational environment.",
+      "details": [
+        "Instant messaging between students and teachers.",
+        "Create discussion rooms for projects and research.",
+        "Support for all file types (PDF, Docs, Media)."
+      ],
+      "alt": "chat",
+      "cta": "Try chat"
+    },
+    {
+      "title": "Smart management for educational institutions",
+      "description": "A centralized tool to manage students, instructors, and learning content efficiently.",
+      "details": [
+        "Track student attendance electronically.",
+        "Organize curriculum and learning resources in a digital library.",
+        "Generate full performance analytics and reports."
+      ],
+      "alt": "org",
+      "cta": "Learn more"
+    },
+    {
+      "title": "Learn for free and share knowledge",
+      "description": "Hundreds of free courses and educational materials at your fingertips.",
+      "details": [
+        "Unlimited access to courses across many fields.",
+        "A large library of open-source references and files.",
+        "Publish and share your own educational content."
+      ],
+      "alt": "learn",
+      "cta": "Browse resources"
+    },
+    {
+      "title": "Create research and projects professionally",
+      "description": "A collaboration tool built for academic writing and scientific research.",
+      "details": [
+        "A writing engine with math and academic formula support.",
+        "Automatic reference formatting.",
+        "Real-time collaboration."
+      ],
+      "alt": "research",
+      "cta": "Start now"
+    }
+  ],
+  "not_found": {
+    "title": "Page Not Found",
+    "message": "The page you're looking for doesn't exist or has been moved."
+  },
+  "common": {
+    "loading": "Loading..."
+  },
+  "navigation": {
+    "notifications": "Notifications"
+  },
+  "footer": {
+    "developed_by": "Developed by",
+    "developer_name": "Naqraa Team"
+  },
+  "register": {
+    "note": "Note: By creating an account, you agree to our Terms and Conditions."
+  },
+  "dashboard_index": {
+    "add_as_task": "Add as Task",
+    "no_upcoming_events": "No upcoming events",
+    "no_date": "No date set",
+    "failed_to_fetch_events": "Failed to fetch events",
+    "task_toggle_failed": "Failed to toggle task",
+    "task_toggled": "Task updated successfully",
+    "too_many_requests": "Too many requests. Please wait.",
+    "work_in_progress": "Work in progress",
+    "tomorrow": "Tomorrow"
+  },
+  "todo_page": {
+    "task_created": "Task created successfully",
+    "task_updated": "Task updated successfully",
+    "task_deleted": "Task deleted successfully",
+    "task_completed": "Task completed",
+    "task_reopened": "Task reopened",
+    "task_create_failed": "Failed to create task",
+    "task_update_failed": "Failed to update task",
+    "task_delete_failed": "Failed to delete task",
+    "task_toggle_failed": "Failed to toggle task",
+    "edit_task": "Edit Task",
+    "delete_task": "Delete Task",
+    "overdue": "Overdue",
+    "today": "Today",
+    "tomorrow": "Tomorrow"
+  },
+  "task_widget": {
+    "no_tasks_today": "No tasks for today",
+    "overdue": "Overdue"
+  },
+  "timetable_page": {
+    "instructor": "Instructor",
+    "room": "Room",
+    "lectures_schedule": "Lectures Schedule",
+    "classes": "Classes",
+    "type": "Type",
+    "due": "Due",
+    "pending": "Pending",
+    "submitted": "Submitted",
+    "high_priority": "High Priority"
+  },
+  "upcoming_exams": {
+    "urgent": "Urgent",
+    "soon": "Soon",
+    "upcoming": "Upcoming",
+    "scheduled": "Scheduled"
+  },
+  "user_preferences": {
+    "study_goals": {
+      "exam_preparation": {
+        "label": "Exam Preparation",
+        "description": "Prepare for upcoming exams"
+      }
+    }
+  },
+  "settings": {
+    "notifications": {
+      "save_error": "Failed to save notification settings"
+    }
+  },
+  "sidebar": {
+    "logout_failed": "Logout failed. Please try again."
+  },
+  "go_back": "Go Back",
+  "saving": "Saving...",
+  "error": "Error",
+  "server_error": "Server Error",
+  "server_error_text": "Unable to connect to server. Please try again.",
+  "unknown_error": "Unknown Error",
+  "unknown_error_text": "An unexpected error occurred.",
+  "not_found_error": "Not Found",
+  "not_found_error_text": "The requested resource was not found.",
+  "unauthoraized_error": "Unauthorized",
+  "unauthoraized_error_text": "You don't have permission to access this resource.",
+  "alert_confirm_button_text": "Confirm",
+  "not_found_error": {
+    "back_to_home": "Back to Home"
+  }
+}

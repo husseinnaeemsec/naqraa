@@ -12,7 +12,9 @@ interface NoteCardProps {
   onEdit: (note: LectureNote) => void;
 }
 
-
+/**
+ * Note Card Component - Displays individual note
+ */
 const NoteCard = ({ note, onDelete, onEdit }: NoteCardProps) => {
   const [showNote, setShowNote] = useState(false);
 
@@ -90,6 +92,16 @@ const NoteCard = ({ note, onDelete, onEdit }: NoteCardProps) => {
   );
 };
 
+/**
+ * Notes Tab - Displays and manages lecture notes
+ * 
+ * Features:
+ * - Grid layout of note cards
+ * - Add/Edit/Delete notes
+ * - Timestamp tracking
+ * - Color coding
+ * - Empty state handling
+ */
 export default function NotesTab() {
   const { currentLecture, enrollment } = useAppSelector((state) => state.enrollment);
   const dispatch = useAppDispatch();
@@ -103,7 +115,13 @@ export default function NotesTab() {
     color: "bg-amber-100",
   });
 
-  if (!currentLecture) return null;
+  if (!currentLecture) {
+    return (
+      <div className="flex items-center justify-center h-40 text-gray-500 dark:text-gray-400">
+        <p>الرجاء تحديد محاضرة لعرض الملاحظات</p>
+      </div>
+    );
+  }
 
   // Sync form when editing
   useEffect(() => {
@@ -164,23 +182,47 @@ export default function NotesTab() {
 
   const editNote = (note: LectureNote) => setEditingNote(note);
 
+  const hasNotes = currentLecture.notes && currentLecture.notes.length > 0;
+
   return (
-    <div key={currentLecture.notes.length}>
-      <h1 className="text-xl font-bold mb-2">الملاحظات</h1>
-      <div className="grid grid-cols-5 gap-3">
-        {currentLecture.notes.map((note) => (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            الملاحظات
+          </h2>
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            {hasNotes
+              ? `${currentLecture.notes.length} ملاحظة محفوظة`
+              : 'لا توجد ملاحظات لهذه المحاضرة'
+            }
+          </p>
+        </div>
+      </div>
+
+      {/* Notes Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        {hasNotes && currentLecture.notes.map((note) => (
           <NoteCard key={note.id} note={note} onDelete={deleteNote} onEdit={editNote} />
         ))}
 
+        {/* Add Note Button */}
         <button
           onClick={() => setShowForm(true)}
-          className="aspect-square flex flex-col gap-2 items-center justify-center dashboard-box p-3 rounded-2xl dark:hover:bg-emerald-800 hover:bg-gray-50 transition"
+          className="aspect-square flex flex-col gap-3 items-center justify-center bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-2xl transition"
         >
-          <i className="fi fi-rr-plus text-2xl"></i>
-          <span className="text-sm dark:bg-emerald-900 bg-white p-2 rounded-md">اضافة ملاحظة جديدة</span>
+          <i className="fi fi-rr-plus text-3xl text-gray-400"></i>
+          <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+            إضافة ملاحظة جديدة
+          </span>
         </button>
       </div>
 
+      {/* Empty State */}
+
+
+      {/* Add/Edit Note Form */}
       {showForm && (
         <div className="fixed inset-0 z-[200] bg-black/40 flex items-center justify-center">
           <div className="dark:bg-emerald-800 bg-white w-full max-w-lg p-6 rounded-2xl shadow-xl space-y-4">

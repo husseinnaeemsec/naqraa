@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate,useLocation, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,14 +6,28 @@ import { BookOpen, FileText, Calendar, MessageCircle, User, Home, ChevronDown } 
 import type { Notification } from "../../types";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { getMedia } from "../utils/functions";
-import { HeroBellIcon, HeroMenuIcon, HeroXIcon } from "./Icons";
-import { toggleSidebar } from "../store/uiSlice";
+import { HeroBars3Icon, HeroBellIcon, HeroMenuIcon, HeroXIcon } from "./Icons";
+import { setShowSidebarLabels, toggleSidebar } from "../store/uiSlice";
 
 function UserProfileMenu() {
     const { t } = useTranslation();
     const { user } = useAppSelector(state => state.auth);
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
+    const menuRef = useRef<HTMLDivElement>(null);
+    
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
     
     const profileMenuItems = [
         { label: t('dashboard_navbar.profile'), action: () => navigate('/dashboard/settings') },
@@ -25,15 +39,15 @@ function UserProfileMenu() {
     // Use a ref to get the button position and position the dropdown with a fixed container if needed
     const buttonRef = React.useRef<HTMLButtonElement>(null);
     return (
-        <div className="relative">
+        <div className="relative" ref={menuRef}>
             <button
                 ref={buttonRef}
                 onClick={() => setIsOpen(!isOpen)}
                 className="flex items-center gap-2 p-1 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-800/30 transition-colors"
             >
-                {user?.profile?.profile_picture ? (
+                {user?.profile?.avatar ? (
                     <img 
-                        src={getMedia(user.profile.profile_picture)} 
+                        src={getMedia(user.profile.avatar)} 
                         alt={user.first_name} 
                         className="size-8 rounded-full border-2 border-emerald-200 dark:border-emerald-700 object-cover"
                     />
@@ -57,9 +71,9 @@ function UserProfileMenu() {
                     >
                         <div className="p-4 border-b border-emerald-100 dark:border-emerald-800">
                             <div className="flex items-center gap-3">
-                                {user?.profile?.profile_picture ? (
+                                {user?.profile?.avatar ? (
                                     <img 
-                                        src={getMedia(user.profile.profile_picture)} 
+                                        src={getMedia(user.profile.avatar)} 
                                         alt={user.first_name} 
                                         className="size-10 rounded-full border-2 border-emerald-200 dark:border-emerald-700 object-cover"
                                     />
@@ -106,17 +120,31 @@ function UserProfileMenu() {
 function MobileNavMenu() {
     const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
+    
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
     
     const navItems = [
         { to: '/dashboard', icon: Home, label: t('dashboard_navbar.dashboard') },
         { to: '/courses/explore', icon: BookOpen, label: t('dashboard_navbar.courses') },
         { to: '/resources', icon: FileText, label: t('dashboard_navbar.resources') },
-        { to: '/dashboard/exams', icon: Calendar, label: t('dashboard_navbar.exams') },
+        { to: '/dashboard/quizzes', icon: Calendar, label: t('sidebar.quizzes') },
         { to: '/dashboard/community', icon: MessageCircle, label: t('dashboard_navbar.community') },
     ];
     
     return (
-        <div className="relative ">
+        <div className="relative" ref={menuRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-700 dark:text-emerald-100 hover:bg-emerald-50 dark:hover:bg-emerald-800/30 transition-all duration-200"
@@ -176,11 +204,26 @@ function NotificationItem({ notification }: { notification: Notification }) {
 export default function DashboardTopNavbar() {
     const { t } = useTranslation();
     const { notifications } = useAppSelector(state => state.auth);
+    const {showSidebarLables} = useAppSelector(state => state.ui);
     const unread = notifications.filter(n => n.read === false);
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
+    const notificationsRef = useRef<HTMLDivElement>(null);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const location = useLocation();
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (notificationsRef.current && !notificationsRef.current.contains(event.target as Node)) {
+                setOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     if(location.pathname.startsWith('/dashboard/chat')){
         return <></>;
@@ -192,12 +235,13 @@ export default function DashboardTopNavbar() {
         
     }
 
-
-
     return (
         <nav className="flex items-center bg-white/80 dark:bg-emerald-900/80 sticky top-0 z-[10] backdrop-blur-md border-b border-emerald-200/50 dark:border-emerald-700/50 h-16 justify-between px-4 shadow-sm">
             <div >
                 <button className="lg:hidden block" onClick={()=>{ dispatch(toggleSidebar()) }}> <HeroMenuIcon className="size-6" /> </button>
+                <button onClick={()=>{ dispatch(setShowSidebarLabels(!showSidebarLables)) }}  className="lg:block hidden">
+                    <HeroBars3Icon className="size-6" />
+                </button>
             </div>
             <div className="hidden md:flex items-center gap-6">
                 <Link 
@@ -225,11 +269,11 @@ export default function DashboardTopNavbar() {
                 </Link>
                 
                 <Link 
-                    to="/dashboard/exams" 
+                    to="/dashboard/quizzes" 
                     className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-700 dark:text-emerald-100 hover:bg-emerald-50 dark:hover:bg-emerald-800/30 transition-all duration-200 group"
                 >
                     <Calendar className="size-4 group-hover:scale-110 transition-transform" />
-                    <span className="font-medium">{t('dashboard_navbar.exams')}</span>
+                    <span className="font-medium">{t('sidebar.quizzes')}</span>
                 </Link>
                 
                 <Link 
@@ -247,7 +291,8 @@ export default function DashboardTopNavbar() {
             <div className="flex items-center gap-3 relative z-0">
                 <UserProfileMenu />
                 
-                <button onClick={()=>{ setOpen(prev => !prev) }} className="relative z-0 p-2 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-800/30 transition-colors">
+                <div ref={notificationsRef}>
+                    <button onClick={()=>{ setOpen(prev => !prev) }} className="relative z-0 p-2 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-800/30 transition-colors">
                     {unread.length > 0 && (
                         <motion.div 
                             className="size-5 flex items-center justify-center text-white absolute -top-1 -right-1 bg-rose-500 rounded-full text-xs font-bold"
@@ -317,6 +362,7 @@ export default function DashboardTopNavbar() {
                         </motion.div>
                     )}
                 </AnimatePresence>
+                </div>
             </div>
         </nav>
     )

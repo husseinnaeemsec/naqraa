@@ -1,16 +1,18 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logoutImg from '../../assets/logout.svg';
 import { useAppDispatch } from '../../store/store';
 import { useState } from 'react';
 import api from '../../api/client';
 import { endpoints } from '../../api/routes';
 import { logoutUser } from '../../store/auth/authSlice';
+import { t } from 'i18next';
 
 export default function LogoutPage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<null|string>(null);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleLogout = async () => {
         setLoading(true);
@@ -24,6 +26,14 @@ export default function LogoutPage() {
             setLoading(false);
         }
     }
+
+    const handleGoBack = () => {
+        if (location.key !== "default") {
+            navigate(-1);
+        } else {
+            navigate('/');
+        }
+    };
 
     const icon = () => {
         return (
@@ -41,7 +51,7 @@ export default function LogoutPage() {
                 <h1 className="text-2xl font-bold text-center"> هل انت متأكد من تسجيل الخروج ؟ </h1>
                 {error !== null && <p className='text-center text-rose-600 flex justify-center items-center gap-2'> {icon()} {error} </p>}
                 <div className="flex flex-wrap items-center justify-center gap-3">
-                    <Link to={'/dashboard'} className='border p-2 rounded border-emerald-900' > لوحة التحكم  </Link>
+                    <button onClick={handleGoBack} className='border p-2 rounded border-emerald-900' >{t("go_back")}</button>
                     <button onClick={handleLogout} disabled={loading} className='p-2 disabled:bg-slate-600 rounded bg-rose-600 text-white' > {loading ? 'الرجاء الانتظار...' : 'نعم , خروج '} </button>
                 </div>
                 

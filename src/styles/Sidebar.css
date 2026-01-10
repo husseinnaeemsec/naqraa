@@ -1,6 +1,6 @@
 .sidebar {
     z-index: 100;
-    @apply text-center lg:z-0 h-screen border-none lg:sticky lg:top-0 fixed w-full z-[100] lg:translate-x-0 bg-white dark:bg-emerald-950 overflow-y-auto;
+    @apply text-center lg:z-0 h-screen  lg:sticky lg:top-0 fixed w-full z-[100] lg:translate-x-0 bg-white dark:bg-emerald-950 overflow-y-auto;
 }
 
 .sidebar ul{

@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { CourseDiscussionMessage, Enrollment, EnrollmentLecture } from "../../types";
-import api from "../api/client";
-import { endpoints } from "../api/routes";
 import { timeSinceAr } from "../utils/functions";
-import { useAppDispatch, useAppSelector } from "../store/store";
-import ResourceLoader from "./resourceLoader";
-import { setDiscussions } from "../store/enrollmentSlice";
+import { useAppSelector } from "../store/store";
+import PageLoader from "./PageLoader";
 
 interface Props {
   enrollment: Enrollment | null;
@@ -112,29 +109,34 @@ function Comment({ message, onReply }: CommentProps) {
 }
 
 
+/**
+ * Discussion Tab - Displays lecture discussion forum
+ * 
+ * Features:
+ * - Threaded comments
+ * - Reply functionality
+ * - User avatars and timestamps
+ * - Loading and empty states
+ */
 export default function DiscussionTab({ enrollment, activeLecture }: Props) {
   const { t } = useTranslation();
   const {discussions} = useAppSelector(state=>state.enrollment);
-  const dispatch = useAppDispatch();
-  const [loading,setLoading] = useState(true);
 
-  if (!enrollment) return null;
+  if (!enrollment || !activeLecture) {
+    return (
+      <div className="flex items-center justify-center h-40 text-gray-500 dark:text-gray-400">
+        <p>الرجاء تحديد محاضرة لعرض المناقشات</p>
+      </div>
+    );
+  }
 
   
 
-  useEffect(() => {
-    api.get(endpoints.courses.discussion(activeLecture?.id || 0))
-      .then((res) => {
-        dispatch(setDiscussions(res.data));
-      })
-      .finally(()=>{ setLoading(false) })
-  }, [activeLecture?.id]);
 
-  if(!discussions.length && loading) return <ResourceLoader  title={t('discussion.loading')} />
 
-  const handleReply = (parentId:number , content:string)=>{
-    
-  }
+  if(!discussions.length) return <PageLoader  title={t('discussion.loading')} />
+
+
 
   return (
     <>
@@ -146,7 +148,7 @@ export default function DiscussionTab({ enrollment, activeLecture }: Props) {
           </div>
         ) : (
           discussions.map((message) => (
-            <Comment onReply={handleReply} key={message.id} message={message} />
+            <Comment key={message.id} message={message} />
           ))
         )}
       </div>

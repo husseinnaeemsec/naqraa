@@ -1,10 +1,11 @@
 import { useTranslation } from "react-i18next";
+import { X } from "lucide-react";
 
 interface Props {
     show:boolean;
     onClose?:()=> void;
 }
-export default function TodoForm( {  show  } : Props ){
+export default function TodoForm( {  show, onClose  } : Props ){
     const { t } = useTranslation();
 
 
@@ -17,28 +18,40 @@ export default function TodoForm( {  show  } : Props ){
         {
             ar: t('todo_form.priority_low'),
             en:'low',
-            color:'text-indigo-600 border-indigo-500 checked:bg-indigo-500'
+            color:'text-emerald-600 border-emerald-500 checked:bg-emerald-500'
         },
         {
             ar: t('todo_form.priority_medium'),
             en:'medium',
-            color:'text-yellow-600 border-yellow-500 checked:bg-yellow-500'
+            color:'text-emerald-600 border-emerald-500 checked:bg-emerald-500'
         },
         {
             ar: t('todo_form.priority_high'),
             en:'high',
-            color:'text-orange-600 border-orange-500 checked:bg-orange-500'
+            color:'text-emerald-700 border-emerald-600 checked:bg-emerald-600'
         },
         {
             ar: t('todo_form.priority_urgent'),
             en:'urgent',
-            color:'text-rose-600 border-rose-500 checked:bg-rose-500'
+            color:'text-emerald-800 border-emerald-700 checked:bg-emerald-700'
         },
     ]
     
     return (
-        <div className="fixed inset-0 w-full h-full z-50 bg-black/30 flex items-center justify-center backdrop-blur-xs">
-            <div className="max-w-lg bg-white text-sm w-full p-4 rounded-md space-y-3">
+        <div 
+            className="fixed inset-0 w-full h-full z-50 bg-black/30 flex items-center justify-center backdrop-blur-xs"
+            onClick={onClose}
+        >
+            <div 
+                className="max-w-lg bg-white dark:bg-emerald-950 text-sm w-full p-6 rounded-xl space-y-3 shadow-xl relative"
+                onClick={(e) => e.stopPropagation()}
+            >
+                <button
+                    onClick={onClose}
+                    className="absolute top-4 right-4 p-1 hover:bg-emerald-100 dark:hover:bg-emerald-900 rounded-lg transition-colors"
+                >
+                    <X className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                </button>
                 <h1 className="text-lg font-semibold">{t('todo_form.add_new_task')}</h1>
                 <input type="text" className="p-2 rounded border w-full" placeholder={t('todo_form.title_placeholder')} />
                 <textarea name="" placeholder={t('todo_form.description_placeholder')} id="" className="p-2 rounded border w-full"></textarea>

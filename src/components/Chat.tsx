@@ -4,10 +4,10 @@ import { useTranslation } from "react-i18next";
 import ChatHeader from "./ChatHeader";
 import ChatMessages from "./ChatMessages";
 import SendMessagesComponent from "./SendMessagesComponent";
-import ResourceLoader from "./resourceLoader";
 import { type ChatProps } from "../../types";
 import api from "../api/client";
 import { endpoints, ws_endpoints } from "../api/routes";
+import PageLoader from "./PageLoader";
 
 export default function Chat() {
   const { t } = useTranslation();
@@ -88,7 +88,7 @@ export default function Chat() {
 
   // ⏳ Loading
   if (loading) {
-    return <ResourceLoader text={t('chat.please_wait')} title={t('chat.loading_chat')} />;
+    return <PageLoader title={t('chat.loading_chat')} message={t('chat.please_wait')} />;
   }
 
   // ❌ Error

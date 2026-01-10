@@ -10,6 +10,7 @@ import api from "../api/client";
 import { endpoints } from "../api/routes";
 import { toggleSidebar } from "../store/uiSlice";
 import { HeroXIcon } from "./Icons";
+import {motion} from'framer-motion';
 
 const Alert = withReactContent(Swal);
 
@@ -20,6 +21,7 @@ interface SidebarLinkProps {
 const SidebarLink = ({ link, children }: SidebarLinkProps) => {
   const location = useLocation();
   const [isActive, setIsActive] = useState(false);
+  const {showSidebarLables} = useAppSelector(state => state.ui);
 
   //  Always called, no conditional hook
   useEffect(() => {
@@ -32,7 +34,7 @@ const SidebarLink = ({ link, children }: SidebarLinkProps) => {
   return (
     <Link
       to={link}
-      className={`sidebar-link relative z-0 ${isActive ? "active-sidebar-link" : ""}`}
+      className={`sidebar-link relative z-0 ${isActive ? "active-sidebar-link" : ""} ${ !showSidebarLables && 'flex justify-center items-center' } `}
     >
       {children}
     </Link>
@@ -43,18 +45,17 @@ const SidebarLink = ({ link, children }: SidebarLinkProps) => {
 export default function Sidebar() {
   const { notifications } = useAppSelector(state => state.auth)
   const dispatch = useAppDispatch();
-  const { showSidebar } = useAppSelector(state => state.ui);
+  const { showSidebar, showSidebarLables } = useAppSelector(state => state.ui);
   const { t } = useTranslation();
 
   const links = [
     { link: "/dashboard/", icon: "fi fi-rr-home", label: t("sidebar.dashboard") },
-    { link: "/dashboard/courses/", icon: "fi fi-rr-play-alt", label: t("sidebar.courses") },
-    { link: "/dashboard/exams/", icon: "fi fi-rr-quiz-alt", label: t("sidebar.exams") },
-    { link: "/dashboard/quizzes/", icon: "fi fi-rr-lightbulb-question", label: t("sidebar.quizzes") },
+    { link: "/dashboard/courses/", icon: "fi fi-rr-book-alt", label: t("sidebar.my_courses") },
     { link: "/dashboard/timetable/", icon: "fi fi-rr-calendar", label: t("sidebar.timetable") },
     { link: "/dashboard/attendance/", icon: "fi fi-rr-check-circle", label: t("sidebar.attendance") },
     { link: "/dashboard/homework", icon: "fi fi-rr-memo-circle-check", label: t("sidebar.homework") },
-    { link: "/dashboard/notifications/", messages: notifications.filter(n => n.read === false).length, icon: "fi fi-rr-bell", label: t("sidebar.notifications") },
+    { link: "/dashboard/todo/", icon: "fi fi-rr-checkbox", label: t("sidebar.todo") },
+    { link: "/dashboard/notifications/", messages: notifications.filter((n: any) => n.read === false).length, icon: "fi fi-rr-bell", label: t("sidebar.notifications") },
     { link: "/dashboard/org/", icon: "fi fi-rr-building", label: t("sidebar.organization") },
     { link: "/dashboard/subscription/", icon: "fi fi-rr-credit-card", label: t("sidebar.subscription") },
     { link: "/dashboard/communities/", icon: "fi fi-rr-users-class", label: t("sidebar.community") },
@@ -103,25 +104,27 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className={`sidebar ${showSidebar ? "translate-x-0" : "translate-x-full"}  lg:translate-x-0 transition-transform duration-300 ease-in-out`}>
+    <aside className={`sidebar ${showSidebar ? "translate-x-0" : "translate-x-full"} border-l  lg:translate-x-0 transition-transform duration-300 ease-in-out`}>
       <nav className="w-full h-full flex flex-col justify-between">
         <ul className="flex flex-col  items-center justify-center gap-y-3 py-5">
-          <div className="flex w-full items-center justify-between self-start mb-4 mt-2 px-2">
+          <motion.div className="flex w-full items-center justify-between self-start mb-4 mt-2 px-2">
             <Link to={'/'} className="flex cursor-pointer gap-2 items-center  px-2">
               <img src={'/favicon.svg'} alt="" className="w-10" />
-              <div>
-                <p className="text-slate-600"> {t('sidebar.slogan')} </p>
-              </div>
+              {showSidebarLables && (
+                <div>
+                  <p className="text-slate-600"> {t('sidebar.slogan')} </p>
+                </div>
+              )}
             </Link>
             <button className="cursor-pointer lg:hidden block" onClick={() => { dispatch(toggleSidebar()) }}>
               <HeroXIcon className="size-6" />
             </button>
-          </div>
+          </motion.div>
           {links.map(({ link, icon, label, messages = 0 }) => (
             <li key={link} className="w-full">
               <SidebarLink link={link}>
                 <i className={`${icon} text-xl`} />
-                <span>{label}</span>
+                {showSidebarLables && <span>{label}</span>}
                 {messages > 0 && (
                   <span className="rounded-full absolute right-0 -top-1 text-[10px] bg-rose-500 text-white flex items-center justify-center size-5">
                     {messages >= 100 ? "+99" : messages}
@@ -134,10 +137,10 @@ export default function Sidebar() {
         <div className="p-3">
           <button
             onClick={handleLogout}
-            className="p-2 w-full dark:text-rose-200 text-rose-900 hover:bg-rose-50 cursor-pointer rounded-md flex items-center gap-2"
+            className={`p-2 w-full dark:text-rose-200 text-rose-900 hover:bg-rose-50 cursor-pointer rounded-md flex items-center gap-2 ${!showSidebarLables && 'justify-center' } `}
           >
             <i className="fi fi-rr-sign-out-alt text-lg"></i>
-            <span>{t("logout")}</span>
+            {showSidebarLables && <span>{t("logout")}</span>}
           </button>
         </div>
       </nav>

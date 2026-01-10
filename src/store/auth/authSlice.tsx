@@ -1,53 +1,55 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { AuthUser, Enrollment, InitialAuthState, Notification, StudySession, StudyTimeWeek, WeekDay } from '../../../types';
+import type { AuthUser, InitialAuthStateProps } from '../../types/user';
+import type { Enrollment } from '../../types/enrollments';
 
 // Get initial state from localStorage if available
-const initialState: InitialAuthState = {
+const initialState: InitialAuthStateProps = {
   user: null,
   isAuthenticated: false,
   // Setting this value to true allows Protected Routes to wait until the AuthProvider loades the user
   // And then set this back to false 
-  loadingUser: false,
-  authError: [],
+  loadingUser: true, // Start as true to prevent redirect flash on page refresh
   enrollments: [],
-  ready_for_notifications: false,
   notifications: [],
-  week_study_time: null
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setNotificationsState: (state, action: PayloadAction<boolean>) => {
-      state.ready_for_notifications = action.payload;
-    },
-    setWeekStudyTime: (state, action: PayloadAction<StudyTimeWeek | null>) => {
-      state.week_study_time = action.payload;
 
-    },
-    setNotifications: (state, action: PayloadAction<Notification[]>) => {
-      state.notifications = action.payload;
-    },
-    updateDayStudyTime:(state,action:PayloadAction<StudySession>)=>{
-      if(!state.week_study_time) return ;
-      const newState = {...state.week_study_time};
-      newState[action.payload.day_info.name as WeekDay ] = action.payload; 
-    },
     setAuthenticationState: (state, action: PayloadAction<boolean>) => {
       state.isAuthenticated = action.payload;
     },
     setUser: (state, action: PayloadAction<AuthUser | null>) => {
       state.user = action.payload;
-      state.week_study_time = action.payload?.week_study_time || null 
-
+    },
+    setUserEnrollments: (state, action: PayloadAction<Enrollment[]>) => {
+      state.enrollments = action.payload;
     },
     updateUser: (state, action: PayloadAction<AuthUser>) => {
       state.user = action.payload;
-      state.week_study_time = action.payload?.week_study_time || null;
+    },
+    updateUserProfile: (state, action: PayloadAction<Partial<AuthUser>>) => {
+      if (state.user) {
+        state.user = { ...state.user, ...action.payload };
+      }
+    },
+    updateUserPreferences: (state, action: PayloadAction<Partial<AuthUser['preferences']>>) => {
+      if (state.user && state.user.preferences) {
+        state.user = { ...state.user, preferences: { ...state.user.preferences, ...action.payload } };
+      }
+    },
+    updateAccountInformation: (state, action: PayloadAction<Partial<AuthUser>>) => {
+      if (state.user) {
+        state.user = { ...state.user, ...action.payload };
+      }
     },
     setLoadingState: (state, action: PayloadAction<boolean>) => {
       state.loadingUser = action.payload;
+    },
+    setEnrollments: (state, action: PayloadAction<Enrollment[]>) => {
+      state.enrollments = action.payload;
     },
     logoutUser: (state) => {
       state.isAuthenticated = false;
@@ -70,14 +72,8 @@ const authSlice = createSlice({
       }
     },
 
-    setUserEnrollments: (state, action: PayloadAction<Enrollment[]>) => {
-      state.enrollments = action.payload;
-    },
-    appendEnrollment: (state, action: PayloadAction<Enrollment>) => {
-      state.enrollments = [...state.enrollments, action.payload]
-    }
   },
 });
 
-export const { setAuthenticationState,updateDayStudyTime, setWeekStudyTime, setNotifications, setNotificationsState, setUserEnrollments, appendEnrollment, setUser, updateUser, logoutUser, setLoadingState } = authSlice.actions;
+export const { setAuthenticationState,setUserEnrollments,updateAccountInformation,updateUserPreferences,updateUserProfile,setUser,setEnrollments, updateUser, logoutUser, setLoadingState } = authSlice.actions;
 export default authSlice.reducer;

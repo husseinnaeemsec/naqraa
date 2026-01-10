@@ -236,7 +236,7 @@ export interface Course {
     cover: string;
     subject: Subject;
     featured: boolean;
-    available_in: SubscriptionPlan[];
+    included_plans: SubscriptionPlan[];
     instructor: Instructor;
     level: string;
     grades: number[];
@@ -498,27 +498,33 @@ export interface HomeWorkResponse {
     results: HomeWork[];
 }
 
+export interface TaskRepeatDay {
+  id: number;
+  day: 'sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday';
+}
+
 export interface Task {
   id: number;
   title: string;
-  content?: string;
+  content: string;
   completed: boolean;
   priority: "low" | "medium" | "high" | "urgent";
-  due_date?: string; // ISO string
-  created_at?: string; // ISO string
-  updated_at?: string; // ISO string
-  repeat_type:'none'|'daily'|'weekly'|'monthly'|'yearly'|'custom'
-  
+  repeat_type: 'none' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'custom';
+  repeat_days: TaskRepeatDay[]; // Array of day objects for custom repeat
+  collection: number | null; // TaskCollection ID
+  due_date: string | null; // ISO string
+  object_id?: number | null; // Generic foreign key object ID
+  created_at: string; // ISO string
+  updated_at: string; // ISO string
 }
 
 export interface TaskCollection {
   id: number;
   name: string;
-  description?: string;
-  user: number; // User ID
-  tasks?: Task[]; // Nested tasks
-  created_at?: string; // ISO string
-  updated_at?: string; // ISO string
+  description: string;
+  is_default: boolean;
+  created_at: string; // ISO string
+  updated_at: string; // ISO string
 }
 
 
