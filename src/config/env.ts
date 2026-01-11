@@ -197,6 +197,7 @@ export const config: AppConfig = {
   excludeAuthCheck: import.meta.env.VITE_EXCLUDE_AUTH_CHECK || ['/login', '/register']
 }
 
+
 // Export individual config sections for convenience
 export const { 
   nodeEnv, 
