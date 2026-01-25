@@ -76,7 +76,7 @@ export const StudySessionTrackerProvider: React.FC<{ children: React.ReactNode }
     
     try {
       // Get base URL from api client
-      const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
+      const baseURL = import.meta.env.VITE_API_URL;
       const url = `${baseURL}/enrollments/daily-session/track/`;
       const payload = JSON.stringify({
         study_time_delta: studyDelta,

@@ -115,7 +115,7 @@ export const config: AppConfig = {
   appVersion: import.meta.env.VITE_APP_VERSION || '1.0.0',
 
   // API
-  apiUrl: import.meta.env.VITE_API_URL || 'http://localhost:8000/api',
+  apiUrl: import.meta.env.VITE_API_URL,
   apiTimeout: toNumber(import.meta.env.VITE_API_TIMEOUT, 30000),
   apiRetryAttempts: toNumber(import.meta.env.VITE_API_RETRY_ATTEMPTS, 3),
 
