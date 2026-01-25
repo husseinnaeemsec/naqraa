@@ -20,8 +20,8 @@ export default function UpcomingEventsWidget() {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const response = await apiClient.get<Event[]>(endpoints.student.upcomingEvents);
-                setEvents(response.data);
+                const response = await apiClient.get<{ events: Event[] }>(endpoints.student.upcomingEvents);
+                setEvents(response.data.events);
             } catch (error:any) {
                 console.error("Failed to fetch events:", error);
                 setError(t('dashboard_index.failed_to_fetch_events'));
@@ -31,7 +31,7 @@ export default function UpcomingEventsWidget() {
         };
 
         fetchEvents();
-    }, []);
+    }, [t]);
 
     const handleAddTask = (eventTitle: string, _eventDate: string) => {
         

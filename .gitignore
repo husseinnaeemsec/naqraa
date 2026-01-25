@@ -20,10 +20,10 @@ dist-ssr
 .env.production.local
 
 # Keep template and general environment files
-!.env.example
-!.env
-!.env.staging
-!.env.production
+.env.example
+.env
+.env.staging
+.env.production
 
 # Cache and temp files
 .vite
