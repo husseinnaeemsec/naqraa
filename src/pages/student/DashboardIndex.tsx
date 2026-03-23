@@ -1,4 +1,4 @@
-import { useAppSelector } from "../../store/store";
+import { useAppSelector } from "../../store";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { 
@@ -17,14 +17,13 @@ import StatCard from "../../components/StatCard";
 import WeeklyStudyChart from "../../components/WeeklyStudyChart";
 import RecentActivityFeed from "../../components/RecentActivityFeed";
 import LastWatchedCourseWidget from "../../components/LastWatchedCourseWidget";
-import type { AuthUser } from "../../types/user";
 
 const IndexPage = () => {
     const { t, i18n } = useTranslation();
-    const { user, notifications = [] } = useAppSelector((state) => state.auth);
-    
-    const unreadNotifications = notifications.filter((n: any) => !n.read).length;
-    const userLang = (user?.profile as any)?.lang || i18n.language || 'en';
+    const { user } = useAppSelector((state) => state.auth);
+    const notifications : { read:boolean }[]  = [];
+    const unreadNotifications = notifications.filter((n: { read:boolean }) => !n.read).length;
+    const userLang = user?.language || i18n.language || 'en';
     const locale = userLang === 'ar' ? 'ar-SA' : userLang === 'ku' ? 'ku' : 'en-US';
 
     // Format date based on user language
@@ -38,14 +37,14 @@ const IndexPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-slate-50 dark:from-slate-950 dark:via-emerald-950/20 dark:to-slate-950">
+        <div className="min-h-screen bg-linear-to-br from-slate-50 via-emerald-50/30 to-slate-50 dark:from-slate-950 dark:via-emerald-950/20 dark:to-slate-950">
             {/* Compact Header with Key Metrics */}
             <motion.div 
-                className="sticky top-0 z-[1] bg-white/80 dark:bg-slate-950/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800"
+                className="sticky top-0 z-1 bg-white/80 dark:bg-slate-950/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
             >
-                <div className="max-w-[1800px] mx-auto px-6 py-4">
+                <div className="max-w-450 mx-auto px-6 py-4">
                     <div className="flex items-center justify-between">
                         <div>
                             <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
@@ -64,7 +63,7 @@ const IndexPage = () => {
                                 </div>
                                 <div>
                                     <p className="text-xs text-slate-500 dark:text-slate-400">{t('dashboard_index.study_streak')}</p>
-                                    <p className="text-sm font-bold text-slate-900 dark:text-white">{(user as AuthUser)?.student?.streak?.current || 0} days</p>
+                                    <p className="text-sm font-bold text-slate-900 dark:text-white"> 0 days</p>
                                 </div>
                             </div>
                             
@@ -75,7 +74,7 @@ const IndexPage = () => {
                                 <div>
                                     <p className="text-xs text-slate-500 dark:text-slate-400">{t('dashboard_index.today')}</p>
                                     <p className="text-sm font-bold text-slate-900 dark:text-white">
-                                        {Math.floor(((user as any)?.student?.today_study_time || 0) / 60)}h {((user as any)?.student?.today_study_time || 0) % 60}m
+                                        {Math.floor((0) / 60)}h { 0 % 60}m
                                     </p>
                                 </div>
                             </div>
@@ -120,7 +119,7 @@ const IndexPage = () => {
                 >
                     <StatCard
                         label={t('dashboard_index.study_hours')}
-                        value={`${Math.floor(((user as any)?.student?.study_time || 0) / 60)}h`}
+                        value={`${Math.floor((0 / 60))}h`}
                         change="+12%"
                         icon={Clock}
                         color="emerald"
@@ -134,14 +133,14 @@ const IndexPage = () => {
                     />
                     <StatCard
                         label={t('dashboard_index.current_streak')}
-                        value={t('dashboard_index.days_count', { count: (user as AuthUser)?.student?.streak?.current || 0 })}
+                        value={t('dashboard_index.days_count', { count: 0 })}
                         change="+2"
                         icon={Zap}
                         color="orange"
                     />
                     <StatCard
                         label={t('dashboard_index.points_earned')}
-                        value={(user as any)?.student?.reputation?.this_week || 0}
+                        value={0}
                         change="+15%"
                         icon={Award}
                         color="purple"

@@ -34,7 +34,7 @@ const FilesPage = () => {
     );
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950 p-6">
+        <div className="min-h-screen bg-linear-to-br from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950 p-6">
             {/* Header */}
             <motion.div 
                 initial={{ opacity: 0, y: -20 }}

@@ -7,7 +7,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import api from "../../api/client";
 import { endpoints } from "../../api/routes";
-import { useAppSelector } from "../../store/store";
+import { useAppSelector } from "../../store";
 import PageLoader from "../../components/PageLoader";
 import { getLogo } from "../../utils/functions";
 

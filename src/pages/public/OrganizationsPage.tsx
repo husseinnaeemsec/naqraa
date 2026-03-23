@@ -6,7 +6,7 @@ import { Search, MapPin, Filter, Building, ChevronLeft, ChevronRight } from 'luc
 import api from '../../api/client';
 import { endpoints } from '../../api/routes';
 import { governorates } from '../../../constants';
-import { useAppDispatch, useAppSelector } from '../../store/store';
+import { useAppDispatch, useAppSelector } from '../../store';
 import { WarningAlert, SuccessAlert, ErrorAlert } from '../../components/alerts';
 import { simpleDebounce } from '../../utils/functions';
 import type { PublicOrganizationProfile } from '../../../types';

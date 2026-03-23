@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/store";
+import { useAppDispatch, useAppSelector } from "../../store";
 import { setActiveLecture } from "../../store/enrollmentSlice";
 import { HeroCheckedIcon, HeroClockIcon, HeroPlayIcon, HeroChevronDownIcon } from "../Icons";
 import gsap from "gsap";

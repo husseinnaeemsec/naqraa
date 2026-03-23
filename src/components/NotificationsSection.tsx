@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { ErrorNote, SectionHeader, Success, Toggle } from "../pages/student/SettingsPage";
 import { endpoints } from "../api/routes";
 import api from "../api/client";
-import { useAppDispatch, useAppSelector } from "../store/store";
+import { useAppDispatch, useAppSelector } from "../store";
 import { setUser } from "../store/auth/authSlice";
 
 export default function NotificationsSection() {

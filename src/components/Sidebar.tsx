@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../store/store";
+import { useAppDispatch, useAppSelector } from "../store";
 import { logoutUser } from "../store/auth/authSlice";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -8,7 +8,6 @@ import { emeraldColors } from "../colors";
 import { useTranslation } from "react-i18next";
 import api from "../api/client";
 import { endpoints } from "../api/routes";
-import { toggleSidebar } from "../store/uiSlice";
 import { HeroXIcon } from "./Icons";
 import {motion} from'framer-motion';
 
@@ -21,7 +20,7 @@ interface SidebarLinkProps {
 const SidebarLink = ({ link, children }: SidebarLinkProps) => {
   const location = useLocation();
   const [isActive, setIsActive] = useState(false);
-  const {showSidebarLables} = useAppSelector(state => state.ui);
+  const showSidebarLables = true;
 
   //  Always called, no conditional hook
   useEffect(() => {
@@ -43,18 +42,17 @@ const SidebarLink = ({ link, children }: SidebarLinkProps) => {
 
 
 export default function Sidebar() {
-  const { notifications } = useAppSelector(state => state.auth)
+  const notifications  = []
   const dispatch = useAppDispatch();
-  const { showSidebar, showSidebarLables } = useAppSelector(state => state.ui);
+  const { showSidebar, showSidebarLables } =  { showSidebar:true, showSidebarLables:true } ;
   const { t } = useTranslation();
 
   const links = [
     { link: "/dashboard/", icon: "fi fi-rr-home", label: t("sidebar.dashboard") },
     { link: "/dashboard/courses/", icon: "fi fi-rr-book-alt", label: t("sidebar.my_courses") },
     { link: "/dashboard/timetable/", icon: "fi fi-rr-calendar", label: t("sidebar.timetable") },
-    { link: "/dashboard/attendance/", icon: "fi fi-rr-check-circle", label: t("sidebar.attendance") },
     { link: "/dashboard/homework", icon: "fi fi-rr-memo-circle-check", label: t("sidebar.homework") },
-    { link: "/dashboard/todo/", icon: "fi fi-rr-checkbox", label: t("sidebar.todo") },
+    { link: "/dashboard/tasks/", icon: "fi fi-rr-checkbox", label: t("sidebar.todo") },
     { link: "/dashboard/notifications/", messages: notifications.filter((n: any) => n.read === false).length, icon: "fi fi-rr-bell", label: t("sidebar.notifications") },
     { link: "/dashboard/org/", icon: "fi fi-rr-building", label: t("sidebar.organization") },
     { link: "/dashboard/subscription/", icon: "fi fi-rr-credit-card", label: t("sidebar.subscription") },

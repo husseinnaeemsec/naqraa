@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { endpoints } from "../../../api/routes";
 import api from "../../../api/client";
-import { useAppSelector } from "../../../store/store";
+import { useAppSelector } from "../../../store";
 import PostCard from "../../../components/PostCard";
 import CreatePost from "../../../components/CreatePost";
 import { HeroErrorIcon, HeroPlusIcon, HeroUsersIcon, HeroMenuIcon, HeroXIcon } from "../../../components/Icons";

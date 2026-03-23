@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Loader2, CheckCircle2, XCircle, X, ChevronDown } from "lucide-react";
-import { useAppDispatch, useAppSelector } from "../store/store";
+import { useAppDispatch, useAppSelector } from "../store";
 import { removeAsyncOperation, clearAsyncOperations } from "../store/uiSlice";
 import { useState } from "react";
 

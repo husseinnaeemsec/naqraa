@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useAppSelector } from "../store/store";
+import { useAppSelector } from "../store";
 
 export const useLangaugeHook = ()=>{
     const [langauge,setLangauge] = useState<'en'|'ar'|'ku'>('en');

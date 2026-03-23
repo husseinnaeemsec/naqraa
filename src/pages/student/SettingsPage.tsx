@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useAppSelector } from "../../store/store";
+import { useAppSelector } from "../../store";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import ChangePasswordSection from "../../components/ChangePasswordSection";
@@ -50,7 +50,6 @@ export const Toggle = ({ checked, onChange, label }: { checked: boolean; onChang
 // Settings Page Component
 const SettingsPage = () => {
     useApiErrorHandler();
-    const { user } = useAppSelector((state) => state.auth)
     const { t } = useTranslation();
 
 

@@ -4,10 +4,9 @@ import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, FileText, Calendar, MessageCircle, User, Home, ChevronDown } from "lucide-react";
 import type { Notification } from "../../types";
-import { useAppDispatch, useAppSelector } from "../store/store";
+import { useAppDispatch, useAppSelector } from "../store";
 import { getMedia } from "../utils/functions";
 import { HeroBars3Icon, HeroBellIcon, HeroMenuIcon, HeroXIcon } from "./Icons";
-import { setShowSidebarLabels, toggleSidebar } from "../store/uiSlice";
 
 function UserProfileMenu() {
     const { t } = useTranslation();
@@ -45,9 +44,9 @@ function UserProfileMenu() {
                 onClick={() => setIsOpen(!isOpen)}
                 className="flex items-center gap-2 p-1 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-800/30 transition-colors"
             >
-                {user?.profile?.avatar ? (
+                {user?.avatar ? (
                     <img 
-                        src={getMedia(user.profile.avatar)} 
+                        src={getMedia(user.avatar)} 
                         alt={user.first_name} 
                         className="size-8 rounded-full border-2 border-emerald-200 dark:border-emerald-700 object-cover"
                     />
@@ -71,9 +70,9 @@ function UserProfileMenu() {
                     >
                         <div className="p-4 border-b border-emerald-100 dark:border-emerald-800">
                             <div className="flex items-center gap-3">
-                                {user?.profile?.avatar ? (
+                                {user?.avatar ? (
                                     <img 
-                                        src={getMedia(user.profile.avatar)} 
+                                        src={getMedia(user.avatar)} 
                                         alt={user.first_name} 
                                         className="size-10 rounded-full border-2 border-emerald-200 dark:border-emerald-700 object-cover"
                                     />
@@ -203,12 +202,10 @@ function NotificationItem({ notification }: { notification: Notification }) {
 
 export default function DashboardTopNavbar() {
     const { t } = useTranslation();
-    const { notifications } = useAppSelector(state => state.auth);
-    const {showSidebarLables} = useAppSelector(state => state.ui);
+    const notifications  = [];
     const unread = notifications.filter(n => n.read === false);
     const [open, setOpen] = useState(false);
     const notificationsRef = useRef<HTMLDivElement>(null);
-    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -236,10 +233,10 @@ export default function DashboardTopNavbar() {
     }
 
     return (
-        <nav className="flex items-center bg-white/80 dark:bg-emerald-900/80 sticky top-0 z-[10] backdrop-blur-md border-b border-emerald-200/50 dark:border-emerald-700/50 h-16 justify-between px-4 shadow-sm">
+        <nav className="flex items-center bg-white/80 dark:bg-emerald-900/80 sticky top-0 z-10 backdrop-blur-md border-b border-emerald-200/50 dark:border-emerald-700/50 h-16 justify-between px-4 shadow-sm">
             <div >
-                <button className="lg:hidden block" onClick={()=>{ dispatch(toggleSidebar()) }}> <HeroMenuIcon className="size-6" /> </button>
-                <button onClick={()=>{ dispatch(setShowSidebarLabels(!showSidebarLables)) }}  className="lg:block hidden">
+                <button className="lg:hidden block" onClick={()=>{  }}> <HeroMenuIcon className="size-6" /> </button>
+                <button onClick={()=>{  }}  className="lg:block hidden">
                     <HeroBars3Icon className="size-6" />
                 </button>
             </div>
@@ -312,7 +309,7 @@ export default function DashboardTopNavbar() {
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: -10, scale: 0.95 }}
                             transition={{ duration: 0.2 }}
-                            className="w-96 max-h-[450px] overflow-y-auto bg-white dark:bg-emerald-900 border border-emerald-200 dark:border-emerald-700 rounded-xl shadow-xl absolute left-0 top-[110%] z-50"
+                            className="w-96 max-h-112.5 overflow-y-auto bg-white dark:bg-emerald-900 border border-emerald-200 dark:border-emerald-700 rounded-xl shadow-xl absolute left-0 top-[110%] z-50"
                         >
                             <div className="p-4 border-b border-emerald-100 dark:border-emerald-800 flex items-center justify-between bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20 sticky top-0 z-10">
                                 <h1 className="text-lg font-bold text-gray-900 dark:text-emerald-50 flex items-center gap-2">

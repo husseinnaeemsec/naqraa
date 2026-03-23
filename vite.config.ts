@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       allowedHosts: env.VITE_ALLOWED_HOSTS ? env.VITE_ALLOWED_HOSTS.split(',') : [],
-      port: Number(env.VITE_DEV_PORT) || 3000,
+      port: Number(env.VITE_DEV_PORT) || 5173,
       host: env.VITE_HOST || 'localhost', // Allow external connections
       strictPort: true,
       // Remove HTTPS for local dev

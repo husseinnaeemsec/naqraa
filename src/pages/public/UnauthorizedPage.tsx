@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { AlertTriangle, Home, RefreshCw } from 'lucide-react';
-import { useAppDispatch, useAppSelector } from '../../store/store';
+import { useAppDispatch, useAppSelector } from '../../store';
 import { logoutUser } from '../../store/auth/authSlice';
 
 export default function UnauthorizedPage() {

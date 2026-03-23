@@ -16,8 +16,6 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from "react-router-dom";
 import type { Exam } from "../../../types";
-import api from "../../api/client";
-import { endpoints } from "../../api/routes";
 import { formatTime, timeBefore } from "../../utils/functions";
 import Card from "../../components/ui/CustomCard";
 import Button from "../../components/ui/CustomButton";
@@ -34,17 +32,9 @@ export default function ExamDetailsPage() {
 
     useEffect(() => {
         const fetchExamDetails = async () => {
-            if (!id) return;
-            
-            try {
-                setLoading(true);
-                const response = await api.get(endpoints.student.exam(id));
-                setExam(response.data);
-            } catch (error) {
-                console.error("Failed to fetch exam details:", error);
-            } finally {
-                setLoading(false);
-            }
+            setLoading(true)
+            setExam(null);
+            setLoading(false);
         };
 
         fetchExamDetails();
@@ -110,7 +100,7 @@ export default function ExamDetailsPage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gradient-to-b from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950 flex items-center justify-center">
+            <div className="min-h-screen bg-linear-to-b from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950 flex items-center justify-center">
                 <Spinner />
             </div>
         );
@@ -118,7 +108,7 @@ export default function ExamDetailsPage() {
 
     if (!exam) {
         return (
-            <div className="min-h-screen bg-gradient-to-b from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950 flex items-center justify-center">
+            <div className="min-h-screen bg-linear-to-b from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950 flex items-center justify-center">
                 <Card variant="dashboard" className="p-8 text-center">
                     <AlertCircle className="size-16 text-red-500 mx-auto mb-4" />
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-emerald-50 mb-2">
@@ -140,7 +130,7 @@ export default function ExamDetailsPage() {
     const StatusIcon = status.icon;
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950">
+        <div className="min-h-screen bg-linear-to-b from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950">
             {/* Header */}
             <motion.div 
                 className="p-6 pb-4"
@@ -203,7 +193,7 @@ export default function ExamDetailsPage() {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.6, delay: 0.1 }}
                     >
-                        <Card variant="dashboard" className="p-6 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white">
+                        <Card variant="dashboard" className="p-6 bg-linear-to-r from-emerald-500 to-emerald-600 text-white">
                             <div className="text-center">
                                 <h3 className="text-lg font-semibold mb-4">{t('exam_details.time_remaining')}</h3>
                                 <div className="flex items-center justify-center gap-6">
@@ -355,21 +345,21 @@ export default function ExamDetailsPage() {
                         
                         <div className="space-y-3">
                             <div className="flex items-start gap-3 p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg">
-                                <CheckCircle className="size-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                                <CheckCircle className="size-5 text-emerald-600 shrink-0 mt-0.5" />
                                 <p className="text-sm text-gray-700 dark:text-emerald-200">
                                     {t('exam_details.tip_1')}
                                 </p>
                             </div>
                             
                             <div className="flex items-start gap-3 p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg">
-                                <CheckCircle className="size-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                                <CheckCircle className="size-5 text-emerald-600 shrink-0 mt-0.5" />
                                 <p className="text-sm text-gray-700 dark:text-emerald-200">
                                     {t('exam_details.tip_2')}
                                 </p>
                             </div>
                             
                             <div className="flex items-start gap-3 p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg">
-                                <CheckCircle className="size-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                                <CheckCircle className="size-5 text-emerald-600 shrink-0 mt-0.5" />
                                 <p className="text-sm text-gray-700 dark:text-emerald-200">
                                     {t('exam_details.tip_3')}
                                 </p>

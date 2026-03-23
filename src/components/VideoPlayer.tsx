@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import type { CurrentLecture, LectureTimeline } from "../../types";
 import { getMedia } from "../utils/functions";
 import { HeroPlayIcon } from "./Icons";
-import { useAppSelector, useAppDispatch } from "../store/store";
+import { useAppSelector, useAppDispatch } from "../store";
 import { setActiveLecture } from "../store/enrollmentSlice";
 
 interface Props {

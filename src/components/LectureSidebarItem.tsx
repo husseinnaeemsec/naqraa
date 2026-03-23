@@ -1,6 +1,6 @@
 import { t } from "i18next";
 import type { Enrollment, EnrollmentLecture } from "../../types"
-import { useAppSelector } from "../store/store";
+import { useAppSelector } from "../store";
 import { useEffect } from "react";
 
 interface Props {

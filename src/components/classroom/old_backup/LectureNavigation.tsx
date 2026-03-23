@@ -7,7 +7,7 @@ import {
   addCompletedLecture,
   addCompletedSection,
 } from "../../../store/enrollmentSlice.tsx";
-import { useAppDispatch, useAppSelector } from "../../../store/store";
+import { useAppDispatch, useAppSelector } from "../../../store/index.tsx";
 import { ErrorAlert, SuccessAlert } from "../../alerts";
 
 export default function LectureNavigation() {

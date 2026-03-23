@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAppSelector } from "../../store/store";
+import { useAppSelector } from "../../store";
 import type { LectureTab } from "../../../types";
 import ClassroomTabs from "../ClassroomTabs";
 import ContentTab from "../ContentTab";

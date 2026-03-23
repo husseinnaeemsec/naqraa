@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getLogo } from '../../utils/functions';
-import { useAppSelector } from '../../store/store';
+import { useAppSelector } from '../../store';
 import { CheckCircle, Eye, EyeOff, Lock, ArrowRight, AlertCircle } from 'lucide-react';
 import api from '../../api/client';
 import { endpoints } from '../../api/routes';

@@ -8,7 +8,7 @@ import community from '../../assets/online-discussion.svg';
 import laptop from '../../assets/science.svg';
 import { endpoints } from '../../api/routes';
 import { getLogo } from '../../utils/functions';
-import { useAppDispatch, useAppSelector } from '../../store/store';
+import { useAppDispatch, useAppSelector } from '../../store';
 import { logoutUser, setAuthenticationState, setUser } from '../../store/auth/authSlice';
 import VerificationPage from '../../components/VerificationPage';
 
@@ -57,7 +57,7 @@ const isValidRedirectUrl = (url: string): boolean => {
 
 export default function LoginPage() {
   const { isAuthenticated } = useAppSelector((state) => state.auth)
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
@@ -103,12 +103,12 @@ export default function LoginPage() {
     setActivateAccount(false);
     setLoading(true);
 
-    if (!email || !password) {
+    if (!username || !password) {
       setErrors(['البريد الإلكتروني وكلمة المرور مطلوبة.']);
       setLoading(false);
       return;
     }
-    api.post(endpoints.student.authentication.login, { email, password })
+    api.post(endpoints.user.login, { username, password })
       .then((res) => {
         dispatch(setUser(res.data))
         setTimeout(() => {
@@ -129,6 +129,9 @@ export default function LoginPage() {
             setErrors([e.response.data.error || e.response.data.detail]);
             if (e.response?.data?.code === 'account_not_active') {
               setActivateAccount(true)
+            }
+            if(e.response?.data?.non_field_errors) {
+              setErrors(e.response.data.non_field_errors)
             }
           }
         } else {
@@ -180,8 +183,8 @@ export default function LoginPage() {
                 type="text"
                 placeholder="البريد الإلكتروني"
                 className="p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-emerald-950 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-emerald-500"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
               <input
                 type="password"

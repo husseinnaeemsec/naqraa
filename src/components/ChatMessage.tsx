@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import type { ChatMessageProps  } from "../../types";
 import { timeSince } from "../utils/functions";
-import { useAppSelector } from "../store/store";
+import { useAppSelector } from "../store";
 
 
 

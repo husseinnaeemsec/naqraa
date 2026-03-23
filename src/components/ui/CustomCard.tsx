@@ -15,9 +15,9 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     const baseClasses = "rounded-xl transition-all duration-300";
     
     const variants = {
-      default: "bg-white dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800",
-      dashboard: "bg-white dark:bg-emerald-950 border border-emerald-200/40 dark:border-emerald-800/40 ",
-      landing: "bg-white/90 backdrop-blur-sm border border-emerald-100  "
+      default: "bg-white dark:bg-emerald-950 border border-slate-200 dark:border-slate-800",
+      dashboard: "bg-white dark:bg-emerald-950 border border-slate-200/40 dark:border-slate-800/40 ",
+      landing: "bg-white/90 backdrop-blur-sm border border-slate-100  "
     };
 
     const hoverClasses = hover ? " hover:-translate-y-1" : "";

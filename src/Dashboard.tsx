@@ -1,14 +1,11 @@
 import { Outlet } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import DashboardTopNavbar from './components/DashboardTopNavbar';
-import { useAppSelector } from './store/store';
-import { FloatingTasksMenu } from './components/FloatingTasksMenu';
-import { ToastContainer } from './components/ToastContainer';
 
 const Dashboard = () => {
 
   
-  const {showSidebarLables} = useAppSelector(state=>state.ui);
+  const showSidebarLables = true;
   
   
   return (
@@ -23,10 +20,7 @@ const Dashboard = () => {
           <Outlet />
         </div>
       </main>
-      {/* Floating Tasks Menu */}
-      <FloatingTasksMenu />
-      {/* Toast Container */}
-      <ToastContainer />
+
     </div>
   );
 };

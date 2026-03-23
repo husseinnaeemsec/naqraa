@@ -7,7 +7,7 @@ import {
   setCompletedLectures,
   setCompletedSections,
 } from "../../store/enrollmentSlice";
-import { useAppDispatch, useAppSelector } from "../../store/store";
+import { useAppDispatch, useAppSelector } from "../../store";
 import { ErrorAlert, SuccessAlert } from "../alerts";
 import { HeroArrowLeftIcon, HeroArrowRightIcon, HeroCheckCircleIcon } from "../Icons";
 

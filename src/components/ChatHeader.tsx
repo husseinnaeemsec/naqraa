@@ -1,4 +1,4 @@
-import { useAppSelector } from "../store/store";
+import { useAppSelector } from "../store";
 import type { ChatProps } from "../../types";
 import { useEffect, useState } from "react";
 

@@ -1,19 +1,20 @@
 // Task Types
-export type TaskPriority = 'low' | 'medium' | 'high' | 'urgent';
 
-export interface Task {
+export type TaskPriorityType = "low" | "medium" | "high" | "urgent";
+export type TaskRecurringType = "daily" | "weekly" | "monthly" | "none";
+export type TaskStatusType = "pending" | "completed" | "in_progress";
+export interface TaskType {
   id: number;
-  title: string;
-  content: string | null;
-  completed: boolean;
-  priority: TaskPriority;
-  priority_display?: string;
-  collection: number | null;
-  due_date: string | null; // ISO 8601 format: "2025-12-10T14:00:00Z"
-  created_at: string; // ISO 8601 format
-  updated_at: string; // ISO 8601 format
-  object_id?: number;
-  repeat_type?: string;
+  name: string;
+  description: string;
+  priority: TaskPriorityType;
+  recurring: TaskRecurringType;
+  due_date: string | null;   // ISO date string (YYYY-MM-DD)
+  due_time: string | null;   // HH:MM:SS or null
+  category: number | null;   // لأنك راجع ID أو null
+  status: TaskStatusType;
+  created_at:string;
+  updated_at:string;
 }
 
 // Task Collection Types

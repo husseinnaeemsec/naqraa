@@ -3,7 +3,7 @@ import type { LectureNote } from "../../types";
 import api from "../api/client";
 import { endpoints } from "../api/routes";
 import { timeSince } from "../utils/functions";
-import { useAppDispatch, useAppSelector } from "../store/store";
+import { useAppDispatch, useAppSelector } from "../store";
 import { setCurrentLecture } from "../store/enrollmentSlice";
 
 interface NoteCardProps {

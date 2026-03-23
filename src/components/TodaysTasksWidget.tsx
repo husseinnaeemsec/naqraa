@@ -3,19 +3,16 @@ import { CheckCircle2, Clock, AlertCircle, Plus } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import Card from "./ui/CustomCard";
 import { useState, useEffect } from "react";
-import type { Task } from "../../types";
 import api from "../api/client";
 import { endpoints } from "../api/routes";
 import { getNewTaskInitialDataQuery } from "../utils/functions";
-import { useAppDispatch } from "../store/store";
-import { addToast } from "../store/uiSlice";
 import Spinner from "./Spinner";
+import type { TaskType } from "../types/productivity";
 
 export default function TodaysTasksWidget() {
     const { t } = useTranslation();
-    const [todaysTasks, setTodaysTasks] = useState<Task[]>([]);
+    const [todaysTasks, setTodaysTasks] = useState<TaskType[]>([]);
     const [loading, setLoading] = useState(true);
-    const dispatch = useAppDispatch();
 
 
     
@@ -34,9 +31,9 @@ export default function TodaysTasksWidget() {
         fetchTodaysTasks();
     }, []);
 
-    const getPendingCount = () => todaysTasks.filter(task => !task.completed).length;
+    const getPendingCount = () => todaysTasks.filter(task => task.status !== 'completed').length;
 
-    const getPriorityColor = (priority: Task['priority']) => {
+    const getPriorityColor = (priority: TaskType['priority']) => {
         switch (priority) {
             case 'urgent':
                 return 'text-red-600 dark:text-red-400';
@@ -67,14 +64,15 @@ export default function TodaysTasksWidget() {
         // Optimistically update UI
         setTodaysTasks(tasks => 
             tasks.map(task => 
-                task.id === taskId ? { ...task, completed: !task.completed } : task
+                task.id === taskId ? { ...task, status: task.status === 'completed' ? 'pending' : 'completed' } : task
             )
         );
         
         try {
-            await api.patch(endpoints.productivity.tasks.toggle(taskId));
-            dispatch(addToast({ type: 'success', message: t('dashboard_index.task_toggled') }));
-
+            await api.patch(endpoints.productivity.tasks.updateOrDelete(taskId),{
+                status: todaysTasks.find(t => t.id === taskId)?.status === 'completed' ? 'pending' : 'completed'
+            });
+            console.log("Task toggled successfully");
         } catch (error:any) {
             console.error('Failed to toggle task:', error);
             let error_message = t('dashboard_index.task_toggle_failed');
@@ -83,7 +81,7 @@ export default function TodaysTasksWidget() {
             }
             console.log(error)
             // Revert on error
-            dispatch(addToast({ type: 'error', message: error_message }));
+            console.log(error_message);
             setTodaysTasks(previousTasks);
         }
     };
@@ -110,7 +108,7 @@ export default function TodaysTasksWidget() {
                         <Plus className="size-4" />
                         {t('todo_page.new_task')}
                     </Link>
-                    <Link to="/dashboard/todo" className="text-sm text-emerald-600 hover:text-emerald-700 font-medium">
+                    <Link to="/dashboard/tasks" className="text-sm text-emerald-600 hover:text-emerald-700 font-medium">
                         {t('dashboard_index.view_all')}
                     </Link>
                 </div>
@@ -136,34 +134,28 @@ export default function TodaysTasksWidget() {
                         <div 
                             key={task.id} 
                             className={`p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 transition-all cursor-pointer group ${
-                                task.completed ? 'opacity-60' : ''
+                                task.status === 'completed' ? 'opacity-60' : ''
                             }`}
                         >
                             <div className="flex items-start gap-3">
                                 <input 
                                     type="checkbox" 
-                                    checked={task.completed}
+                                    checked={task.status === 'completed'}
                                     onChange={() => handleToggleTask(task.id)}
                                     className="mt-1 size-4 text-emerald-600 rounded cursor-pointer" 
                                 />
                                 <div className="flex-1 min-w-0">
                                     <h4 className={`text-sm font-medium group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors truncate ${
-                                        task.completed 
+                                        task.status === 'completed' 
                                             ? 'line-through text-slate-500 dark:text-slate-400' 
                                             : 'text-slate-900 dark:text-white'
                                     }`}>
-                                        {task.title}
+                                        {task.name}
                                     </h4>
                                     <div className="flex items-center gap-3 mt-1 flex-wrap">
-                                        {task.collection && (
-                                            <span className="text-xs text-slate-500 dark:text-slate-400 truncate">
-                                                {/* Collection name would come from collections data */}
-                                                Collection #{task.collection}
-                                            </span>
-                                        )}
                                         {task.due_date && (
                                             <span className={`text-xs flex items-center gap-1 ${
-                                                new Date(task.due_date) < new Date() && !task.completed
+                                                new Date(task.due_date) < new Date() && task.status !== 'completed'
                                                     ? 'text-red-600 dark:text-red-400'
                                                     : 'text-slate-600 dark:text-slate-400'
                                             }`}>
@@ -188,7 +180,7 @@ export default function TodaysTasksWidget() {
             {!loading && todaysTasks.length > 3 && (
                 <div className="mt-4 text-center">
                     <Link 
-                        to="/dashboard/todo" 
+                        to="/dashboard/tasks" 
                         className="text-sm text-emerald-600 hover:text-emerald-700 font-medium"
                     >
                         {t('dashboard_index.view_all')} ({todaysTasks.length})

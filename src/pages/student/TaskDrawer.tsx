@@ -6,31 +6,28 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Highlight from '@tiptap/extension-highlight';
 import TextAlign from '@tiptap/extension-text-align';
-import { type Task, type TaskCollection } from '../../types/productivity';
+import type { TaskType } from '../../types/productivity';
 
 interface TaskDrawerProps {
     isOpen: boolean;
     onClose: () => void;
-    collections: TaskCollection[];
-    onSave?: (task: Partial<Task>) => void;
-    editTask?: Task | null;
+    onSave?: (task: Partial<TaskType>) => void;
+    editTask?: TaskType | null;
 }
 
-export default function TaskDrawer({ isOpen, onClose, collections, onSave, editTask }: TaskDrawerProps) {
+export default function TaskDrawer({ isOpen, onClose, onSave, editTask }: TaskDrawerProps) {
     const { t, i18n } = useTranslation();
     const isRTL = i18n.language === 'ar' || i18n.language === 'ku';
 
-    const [title, setTitle] = useState('');
+    const [name, setTitle] = useState('');
     const [priority, setPriority] = useState<'low' | 'medium' | 'high' | 'urgent'>('medium');
-    const [collectionId, setCollectionId] = useState<number | null>(null);
     const [dueDate, setDueDate] = useState('');
 
     // Store initial values for dirty checking
     const [initialValues, setInitialValues] = useState({
-        title: '',
-        content: '',
-        priority: 'medium' as Task['priority'],
-        collectionId: null as number | null,
+        name: '',
+        description: '',
+        priority: 'medium' as TaskType['priority'],
         dueDate: ''
     });
 
@@ -54,9 +51,8 @@ export default function TaskDrawer({ isOpen, onClose, collections, onSave, editT
     // Load task data when editing
     useEffect(() => {
         if (editTask && isOpen) {
-            setTitle(editTask.title);
+            setTitle(editTask.name);
             setPriority(editTask.priority);
-            setCollectionId(editTask.collection);
             
             // Safely parse due date
             let parsedDueDate = '';
@@ -71,23 +67,21 @@ export default function TaskDrawer({ isOpen, onClose, collections, onSave, editT
                 }
             }
             setDueDate(parsedDueDate);
-            editor?.commands.setContent(editTask.content || '');
+            editor?.commands.setContent(editTask.description || '');
             
             // Set initial values for comparison
             setInitialValues({
-                title: editTask.title,
-                content: editTask.content || '',
+                name: editTask.name,
+                description: editTask.description || '',
                 priority: editTask.priority,
-                collectionId: editTask.collection,
                 dueDate: parsedDueDate
             });
         } else if (!editTask && isOpen) {
             // Reset for new task
             setInitialValues({
-                title: '',
-                content: '',
+                name: '',
+                description: '',
                 priority: 'medium',
-                collectionId: null,
                 dueDate: ''
             });
         }
@@ -95,26 +89,24 @@ export default function TaskDrawer({ isOpen, onClose, collections, onSave, editT
 
     // Check if data is dirty
     const isDirty = () => {
-        const currentContent = editor?.getHTML() || '';
+        const currentDescription = editor?.getHTML() || '';
         return (
-            title !== initialValues.title ||
-            currentContent !== initialValues.content ||
+            name !== initialValues.name ||
+            currentDescription !== initialValues.description ||
             priority !== initialValues.priority ||
-            collectionId !== initialValues.collectionId ||
             dueDate !== initialValues.dueDate
         );
     };
 
     const handleSave = () => {
-        if (!title.trim()) return;
+        if (!name.trim()) return;
 
-        const taskData: Partial<Task> = {
-            title,
-            content: editor?.getHTML() || '',
+        const taskData: Partial<TaskType> = {
+            name,
+            description: editor?.getHTML() || '',
             priority,
-            collection: collectionId,
             due_date: dueDate || null,
-            completed: editTask?.completed || false,
+            status: editTask?.status  || 'pending',
         };
 
         // Add id only if editing an existing task (not a temporary task with id 0)
@@ -129,7 +121,6 @@ export default function TaskDrawer({ isOpen, onClose, collections, onSave, editT
     const handleClose = () => {
         setTitle('');
         setPriority('medium');
-        setCollectionId(null);
         setDueDate('');
         editor?.commands.setContent('');
         onClose();
@@ -158,7 +149,7 @@ export default function TaskDrawer({ isOpen, onClose, collections, onSave, editT
                         animate={{ x: 0 }}
                         exit={{ x: isRTL ? '100%' : '-100%' }}
                         transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-                        className={`fixed top-0 ${isRTL ? 'right-0' : 'left-0'} h-full w-full md:w-[500px] bg-white dark:bg-slate-900 shadow-2xl z-50 overflow-y-auto`}
+                        className={`fixed top-0 ${isRTL ? 'right-0' : 'left-0'} h-full w-full md:w-125 bg-white dark:bg-slate-900 shadow-2xl z-50 overflow-y-auto`}
                     >
                         <div className="p-6 space-y-6">
                             {/* Header */}
@@ -181,7 +172,7 @@ export default function TaskDrawer({ isOpen, onClose, collections, onSave, editT
                                 </label>
                                 <input
                                     type="text"
-                                    value={title}
+                                    value={name}
                                     onChange={(e) => setTitle(e.target.value)}
                                     placeholder={t('todo_form.title_placeholder')}
                                     dir={isRTL ? 'rtl' : 'ltr'}
@@ -267,25 +258,7 @@ export default function TaskDrawer({ isOpen, onClose, collections, onSave, editT
                                 </div>
                             </div>
 
-                            {/* Collection */}
-                            <div>
-                                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                                    {t('todo_form.collection')}
-                                </label>
-                                <select
-                                    value={collectionId || ''}
-                                    onChange={(e) => setCollectionId(e.target.value ? Number(e.target.value) : null)}
-                                    dir={isRTL ? 'rtl' : 'ltr'}
-                                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
-                                >
-                                    <option value="">{t('todo_form.no_collection')}</option>
-                                    {collections.map((collection) => (
-                                        <option key={collection.id} value={collection.id}>
-                                            {collection.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+
 
                             {/* Due Date */}
                             <div>
@@ -312,7 +285,7 @@ export default function TaskDrawer({ isOpen, onClose, collections, onSave, editT
                                 </button>
                                 <button
                                     onClick={handleSave}
-                                    disabled={!title.trim() || (!!editTask && editTask.id !== 0 && !isDirty())}
+                                    disabled={!name.trim() || (!!editTask && editTask.id !== 0 && !isDirty())}
                                     className="flex-1 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed text-white rounded-lg transition-colors font-medium"
                                 >
                                     {editTask && editTask.id !== 0 ? t('todo_form.update_task') : t('todo_page.new_task')}

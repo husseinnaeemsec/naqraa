@@ -3,7 +3,7 @@ import { ErrorNote, SectionHeader, Success } from "../pages/student/SettingsPage
 import api from "../api/client";
 import { endpoints } from "../api/routes";
 import { setUser } from "../store/auth/authSlice";
-import { useAppDispatch } from "../store/store";
+import { useAppDispatch } from "../store";
 import { t } from "i18next";
 
 

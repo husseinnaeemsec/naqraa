@@ -5,7 +5,7 @@ import api from "../../api/client";
 import { endpoints } from "../../api/routes";
 import { type SubscriptionPlan } from "../../../types";
 import Spinner from "../../components/Spinner";
-import { useAppSelector } from "../../store/store";
+import { useAppSelector } from "../../store";
 import { useNavigate } from "react-router-dom";
 import { WarningAlert } from "../../components/alerts";
 import { useTranslation } from "react-i18next";

@@ -1,5 +1,5 @@
 import type { Enrollment, EnrollmentLecture, EnrollmentSection } from "../../types"
-import { useAppSelector } from "../store/store";
+import { useAppSelector } from "../store";
 import LectureSidebarItem from "./LectureSidebarItem";
 
 interface Props {

@@ -1,19 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './auth/authSlice';
-import uiReducer from './uiSlice';
-import chatReducer from './chatSlice';
-import ApiReduceer from './apiSlice';
-import enrollmentReducer from './enrollmentSlice';
-import studentReducer from './student/studentSlice';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    ui:uiReducer,
-    chat:chatReducer,
-    api:ApiReduceer,
-    enrollment: enrollmentReducer,
-    student:studentReducer
   },
 });
 

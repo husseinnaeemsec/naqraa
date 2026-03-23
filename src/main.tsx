@@ -4,16 +4,14 @@ import './index.css';
 import App from './App.tsx'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import IndexPage from './pages/student/DashboardIndex.tsx'
-import AttendancePage from './pages/student/AttendancePage.tsx'
 import FilesPage from './pages/student/FilesPage.tsx'
 import OrgPage from './pages/student/OrgPage.tsx'
 import SettingsPage from './pages/student/SettingsPage.tsx'
 import CommunitiesPage from './pages/student/Communities/Communities.tsx'
-import BoardPage from './pages/student/BoardPage.tsx'
 import LoginPage from './pages/public/Login.tsx'
 import UnauthorizedPage from './pages/public/UnauthorizedPage.tsx'
 import { Provider } from 'react-redux';
-import store from './store/store.tsx'
+import store from './store/index.tsx'
 import ProtectedRoute from './ProtectedRoute.tsx'
 import './i18n.js';
 import Dashboard from './Dashboard.tsx'
@@ -47,9 +45,8 @@ import NewsletterDemo from './pages/NewsletterDemo.tsx';
 import ResetPasswordPage from './pages/public/ResetPassword.tsx';
 import ChangePasswordPage from './pages/public/ChangePassword.tsx';
 import UpcomingHomeworkPage from './pages/UpcomingHomeworkPage.tsx';
-import TodoPage from './pages/student/TodoPage.tsx';
+import TasksPage from './pages/student/TasksPage.tsx';
 import MyCoursesPage from './pages/student/MyCoursesPage.tsx';
-import ClassroomPage from './pages/student/ClassroomPage.tsx';
 import CoursesPage from './pages/public/CoursesPage.tsx';
 import ExploreCourses from './pages/public/ExploreCourses.tsx';
 import CourseDetailsPage from './pages/public/CourseDetailsPage.tsx';
@@ -64,10 +61,8 @@ createRoot(document.getElementById('root')!).render(
               <Route path='dashboard' element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} >
                 <Route index element={<IndexPage />} />
                 <Route path='courses' element={<MyCoursesPage />} />
-                <Route path='classroom/:enrollment_id' element={<ClassroomPage />} />
-                <Route path='attendance' element={<AttendancePage />} />
                 <Route path='homework' element={<UpcomingHomeworkPage />} />
-                <Route path='todo' element={<TodoPage />} />
+                <Route path='tasks' element={<TasksPage />} />
                 <Route path='files' element={<FilesPage />} />
                 <Route path='org' element={<OrgPage />} />
                 <Route path='timetable' element={<TimeTablePage />} />
@@ -77,7 +72,6 @@ createRoot(document.getElementById('root')!).render(
                 <Route path='notifications' >
                   <Route index element={<NotificationsPage />} />
                 </Route>
-                <Route path='board' element={<BoardPage />} />
               </Route>
               
               {/* Authentication and user related pages */}

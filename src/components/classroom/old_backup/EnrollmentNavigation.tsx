@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/all";
-import { useAppDispatch, useAppSelector } from "../../../store/store";
+import { useAppDispatch, useAppSelector } from "../../../store/index.tsx";
 import { HeroCheckedIcon, HeroClockIcon, HeroPlayIcon, HeroMenuIcon, HeroXIcon } from "../../Icons";
 import { setActiveLecture } from "../../../store/enrollmentSlice.tsx";
 

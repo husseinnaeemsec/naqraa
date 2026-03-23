@@ -1,21 +1,20 @@
-import { X, Calendar, Clock, Folder } from 'lucide-react';
+import { X, Calendar, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import DOMPurify from 'dompurify';
-import { type Task, type TaskCollection } from '../../types/productivity';
+import type { TaskType } from '../../types/productivity';
 
 interface TaskBottomSheetProps {
     isOpen: boolean;
     onClose: () => void;
-    task: Task | null;
-    collections: TaskCollection[];
-    onEdit?: (task: Task) => void;
+    task: TaskType | null;
+    onEdit?: (task: TaskType) => void;
     onDelete?: (taskId: number) => void;
 }
 
-export default function TaskBottomSheet({ isOpen, onClose, task, collections, onEdit, onDelete }: TaskBottomSheetProps) {
+export default function TaskBottomSheet({ isOpen, onClose, task, onEdit, onDelete }: TaskBottomSheetProps) {
     if (!task) return null;
 
-    const collection = collections.find(c => c.id === task.collection);
+    
 
     const getPriorityColor = (priority: string) => {
         switch (priority) {
@@ -69,18 +68,18 @@ export default function TaskBottomSheet({ isOpen, onClose, task, collections, on
                                         <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getPriorityColor(task.priority)}`}>
                                             {task.priority.toUpperCase()}
                                         </span>
-                                        {task.completed && (
+                                        {task.status === 'completed' && (
                                             <span className="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300">
                                                 COMPLETED
                                             </span>
                                         )}
                                     </div>
                                     <h2 className={`text-2xl font-bold break-words ${
-                                        task.completed 
+                                        task.status === 'completed'
                                             ? 'line-through text-slate-500 dark:text-slate-400'
                                             : 'text-slate-900 dark:text-white'
                                     }`}>
-                                        {task.title}
+                                        {task.name}
                                     </h2>
                                 </div>
                                 <button
@@ -92,7 +91,7 @@ export default function TaskBottomSheet({ isOpen, onClose, task, collections, on
                             </div>
 
                             {/* Content */}
-                            {task.content && (
+                            {task.description && (
                                 <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-5">
                                     <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4">
                                         Description
@@ -109,7 +108,7 @@ export default function TaskBottomSheet({ isOpen, onClose, task, collections, on
                                         [&>em]:italic
                                         [&>blockquote]:border-l-4 [&>blockquote]:border-emerald-500 [&>blockquote]:pl-4 [&>blockquote]:italic [&>blockquote]:my-3"
                                         dangerouslySetInnerHTML={{ 
-                                            __html: DOMPurify.sanitize(task.content, {
+                                            __html: DOMPurify.sanitize(task.description, {
                                                 ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'u', 'span', 'a', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'code', 'pre'],
                                                 ALLOWED_ATTR: ['href', 'target', 'class', 'style']
                                             })
@@ -120,16 +119,6 @@ export default function TaskBottomSheet({ isOpen, onClose, task, collections, on
 
                             {/* Metadata */}
                             <div className="flex items-center gap-3 flex-wrap text-sm">
-                                {/* Collection */}
-                                {collection && (
-                                    <div className="flex items-center gap-2 px-3 py-2 bg-purple-50 dark:bg-purple-950/30 rounded-lg">
-                                        <Folder className="w-4 h-4 text-purple-600 dark:text-purple-400 flex-shrink-0" />
-                                        <span className="text-purple-700 dark:text-purple-300 font-medium">
-                                            {collection.name}
-                                        </span>
-                                    </div>
-                                )}
-
                                 {/* Due Date */}
                                 {task.due_date && (
                                     <div className={`flex items-center gap-2 px-3 py-2 rounded-lg ${

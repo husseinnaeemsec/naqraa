@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle, BookOpen, Clock, Target, Users, ArrowRight, ArrowLeft } from 'lucide-react';
 import api from '../api/client';
 import { endpoints } from '../api/routes';
-import { useAppDispatch } from '../store/store';
+import { useAppDispatch } from '../store';
 import { updateUser } from '../store/auth/authSlice';
 import { Button } from './ui/button';
 import { SuccessAlert } from './alerts';

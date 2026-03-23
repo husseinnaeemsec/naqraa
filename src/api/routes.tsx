@@ -14,10 +14,13 @@ export const endpoints = {
         createComment:(post_id:number) => `/community/posts/${post_id}/comments/create/`
     },
     user:{
+        account:{
+            me:'/users/me/',
+            update:'/users/me/update/'
+        },
         login:'/users/login/',
         register:"/users/register/",
         logout:'/users/logout/',
-        update:'/users/update/',
         status:"/users/check/",
         changePassword:(uid:string, token:string)=>`/users/password/reset/${uid}/${token}/`,
         changeEmail:'/users/change-email/',
@@ -101,9 +104,7 @@ export const endpoints = {
         tasks:{
             list:'/productivity/tasks/', // Returns only tasks with no collection
             create:'/productivity/tasks/create/',
-            update:(taskId:number) => `/productivity/tasks/${taskId}/update/`,
-            delete:(taskId:number) => `/productivity/tasks/${taskId}/delete/`,
-            toggle:(taskId:number) => `/productivity/tasks/${taskId}/toggle/`,
+            updateOrDelete:(taskId:number) => `/productivity/tasks/${taskId}/`,
             today:'/productivity/tasks/today/'
         },
         collections:{

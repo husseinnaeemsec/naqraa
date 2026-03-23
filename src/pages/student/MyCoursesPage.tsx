@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { BookOpen, Clock, CheckCircle, PlayCircle, TrendingUp } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import api from '../../api/client';
-import { endpoints } from '../../api/routes';
 import type { Enrollment } from '../../types/enrollments';
 import Card from '../../components/ui/CustomCard';
 
@@ -19,15 +17,7 @@ export default function MyCoursesPage() {
     }, []);
 
     const fetchEnrollments = async () => {
-        try {
-            setIsLoading(true);
-            const response = await api.get(endpoints.user.enrollments.list);
-            setEnrollments(response.data.results);
-        } catch (error) {
-            console.error('Failed to fetch enrollments:', error);
-        } finally {
-            setIsLoading(false);
-        }
+        
     };
 
     const getProgress = (enrollment: Enrollment) => {
@@ -55,7 +45,7 @@ export default function MyCoursesPage() {
 
     if (isLoading) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950 flex items-center justify-center">
+            <div className="min-h-screen bg-linear-to-br from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950 flex items-center justify-center">
                 <div className="text-center">
                     <div className="w-16 h-16 border-4 border-emerald-200 dark:border-emerald-800 border-t-emerald-600 dark:border-t-emerald-400 rounded-full animate-spin mx-auto mb-4"></div>
                     <p className="text-slate-600 dark:text-emerald-300 font-medium">{t('common.loading')}...</p>
@@ -65,8 +55,8 @@ export default function MyCoursesPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950">
-            <div className="max-w-[1600px] mx-auto p-6 space-y-6">
+        <div className="min-h-screen bg-linear-to-br from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950">
+            <div className="max-w-400 mx-auto p-6 space-y-6">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
@@ -90,7 +80,7 @@ export default function MyCoursesPage() {
                     transition={{ delay: 0.1 }}
                     className="grid grid-cols-1  md:grid-cols-3 gap-4"
                 >
-                    <Card className="p-6 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/30 dark:to-blue-900/30 border border-blue-200 dark:border-blue-800 shadow-lg">
+                    <Card className="p-6 bg-linear-to-br from-blue-50 to-blue-100 dark:from-blue-950/30 dark:to-blue-900/30 border border-blue-200 dark:border-blue-800 shadow-lg">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-blue-600 dark:text-blue-400 text-sm font-medium">
@@ -104,7 +94,7 @@ export default function MyCoursesPage() {
                         </div>
                     </Card>
 
-                    <Card className="p-6 bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-950/30 dark:to-amber-900/30 border border-amber-200 dark:border-amber-800 shadow-lg">
+                    <Card className="p-6 bg-linear-to-br from-amber-50 to-amber-100 dark:from-amber-950/30 dark:to-amber-900/30 border border-amber-200 dark:border-amber-800 shadow-lg">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-amber-600 dark:text-amber-400 text-sm font-medium">
@@ -118,7 +108,7 @@ export default function MyCoursesPage() {
                         </div>
                     </Card>
 
-                    <Card className="p-6 bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-950/30 dark:to-emerald-900/30 border border-emerald-200 dark:border-emerald-800 shadow-lg">
+                    <Card className="p-6 bg-linear-to-br from-emerald-50 to-emerald-100 dark:from-emerald-950/30 dark:to-emerald-900/30 border border-emerald-200 dark:border-emerald-800 shadow-lg">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-emerald-600 dark:text-emerald-400 text-sm font-medium">
@@ -179,7 +169,7 @@ export default function MyCoursesPage() {
                         animate={{ opacity: 1, scale: 1 }}
                         className="text-center py-20"
                     >
-                        <div className="w-24 h-24 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                        <div className="w-24 h-24 bg-linear-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-3xl flex items-center justify-center mx-auto mb-6">
                             <BookOpen className="w-12 h-12 text-purple-600 dark:text-purple-400" />
                         </div>
                         <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
@@ -220,7 +210,7 @@ export default function MyCoursesPage() {
                                     <Link to={`/courses/${course.slug}`}>
                                         <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300 group cursor-pointer border border-slate-200 dark:border-emerald-800">
                                             {/* Course Thumbnail */}
-                                            <div className="relative h-48 overflow-hidden bg-gradient-to-br from-emerald-100 to-blue-100 dark:from-emerald-900/30 dark:to-blue-900/30">
+                                            <div className="relative h-48 overflow-hidden bg-linear-to-br from-emerald-100 to-blue-100 dark:from-emerald-900/30 dark:to-blue-900/30">
                                                 {course.cover ? (
                                                     <img
                                                         src={course.cover}
@@ -270,8 +260,8 @@ export default function MyCoursesPage() {
                                                             transition={{ duration: 1, delay: index * 0.1 }}
                                                             className={`h-full rounded-full ${
                                                                 isCompleted
-                                                                    ? 'bg-gradient-to-r from-emerald-500 to-emerald-600'
-                                                                    : 'bg-gradient-to-r from-blue-500 to-emerald-500'
+                                                                    ? 'bg-linear-to-r from-emerald-500 to-emerald-600'
+                                                                    : 'bg-linear-to-r from-blue-500 to-emerald-500'
                                                             }`}
                                                         />
                                                     </div>

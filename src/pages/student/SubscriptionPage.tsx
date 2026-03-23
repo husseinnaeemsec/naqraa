@@ -8,7 +8,7 @@ import Spinner from "../../components/Spinner";
 
 import { type SubscriptionPlan, type Subscription as SubscriptionType } from "../../../types";
 import Swal from "sweetalert2";
-import { useAppSelector } from "../../store/store";
+import { useAppSelector } from "../../store";
 
 export default function SubscriptionPage() {
   const { t } = useTranslation();

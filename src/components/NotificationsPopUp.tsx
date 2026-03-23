@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import notificationsImage from "../assets/notifications.svg";
-import { useAppSelector } from "../store/store";
+import { useAppSelector } from "../store";
 
 export default function NotificationsPopUp() {
   const [_hasPermission, setHasPermission] = useState(false);

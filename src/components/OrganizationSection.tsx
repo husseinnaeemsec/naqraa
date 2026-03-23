@@ -1,4 +1,4 @@
-import { useAppSelector } from "../store/store";
+import { useAppSelector } from "../store";
 import { SectionHeader } from "../pages/student/SettingsPage";
 import { t } from "i18next";
 import { Link } from "react-router-dom";

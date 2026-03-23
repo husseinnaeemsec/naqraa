@@ -5,7 +5,7 @@ import api from "../api/client";
 import { endpoints } from "../api/routes";
 import Spinner from "./Spinner";
 import { Virtuoso } from "react-virtuoso";
-import { useAppDispatch } from "../store/store";
+import { useAppDispatch } from "../store";
 import { setActiveUsers } from "../store/chatSlice";
 import { updateURLParams } from "../utils/urls";
 import PageLoader from "./PageLoader";

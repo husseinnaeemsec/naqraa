@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logoutImg from '../../assets/logout.svg';
-import { useAppDispatch } from '../../store/store';
+import { useAppDispatch } from '../../store';
 import { useState } from 'react';
 import api from '../../api/client';
 import { endpoints } from '../../api/routes';

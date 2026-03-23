@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ErrorNote, SectionHeader, Success } from "../pages/student/SettingsPage";
 import { endpoints } from "../api/routes";
 import api from "../api/client";
-import { useAppSelector } from "../store/store";
+import { useAppSelector } from "../store";
 import { TourProvider, useTour } from "@reactour/tour";
 import { useTranslation } from "react-i18next";
 

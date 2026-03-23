@@ -12,10 +12,9 @@ import api from "../../api/client";
 import { endpoints } from "../../api/routes";
 
 import { convertMinutes, getMedia } from "../../utils/functions";
-import { useAppDispatch, useAppSelector } from "../../store/store";
+import { useAppDispatch, useAppSelector } from "../../store";
 import NotFoundError from "../../components/errors/NotFoundError";
 import { ErrorAlert, SuccessAlert } from "../../components/alerts";
-import { setUserEnrollments } from "../../store/auth/authSlice";
 
 interface CourseDetailsProps extends Course {
   enrollments_count: number;
@@ -68,43 +67,15 @@ export default function CourseDetailsPage() {
   };
 
   // =========================
-  // 📘 Fetch Course Details
-  // =========================
-  useEffect(() => {
-    if (!courseSlug) return;
-
-    setError(null);
-    setLoading(true);
-
-    api
-      .get(endpoints.courses.details(courseSlug))
-      .then((res) => {
-        const data = res.data;
-        setCourse(data);
-
-        const sortedPlans = data?.included_plans.sort((a: SubscriptionPlan, b: SubscriptionPlan) => a.price - b.price);
-        setCoursePlans(sortedPlans);
-
-        const userPlanId = user?.subscription?.plan?.id;
-        setCanEnroll(sortedPlans.some((p: SubscriptionPlan) => p.id === userPlanId));
-      })
-      .catch((e) => {
-        if (e.status === 404) setError("not_found");
-        else setError("server_error");
-      })
-      .finally(() => setLoading(false));
-  }, [courseSlug, user]);
-
-  // =========================
   // 🎯 Enrollment Check
   // =========================
   useEffect(() => {
     if (!user || !course?.id) return;
 
-    const localEnrollment = user.enrolled_courses?.find((c) => c.course === course.id);
+    const localEnrollment = null;
     if (localEnrollment) {
       setIsEnrolled(true);
-      setEnrollmentId(localEnrollment.enrollment);
+      setEnrollmentId(localEnrollment?.enrollment);
       return;
     }
 
@@ -129,7 +100,6 @@ export default function CourseDetailsPage() {
       const res = await api.post(endpoints.user.enrollments.enroll(course.id));
       setIsEnrolled(true);
       setEnrollmentId(res.data.id);
-      dispatch(setUserEnrollments([...enrollments,res.data]))
       SuccessAlert({
         title: `لقد انضممت إلى ${res.data.course.title}`,
         text: "ابدأ رحلتك التعليمية الآن 🎓",
@@ -153,11 +123,8 @@ export default function CourseDetailsPage() {
   // 🧩 Next Available Plan
   // =========================
   const nextPlan = useMemo(() => {
-    const currentPlanId = user?.subscription?.plan?.id;
-    if (!currentPlanId) return coursePlans[0];
-    const currentPlan = coursePlans.find((p) => p.id === currentPlanId);
-    return coursePlans.find((p) => p.price > (currentPlan?.price || 0)) || null;
-  }, [coursePlans, user]);
+    return coursePlans[0];
+  }, [coursePlans]);
 
 
 

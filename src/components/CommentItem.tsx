@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { HeroReplyIcon, HeroChatBubbleLeftIcon, HeroHeartIcon } from './Icons';
 import api from '../api/client';
 import { endpoints } from '../api/routes';
-import { useAppSelector } from '../store/store';
+import { useAppSelector } from '../store';
 import type { Comment, Community, Post } from '../../types';
 
 interface CommentItemProps {

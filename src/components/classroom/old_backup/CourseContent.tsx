@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../store/store";
+import { useAppDispatch, useAppSelector } from "../../../store/index.tsx";
 import api from "../../../api/client";
 import { endpoints } from "../../../api/routes";
 import type { LectureTab } from "../../../../types";

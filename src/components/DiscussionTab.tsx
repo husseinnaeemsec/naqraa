@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { CourseDiscussionMessage, Enrollment, EnrollmentLecture } from "../../types";
 import { timeSinceAr } from "../utils/functions";
-import { useAppSelector } from "../store/store";
+import { useAppSelector } from "../store";
 import PageLoader from "./PageLoader";
 
 interface Props {

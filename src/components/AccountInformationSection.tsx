@@ -1,22 +1,19 @@
 import { useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../store/store";
+import { useAppSelector } from "../store";
 import { endpoints } from "../api/routes";
 import api from "../api/client";
-import { setUser, updateUserPreferences } from "../store/auth/authSlice";
 import { ErrorNote, SectionHeader, Success } from "../pages/student/SettingsPage";
 import { useTranslation } from "react-i18next";
-import type { UpdateUserResponse } from "../types/user";
 
 export default function AccountInformationSection() {
     const { user, loadingUser } = useAppSelector((state) => state.auth);
-    const dispatch = useAppDispatch();
     // ----- Profile / Basic Info (existing) -----
     const [first_name, setFirstName] = useState(user?.first_name);
     const [last_name, setLastName] = useState(user?.last_name);
     const [errors, setErrors] = useState<string[]>([]);
     const [updated, setUpdated] = useState<boolean>(false);
-    const [theme, setTheme] = useState(user?.preferences?.theme);
-    const [lang, setLang] = useState(user?.preferences?.language);
+    const [theme, setTheme] = useState(user?.theme);
+    const [lang, setLang] = useState(user?.language);
     const [avatar, setAvatar] = useState<File | null>(null);
     const { t } = useTranslation();
 
@@ -27,8 +24,8 @@ export default function AccountInformationSection() {
             first_name: user?.first_name,
             last_name: user?.last_name,
             preferences: {
-                language: user?.preferences?.language,
-                theme: user?.preferences?.theme,
+                language: user?.language,
+                theme: user?.theme,
             }
         }
         const data = {
@@ -69,15 +66,11 @@ export default function AccountInformationSection() {
         }
 
         api
-            .post(endpoints.user.update, formData, {
+            .post(endpoints.user.account.update, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             })
-            .then((res: UpdateUserResponse) => {
+            .then(() => {
                 setUpdated(true);
-                if(res.data.preferences){
-                    dispatch(updateUserPreferences(res.data.preferences));
-                }
-
             })
             .catch((e) => {
                 setErrors(["فشل في حفظ البيانات"]);
@@ -103,7 +96,7 @@ export default function AccountInformationSection() {
                     <label className="block text-sm font-medium text-emerald-800 dark:text-emerald-100/70 mb-2">{t("profile_picture")}</label>
                     <div className="flex items-center gap-4">
                         <img
-                            src={avatar ? URL.createObjectURL(avatar) : (user?.profile?.avatar as string)}
+                            src={avatar ? URL.createObjectURL(avatar) : (user?.avatar as string)}
                             className="w-16 h-16 text-2xl font-bold bg-emerald-100 rounded-full object-cover"
                             alt={user?.first_name?.[0] || "U"}
                         />

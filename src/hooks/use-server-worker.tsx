@@ -1,7 +1,7 @@
 // hooks/useServerWorker.tsx
 import { useEffect, useState, useCallback } from "react";
 import { urlBase64ToUint8Array } from "../utils/urlBase64ToUint8Array";
-import { useAppSelector } from "../store/store";
+import { useAppSelector } from "../store";
 import { endpoints } from "../api/routes";
 import api from "../api/client";
 

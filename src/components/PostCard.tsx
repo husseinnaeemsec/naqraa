@@ -5,7 +5,7 @@ import { HeroHeartIcon, HeroChatBubbleLeftIcon, HeroEyeIcon, HeroLinkIcon } from
 import api from '../api/client';
 import { endpoints } from '../api/routes';
 import type { Post, Community } from '../../types';
-import { useAppSelector } from '../store/store';
+import { useAppSelector } from '../store';
 import {  InfoAlert } from './alerts';
 
 interface PostCardProps {

@@ -3,9 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Bell, Check, Eye, Trash2, Settings, X, User, BookOpen, Calendar, MessageSquare } from "lucide-react";
 import { useTranslation } from 'react-i18next';
 import type { Notification } from "../../../types";
-import { useAppDispatch, useAppSelector } from "../../store/store";
-import api from "../../api/client";
-import { endpoints } from "../../api/routes";
+import { useAppDispatch, useAppSelector } from "../../store";
 import Card from "../../components/ui/CustomCard";
 import Button from "../../components/ui/CustomButton";
 import useApiErrorHandler from "../../hooks/use-api-error-handler";
@@ -13,15 +11,9 @@ import useApiErrorHandler from "../../hooks/use-api-error-handler";
 export function NotificationItem({ notification, index }: { notification: Notification; index: number }) {
     const { t } = useTranslation();
     const [open, setOpen] = useState(false);
-    const { notifications } = useAppSelector(state => state.auth);
-    const dispatch = useAppDispatch();
     
     const handleOpen = async () => {
-        try {
-            const res = await api.post(endpoints.notifications.update(notification.id));
-        } finally {
-            setOpen(true);
-        }
+        
     };
 
     const getNotificationIcon = (type: string) => {
@@ -78,15 +70,15 @@ export function NotificationItem({ notification, index }: { notification: Notifi
             >
                 <div className="p-4">
                     <div className="flex items-start gap-4">
-                        <div className="flex-shrink-0">
+                        <div className="shrink-0">
                             {notification.profile_picture ? (
                                 <img
                                     src={notification.profile_picture}
-                                    alt={notification.sneder}
+                                    alt={notification.sender}
                                     className="w-12 h-12 rounded-full border-2 border-white shadow-sm"
                                 />
                             ) : (
-                                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center">
+                                <div className="w-12 h-12 rounded-full bg-linear-to-br from-emerald-400 to-emerald-600 flex items-center justify-center">
                                     {getNotificationIcon(notification.type)}
                                 </div>
                             )}
@@ -130,9 +122,9 @@ export function NotificationItem({ notification, index }: { notification: Notifi
                                 }`}>
                                     {notification.type}
                                 </span>
-                                {notification.sneder && (
+                                {notification.sender && (
                                     <span className="text-xs text-gray-500 dark:text-emerald-400">
-                                        {t('notifications_page.from')} {notification.sneder}
+                                        {t('notifications_page.from')} {notification.sender}
                                     </span>
                                 )}
                             </div>
@@ -178,10 +170,10 @@ export function NotificationItem({ notification, index }: { notification: Notifi
                                 <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-emerald-400">
                                     <Bell className="size-4" />
                                     <span>{formatTime(notification.created_at || '')}</span>
-                                    {notification.sneder && (
+                                    {notification.sender && (
                                         <>
                                             <span>•</span>
-                                            <span>{t('notifications_page.from')} {notification.sneder}</span>
+                                            <span>{t('notifications_page.from')} {notification.sender}</span>
                                         </>
                                     )}
                                 </div>
@@ -208,8 +200,6 @@ export default function NotificationsPage() {
     const { t } = useTranslation();
     useApiErrorHandler();
     const [activeTab, setActiveTab] = useState("all");
-    const { notifications } = useAppSelector((state) => state.auth);
-    const dispatch = useAppDispatch();
     
     const tabs = [
         { title: t('notifications_page.tab_all'), id: "all", icon: Bell },
@@ -217,19 +207,11 @@ export default function NotificationsPage() {
         { title: t('notifications_page.tab_read'), id: "read", icon: Check },
     ];
 
-    const unread_count = notifications.filter(n => n.read === false).length;
+    const unread_count = 3;
     
     // Filter notifications based on active tab
-    const filteredNotifications = notifications.filter((n) => {
-        if (activeTab === "all") return true;
-        if (activeTab === "unread") return !n.read;
-        if (activeTab === "read") return n.read;
-        return true;
-    });
 
     const markAllAsRead = async () => {
-        // This would call an API to mark all notifications as read
-        const updatedNotifications = notifications.map(n => ({ ...n, read: true }));
     };
 
     const clearAllNotifications = async () => {
@@ -237,7 +219,7 @@ export default function NotificationsPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950">
+        <div className="min-h-screen bg-linear-to-b from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950">
             {/* Header */}
             <motion.div 
                 className="p-6 pb-4"
@@ -247,7 +229,7 @@ export default function NotificationsPage() {
             >
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-700 to-emerald-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-emerald-300 flex items-center gap-3">
+                        <h1 className="text-3xl font-bold bg-linear-to-r from-emerald-700 to-emerald-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-emerald-300 flex items-center gap-3">
                             <Bell className="size-8 text-emerald-600" />
                             {t('notifications_page.title')}
                             {unread_count > 0 && (
@@ -262,7 +244,7 @@ export default function NotificationsPage() {
                     </div>
                     
                     <div className="flex items-center gap-3">
-                        {notifications.length > 0 && (
+                        {[].length > 0 && (
                             <>
                                 <Button 
                                     variant="outline" 
@@ -303,7 +285,7 @@ export default function NotificationsPage() {
                                 <Bell className="size-5 text-emerald-600" />
                             </div>
                             <div>
-                                <div className="text-2xl font-bold text-emerald-700 dark:text-emerald-300">{notifications.length}</div>
+                                <div className="text-2xl font-bold text-emerald-700 dark:text-emerald-300">3</div>
                                 <div className="text-sm text-emerald-600 dark:text-emerald-400">{t('notifications_page.total_notifications')}</div>
                             </div>
                         </div>
@@ -327,7 +309,7 @@ export default function NotificationsPage() {
                                 <Check className="size-5 text-emerald-800" />
                             </div>
                             <div>
-                                <div className="text-2xl font-bold text-emerald-900 dark:text-emerald-100">{notifications.length - unread_count}</div>
+                                <div className="text-2xl font-bold text-emerald-900 dark:text-emerald-100">{3 - unread_count}</div>
                                 <div className="text-sm text-emerald-800 dark:text-emerald-200">{t('notifications_page.read')}</div>
                             </div>
                         </div>
@@ -374,9 +356,9 @@ export default function NotificationsPage() {
                     transition={{ duration: 0.6, delay: 0.3 }}
                 >
                     <Card variant="dashboard" className="overflow-hidden">
-                        {filteredNotifications.length > 0 ? (
+                        {[].length > 0 ? (
                             <div className="divide-y divide-gray-200 dark:divide-emerald-800">
-                                {filteredNotifications.map((notification, index) => (
+                                {[].map((notification, index) => (
                                     <NotificationItem 
                                         key={notification.id} 
                                         notification={notification} 

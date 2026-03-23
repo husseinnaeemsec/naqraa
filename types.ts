@@ -134,7 +134,7 @@ export interface Notification {
     title:string|null;
     content:string;
     read:boolean;
-    sneder:string;
+    sender:string;
     profile_picture:string|null;
     created_at:string|null;
 }

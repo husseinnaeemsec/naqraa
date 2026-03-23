@@ -4,8 +4,6 @@ import { Calendar, Clock, BookOpen, Filter, Search, Eye, Download } from "lucide
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
 import type { Exam } from "../../../types";
-import api from "../../api/client";
-import { endpoints } from "../../api/routes";
 import { formatTime, timeBefore } from "../../utils/functions";
 import Card from "../../components/ui/CustomCard";
 import Button from "../../components/ui/CustomButton";
@@ -23,14 +21,7 @@ const ExamsPage = () => {
 
     useEffect(() => {
         const fetchExams = async () => {
-            try {
-                const res = await api.get(endpoints.student.exams);
-                setExams(res.data.results || res.data);
-            } catch (error) {
-                console.error("Error fetching exams:", error);
-            } finally {
-                setLoading(false);
-            }
+            
         };
         
         fetchExams();
@@ -83,7 +74,7 @@ const ExamsPage = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950">
+        <div className="min-h-screen bg-linear-to-b from-emerald-50/30 to-white dark:from-emerald-950/20 dark:to-emerald-950">
             {/* Header */}
             <motion.div 
                 className="p-6 pb-4"
@@ -93,7 +84,7 @@ const ExamsPage = () => {
             >
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-700 to-emerald-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-emerald-300">
+                        <h1 className="text-3xl font-bold bg-linear-to-r from-emerald-700 to-emerald-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-emerald-300">
                             {t('exams_page.title')}
                         </h1>
                         <p className="text-gray-600 dark:text-emerald-200 mt-1">
@@ -198,7 +189,7 @@ const ExamsPage = () => {
                     transition={{ duration: 0.6, delay: 0.3 }}
                 >
                     <Card variant="dashboard" className="overflow-hidden">
-                        <div className="p-4 bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20 border-b border-emerald-200 dark:border-emerald-800">
+                        <div className="p-4 bg-linear-to-r from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20 border-b border-emerald-200 dark:border-emerald-800">
                             <h2 className="text-xl font-bold text-gray-900 dark:text-emerald-50">
                                 {t('exams_page.exam_table_title')} ({filteredExams.length})
                             </h2>

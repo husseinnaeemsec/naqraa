@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getLogo } from '../../utils/functions';
-import { useAppSelector } from '../../store/store';
+import { useAppSelector } from '../../store';
 import { CheckCircle, ArrowRight } from 'lucide-react';
 
 export default function ResetPasswordPage() {

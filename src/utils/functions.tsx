@@ -2,11 +2,11 @@ import { t } from "i18next";
 import type {  Enrollment, EnrollmentSection,  } from "../../types"
 import { BASE_API_URL } from "../api/client";
 import i18n from '../i18n';
-import type { AuthUser } from "../types/user";
+import type { UserType } from "../types/user";
 
 
 
-export const setupUserPrefrences = (user: AuthUser ) => {
+export const setupUserPrefrences = (user: UserType ) => {
 
   const userPreferences = user?.preferences;
 
@@ -58,7 +58,7 @@ export function getMedia(path: string): string {
   if (isAbsolute) return path;
 
   // Otherwise, construct full URL
-  return `${BASE_API_URL.replace("/api","")}${path}`;
+  return `${BASE_API_URL.replace("/v1","")}${path}`;
 }
 
 
@@ -339,5 +339,5 @@ export  function getNewTaskInitialDataQuery( initial_title:string| null = null ,
         const openDrawer = initial_open_drawer ?? 'true';
         const urlQuery = new URLSearchParams({ title, dueDate, priority, openDrawer }).toString();
 
-        return `/dashboard/todo?${urlQuery}`
+        return `/dashboard/tasks?${urlQuery}`
     }

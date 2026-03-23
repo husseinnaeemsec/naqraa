@@ -70,8 +70,8 @@ export const GovernorateValues = {
 
 export interface Governorate {
     id:number;
-    name:GovernorateValues;
-    display_name:string;
+    code:GovernorateValues;
+    name:string;
 }
 
 export interface District {

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import RichTextEditor from '../components/RichTextEditor';
 import { HeroPenSquareIcon, HeroLinkIcon, HeroPhotoIcon, HeroXIcon } from '../components/Icons';
-import api, { getCookie } from '../api/client';
+import api from '../api/client';
 import { endpoints } from '../api/routes';
 import type { Community, Post } from '../../types';
 
@@ -102,10 +102,6 @@ export default function CreatePost({ community, onPostCreated, onCancel }: Creat
         formData,
         {
           withCredentials:true,
-          headers: {
-            // Get CSRF token for Django
-            'X-CSRFToken': getCookie('csrftoken') || '',
-          },
         }
       );
       
